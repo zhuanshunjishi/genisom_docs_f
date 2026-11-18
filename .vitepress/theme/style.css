@@ -1,0 +1,60 @@
+:root {
+  --vp-nav-height: 72px;
+}
+
+@media (min-width: 960px) {
+  .VPNavBar.has-sidebar .container > .title {
+    background-color: var(--vp-sidebar-bg-color);
+  }
+
+  /* Begin the sidebar scroll area below the fixed header. */
+  .Layout > .VPSidebar {
+    top: calc(var(--vp-layout-top-height, 0px) + var(--vp-nav-height));
+    padding-top: 0;
+  }
+
+  .VPSidebar > .curtain {
+    display: none;
+  }
+}
+
+.VPNavBarTitle .title {
+  display: grid;
+  grid-template-columns: max-content;
+  align-content: center;
+  justify-items: center;
+  gap: 14px;
+  line-height: 20px;
+}
+
+.docs-brand-logos {
+  display: inline-flex;
+  align-items: center;
+}
+
+.docs-brand-logos img {
+  width: auto;
+  height: 24px;
+}
+
+.docs-brand-logos img + img {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--vp-c-divider);
+}
+
+.dark .docs-brand-logos {
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.dark .docs-brand-logos img + img {
+  border-left-color: #e5e7eb;
+}
+
+@media (max-width: 480px) {
+  .VPNavBarTitle .title {
+    font-size: 14px;
+  }
+}
