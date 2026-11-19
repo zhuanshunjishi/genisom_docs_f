@@ -18,7 +18,7 @@ When the loading design is carried out, the layout space can be checked against 
       <th> Classification </th>
       <th> Parameters </th>
       <th> GenisomAI M1 </th>
-      <th> GenisomAI M1 (Navigation Pro edition) </th>
+      <th> GenisomAI M1 (Roamer X Pro edition) </th>
       <th> GenisomAI M1  Pro</th>
       <th> GenisomAI M1  Ultra</th>
     </tr>

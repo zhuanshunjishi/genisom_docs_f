@@ -39,12 +39,12 @@
         <br><strong>L1-W EDU</strong>
       </th>
       <th style="text-align:center;vertical-align:bottom;">
-        <a href="../assets/images/products/l1-edu.jpeg"> <img src="../assets/images/products/l1-edu.jpeg" alt="L1 EDU Navigation Pro version" style="width:110px;height:90px;object-fit:contain;"> </a>
-        <br> <strong> L1 EDU <br> Navigation Pro Edition </strong>
+        <a href="../assets/images/products/l1-edu.jpeg"> <img src="../assets/images/products/l1-edu.jpeg" alt="L1 EDU Roamer X Pro version" style="width:110px;height:90px;object-fit:contain;"> </a>
+        <br> <strong> L1 EDU <br> Roamer X Pro Edition </strong>
       </th>
       <th style="text-align:center;vertical-align:bottom;">
-        <a href="../assets/images/products/l1-w-edu.jpeg"> <img src="../assets/images/products/l1-w-edu.jpeg" alt="L1-W EDU Navigation Pro version" style="width:110px;height:90px;object-fit:contain;"> </a>
-        <br> <strong> L1-W EDU <br> Navigation Pro Edition </strong>
+        <a href="../assets/images/products/l1-w-edu.jpeg"> <img src="../assets/images/products/l1-w-edu.jpeg" alt="L1-W EDU Roamer X Pro version" style="width:110px;height:90px;object-fit:contain;"> </a>
+        <br> <strong> L1-W EDU <br> Roamer X Pro Edition </strong>
       </th>
     </tr>
   </thead>
@@ -76,8 +76,8 @@
       <td> Round four. </td>
       <td> Four-foot + EDU Load </td>
       <td> Round four + EDU Load </td>
-      <td> Four-foot + EDU Load + Ji-hai PRO </td>
-      <td> Rounded four feet + EDU Load + Jijia PRO </td>
+      <td> Four-foot + EDU Load + Roamer X Pro </td>
+      <td> Rounded four feet + EDU Load + Roamer X Pro </td>
     </tr>
     <tr>
       <th class="specification-label"> Full-body freedom </th>
@@ -349,8 +349,8 @@
       <td> Not included </td>
       <td> Gift <a href="https://github.com/zsibot/genisom_roamerx_open"> Open </a> <br> GitHub Download </td>
       <td> Gift <a href="https://github.com/zsibot/genisom_roamerx_open"> Open </a> <br> GitHub Download </td>
-      <td> Speculation Navigation Pro </td>
-      <td> Speculation Navigation Pro </td>
+      <td> Roamer X Pro included </td>
+      <td> Roamer X Pro included </td>
     </tr>
     <tr>
       <th class="specification-label"> Charts, positioning, navigation </th>
@@ -383,9 +383,9 @@ For loading or structural design, see [ L1 Size and installation reference](./03
 - Priority is given to step, balance, joint control or universal quadrilateral development L1.
 - The focus is on rotational movement, low noise, long continuous miles and rotational foot control, with the choice L1-W.
 - Option EDU when laser radar, depth camera, Orin NX, GNSS/RTK, 5 G or ROS navigation development environment is required.
-- Select the Navigation Pro version if you want to gain direct access to graphics, positioning, navigation, planning, shielding and recharging software.
+- Select the Roamer X Pro version if you want to gain direct access to graphics, positioning, navigation, planning, shielding and recharging software.
 - EDU Loads will take up their own payloads and increase their utility. The parameters of the nud machine cannot be directly reproduced when calculating the available payloads and renewing the voyage.
-- Navigation Pro contains a "backfill" capability for software, with actual automatic refills requiring charging stakes, body electrodes and properly configured map positioning environments, as detailed in [Accessories](./02-accessories.md#charging-dock).
+- Roamer X Pro contains a "backfill" capability for software, with actual automatic refills requiring charging stakes, body electrodes and properly configured map positioning environments, as detailed in [Accessories](./02-accessories.md#charging-dock).
 
 <a id="developer-differences"></a>
 
@@ -443,7 +443,7 @@ The development and demonstration should take place in an empty, smooth, uninhab
 ![List of product containers](../assets/images/product-kit.png)
 Standard packaging includes robotics, batteries, chargers, power adaptors and power lines, remote controls, instructions, transport boxes and toolkits. 4 The contents of the boxes will vary depending on the configuration and the contract.
 
-For details of charging stakes, long-range diagrams, extra batteries, aviation boxes, different remote controls, and the Navigation Pro software, see [Accessories](./02-accessories.md).
+For details of charging stakes, long-range diagrams, extra batteries, aviation boxes, different remote controls, and the Roamer X Pro software, see [Accessories](./02-accessories.md).
 
 ## Parameter Description
 

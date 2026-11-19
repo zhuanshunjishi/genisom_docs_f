@@ -20,7 +20,7 @@ Before using the robot for the first time, review the models and safety requirem
 1. [Product specifications](./md/01-product-specifications.md)  
    Compare product photos, mechanical design, mobility, battery life, computing power, sensors, SDK support, and navigation capabilities across models.
 2. [Accessories](./md/02-accessories.md)  
-   Find photos, specifications, compatibility, and usage notes for the video transmission kit, charging dock, charging contacts, flight case, batteries, controllers, and Navigation Pro.
+   Find photos, specifications, compatibility, and usage notes for the video transmission kit, charging dock, charging contacts, flight case, batteries, controllers, and Roamer X Pro.
 3. [System architecture](./md/03-system-architecture.md)  
    Learn how the robot, Remote, SDK, and host computer interact. Covers UDP communication, heartbeat handling, project layout, static libraries, L1 dimensions, payload design, and downloadable models for L1, L1-W, and L1 EDU.
 4. [Hardware interfaces](./md/04-hardware-interfaces.md)  

@@ -64,7 +64,7 @@
 | <a href="#screen-controller"> <img src="../assets/images/accessories/screen-controller.jpeg" alt="Screen remote control" /> </a> | [Screen Remote Control L1 Series](#screen-controller) | Movement control, image display and target selection | L1 Series |
 | <a href="#handheld-controller"> <img src="../assets/images/accessories/handheld-controller.jpeg" alt="Handheld remote" /> </a> | [Handheld remote control L1 series](#handheld-controller) | Basic motion control | L1 Series |
 | <a href="#flight-case"> <img src="../assets/images/accessories/flight-case.jpeg" alt="L1 Series flight cases" /> </a> | [Flight case L1 / L1-W](#flight-case) | Transport, handling and body protection | L1 Series |
-| <a href="#navigation-pro"><img src="../assets/images/accessories/navigation-pro.jpeg" alt=" Navigation Pro " /></a> | [ Navigation Pro ](#navigation-pro) | Charting, positioning, navigation, planning, shielding and recharge | L1 EDU, L1-W EDU |
+| <a href="#navigation-pro"><img src="../assets/images/accessories/navigation-pro.jpeg" alt=" Roamer X Pro " /></a> | [ Roamer X Pro ](#navigation-pro) | Charting, positioning, navigation, planning, shielding and recharge | L1 EDU, L1-W EDU |
 | <a href="#video-kit"> <img src="../assets/images/accessories/long-range-video-kit.jpeg" alt="Long-range video transmission kit" /> </a> | [Long-range video transmission kit L1 series](#video-kit) | Remote high-resolution image transmission and screen remote control | L1, L1-W |
 | <a href="#charging-dock"> <img src="../assets/images/accessories/charging-dock.jpeg" alt="L1 Series charging dock" /> </a> | [Charging dock L1 Series](#charging-dock) | Co-opt navigation software to auto-refill robots. | L1, L1-W, L1 EDU, L1-W EDU |
 |  | [Charged polar tablets](#electrode) | Charged contact between the fuselage and the recharge pillar | L1, L1-W, L1 EDU, L1-W EDU |
@@ -175,21 +175,21 @@ The robotic power supply should be shut down before transport and the robotic bo
 
 <a id="navigation-pro"></a>
 
-## Navigation Pro
+## Roamer X Pro
 
 <div class="accessory-figure">
-  <img src="../assets/images/accessories/navigation-pro.jpeg" alt=" Navigation Pro point cloud-building map effects" />
+  <img src="../assets/images/accessories/navigation-pro.jpeg" alt=" Roamer X Pro point cloud-building map effects" />
 </div>
 
 ### Basic information
 
-The figure above is a cloud-building image of the effects of the Navigation Pro configuration, not an independent hardware photograph.
+The figure above is a cloud-building image of the effects of the Roamer X Pro configuration, not an independent hardware photograph.
 
 | Field | Description |
 | --- | --- |
 | Fitr Type | L1 EDU, L1-W EDU |
 | Functions | Charting, positioning, navigation, planning, shielding, refilling |
-| Delivery content | Navigation Pro package, SDK Interface, Standard Navigation App |
+| Delivery content | Roamer X Pro package, SDK Interface, Standard Navigation App |
 | Secondary development | Supported |
 
 <a id="video-kit"></a>
