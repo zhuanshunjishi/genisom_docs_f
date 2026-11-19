@@ -1,12 +1,13 @@
 import { cp } from 'node:fs/promises'
 import { join } from 'node:path'
 import { defineConfig } from 'vitepress'
+import { docsBase } from '../../.vitepress/docs-base.mjs'
 
 export default defineConfig({
   lang: 'zh-CN',
   title: '智身铜锤 M1 SDK 开发文档',
   description: '智身铜锤 M1 系列的设备使用、SDK 开发和接口参考',
-  base: '/genisom_docs/m1/',
+  base: docsBase('m1'),
   async buildEnd({ srcDir, outDir }) {
     await cp(join(srcDir, 'assets', 'downloads'), join(outDir, 'assets', 'downloads'), {
       recursive: true,

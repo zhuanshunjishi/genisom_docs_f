@@ -1,3 +1,5 @@
+import { docsBase } from './docs-base.mjs'
+
 export function englishConfig(chineseConfig, product, description, labels) {
   const { themeConfig } = chineseConfig
 
@@ -14,7 +16,7 @@ export function englishConfig(chineseConfig, product, description, labels) {
     lang: 'en',
     title: `GenisomAI ${product.toUpperCase()} SDK Documentation`,
     description,
-    base: `/genisom_docs/${product}-en/`,
+    base: docsBase(`${product}-en`),
     themeConfig: {
       nav: [
         { text: 'Home', link: '/../en/', target: '_self' },
