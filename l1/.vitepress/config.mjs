@@ -20,6 +20,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
+      { text: 'English', link: '/../l1-en/', target: '_self' },
       { text: 'GitHub', link: 'https://github.com/zsibot/genisom_docs' },
     ],
     sidebar: [

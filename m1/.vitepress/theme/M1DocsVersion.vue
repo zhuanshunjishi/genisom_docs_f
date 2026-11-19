@@ -3,12 +3,13 @@ defineProps({
   docsVersion: { type: String, required: true },
   sdkVersion: { type: String, required: true },
   screenMenu: Boolean,
+  english: Boolean,
 })
 </script>
 
 <template>
   <span class="docs-version" :class="{ 'screen-menu': screenMenu }">
-    {{ docsVersion }}（SDK版本{{ sdkVersion }}）
+    {{ docsVersion }}{{ english ? ` (SDK ${sdkVersion})` : `（SDK版本${sdkVersion}）` }}
   </span>
 </template>
 

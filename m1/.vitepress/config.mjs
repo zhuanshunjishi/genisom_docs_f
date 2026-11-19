@@ -16,6 +16,7 @@ export default defineConfig({
     nav: [
       { component: 'M1DocsVersion', props: { docsVersion: 'V0.1', sdkVersion: '0.2.3' } },
       { text: '首页', link: '/' },
+      { text: 'English', link: '/../m1-en/', target: '_self' },
       { text: 'GitHub', link: 'https://github.com/zsibot/genisom_docs' },
     ],
     sidebar: [
