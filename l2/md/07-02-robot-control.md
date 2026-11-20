@@ -66,19 +66,84 @@ std::error_code Move(
 
 ```cpp
 std::error_code PosMove(
-    PosControlCmd cmd, int timeout_ms = 0, WriteHandler handler = ...);
+    PosControlCmd cmd, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`PosControlCmd` 包含 `x`、`y`、`z`、`roll`、`pitch`、`yaw`。位置单位为 m，角度单位为 rad。调用前先进入 `PosControl()`。
+发送机身目标位姿。先调用 `PosControl()`，并通过 `RobotState::motion_status` 确认进入 `MOTION_STATUS_POS_CONTROL` 后，再发送目标。
+
+```cpp
+struct PosControlCmd {
+    float x;
+    float y;
+    float z;
+    float roll;
+    float pitch;
+    float yaw;
+};
+```
+
+`x`、`y`、`z` 为目标位置，单位为 m。`roll`、`pitch`、`yaw` 分别为目标横滚角、俯仰角和偏航角，单位为 rad。
+
+异步发送结果通过 `WriteHandler` 获取。发送成功只表示命令已发出。公共参数和返回值见 [SDK 接口参考](./07-sdk-api-reference.md#通用参数和返回值)。
 
 ### 机身控制
 
 | 接口 | 参数 | 说明 |
 | --- | --- | --- |
-| `Turn(direction)` | `0` 恢复，`1` 左，`2` 右 | 原地翻滚机身 |
-| `ControlHead(left_right, up_down)` | 两个参数均为 `[-1, 1]` | 左右探头和俯仰 |
-| `HighLowStance(stance)` | `0` 恢复，`1` 高，`2` 低 | 机身高度 |
-| `SetSpeed(level)` | `1` 低，`2` 中，`3` 高 | 设置移动速度档位 |
+| [`Turn()`](#turn) | `direction` | 原地向左或向右翻滚机身 |
+| [`ControlHead()`](#controlhead) | `left_right`、`up_down` | 左右探头和俯仰 |
+| [`HighLowStance()`](#highlowstance) | `stance` | 调整站姿高度 |
+| [`SetSpeed()`](#setspeed) | `speed_level` | 设置移动速度档位 |
+
+使用 `Turn()`、`ControlHead()` 或 `HighLowStance()` 前，先调用 `BalanceStandUp()`，并确认 `RobotState::motion_status` 为 `MOTION_STATUS_BALANCE_STAND`。
+
+#### Turn
+
+```cpp
+std::error_code Turn(
+    int direction, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+`direction` 取 `0` 时恢复，取 `1` 时向左翻滚，取 `2` 时向右翻滚。超出范围时返回 `std::errc::invalid_argument`。
+
+#### ControlHead
+
+```cpp
+std::error_code ControlHead(
+    float left_right, float up_down, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+| 参数 | 范围 | 说明 |
+| --- | --- | --- |
+| `left_right` | `[-1.0, 1.0]` rad/s | 正数向左探头，负数向右探头 |
+| `up_down` | `[-1.0, 1.0]` rad/s | 正数抬头，负数低头 |
+
+参数超出范围时返回 `std::errc::invalid_argument`。
+
+#### HighLowStance
+
+```cpp
+std::error_code HighLowStance(
+    int stance, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+`stance` 取 `0` 时恢复站姿，取 `1` 时切换到高站姿，取 `2` 时切换到低站姿。
+
+#### SetSpeed
+
+```cpp
+std::error_code SetSpeed(
+    int speed_level, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+`speed_level` 取 `1`、`2`、`3`，分别对应低速、中速和高速。档位决定通用运动模式下 `Move()` 的实际速度上限，默认档位为低速。超出范围时返回 `std::errc::invalid_argument`。
+
+机器人收到设置命令后通过 `IControlCallback::OnSpeed(int speed_level)` 应答。当前档位可通过 `RobotState::speed_level` 读取。
 
 ## 最小安全控制示例
 
