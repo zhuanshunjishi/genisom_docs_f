@@ -9,6 +9,7 @@
     "docs:m1:dev": "vitepress dev m1",
     "docs:m1:build": "vitepress build m1",
     "docs:m1:preview": "vitepress preview m1",
+    "docs:l2:build": "vitepress build l2",
     "docs:l1-en:dev": "vitepress dev l1-en",
     "docs:l1-en:build": "vitepress build l1-en",
     "docs:l1-en:preview": "vitepress preview l1-en",

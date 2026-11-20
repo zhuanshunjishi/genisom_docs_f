@@ -20,11 +20,14 @@
 
 .VPNavBarTitle .title {
   display: grid;
-  grid-template-columns: max-content;
+  grid-template-columns: minmax(0, max-content);
   align-content: center;
   justify-items: center;
-  gap: 14px;
-  line-height: 20px;
+  gap: 4px;
+  line-height: 18px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .docs-brand-logos {
@@ -51,6 +54,13 @@
 
 .dark .docs-brand-logos img + img {
   border-left-color: #e5e7eb;
+}
+
+@media (max-width: 959px) {
+  .VPNavBar .container > .title {
+    min-width: 0;
+    flex-shrink: 1;
+  }
 }
 
 @media (max-width: 480px) {

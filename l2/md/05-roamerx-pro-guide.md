@@ -1,6 +1,6 @@
 # L2 智航 Pro 软件使用
 
-[返回文档总览](../总体介绍.md) | [设备操作、遥控器与 App](./04-L2设备操作遥控器与App.md) | [控制权、任务与外设控制](./09-L2控制权任务与外设控制.md)
+[返回文档总览](../index.md) | [设备操作、遥控器与 App](./04-device-controller-and-app-guide.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 功能范围
 
@@ -92,13 +92,15 @@
 
 路网点不得放在障碍物或禁区内，应与墙体和障碍物保持安全距离。
 
+![遥控添加路网点](../assets/navigation/navigation-road-point-ui.png)
+
+![手动添加路网点](../assets/navigation/navigation-road-line-ui.png)
+
 ### 添加连接线
 
 连接线表示机器人允许通行的路线。线段必须位于现场可通行区域，路网不能断联，应形成闭环或完整的端到端路径。保存路网后，在路径管理中重新检查已有任务路径。
 
-![遥控添加路网点](../assets/navigation/navigation-road-point-ui.png)
-
-![手动添加路网点](../assets/navigation/navigation-road-line-ui.png)
+![路网连接线编辑](../assets/navigation/navigation-path-edit-ui.png)
 
 ## 路径管理
 
@@ -111,11 +113,15 @@
 
 作业点用于到点执行拍照等任务，途径点只约束行驶路径。
 
-![路网连接线编辑](../assets/navigation/navigation-path-edit-ui.png)
+![编辑巡航任务目标点](../assets/navigation/navigation-mapping-ui.png)
 
 ![巡航路径选择](../assets/navigation/navigation-path-select-ui.png)
 
 ## 发起巡航
+
+::: warning 巡航监控与急停
+巡航期间持续观察位置、轨迹和目标点状态。可使用暂停、继续和结束巡航控制任务；遇到定位丢失、异常避障或人员进入路径时立即急停。
+:::
 
 1. 在路径管理中点击“发起任务”。
 2. 填写任务名称并选择巡航路线。
@@ -127,8 +133,6 @@
 ![巡航任务入口](../assets/navigation/navigation-task-entry-ui.png)
 
 ![巡航任务配置](../assets/navigation/navigation-task-config-ui.png)
-
-巡航期间持续观察位置、轨迹和目标点状态。可使用暂停、继续和结束巡航控制任务；遇到定位丢失、异常避障或人员进入路径时立即急停。
 
 ## 避障边界
 
@@ -151,6 +155,8 @@
 4. 调整充电点朝向，使其正对实体充电桩。
 5. 保存地图和路网配置。
 
+![充电点标记](../assets/navigation/navigation-recharge-ui.png)
+
 ### 自动回充
 
 任务配置中选择“返回充电桩”。巡航结束后，机器人返回充电点并执行对接。应同时检查任务状态和充电桩连接状态。
@@ -158,8 +164,6 @@
 ### 自动出桩
 
 机器人在充电桩上时，下发新的巡航任务会先执行出桩，完成后开始巡航。
-
-![充电点标记](../assets/navigation/navigation-recharge-ui.png)
 
 ## 巡航记录
 

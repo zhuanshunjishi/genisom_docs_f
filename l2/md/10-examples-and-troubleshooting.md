@@ -1,6 +1,6 @@
 # L2 示例程序与故障排查
 
-[返回文档总览](../总体介绍.md) | [SDK 快速开始](./06-L2SDK快速开始.md) | [SDK 接口参考](./07-L2SDK接口参考.md) | [控制权、任务与外设控制](./09-L2控制权任务与外设控制.md)
+[返回文档总览](../index.md) | [SDK 快速开始](./06-sdk-quickstart.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 示例程序
 
@@ -46,7 +46,9 @@ cmake --build . -j6
 7. `led`：验证自动和手动灯效。
 8. `recharge`：充电桩、地图和现场条件全部就绪后测试。
 
-## data.cpp
+## 示例运行要点
+
+### data.cpp
 
 第一次联调先运行：
 
@@ -63,9 +65,9 @@ cmake --build . -j6
 - `OnRobotStateData()` 是否持续触发。
 - `OnFaultData()` 是否报告故障。
 
-## control.cpp
+### control.cpp
 
-综合控制示例包含多种通用接口。L2 系列运行时只测试能力表中支持的接口。以下接口会返回 `Errc::UnsupportedDeviceOperation`：
+综合控制示例包含多种通用接口。L2 系列运行时只测试[接口能力表](./07-sdk-api-reference.md#接口能力表)中支持的接口。以下接口会返回 `Errc::UnsupportedDeviceOperation`：
 
 - `Slim()`、`DSB()`、`SkWalk()`、`Sand()`、`ReverseHeadTail()`。
 - `BackLight()`、`ObstacleAvoidance()`。
@@ -73,7 +75,7 @@ cmake --build . -j6
 
 第一次运行时先禁用连续运动和跳跃相关操作，只测试软件急停、站立、卧倒、前补光灯和低速移动。
 
-## async.cpp
+### async.cpp
 
 异步模式适合持续运行的应用：
 
@@ -87,7 +89,7 @@ client.StandUp(0, [](const std::error_code& ec, std::size_t) {
 
 应用需要管理回调对象生命周期、线程退出、共享状态同步和断连后的停止逻辑。
 
-## sync.cpp
+### sync.cpp
 
 同步模式适合启动阶段和单步测试：
 
@@ -100,13 +102,13 @@ if (ec) {
 
 不要在 SDK 回调中调用同步接口，否则可能阻塞内部通信线程。
 
-## 重连示例
+### 重连示例
 
-### manual_reconnect.cpp
+#### manual_reconnect.cpp
 
 手动重连流程：主动断开、等待状态变为 `DISCONNECTED`、重新连接、重新读取设备信息、检查急停和故障、重新申请控制权。
 
-### auto_reconnect.cpp
+#### auto_reconnect.cpp
 
 ```cpp
 ConnectionConfig config;
@@ -117,7 +119,7 @@ config.reconnect_interval_ms = 1000;
 
 自动重连只恢复连接。连接恢复后仍需重新确认控制权、任务状态、急停、故障和最后一次速度目标，不能自动恢复断线前的运动。
 
-## take_control.cpp
+### take_control.cpp
 
 关键回调：
 
@@ -126,11 +128,11 @@ config.reconnect_interval_ms = 1000;
 - `OnTakeControlAck()`：`error_code == 0` 才表示成功。
 - `OnReleaseControlAck()`：确认释放结果。
 
-## camera_bitrate.cpp
+### camera_bitrate.cpp
 
 `CameraBitrateCmd` 使用 `camera_front` 或 `camera_back`，码率范围为 50000 至 100000000 bit/s。设备实际生效值通过 `OnUpdateCameraBitrateAck()` 返回。
 
-## recharge.cpp
+### recharge.cpp
 
 运行前确认充电桩、蓝牙配对、地图充电点和对接方向已经配置。任务判断区分三层：
 
@@ -140,11 +142,13 @@ config.reconnect_interval_ms = 1000;
 
 回充和离桩期间不要同时发送普通运动命令。
 
-## led.cpp
+### led.cpp
 
 LED 示例通常先调用 `SetLedAutoMode(false)`，再发送 `SetLedCommand()`。测试完成后调用 `SetLedAutoMode(true)` 恢复自动状态灯，确保告警和急停灯效正常显示。
 
-## Connect 返回失败
+## 常见问题
+
+### Connect 返回失败
 
 依次检查：
 
@@ -156,7 +160,7 @@ LED 示例通常先调用 `SetLedAutoMode(false)`，再发送 `SetLedCommand()`�
 6. `ErrorHandler` 和返回的 `std::error_code` 内容。
 7. 防火墙是否阻止 UDP 通信。
 
-## ping 正常但握手失败
+### ping 正常但握手失败
 
 `ping` 只证明 IP 可达。继续检查：
 
@@ -166,7 +170,7 @@ LED 示例通常先调用 `SetLedAutoMode(false)`，再发送 `SetLedCommand()`�
 - 是否错误地把 UDP 客户端连接到 WebSocket 端口。
 - 机器人是否处于升级、关机或自检状态。
 
-## 连接成功但控制无效
+### 连接成功但控制无效
 
 - 检查 `RobotState::control_source`。
 - 调用 `TakeControl()` 并等待 `OnTakeControlAck()`。
@@ -175,11 +179,11 @@ LED 示例通常先调用 `SetLedAutoMode(false)`，再发送 `SetLedCommand()`�
 - 检查 `machine_status` 是否处于导航、回充、升级或安全状态。
 - 检查调用是否属于当前设备类型支持的接口。
 
-## 接口返回 UnsupportedDeviceOperation
+### 接口返回 UnsupportedDeviceOperation
 
 这是 SDK 的设备能力保护。程序应停止重试该接口，并根据 `GetDeviceInfo().device_type` 隐藏对应功能。不要通过修改枚举值、强制类型转换或绕过 SDK 发送命令。
 
-## 没有传感器数据
+### 没有传感器数据
 
 - 在 `Connect()` 前注册 `IDataCallback`。
 - 保持回调 `shared_ptr` 存活。
@@ -190,7 +194,7 @@ LED 示例通常先调用 `SetLedAutoMode(false)`，再发送 `SetLedCommand()`�
 
 `RobotState` 和故障主动上报，高频 IMU、运动、速度和关节状态需要配置后才上报。
 
-## 找不到 librobot_sdk.so
+### 找不到 librobot_sdk.so
 
 ```bash
 uname -m
@@ -206,7 +210,7 @@ export LD_LIBRARY_PATH=/path/to/genisom_robot_sdk-main/lib/x86_64:$LD_LIBRARY_PA
 
 ARM64 使用 `lib/aarch64`。出现 `Exec format error` 或无法加载时，通常是程序或动态库架构不匹配。
 
-## 动作发送成功但状态没有变化
+### 动作发送成功但状态没有变化
 
 发送成功只表示命令通过 SDK 检查并进入通信流程。继续检查：
 
@@ -216,7 +220,7 @@ ARM64 使用 `lib/aarch64`。出现 `Exec format error` 或无法加载时，通
 - 是否有急停、故障或任务状态阻止动作。
 - 参数是否在有效范围内。
 
-## 回充任务不执行
+### 回充任务不执行
 
 - 检查充电桩供电和蓝牙配对。
 - 检查地图充电点及朝向。

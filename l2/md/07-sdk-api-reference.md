@@ -1,6 +1,6 @@
 # L2 SDK 接口参考
 
-[返回文档总览](../总体介绍.md) | [SDK 快速开始](./06-L2SDK快速开始.md) | [回调、数据类型与状态](./08-L2回调数据类型与状态.md) | [控制权、任务与外设控制](./09-L2控制权任务与外设控制.md)
+[返回文档总览](../index.md) | [SDK 快速开始](./06-sdk-quickstart.md) | [回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 核心类
 
@@ -120,7 +120,13 @@ std::error_code Connect(
     ConnectHandler handler = [](const std::error_code&) {});
 ```
 
-连接传输通道并完成协议握手。UDP 使用端口 `8082`，WebSocket 使用端口 `8081`。`block == true` 表示同步等待。
+连接传输通道并完成协议握手。
+
+| 参数 | 说明 |
+| --- | --- |
+| `ip` | 机器人 IP 地址 |
+| `port` | UDP 使用 `8082`，WebSocket 使用 `8081` |
+| `block` | `true` 时同步等待 |
 
 ### Disconnect
 
@@ -148,9 +154,11 @@ void SetControlCallback(std::shared_ptr<IControlCallback> callback);
 void SetDataCallback(std::shared_ptr<IDataCallback> callback);
 ```
 
-建议在 `Connect()` 前注册回调，并让回调对象的生命周期长于连接。详细接口见 [L2 回调、数据类型与状态](./08-L2回调数据类型与状态.md)。
+建议在 `Connect()` 前注册回调，并让回调对象的生命周期长于连接。详细接口见 [L2 回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md)。
 
 ## 安全控制
+
+### SoftEmergencyStop
 
 ```cpp
 std::error_code SoftEmergencyStop(
@@ -249,6 +257,8 @@ std::error_code ReleaseControl(int timeout_ms = 0, WriteHandler handler = ...);
 
 ## 相机码率
 
+### UpdateCameraBitrate
+
 ```cpp
 std::error_code UpdateCameraBitrate(
     CameraBitrateCmd cmd, int timeout_ms = 0, WriteHandler handler = ...);
@@ -312,6 +322,10 @@ std::cout << info.sn << '\n';
 
 ## 最小安全控制示例
 
+::: warning 实体设备运行前
+实体设备运行前还应增加数据回调、急停检查、故障检查、姿态完成确认和信号退出处理。
+:::
+
 ```cpp
 #include <atomic>
 #include <chrono>
@@ -370,5 +384,3 @@ int main(int argc, char** argv) {
     return ec ? 1 : 0;
 }
 ```
-
-实体设备运行前还应增加数据回调、急停检查、故障检查、姿态完成确认和信号退出处理。

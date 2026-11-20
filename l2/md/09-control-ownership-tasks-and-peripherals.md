@@ -1,6 +1,6 @@
 # L2 控制权、任务与外设控制
 
-[返回文档总览](../总体介绍.md) | [SDK 接口参考](./07-L2SDK接口参考.md) | [回调、数据类型与状态](./08-L2回调数据类型与状态.md) | [示例程序与故障排查](./10-L2示例程序与故障排查.md)
+[返回文档总览](../index.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md) | [示例程序与故障排查](./10-examples-and-troubleshooting.md)
 
 ## 控制权模型
 
@@ -18,11 +18,15 @@
 | 申请成功 | `OnTakeControlAck()` 的 `error_code == 0` |
 | 程序退出 | 先停止运动，再调用 `ReleaseControl()` |
 
+### 控制权切换时序
+
 ![控制权切换时序](../assets/sdk/control-ownership-sequence.svg)
+
+### 控制权状态流转
 
 ![控制权状态流转](../assets/sdk/control-ownership-stateflow.svg)
 
-## TakeControl
+### TakeControl
 
 ```cpp
 std::error_code TakeControl(
@@ -41,7 +45,7 @@ void OnTakeControlAck(const TakeControlAck& ack) override {
 }
 ```
 
-## ReleaseControl
+### ReleaseControl
 
 ```cpp
 std::error_code ReleaseControl(
@@ -50,7 +54,7 @@ std::error_code ReleaseControl(
 
 释放结果通过 `OnReleaseControlAck()` 返回。程序退出、切换到 App 或长时间不再发送控制命令时主动释放。
 
-## 推荐控制流程
+### 推荐控制流程
 
 1. 注册数据回调和控制回调。
 2. 连接机器人并确认状态为 `CONNECTED`。
@@ -217,4 +221,3 @@ client.SetLedCommand(cmd, 1000);
 - 任务状态进入 `FAILURE`。
 
 正常退出顺序：发送零速度、停止运行任务、恢复 LED 自动模式、释放控制权、断开连接、等待工作线程退出。
-

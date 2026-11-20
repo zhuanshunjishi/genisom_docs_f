@@ -1,6 +1,6 @@
 # L2 回调、数据类型与状态
 
-[返回文档总览](../总体介绍.md) | [SDK 接口参考](./07-L2SDK接口参考.md) | [控制权、任务与外设控制](./09-L2控制权任务与外设控制.md)
+[返回文档总览](../index.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 回调模型
 
@@ -21,7 +21,9 @@ SDK 提供两个回调基类：
 - 原子变量或轻量状态更新。
 - 向线程安全队列投递消息。
 
+::: warning 回调线程限制
 不要在回调中执行同步 SDK 命令、文件读写、数据库写入、长时间锁等待或复杂计算。
+:::
 
 ## IDataCallback
 
@@ -90,7 +92,9 @@ struct DeviceInfo {
 
 连接成功前、断开后或握手未返回类型时，`device_type` 为 `UNKNOWN`。
 
-## ImuData
+## 传感器与运动数据
+
+### ImuData
 
 ```cpp
 struct ImuData {
@@ -102,7 +106,7 @@ struct ImuData {
 
 包含三轴加速度、三轴角速度和四元数。记录日志时同时保存接收时间，并在应用层检查四元数是否有效。
 
-## MotionData
+### MotionData
 
 ```cpp
 struct MotionData {
@@ -126,7 +130,7 @@ struct MotionData {
 | `omega_body` | 机体坐标系角速度，rad/s |
 | `time_stamp` | 纳秒时间戳 |
 
-## SpeedData 与 JointStateData
+### SpeedData 与 JointStateData
 
 ```cpp
 struct SpeedData {
@@ -168,7 +172,7 @@ struct JointStateData {
 
 结构体中还包含通用状态字段。应用只应使用当前设备实际上报且业务需要的字段，不应把未变化字段当作硬件故障。
 
-## 电池状态
+### 电池状态
 
 ```cpp
 struct BatteryData {
@@ -184,7 +188,7 @@ struct BatteryData {
 
 电源状态包括 `UNKNOWN`、`CHARGING`、`DISCHARGING` 和 `FULL`。处理电量时先检查对应的 `present`，并结合电压、电流和充电桩连接状态判断。
 
-## 运动状态
+### 运动状态
 
 常用 `MotionStatus`：
 
@@ -205,7 +209,7 @@ struct BatteryData {
 
 枚举中可能存在当前设备不开放的状态值，应用不应通过强制写入状态来绕过接口能力检查。
 
-## 机器状态
+### 机器状态
 
 | `MachineStatus` | 含义 |
 | --- | --- |
@@ -229,7 +233,7 @@ struct BatteryData {
 | `LOCAL_REMOTE` | 本地遥控 |
 | `LOW_LEVEL` | 低层控制状态 |
 
-## 控制来源与急停
+### 控制来源与急停
 
 | 类型 | 枚举 | 含义 |
 | --- | --- | --- |
@@ -307,4 +311,3 @@ public:
     std::atomic_int last_task_status_{0};
 };
 ```
-

@@ -1,6 +1,6 @@
 # L2 SDK 快速开始
 
-[返回文档总览](../总体介绍.md) | [硬件接口与系统架构](./03-L2硬件接口与系统架构.md) | [SDK 接口参考](./07-L2SDK接口参考.md)
+[返回文档总览](../index.md) | [硬件接口与系统架构](./03-hardware-interfaces-and-system-architecture.md) | [SDK 接口参考](./07-sdk-api-reference.md)
 
 ## 开发环境
 
@@ -130,7 +130,9 @@ export LD_LIBRARY_PATH=/path/to/genisom_robot_sdk-main/lib/aarch64:$LD_LIBRARY_P
 
 ## 第一次运行
 
-先运行只读示例，不要直接执行运动控制：
+::: tip 首次运行
+先运行只读示例，不要直接执行运动控制。
+:::
 
 ```bash
 cd genisom_robot_sdk-main/example/build
@@ -221,6 +223,10 @@ cmake --build . -j6
 
 ## 同步与异步调用
 
+::: warning 回调线程
+不要在 SDK 回调线程中调用同步接口。回调中只复制数据或更新轻量状态，文件写入、数据库操作和复杂计算放到应用工作线程。
+:::
+
 命令接口通常包含 `timeout_ms` 和 `WriteHandler`：
 
 - `timeout_ms == 0`：异步发送，结果通过 `WriteHandler` 返回。
@@ -238,8 +244,6 @@ client.StandUp(0, [](const std::error_code& ec, std::size_t) {
 auto ec = client.StandUp(2000);
 ```
 
-不要在 SDK 回调线程中调用同步接口。回调中只复制数据或更新轻量状态，文件写入、数据库操作和复杂计算放到应用工作线程。
-
 ## 推荐控制顺序
 
 1. 创建 `SDKClient`。
@@ -253,7 +257,7 @@ auto ec = client.StandUp(2000);
 
 ## 下一步
 
-- 全部函数和能力范围：[L2 SDK 接口参考](./07-L2SDK接口参考.md)
-- 数据和回调：[L2 回调、数据类型与状态](./08-L2回调数据类型与状态.md)
-- 控制权和任务：[L2 控制权、任务与外设控制](./09-L2控制权任务与外设控制.md)
-- 示例与排障：[L2 示例程序与故障排查](./10-L2示例程序与故障排查.md)
+- 全部函数和能力范围：[L2 SDK 接口参考](./07-sdk-api-reference.md)
+- 数据和回调：[L2 回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md)
+- 控制权和任务：[L2 控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+- 示例与排障：[L2 示例程序与故障排查](./10-examples-and-troubleshooting.md)

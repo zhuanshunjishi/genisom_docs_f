@@ -22,18 +22,17 @@ a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 
 .shell {
-  width: min(94%, 1680px);
+  width: min(94%, 1360px);
   margin-inline: auto;
 }
 
 .topbar {
-  min-height: clamp(76px, 5.8vw, 100px);
-  padding: 12px clamp(12px, 1.55vw, 26px);
+  min-height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px 20px;
+  gap: 16px;
 }
 
 .brand,
@@ -42,23 +41,22 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
 }
 
-.brand { --brand-gap: clamp(12px, 1.55vw, 26px); }
+.brand { gap: 28px; }
 
 .brand-logos img {
   display: block;
   width: auto;
-  height: clamp(32px, 2.8vw, 47px);
+  height: 32px;
 }
 
-.brand-logos img + img,
-.brand strong {
-  margin-left: var(--brand-gap);
-  padding-left: var(--brand-gap);
-  border-left: 1px solid #91949f;
+.brand-logos img + img {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--line);
 }
 
 .brand strong {
-  font-size: clamp(1.2rem, 1.85vw, 2rem);
+  font-size: 1.25rem;
   white-space: nowrap;
 }
 
@@ -73,45 +71,44 @@ a { color: inherit; text-decoration: none; }
 
 .language-switch:hover { color: var(--accent); }
 
-main { padding-bottom: clamp(28px, 2.3vw, 40px); }
+main { padding-block: 12px clamp(28px, 2.3vw, 40px); }
 
 .hero {
   position: relative;
   isolation: isolate;
   display: grid;
   align-items: center;
-  min-height: clamp(260px, 22vw, 390px);
+  min-height: clamp(260px, 23vw, 336px);
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: clamp(20px, 2vw, 34px);
+  border-radius: 22px;
   background: linear-gradient(120deg, #fbfbfd, #e9ebf3);
 }
 
 .hero img {
   position: absolute;
   z-index: -1;
-  top: -6%;
+  top: 0;
   right: 0;
   display: block;
-  width: 65%;
-  height: 132%;
+  width: 62%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
   mask-image: linear-gradient(to right, transparent, #000 19%);
 }
 
 .hero-copy {
   width: 46%;
-  padding: 30px 0 30px clamp(28px, 4.3vw, 74px);
+  padding: 30px 0 30px clamp(28px, 3.6vw, 56px);
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(2.35rem, 4.7vw, 5.25rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
+  font-size: clamp(2rem, 3.6vw, 3.5rem);
+  line-height: 1.18;
+  letter-spacing: -0.045em;
 }
-
-:lang(en) h1 { font-size: clamp(2.25rem, 3.9vw, 4.5rem); }
 
 .hero h1::after {
   display: block;
@@ -126,21 +123,17 @@ h1 {
 .hero p {
   margin: clamp(12px, 1.45vw, 24px) 0 0;
   color: var(--muted);
-  font-size: clamp(1rem, 1.7vw, 1.85rem);
-  font-weight: 500;
-  line-height: 1.4;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-:lang(en) .hero p { font-size: clamp(1rem, 1.35vw, 1.5rem); }
-
 .catalog {
-  margin: clamp(18px, 1.4vw, 26px) clamp(0px, 0.8vw, 14px) 0;
+  margin-top: clamp(24px, 2.4vw, 36px);
 }
 
 .catalog h2 {
   margin: 0 0 clamp(12px, 0.95vw, 17px);
-  padding-inline: clamp(0px, 0.85vw, 14px);
-  font-size: clamp(1.5rem, 2.25vw, 2.45rem);
+  font-size: 1.375rem;
   line-height: 1.25;
 }
 
@@ -154,11 +147,11 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(12px, 0.85vw, 16px) 12px clamp(14px, 1vw, 18px);
+  overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: clamp(17px, 1.55vw, 28px);
-  background: linear-gradient(145deg, #ffffff92, #f5f6fbbf);
-  box-shadow: 0 8px 20px #343b5010;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 16px #343b5008;
   text-align: center;
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
@@ -174,8 +167,20 @@ a.product:focus-visible {
   grid-template-rows: minmax(0, 1fr);
   place-items: center;
   width: 100%;
-  height: clamp(128px, 11.5vw, 204px);
-  margin-bottom: 8px;
+  height: clamp(152px, 13vw, 226px);
+  padding: 12px;
+}
+
+.product-l1 .product-image {
+  background: radial-gradient(ellipse at 50% 38%, #fafcff, #e6ebf2);
+}
+
+.product-m1 .product-image {
+  background: radial-gradient(ellipse at 50% 38%, #fffdf9, #ede7df);
+}
+
+.product-copy {
+  padding: 12px 12px clamp(14px, 1vw, 18px);
 }
 
 .product img {
@@ -191,15 +196,16 @@ a.product:hover img { transform: translateY(-3px); }
 
 .product h3 {
   margin: 0;
-  font-size: clamp(1.3rem, 2.3vw, 2.5rem);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
   line-height: 1.22;
+  letter-spacing: -0.04em;
 }
 
 .product p {
   margin: 4px 0 10px;
   color: var(--muted);
-  font-size: clamp(0.875rem, 1.28vw, 1.4rem);
-  line-height: 1.4;
+  font-size: 0.875rem;
+  line-height: 1.65;
 }
 
 .product-action {
@@ -207,22 +213,12 @@ a.product:hover img { transform: translateY(-3px); }
   align-items: center;
   gap: 8px;
   color: var(--accent);
-  font-size: clamp(1rem, 1.45vw, 1.6rem);
+  font-size: 0.875rem;
   font-weight: 700;
-}
-
-.product .product-status {
-  display: inline-block;
-  margin: 16px 0 0;
-  padding: 5px 22px;
-  border-radius: 999px;
-  background: #e1e2e8;
-  font-weight: 600;
 }
 
 @media (max-width: 760px) {
   .shell { width: calc(100% - 32px); }
-  .topbar { padding-inline: 0; }
   .hero { display: block; min-height: 0; }
   .hero-copy { width: auto; padding: 24px; }
   .hero img {
@@ -230,22 +226,26 @@ a.product:hover img { transform: translateY(-3px); }
     width: 100%;
     height: auto;
     aspect-ratio: 2.2;
-    object-fit: cover;
     object-position: center 34%;
     mask-image: linear-gradient(to bottom, transparent, #000 13%);
   }
 }
 
+@media (max-width: 640px) {
+  .topbar { gap: 4px 16px; padding-block: 10px; }
+  .brand { gap: 20px; }
+  .brand-logos img { height: 26px; }
+  .brand strong { font-size: 1.125rem; }
+}
+
 @media (max-width: 600px) {
-  .brand-logos img { height: 25px; }
-  .brand strong { font-size: 1rem; }
   .products { grid-template-columns: 1fr; }
-  .product-image { height: 164px; }
+  .product-image { height: 188px; }
   .product img { width: min(100%, 220px); }
 }
 
 @media (max-width: 365px) {
-  .brand { --brand-gap: 8px; }
+  .brand strong { white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
