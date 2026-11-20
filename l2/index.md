@@ -1,6 +1,6 @@
 # 智身钢镚 L2 SDK 开发文档
 
-![智身钢镚 L2 系列机器人](./assets/product/l2-series-overview.png)
+![智身钢镚 L2 系列机器人](./L2.jpg)
 
 ## 文档说明
 
