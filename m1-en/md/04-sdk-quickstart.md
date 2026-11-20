@@ -1,4 +1,4 @@
-# M1 SDK quickstart
+# Genisom M1 SDK Quickstart
 
 [Return Document Overview](../index.md) | [System composition, hardware interfaces and structural design information](./03-system-components-and-hardware-interfaces.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK Interface reference](./06-sdk-api-reference.md)
 
@@ -6,7 +6,7 @@
 See [M1 System compatibility with SDK version](./sdk-version-compatibility.md), select the corresponding SDK according to the robot's system version.
 :::
 
-## Development environment
+## Development Environment
 
 The main operating environments are Ubuntu 22.04, GCC 11.4, CMake 3.8+ and Boost 1.74.
 
@@ -40,7 +40,7 @@ Correlation of header and library documents:
 | `lib/aarch64/librobot_sdk.so*` | ARM64 Linux Dynamic Library and its versions |
 | `example/` | Examples of compiled and run operations |
 
-## Choose a development computer
+## Choose a Development Computer
 
 SDK Need Linux environment compilation. Available:
 
@@ -48,11 +48,11 @@ SDK Need Linux environment compilation. Available:
 - Ubuntu 22.04 virtual machine;
 - It's inside the robot. ARM64 Linux system, provided that there are compilation tools and development depend on it.
 
-The most convenient way is to use the Ubuntu 22.04 developer to compile the `.so` files of the program and the corresponding structure into the operating environment. The x86_64 program cannot run directly in the ARM64 environment and vice versa.
+Build on an Ubuntu 22.04 development computer, then copy the executable and the `.so` files for the matching architecture to the runtime environment. An x86_64 executable cannot run directly on ARM64, and an ARM64 executable cannot run directly on x86_64.
 
-## Connect to the robot {#connect-to-the-robot}
+## Connect to the Robot {#connect-to-the-robot}
 
-### Wi-Fi connection
+### Wi-Fi Connection
 
 Connect the development computer to the robot's `M1-xxxxxxx` hotspot using the factory password `12345678`.
 
@@ -65,11 +65,11 @@ ping -c 4 192.168.234.1
 
 Use `ping` to verify IP reachability. Check the return value of `Connect()` or call `IsConnected()` to verify the SDK connection.
 
-### Wired connection
+### Wired Connection
 
 When connected by cable, the target address is normally `192.168.168.168` for the mainframe, SDK is still in use UDP `8082`. If the site network redistributes the address, the actual address of the device should be used.
 
-## Build official examples {#build-official-examples}
+## Build Official Examples {#build-official-examples}
 
 Example directory for entering SDK:
 
@@ -95,7 +95,7 @@ Runs a cable connection:
 
 Displays when running properly `[OK] Connected`,  `[OK] First robot state received` and `[OK] Disconnected cleanly`. Old version SDK If not provided `quick_start`, can run the attached version `data`. You need to verify that sensors and profile configurations are also available `data` See. [M1 Example procedures and troubleshooting](./08-examples-and-troubleshooting.md).
 
-## First connection program
+## First Connection Program
 
 ```cpp
 #include <iostream>
@@ -128,7 +128,7 @@ int main() {
 
 The distinction between synchronization and the state of call, command response and action completion is found in [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md).
 
-## Custom CMake project
+## Custom CMake Project
 
 ```cmake
 cmake_minimum_required(VERSION 3.8)

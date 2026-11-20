@@ -1,14 +1,14 @@
-# GenisomAI M1 SDK Documentation
+# Genisom M1 SDK Documentation
 
-![GenisomAI M1 during desert terrain testing](./assets/product/m1-desert-terrain-test.jpg)
+![Genisom M1 during desert terrain testing](./assets/product/m1-desert-terrain-test.jpg)
 
-## About this documentation
+## About This Documentation
 
-This guide covers operation, application development, and on-site integration for the GenisomAI M1 robot series. It includes camera streaming, product specifications, device operation, SDK development, and troubleshooting.
+This guide covers operation, application development, and on-site integration for the Genisom M1 robot series. It includes camera streaming, product specifications, device operation, SDK development, and troubleshooting.
 
 The main SDK class is `robot_sdk::SDKClient`. Use it to connect to the robot and send control commands. Register callbacks to receive state data, fault reports, and command acknowledgments.
 
-## Documentation contents
+## Documentation Contents
 
 | Chapter | Topics | When to read |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ The main SDK class is `robot_sdk::SDKClient`. Use it to connect to the robot and
 | [9. Callbacks, data types, and status reference](./md/07-callbacks-data-types-and-status-reference.md) | Callback interfaces, structs, enums, sensor data, and robot states | While processing data and command acknowledgments |
 | [10. Examples and troubleshooting](./md/08-examples-and-troubleshooting.md) | Official examples, usage, common issues, and shutdown procedures | During integration, verification, and troubleshooting |
 
-## Development environment and communication
+## Development Environment and Communication
 
 | Item | Version or configuration |
 | --- | --- |

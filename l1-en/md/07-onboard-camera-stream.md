@@ -1,4 +1,4 @@
-# Onboard camera stream
+# Onboard Camera Stream
 
 [Back to Home](../index.md) | [Instructions for equipment operation, remote control and App](./05-device-controller-and-app-guide.md) | [SDK Guidance for development and operation](./08-sdk-development-guide.md)
 
@@ -20,7 +20,7 @@ rtsp://user:Abcd%232027%21@192.168.234.1:8554/test
 
 If the robot IP has been modified, the address `192.168.234.1` shall be replaced by the current actual IP.
 
-### Account authentication
+### Account Authentication
 
 Player prompts to enter account numbers and passwords with the following default certificates.
 
@@ -31,7 +31,7 @@ Player prompts to enter account numbers and passwords with the following default
 
 The password in the default address has been executed URL Encoding, where `#` Encoding As `%23`,  `!` Encoding As `%21`. Enter the original password in the above table in the independent password input box of the player.
 
-## Preparation for use
+## Preparation for Use
 
 1. Turn the robot on and wait for the launch to be completed.
 2. Opens the Video Stream Switch and saves settings on the settings page that the screen remote control application applies.
@@ -177,7 +177,7 @@ After running the script, press `q` to exit. `CAP_PROP_BUFFERSIZE` Validity depe
 
 This way you can receive and decode videos through GStreamer and then give the latest frame to Open CV.
 
-### Check whether Open CV supports GStreamer
+### Check Whether Open CV Supports GStreamer
 
 ```bash
 python3 -c "import cv2; print(cv2.getBuildInformation())" | grep GStreamer
@@ -236,7 +236,7 @@ if __name__ == "__main__":
 - Do not execute `resize` extras or repeat colour conversions when only algorithms are required.
 - TCP It is usually more stable in the dump environment, but may be delayed due to re-transmission; it should be tested in conjunction with the site network.
 
-## Common problems
+## Common Problems
 
 | The phenomenon | Inspection and processing |
 | --- | --- |

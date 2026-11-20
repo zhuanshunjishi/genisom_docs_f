@@ -1,8 +1,8 @@
-# Dock and tasks
+# Dock and Tasks
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 
-## Dock pairing {#dock-pairing}
+## Dock Pairing {#dock-pairing}
 
 The following interfaces are provided by SDK v0.2.3, `timeout_ms` and `handler` comply [General parameter rules](./06-sdk-api-reference.md#common-parameters-and-return-values).
 
@@ -15,7 +15,7 @@ The following interfaces are provided by SDK v0.2.3, `timeout_ms` and `handler` 
 
 For the order of call see [Charge pillar pairing process](./05-sdk-control-flow-and-task-handling.md#dock-pairing) and the description of the field is [Dock data](./07-callbacks-data-types-and-status-reference.md#dock-data).
 
-## Task and robot states {#task-and-robot-states}
+## Task and Robot States {#task-and-robot-states}
 
 ```cpp
 std::error_code StartRechargeTask(int timeout_ms = 0, WriteHandler handler = ...);
@@ -28,7 +28,7 @@ std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
 
 | Functions | Functions |
 | --- | --- |
-| `StartRechargeTask` | Start autonomous refilling mission |
+| `StartRechargeTask` | Start an autonomous recharge task |
 | `StopRechargeTask` | Stop Autoback Task |
 | `StartUnDockTask` | Commencing the self-deposition mission. |
 | `StopUnDockTask` | Stop the auto-departure. |

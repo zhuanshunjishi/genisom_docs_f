@@ -5,7 +5,7 @@ import chineseConfig from '../../l1/.vitepress/config.mjs'
 export default defineConfig(englishConfig(
   chineseConfig,
   'l1',
-  'User guides, SDK development, and interface reference for the GenisomAI L1 series.',
+  'User guides, SDK development, and interface reference for the Genisom L1 series.',
   {
     '产品与配件': 'Products and accessories',
     '产品规格对比': 'Product specifications',

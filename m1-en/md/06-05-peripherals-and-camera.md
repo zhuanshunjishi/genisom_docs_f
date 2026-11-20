@@ -1,8 +1,8 @@
-# Peripherals and cameras
+# Peripherals and Cameras
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 
-## Lights and sensor switches.
+## Lights and Sensor Switches.
 
 ```cpp
 std::error_code FrontLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
@@ -20,7 +20,7 @@ std::error_code ObstacleAvoidance(bool on, int timeout_ms = 0, WriteHandler hand
 
 Four Functions `on` Parameters are: `true` Turn it on. `false` Close. Current status passes. `RobotState` It's... `front_fill_light`,  `back_fill_light`,  `auto_mode_light` and `obstacle_avoidance` Get in.
 
-## Camera bitrate {#camera-bitrate}
+## Camera Bitrate {#camera-bitrate}
 
 ### UpdateCameraBitrate
 
@@ -44,7 +44,7 @@ struct CameraBitrateCmd {
 
 The actual effective value of the device is returned by `OnUpdateCameraBitrateAck()`. The modification of the code rate should be followed by simultaneous observation of RTSP video streams and network loads.
 
-## External power supply
+## External Power Supply
 
 ### SetPeriphPower
 
@@ -73,7 +73,7 @@ std::error_code GetPeriphPower(
 
 Query for the specified power channel state. `cfg.power`, the result is passed `OnGetPeriphPower()` Go back. `ack.enable` is the current actual status.
 
-## LED effects {#led-effects}
+## LED Effects {#led-effects}
 
 ```cpp
 std::error_code SetLedAutoMode(

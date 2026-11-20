@@ -1,10 +1,10 @@
-# Robot, controller, and app operation
+# Robot, Controller, and App Operation
 
 [Back to Home](../index.md)
 
 ## Safety
 
-### Pre-test checks
+### Pre-Test Checks
 
 - Test on a flat, non-slip surface in an open area. Clear people, cables, and fragile objects from the area.
 - Check that the legs, tires or foot pads, battery, expansion equipment, and cables are secure.
@@ -14,14 +14,14 @@
 
 `CMD_EMERGENCY_STOP` triggers a software emergency stop. Keep the remote controller available for on-site takeover during tests.
 
-### Motion and stunt risks
+### Motion and Stunt Risks
 
 - Keep people clear and use appropriate safeguards when testing jumps, backflips, two-legged stances, or similar actions.
 - High-performance mode and stunt commands increase joint loads. Prolonged use may accelerate wear.
 - Stay within normal limits for payload, slope, and stair height. Published maximum values describe the robot's capability limits.
 - Stop operation and disconnect power immediately if you notice unusual noise, odor, smoke, loss of control, a flashing red light, or excessive joint temperature.
 
-### Tail-light indicators
+### Tail-Light Indicators
 
 | Tail light | Meaning | Action |
 | --- | --- | --- |
@@ -36,7 +36,7 @@
 
 ![Tail-light indicators](../assets/images/tail-light-status.png)
 
-### Battery and charging
+### Battery and Charging
 
 - Do not disassemble the battery or connect directly to its individual cells.
 - Use only official batteries, charging docks, and power adapters.
@@ -45,21 +45,21 @@
 - If you notice an unusual odor, smoke, deformation, or abnormal heat during charging, unplug the adapter immediately and stop using it.
 - Charge the battery for no more than 24 hours. Do not burn, heat, crush, or cut the battery.
 
-### Operating environment and connectors
+### Operating Environment and Connectors
 
 - The operating temperature is 0–40 °C and the ingress protection rating is IP54. Keep the robot out of standing water and do not immerse it.
 - Verify voltage, polarity, and total power before connecting a payload. Power off the robot before plugging or unplugging connectors.
 - Keep loose cables clear of moving legs and wheel hubs.
 
-## Power on, charge, and power off
+## Power on, Charge, and Power Off
 
-### Power button location
+### Power Button Location
 
 Insert the battery into the compartment on the side of the robot. The power button is in the center of the battery panel. The four LEDs below it show the remaining charge.
 
 ![Power button, battery compartment, and charge indicators](../assets/images/power-battery-panel.png)
 
-### First startup
+### First Startup
 
 1. Unpack the robot and place it on a flat, non-slip surface in an open area.
 2. Check that there are no people, cables, or obstacles near the legs.
@@ -69,7 +69,7 @@ Insert the battery into the compartment on the side of the robot. The power butt
 6. Release the button and wait about 20 seconds.
 7. A solid blue tail light indicates startup is complete. While it flashes blue, wait before sending motion commands.
 
-### Battery charge indicator
+### Battery Charge Indicator
 
 | Charge level | LED status |
 | --- | --- |
@@ -98,13 +98,13 @@ While charging, the LED for the current range flashes. All four LEDs stay on whe
 3. Briefly press the battery power button once, then hold it for 5 seconds to shut down. Wait for the tail light and battery indicators to go out.
 4. Remove the battery before long-term storage or transport.
 
-## Remote controller with display
+## Remote Controller with Display
 
 The controller has physical joysticks, directional and function buttons, and a touchscreen app. Use it for on-site takeover, basic motion tests, state checks, and video. Before developing with the SDK, verify that the robot can power on, connect, stand up, and lie down using the controller.
 
 ![Buttons and power switch on the remote controller](../assets/images/screen-controller.png)
 
-### Power on and open the control app
+### Power on and Open the Control App
 
 1. Hold the power or screen-lock button at the top of the controller until it starts.
 2. Open `Dog Controller` from the home screen.
@@ -112,7 +112,7 @@ The controller has physical joysticks, directional and function buttons, and a t
 
 ![Remote control application entrance and home page](../assets/images/controller-app-entry.png)
 
-### Connect to the robot {#connect-to-the-robot}
+### Connect to the Robot {#connect-to-the-robot}
 
 1. Verify that the robot is powered on and its tail light is solid blue.
 2. Tap **Disconnected** in the upper-right corner of the app home page.
@@ -123,7 +123,7 @@ The controller has physical joysticks, directional and function buttons, and a t
 
 ![Controller connected](../assets/images/controller-connected.png)
 
-### Basic control
+### Basic Control
 
 Tap **Control** in the lower-right corner of the home page to open the control screen. After connecting, you can do the following.
 
@@ -134,14 +134,14 @@ Tap **Control** in the lower-right corner of the home page to open the control s
 
 ![Remote control base interface](../assets/images/controller-control-screen.png)
 
-### Standard and high-performance modes
+### Standard and High-Performance Modes
 
 - **Standard mode** provides stable movement and standard actions for routine operation and pre-development checks.
 - **High-performance mode** increases motion performance and unlocks additional stunts on supported models. Use it in controlled research or demonstration settings.
 
-## Connect to the robot over Wi-Fi {#connect-to-robot-wi-fi}
+## Connect to the Robot Over Wi-Fi {#connect-to-robot-wi-fi}
 
-### 1. Join the hotspot in Ubuntu
+### 1. Join the Hotspot in Ubuntu
 
 The default Wi-Fi network name is typically `XG01-XXXXXX`, where `XXXXXX` is the last six characters of the device serial number (SN). Find the serial number on the label underneath the robot. The default password is `12345678`.
 
@@ -149,7 +149,7 @@ Select the robot's hotspot from the development computer's Wi-Fi networks and en
 
 ![Select Robot in Ubuntu Wi-Fi](../assets/images/wifi-network.png)
 
-### 2. Check the development computer's IPv4 address
+### 2. Check the Development Computer'S IPv4 Address
 
 After connecting to the hotspot, perform the following commands at the terminal to view the IPv4 address of the wireless card:
 
@@ -159,7 +159,7 @@ ip addr
 
 ![View IPv4 addresses for developing computers](../assets/images/ip-address.png)
 
-### 3. Check connectivity to the robot
+### 3. Check Connectivity to the Robot
 
 The robot's default Wi-Fi address is `192.168.234.1`. Run the following command in the terminal.
 
@@ -171,7 +171,7 @@ ping -c 4 192.168.234.1
 
 A successful `ping` verifies IP reachability. Use `IsConnected()` to verify that the SDK connection has received UDP state data.
 
-## SSH login
+## SSH Login
 
 Use SSH to access the robot's Linux system from the development computer for status checks and troubleshooting. You can also run the HighLevel examples directly on an external Ubuntu computer.
 

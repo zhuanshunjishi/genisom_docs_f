@@ -1,14 +1,14 @@
-# Control command interface
+# Control Command Interface
 
 [Return to Software Service Interface](./06-sdk-service-interfaces.md) | [Sensor reporting interface in real time](./06-02-real-time-sensor-data.md)
 
-## Interface description
+## Interface Description
 
 Control command interfaces are used to send discrete action commands and continuous motion input to robots, corresponding to the " Control Command Port " in the red box. SDK Use UDP Send Port `8081`, application passed `ZsibotExecutor` Call interface, no need to create yourself UDP socket.
 
 Before moving control, you should confirm that the robot is connected, that the current mode of control is correct, and apply for SDK control.
 
-## Communications parameters
+## Communications Parameters
 
 | Parameter | Default |
 | --- | --- |
@@ -39,7 +39,7 @@ The operator's analysis will stop the communication thread and release the netwo
 | Return value | None |
 | Notes | The program should cease movement before withdrawal and confirm that remote control has been restored before destruction of the implementer |
 
-## Send a discrete command
+## Send a Discrete Command
 
 | Field | Contents |
 | --- | --- |
@@ -50,7 +50,7 @@ The operator's analysis will stop the communication thread and release the netwo
 | Return value | None. Commands accepted by robots need to read feedback confirmation |
 | Notes | `CMD_SDK_CONTROL_RIGHT` For application of SDK control; jumps, forward jumps, back flips, etc. require entry into laboratory mode and confirmation of current type support |
 
-### Common commands
+### Common Commands
 
 | Command | Role |
 | --- | --- |
@@ -64,7 +64,7 @@ The operator's analysis will stop the communication thread and release the netwo
 | `CMD_REMOTE_CONTROL_RIGHT` | Request for remote control |
 | `CMD_GENERAL_SDK_CONTROL_RIGHT` | Request for general use SDK Right of control |
 
-### Control and application
+### Control and Application
 
 | Control order | Meaning of control | Apply scene |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ The operator's analysis will stop the communication thread and release the netwo
 
 After requesting control, use `GetFunctionMode()` to verify the transition. The communication `Role` and control ownership are separate.
 
-### CmdCode related definitions
+### CmdCode Related Definitions
 
 | Enumeration values | Hexadecimal | Description |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ After requesting control, use `GetFunctionMode()` to verify the transition. The 
 > Note: Jumping, front jumps, back flips, greeting, standing on both legs, unloading and crouching require a first call `CMD_ENTER_LAB_MODE` to enter laboratory mode.
 > The footer type (`MODEL_XGW` / `MODEL_XGWHSPD`) does not use jumps, forward jumps, greetings, rear flips, standing legs.
 
-## Set continuous movement input
+## Set Continuous Movement Input
 
 | Field | Contents |
 | --- | --- |
@@ -119,7 +119,7 @@ After requesting control, use `GetFunctionMode()` to verify the transition. The 
 | Return value | None |
 | Notes | The swing pole is definitely more than 1 It's automatically integrated. `[-1, 1]`. Send all when you stop moving 0 Rolling pole value |
 
-A companion keyboard example continues to be received `w`,  `s`,  `a`,  `d`,  `q`,  `e` orientation input;continuing 200 ms when these keys are not detected, the example will judge that all should be stopped and sent 0 Click the value. Press it. `c` I'll send them all right away. 0 The swing bar value, but not the only way to stop moving. This rule is the keyboard input processing logic of the illustrative program; when self-developing the program, the time-to-zero mechanism still needs to be pursued proactively.
+The keyboard example reads direction input from `w`, `s`, `a`, `d`, `q`, and `e`. After 200 ms without any of these inputs, it sends zero for every joystick axis. Pressing `c` also sends all-zero joystick input immediately. This timeout belongs to the keyboard example. Implement your own timeout that resets motion inputs to zero when writing a separate application.
 
 Example:
 
@@ -161,7 +161,7 @@ int main()
 }
 ```
 
-## Recommended call order
+## Recommended Call Order
 
 1. Create `ZsibotExecutor`.
 2. Wait for `IsConnected()` to return `true`.
@@ -171,7 +171,7 @@ int main()
 6. Keep checking the connection state and fault reports during operation.
 7. Stop motion, send `CMD_REMOTE_CONTROL_RIGHT`, and confirm `GetFunctionMode() == FunctionMode::FM_REMOTE` before destroying the executor.
 
-## Safety precautions
+## Safety Precautions
 
 - `SetCmd()` returns before the action result is available. Check robot feedback to verify that the action completed.
 - Check control ownership separately from `IsConnected()`.

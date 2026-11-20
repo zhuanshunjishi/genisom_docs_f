@@ -1,8 +1,8 @@
-# M1 callbacks, data types, and status reference
+# Genisom M1 Callbacks, Data Types, and Status Reference
 
 [Return Document Overview](../index.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK Interface reference](./06-sdk-api-reference.md) | [Example program and failure check](./08-examples-and-troubleshooting.md)
 
-## Callback model
+## Callback Model
 
 M1 SDK Use two types of echo:
 
@@ -13,7 +13,7 @@ M1 SDK Use two types of echo:
 
 See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#three-levels-of-call-results) for the relationship between the sending result, the command response and the action status.
 
-## Callback threading rules
+## Callback Threading Rules
 
 The revert function runs in the SDK I/O line. In the echo, only quick data copying, validation, status update and message queues are performed:
 
@@ -58,7 +58,7 @@ public:
 | `OnDockScanResult` | Reporting charges during the scan. | `DockScanResult` |
 | `OnDockConnectionResult` | Report the final results of the recharge pillar connection or disconnect | `DockConnectionResult` |
 
-### Control ownership events {#control-ownership-events}
+### Control Ownership Events {#control-ownership-events}
 
 | Rewind | Meaning | Treatment of recommendations |
 | --- | --- | --- |
@@ -119,7 +119,7 @@ public:
 };
 ```
 
-### Acknowledgment callback categories
+### Acknowledgment Callback Categories
 
 | Classification | Rewind | Description |
 | --- | --- | --- |
@@ -164,7 +164,7 @@ struct DeviceInfo {
 
 `device_type` A handshake from a connection, `sn` is the robot's serial number. The type may be `UNKNOWN` before the connection is successful or after it is disconnected, and the serial number may be empty.
 
-## Sensor data structure
+## Sensor Data Structure
 
 ### ImuData
 
@@ -295,7 +295,7 @@ struct Speed {
 };
 ```
 
-## Battery data
+## Battery Data
 
 Get by `OnRobotStateData()` `RobotState::battery`.
 
@@ -319,10 +319,10 @@ At the end of the field, `1` and `2` means batteries 1 and batteries 2, respecti
 | --- | ---: | --- |
 | `UNKNOWN` | 0 | Unknown |
 | `CHARGING` | 1 | Charging |
-| `DISCHARGING` | 2 | It's on the air. |
-| `FULL` | 4 | Filled |
+| `DISCHARGING` | 2 | Discharging |
+| `FULL` | 4 | Fully charged |
 
-## Fault data
+## Fault Data
 
 Fetches the list of current malfunctions by `OnFaultData()`.
 
@@ -378,7 +378,7 @@ The code-by-code values for the card diagnosis, the protocol name and the defaul
 | `Error` | 2 | Error |
 | `Warn` | 3 | Warning |
 
-## Key state enums
+## Key State Enums
 
 ### MotionStatus
 
@@ -424,7 +424,7 @@ The code-by-code values for the card diagnosis, the protocol name and the defaul
 | `LOCAL_REMOTE` | 17 | Local remote control |
 | `LOW_LEVEL` | 18 | Low-level control |
 
-### Other state enums
+### Other State Enums
 
 | Type | Enumeration values | Integer Value | Meaning |
 | --- | --- | ---: | --- |
@@ -446,7 +446,7 @@ The code-by-code values for the card diagnosis, the protocol name and the defaul
 | `CtrlSource` | `CTRL_SOURCE_SDK` | 2 | SDK Control |
 | `CtrlSource` | `CTRL_SOURCE_OTHER` | 3 | Control of other sources |
 
-## Task state {#task-state}
+## Task State {#task-state}
 
 ```cpp
 struct TaskStateInfo {
@@ -464,7 +464,7 @@ struct TaskStateInfo {
 | `phase` | Optional sub-phase of task, possibly empty |
 | `error_code` | `0` for success, not `0` for failure |
 
-The refilling phase consists of `recharge_preparing` (preparation), `recharge_docking` (targeting and entry), `recharge_charging` (charging) and `recharge_completed` (filling the post). The separation phase consists of `undock_preparing` (preparation), `undock_undocking` (depositioning) and `undock_completed` (deposition completion). The application can be used `phase` to demonstrate progress and to judge the outcome of the mission by `task_status`.
+Recharge progresses through `recharge_preparing` (preparing), `recharge_docking` (aligning and docking), `recharge_charging` (charging), and `recharge_completed` (fully charged and still docked). Undocking progresses through `undock_preparing` (preparing), `undock_undocking` (undocking), and `undock_completed` (undocked). Use `phase` to show progress and `task_status` to determine the task outcome.
 
 | Type | Enumeration values | Integer Value |
 | --- | --- | ---: |
@@ -485,59 +485,59 @@ The refilling phase consists of `recharge_preparing` (preparation), `recharge_do
 
 Changes in mission status are reported through `OnTaskStateData()`. See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks) for a status determination process between charge and the offline task.
 
-### Docking and undocking error codes {#docking-and-undocking-error-codes}
+### Docking and Undocking Error Codes {#docking-and-undocking-error-codes}
 
-At the time of receipt `task_status == TaskStatus::FAILURE`, search `TaskStateInfo::error_code` by `task_type`. The number range for refilling (`RECHARGING`) is `0x11000` ~ `0x11FFF` and the offpost (`UNDOCK`) is `0x16000` ~ `0x16FFF`. The original number values are maintained during the check-up and the failure phase `phase` is recorded (if any). The interface is called back `std::error_code` see [SDK Interface reference](./06-sdk-api-reference.md#common-parameters-and-return-values).
+When `task_status == TaskStatus::FAILURE`, look up `TaskStateInfo::error_code` for the reported `task_type`. Recharge (`RECHARGING`) codes range from `0x11000` to `0x11FFF`. Undock (`UNDOCK`) codes range from `0x16000` to `0x16FFF`. Preserve the original code and record `phase` if present. See the [SDK API reference](./06-sdk-api-reference.md#common-parameters-and-return-values) for the `std::error_code` returned by API calls.
 
-| Backfill Error Code | Enumeration | Meaning |
+| Recharge Error Code | Enum | Meaning |
 | --- | --- | --- |
-| `0x11000` | `ARC_UNKNOWN` | Unknown refill abnormal |
-| `0x11001` | `ARC_CALIBRATION_FILE_INVALID` | Invalid camera tag file |
-| `0x11002` | `ARC_LOCALIZATION_CHECK_FAILED` | The sensor module was not checked |
-| `0x11003` | `ARC_NAV_ALIGNMENT_CHECK_FAILED` | The calibration module was not checked |
-| `0x11004` | `ARC_DOCK_START_TASK_FAILED` | Retention code. Current process is not reported. |
-| `0x11005` | `ARC_STAND_UP_FAILED` | The robot couldn't get up. |
-| `0x11006` | `ARC_LOCALIZATION_START_FAILED` | Could not start sensor module |
-| `0x11007` | `ARC_NAV_ALIGNMENT_START_FAILED` | Could not start target mission |
-| `0x11008` | `ARC_NAV_ALIGNMENT_FAILED` | Targeting failed during entry. |
-| `0x11009` | `ARC_DOCK_CONTACT_FAILED` | Failure to confirm contact with charging stakes |
-| `0x1100A` | `ARC_DOCK_CHARGING_START_FAILED` | The charger didn't start charging. |
-| `0x1100B` | `ARC_CHARGING_STATE_LOST` | Unable to continue charging state |
-| `0x1100C` | `ARC_CHARGING_DOCK_FAULT` | Pyramid failure during charge. |
-| `0x1100D` | `ARC_CHARGING_STATE_INVALID` | Unusual charge status received. |
-| `0x1100E` | `ARC_CHARGING_BATTERY_STATE_LOST` | Unable to continue receiving battery state |
-| `0x1100F` | `ARC_DOCK_COMMAND_ACK_FAILED` | The charge-post response failed. |
-| `0x11010` | `ARC_LOCALIZATION_RUNTIME_IMAGE_INVALID` | Invalid images received during sensory period |
-| `0x11011` | `ARC_LOCALIZATION_RUNTIME_TARGET_TAG_TIMEOUT` | Waiting for target AprilTag timeout |
-| `0x11012` | `ARC_LOCALIZATION_RUNTIME_TAG_POSE_FAILED` | Cannot calculate AprilTag position |
-| `0x11013` | `ARC_LOCALIZATION_RUNTIME_DOCK_POSE_FAILED` | Unable to calculate charge pillar position |
+| `0x11000` | `ARC_UNKNOWN` | Unknown recharge error |
+| `0x11001` | `ARC_CALIBRATION_FILE_INVALID` | Invalid camera calibration file |
+| `0x11002` | `ARC_LOCALIZATION_CHECK_FAILED` | The perception module failed its check |
+| `0x11003` | `ARC_NAV_ALIGNMENT_CHECK_FAILED` | The alignment module failed its check |
+| `0x11004` | `ARC_DOCK_START_TASK_FAILED` | Reserved code. The current workflow does not report it |
+| `0x11005` | `ARC_STAND_UP_FAILED` | The robot failed to stand up |
+| `0x11006` | `ARC_LOCALIZATION_START_FAILED` | Could not start the perception module |
+| `0x11007` | `ARC_NAV_ALIGNMENT_START_FAILED` | Could not start the alignment task |
+| `0x11008` | `ARC_NAV_ALIGNMENT_FAILED` | Alignment failed while docking |
+| `0x11009` | `ARC_DOCK_CONTACT_FAILED` | Could not confirm contact with the charging dock |
+| `0x1100A` | `ARC_DOCK_CHARGING_START_FAILED` | The charging dock failed to start charging |
+| `0x1100B` | `ARC_CHARGING_STATE_LOST` | Stopped receiving charging status |
+| `0x1100C` | `ARC_CHARGING_DOCK_FAULT` | The dock reported a fault during charging |
+| `0x1100D` | `ARC_CHARGING_STATE_INVALID` | Received invalid charging status |
+| `0x1100E` | `ARC_CHARGING_BATTERY_STATE_LOST` | Stopped receiving battery status |
+| `0x1100F` | `ARC_DOCK_COMMAND_ACK_FAILED` | Charging dock command acknowledgment failed |
+| `0x11010` | `ARC_LOCALIZATION_RUNTIME_IMAGE_INVALID` | Received an invalid image during perception |
+| `0x11011` | `ARC_LOCALIZATION_RUNTIME_TARGET_TAG_TIMEOUT` | Timed out waiting for the target AprilTag |
+| `0x11012` | `ARC_LOCALIZATION_RUNTIME_TAG_POSE_FAILED` | Could not calculate the AprilTag pose |
+| `0x11013` | `ARC_LOCALIZATION_RUNTIME_DOCK_POSE_FAILED` | Could not calculate the charging dock pose |
 | `0x11014` | `ARC_LOCALIZATION_RUNTIME_UNKNOWN` | Unknown error during perception |
-| `0x11015` | `ARC_LOCALIZATION_RUNTIME_DUPLICATE_TARGET_TAG` | Repeated target detected AprilTag |
-| `0x11016` | `ARC_NAV_ALIGNMENT_STOP_FAILED` | Failure to stop targeting while retrying contact |
+| `0x11015` | `ARC_LOCALIZATION_RUNTIME_DUPLICATE_TARGET_TAG` | Detected a duplicate target AprilTag |
+| `0x11016` | `ARC_NAV_ALIGNMENT_STOP_FAILED` | Could not stop alignment while retrying contact |
 
-| Error code from stake | Enumeration | Meaning |
+| Undocking Error Code | Enum | Meaning |
 | --- | --- | --- |
-| `0x16000` | `UNDOCK_UNKNOWN` | Unknown offpost abnormal. |
-| `0x16001` | `UNDOCK_STAND_UP_FAILED` | I couldn't get up before I got off the stake. |
-| `0x16002` | `UNDOCK_STOP_CHARGING_FAILED` | Cannot stop charging. |
-| `0x16003` | `UNDOCK_LOCALIZATION_START_FAILED` | I can't start the detached sense. |
-| `0x16004` | `UNDOCK_NAV_ALIGNMENT_START_FAILED` | I can't start the off-site mission. |
-| `0x16005` | `UNDOCK_NAV_ALIGNMENT_FAILED` | We're not gonna make it out of here. |
-| `0x16006` | `UNDOCK_CALIBRATION_FILE_INVALID` | Invalid camera tag file |
-| `0x16007` | `UNDOCK_FILL_LIGHT_FAILED` | Cannot operate the patch. |
-| `0x16008` | `UNDOCK_LOCALIZATION_QR_NOT_DETECT` | No 2-D code detected |
-| `0x16009` | `UNDOCK_LOCALIZATION_CHECK_FAILED` | Sensation module not checked through communication |
-| `0x1600A` | `UNDOCK_NAV_ALIGNMENT_CHECK_FAILED` | The calibration module did not pass the communications check |
-| `0x1600B` | `UNDOCK_LOCALIZATION_RUNTIME_IMAGE_INVALID` | Invalid images were received during the off-post sensor. |
-| `0x1600C` | `UNDOCK_LOCALIZATION_RUNTIME_TAG_POSE_FAILED` | Cannot calculate AprilTag position |
-| `0x1600D` | `UNDOCK_LOCALIZATION_RUNTIME_DOCK_POSE_FAILED` | Unable to calculate charge pillar position |
-| `0x1600E` | `UNDOCK_LOCALIZATION_RUNTIME_UNKNOWN` | An unknown error occurred during the trip to the post. |
-| `0x1600F` | `UNDOCK_LOCALIZATION_RUNTIME_DUPLICATE_TARGET_TAG` | Repeated target detected AprilTag |
-| `0x16010` | `UNDOCK_DETECT_OBSTACLE_FAILED` | We've detected the barrier. We've failed to clear the post. |
+| `0x16000` | `UNDOCK_UNKNOWN` | Unknown undocking error |
+| `0x16001` | `UNDOCK_STAND_UP_FAILED` | The robot failed to stand up before undocking |
+| `0x16002` | `UNDOCK_STOP_CHARGING_FAILED` | Could not stop charging |
+| `0x16003` | `UNDOCK_LOCALIZATION_START_FAILED` | Could not start perception for undocking |
+| `0x16004` | `UNDOCK_NAV_ALIGNMENT_START_FAILED` | Could not start the undocking alignment task |
+| `0x16005` | `UNDOCK_NAV_ALIGNMENT_FAILED` | Alignment failed while undocking |
+| `0x16006` | `UNDOCK_CALIBRATION_FILE_INVALID` | Invalid camera calibration file |
+| `0x16007` | `UNDOCK_FILL_LIGHT_FAILED` | Could not operate the fill light |
+| `0x16008` | `UNDOCK_LOCALIZATION_QR_NOT_DETECT` | QR code not detected |
+| `0x16009` | `UNDOCK_LOCALIZATION_CHECK_FAILED` | The perception module failed its communication check |
+| `0x1600A` | `UNDOCK_NAV_ALIGNMENT_CHECK_FAILED` | The alignment module failed its communication check |
+| `0x1600B` | `UNDOCK_LOCALIZATION_RUNTIME_IMAGE_INVALID` | Received an invalid image during undocking perception |
+| `0x1600C` | `UNDOCK_LOCALIZATION_RUNTIME_TAG_POSE_FAILED` | Could not calculate the AprilTag pose |
+| `0x1600D` | `UNDOCK_LOCALIZATION_RUNTIME_DOCK_POSE_FAILED` | Could not calculate the charging dock pose |
+| `0x1600E` | `UNDOCK_LOCALIZATION_RUNTIME_UNKNOWN` | Unknown error during undocking perception |
+| `0x1600F` | `UNDOCK_LOCALIZATION_RUNTIME_DUPLICATE_TARGET_TAG` | Detected a duplicate target AprilTag |
+| `0x16010` | `UNDOCK_DETECT_OBSTACLE_FAILED` | Undocking failed because an obstacle was detected |
 
 See [GitHub Business Error Sheet](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_errorcode_zh.md).
 
-## Dock data {#dock-data}
+## Dock Data {#dock-data}
 
 | Type | Field | Use |
 | --- | --- | --- |
@@ -573,7 +573,7 @@ See [GitHub Business Error Sheet](https://github.com/zsibot/genisom_robot_sdk/bl
 
 `LedColor` It's... `r/g/b/a` It's all the way through. 0 to 255. `LedCommand` and `LedCommandAck` Organisation `id`,  `effect`,  `color`,  `duration_ms`;of which `duration_ms`, in ms, for the light cycle or scintillation interval.
 
-## Structure of command and response
+## Structure of Command and Response
 
 | Type | Main fields | Description |
 | --- | --- | --- |
@@ -582,7 +582,7 @@ See [GitHub Business Error Sheet](https://github.com/zsibot/genisom_robot_sdk/bl
 | `PosControlCmd` | `x/y/z`, `roll/pitch/yaw` | Position unit m, attitude angle unit Rad |
 | `LedAutoModeAck` | `auto_mode` | `true` for automatic mode, `false` for manual mode |
 
-## Structure of control response
+## Structure of Control Response
 
 ```cpp
 struct ControlLostInfo {};
@@ -601,7 +601,7 @@ struct ReleaseControlAck {
 
 `TakeControlAck::error_code == 0` indicates that the control application was successful. The complete control transition process is in [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism).
 
-## Callback registration example {#callback-registration-example}
+## Callback Registration Example {#callback-registration-example}
 
 ```cpp
 SDKClient client;

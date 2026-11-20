@@ -1,4 +1,4 @@
-# Hardware interfaces
+# Hardware Interfaces
 
 [Documentation overview](../index.md) | [System architecture](./03-system-architecture.md) | [SDK service interfaces](./06-sdk-service-interfaces.md)
 
@@ -10,7 +10,7 @@ See [system architecture](./03-system-architecture.md) and the [SDK service inte
 
 See [L1 dimensions and mounting](./03-system-architecture.md#dimensions) and [payload design and model downloads](./03-system-architecture.md#payload-model-downloads) for mechanical design information.
 
-## Expansion interfaces
+## Expansion Interfaces
 
 The expansion area on top of the robot provides Ethernet, USB, power, and serial interfaces for connecting a development computer, embedded computer, camera, sensor, or remote-control receiver.
 
@@ -25,13 +25,13 @@ The expansion area on top of the robot provides Ethernet, USB, power, and serial
 
 ![Locations of the expansion ports](../assets/images/expansion-ports.png)
 
-## Power interfaces
+## Power Interfaces
 
-### 12 V output
+### 12 V Output
 
 The 12 V connector supplies power to expansion computers, sensors, and communication equipment. Its total output power must stay at or below 36 W.
 
-### BAT 43.2 V output
+### BAT 43.2 V Output
 
 The BAT connector supplies a nominal 43.2 V. Its total output power must stay at or below 100 W.
 
@@ -43,7 +43,7 @@ The Gigabit RJ45 Ethernet port supports networking, remote monitoring, and data 
 
 The robot has two USB Type-A ports for peripherals.
 
-## Serial interfaces
+## Serial Interfaces
 
 ### SBUS
 

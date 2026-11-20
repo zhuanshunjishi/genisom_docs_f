@@ -1,4 +1,4 @@
-# Connection and device information
+# Connection and Device Information
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 
@@ -40,7 +40,7 @@ Starting with SDK v0.2.3, when the first connection fails because the transfer, 
 | `ip` | Robotic address, e.g. `192.168.234.1` or `192.168.168.168` |
 | `port` | UDP Usual `8082`,WebSocket `8081` |
 | `block` | `false`: walk-through; `true`: blocking pending completion of the connection |
-| `handler` | Repeat the result of the staggered connection |
+| `handler` | Callback for the asynchronous connection result |
 
 ```cpp
 SDKClient client;
@@ -114,12 +114,12 @@ if (!ec) {
 
 Before the connection is successful or after it is disconnected, `device_type` Maybe. `DeviceType::UNKNOWN`,  `sn` Could be empty.
 
-## M1 Type judgement
+## Genisom M1 Type Judgement
 
 SDK returns `DeviceType` on handshake. After startup, call `GetDeviceInfo()` and enable the function according to the return model. M1 The relevant numbering values are shown in [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md#deviceinfo-and-devicetype).
 
 When calling an operation the current model does not support, SDK returns `Errc::UnsupportedDeviceOperation`, and the protocol command will not be sent.
 
-Recharge, de-post, external power supply and state LED depends on the hardware and system configuration of the equipment. The full range of interface support is shown in [Official aircraft capacity matrix](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_api_capability_en.md).
+Recharging, undocking, peripheral power, and status LEDs depend on the robot hardware and system configuration. See the [official model capability matrix](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_api_capability_en.md) for API support by model.
 
 The complete combination of interfaces can be found in [M1 Example procedures and troubleshooting](./08-examples-and-troubleshooting.md).

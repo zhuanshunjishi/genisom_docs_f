@@ -1,4 +1,4 @@
-# Data reporting
+# Data Reporting
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 

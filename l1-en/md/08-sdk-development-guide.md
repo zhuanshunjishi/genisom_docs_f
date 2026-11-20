@@ -1,21 +1,21 @@
-# SDK development guide
+# SDK Development Guide
 
 [Back to Home](../index.md) | [Hardware, software and architecture](./03-system-architecture.md) | [SDK service interfaces](./06-sdk-service-interfaces.md)
 
-## Quick setup
+## Quick Setup
 
 The following steps are implemented in the Linux terminal. SDK Provides `x86_64` and `aarch64` two static reservoirs, and the processor structure for operating the environment must be consistent with the static reservoir used.
 
 Before you start, put the robot in a flat, open area to make sure you can stop moving at any time. When the robot goes on, the Linux device that runs SDK is connected to the robot network.
 
-### 1. Installation of compilation tools
+### 1. Installation of Compilation Tools
 
 ```bash
 sudo apt update
 sudo apt install -y build-essential cmake
 ```
 
-### 2. Enter SDK root directory
+### 2. Enter SDK Root Directory
 
 Replace the path with SDK actual position on Linux device:
 
@@ -27,7 +27,7 @@ ls CMakeLists.txt include/zsibot_sdk example lib
 
 Terminals should be visible `CMakeLists.txt`, as well as `include`, `example`, `lib` directories.
 
-### 3. Confirm processor structure
+### 3. Confirm Processor Structure
 
 ```bash
 uname -m
@@ -55,7 +55,7 @@ ls -l build/example/remote_control
 ls -l build/example/sdk_control
 ```
 
-### 5. Check the network connection to the robot
+### 5. Check the Network Connection to the Robot
 
 SDK Default connection robot IP `192.168.234.1`, send data to the robot `8081/UDP` port and receive the data at its own `8080/UDP` port.
 
@@ -85,7 +85,7 @@ The Demo uses `ROLE_REMOTE` identity. After the program starts, you can use the 
 | `1` | Get down! |
 | `0` | Squeeze and get down. |
 
-First test recommended by `i` View the state, and then test in turn, stand, move at short distances in a single direction, stop and lie down. Press immediately after each direction test. `c`, do not test motion buttons when people are near robots.
+For the first test, press `i` to check the robot state. Test standing, a short move in one direction, stopping, and lying down in that order. Press `c` immediately after each direction test. Keep people clear of the robot when testing motion keys.
 
 ### 7. Run SDK Demo
 
@@ -106,7 +106,7 @@ Press `Ctrl+C` to close `remote_control` and then execute:
 
 `ZsibotExecutor(Role::ROLE_SDK)` Creates a communications identity only, which does not mean that the program has achieved control of movement.
 
-### 8. Restore terminal
+### 8. Restore Terminal
 
 Two Demos close the terminal's specifications and character echoes. After exit, if the terminal does not show input content, execute:
 
@@ -115,7 +115,7 @@ stty sane
 reset
 ```
 
-## Development of routes
+## Development of Routes
 
 | Development objectives | Use interface | Run Location | Suggested starting point |
 | --- | --- | --- | --- |
@@ -174,7 +174,7 @@ Two examples of full operating steps, key description and control switch process
 
 Both examples use non-obstructed terminal input, sending continuous motion through `SetRemote()`, sending discrete orders through `SetCmd()`. The definition of control is in [Hardware, software and architecture](./03-system-architecture.md), the order and status confirmation is in [Control command interface](./06-01-control-commands.md). Demo is used to validate interfaces, and formal applications still need to achieve connection checks, control confirmation, stopovers and abnormal exit protection.
 
-## Create your own HighLevel project
+## Create Your Own HighLevel Project
 
 The program entry, connection waiting and status reading is an example of the smallest process in [SDK service interfaces](./06-sdk-service-interfaces.md). Custom projects can be used through the following CMake configuration reference SDK.
 
@@ -212,9 +212,9 @@ cmake ..
 cmake --build .
 ```
 
-## Debugging and troubleshooting
+## Debugging and Troubleshooting
 
-### Common problems
+### Common Problems
 
 | The phenomenon | Check Contents | Processing |
 | --- | --- | --- |

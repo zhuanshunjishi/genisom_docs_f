@@ -1,14 +1,14 @@
-# Heartbeat interface
+# Heartbeat Interface
 
 [SDK service interfaces](./06-sdk-service-interfaces.md) | [Control command interface](./06-01-control-commands.md)
 
-## Interface description
+## Interface Description
 
 The heartbeat interface checks whether the SDK can still communicate with the robot. The SDK maintains the heartbeat on an internal thread. The application does not need to bind a separate port.
 
 The SDK sends UDP heartbeats on port `8081` and receives robot state on port `8080`. Applications check the connection with `IsConnected()`.
 
-## Communication parameters
+## Communication Parameters
 
 | Parameter | Default |
 | --- | --- |
@@ -19,7 +19,7 @@ The SDK sends UDP heartbeats on port `8081` and receives robot state on port `80
 | Connection timeout | The connection is invalid if the SDK heartbeat timer exceeds 5 s or no robot data has arrived |
 | Transport | UDP |
 
-## How it works
+## How It Works
 
 When you create a `ZsibotExecutor`, the SDK starts the send, receive, and heartbeat threads.
 
@@ -30,7 +30,7 @@ When you create a `ZsibotExecutor`, the SDK starts the send, receive, and heartb
 
 Let the SDK send heartbeats. Avoid creating a separate heartbeat thread for the same port.
 
-## Check the connection state
+## Check the Connection State
 
 | Field | Contents |
 | --- | --- |
@@ -41,7 +41,7 @@ Let the SDK send heartbeats. Avoid creating a separate heartbeat thread for the 
 | Return value | `true` means the SDK has received robot data and the heartbeat timer has not exceeded 5 s. `false` means the connection has not been established or has timed out. |
 | Notes | Confirm motion control ownership separately before sending motion commands |
 
-## Connection criteria
+## Connection Criteria
 
 | Conditions | Description |
 | --- | --- |
@@ -59,7 +59,7 @@ while (!robot.IsConnected()) {
 }
 ```
 
-## Handling a disconnect
+## Handling a Disconnect
 
 If communication drops or `IsConnected()` returns `false`, take these steps.
 
@@ -68,7 +68,7 @@ If communication drops or `IsConnected()` returns `false`, take these steps.
 3. Wait for reconnection or enter the application's safe state.
 4. After reconnecting, verify the model, control mode, fault state, and control ownership again.
 
-## Connection state and control ownership
+## Connection State and Control Ownership
 
 Check network reachability, SDK connection state, and motion control ownership separately.
 
@@ -81,7 +81,7 @@ Check network reachability, SDK connection state, and motion control ownership s
 
 Verify control ownership and site safety before sending high-risk motion commands. During on-site testing, keep the controller's software emergency stop or damping switch available.
 
-## Implementation notes
+## Implementation Notes
 
 - Leave the UDP ports used by the SDK bound to the SDK.
 - Use `ping` to check IP reachability and `IsConnected()` to verify that the SDK has received valid state data.

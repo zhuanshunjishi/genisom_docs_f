@@ -1,8 +1,8 @@
-# Robot control
+# Robot Control
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 
-## Control ownership {#control-ownership}
+## Control Ownership {#control-ownership}
 
 ### TakeControl
 
@@ -26,7 +26,7 @@ Active release of control. A call is recommended when the program exits or no lo
 
 For the process of application, taking over and restoration of control, see [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism).
 
-## Security control
+## Security Control
 
 ### SoftEmergencyStop
 
@@ -36,11 +36,11 @@ std::error_code SoftEmergencyStop(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`on == true` triggers the stop, `on == false` cancels the stop. The stop is not subject to ordinary control, but cannot be a substitute for a physical emergency stop.
+Set `on == true` to trigger the software emergency stop or `on == false` to clear it. The software emergency stop is available regardless of control ownership. Use the robot’s physical emergency stop when needed.
 
 Answers are returned by `IControlCallback::OnSoftEmergencyStop(bool on)` and the status is also read from `RobotState::software_emergency_status`.
 
-## Posture control
+## Posture Control
 
 The following interfaces are only public parameters `timeout_ms` and `handler`:
 
@@ -68,7 +68,7 @@ After standing, `RobotState::motion_status` usually becomes `MOTION_STATUS_WALK`
 
 `Walk()` provided from v0.2.3. Upon receipt `IControlCallback::OnWalk()`, confirm by `RobotState::motion_status` whether the posture has been switched to `MOTION_STATUS_WALK`.
 
-## Movement control
+## Movement Control
 
 ### Move
 

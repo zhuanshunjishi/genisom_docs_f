@@ -14,7 +14,7 @@ export function englishConfig(chineseConfig, product, description, labels) {
   return {
     ...chineseConfig,
     lang: 'en',
-    title: `GenisomAI ${product.toUpperCase()} SDK Documentation`,
+    title: `Genisom ${product.toUpperCase()} SDK Documentation`,
     description,
     base: docsBase(`${product}-en`),
     themeConfig: {

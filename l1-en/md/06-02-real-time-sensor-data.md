@@ -1,14 +1,14 @@
-# Real-time sensor data interface
+# Real-Time Sensor Data Interface
 
 [Return to Software Service Interface](./06-sdk-service-interfaces.md) | [Control command interface](./06-01-control-commands.md)
 
-## Interface description
+## Interface Description
 
 The sensor's real-time reporting interface is used to receive the robotic inherently state, corresponding to the "sensor's real-time reporting port" in the red box. UDP Receiving Port `8080` Align SDK It's a state report. SDK The last data is deciphered and cached during the receiving thread, and the application reads the cache through a query function.
 
 Check your state before reading it. `IsConnected()`. The status-reading function does not usually initiate new network requests on its own initiative, and data are up to date depending on the robot reporting cycle and application reading time.
 
-## Communications parameters
+## Communications Parameters
 
 | Parameter | Default |
 | --- | --- |
@@ -17,7 +17,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | Transfer protocol | UDP |
 | Message Format | JSON |
 
-## Type of reporting message
+## Type of Reporting Message
 
 | Message Type | Corresponding | Common SDK functions |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `leg_joint_info` | 4 Angle, angular velocity and force rectangles of legs | `GetLeg*Joint()`, `GetLeg*JointVel()`, `GetLeg*JointTorque()` |
 | `dev_info` | Battery voltage, current, temperature, electricity and error codes | `GetBatteryInfo()` |
 
-## Access to basic information
+## Access to Basic Information
 
 | Functions | Function Prototype | Return Contents |
 | --- | --- | --- |
@@ -40,9 +40,9 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `GetDevName` | `std::string GetDevName() const` | Device Name |
 | `GetWifiSsid` | `std::string GetWifiSsid() const` | Current WiFi SSID |
 | `GetVersion` | `VersionInfo GetVersion() const` | Transport and Task Versions |
-| `GetModel` | `Model GetModel() const` | Current aircraft type count |
+| `GetModel` | `Model GetModel() const` | Enum value for the current robot model |
 
-### Relevant data type
+### Relevant Data Type
 
 #### VersionInfo
 
@@ -59,7 +59,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `MODEL_XGW` | `1` | Puppets turn their feet. |
 | `MODEL_XGWHSPD` | `2` | The dog's high-speed. |
 
-## Retrieving speed and mode
+## Retrieving Speed and Mode
 
 | Functions | Function Prototype | Return Contents |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `GetMotionMode` | `MotionMode GetMotionMode() const` | Whether to perform, rest or prohibit stunting |
 | `GetMotionType` | `MotionType GetMotionType() const` | Current stunt action type |
 
-### Relevant data type
+### Relevant Data Type
 
 #### SpeedInfo
 
@@ -136,7 +136,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `MT_UNKNOWN` | `7` | Unknown (no stunting) |
 | `MT_UNLOADING_SQUAT` | `8` | Unload the cargo and get down. |
 
-## Accessing IMU and attitude data
+## Accessing IMU and Attitude Data
 
 | Functions | Type and content of return |
 | --- | --- |
@@ -145,7 +145,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `GetBodyAcc()` | `std::array<float32_t, 3>`, acceleration in the robot body frame, in m/s² |
 | `GetBodyGyro()` | `std::array<float32_t, 3>`, angular velocity of the body coordinates, units rad/s |
 
-## Retrieving mileage data
+## Retrieving Mileage Data
 
 | Functions | Type and content of return |
 | --- | --- |
@@ -153,7 +153,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `GetWorldVelocity()` | `std::array<float32_t, 3>`, velocity of the world coordinates, units m/s |
 | `GetBodyVelocity()` | `std::array<float32_t, 3>`, velocity of body coordinates, units m/s |
 
-## Access to electrical and joint data
+## Access to Electrical and Joint Data
 
 | Data | Functions |
 | --- | --- |
@@ -192,7 +192,7 @@ The joint name of each leg is `abad`, `hip`, `knee`, `foot`. The angle is rad, t
 | `temp` | `float32_t` | Temperature (°C) |
 | `volt` | `float32_t` | & Voltage |
 
-## Use of caution
+## Use of Caution
 
 - Status data are the most recently reported caches and do not guarantee that each call triggers a new network reception.
 - When using attitude, velocity and joint data to participate in control, the state of connection, data time and data should be checked for reasonable range.

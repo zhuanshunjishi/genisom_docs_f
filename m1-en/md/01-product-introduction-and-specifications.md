@@ -1,10 +1,10 @@
-# M1 product introduction and specifications
+# Genisom M1 Product Introduction and Specifications
 
 [Return Document Overview](../index.md) | [Use and maintenance of equipment](./02-operation-and-maintenance.md) | [System composition, hardware interfaces and structural design information](./03-system-components-and-hardware-interfaces.md)
 
 ## Product Overview
 
-GenisomAI M1 It's a four-foot replicat robot with self-heavy, load-sized, long, protective, motor-flexible and stable features; robots are equipped with each leg. 3 A joint power and... 1 Electrophones with laser radars, optical cameras, ultrasound radars, IMU,  RTK The interior is equipped with high-calculation master control platforms for motor control, autonomous navigational positioning, environmental detection, etc., which provide a rich electrical and communications interface and support multi-product task load expansion.
+Genisom M1 is a biomimetic Wheeled-Legged Robot with low weight, high payload capacity, long runtime, strong protection, and agile, stable movement. Each leg has 3 joint motors and 1 hub motor. The robot has LiDAR, optical cameras, ultrasonic sensors, an IMU, an RTK module, and fill lights. Its onboard compute platform supports motion control, autonomous navigation and localization, and environmental inspection. Power and communication interfaces support a range of task payloads.
 
 ![M1 Exterior dimensions](../assets/product/m1-dimensions.png)
 
@@ -17,10 +17,10 @@ When the loading design is carried out, the layout space can be checked against 
     <tr style="background-color: #f2f4f7; text-align: center;">
       <th> Classification </th>
       <th> Parameters </th>
-      <th> GenisomAI M1 </th>
-      <th> GenisomAI M1 (Roamer X Pro edition) </th>
-      <th> GenisomAI M1  Pro</th>
-      <th> GenisomAI M1  Ultra</th>
+      <th> Genisom M1 </th>
+      <th> Genisom M1 (RoamerX Pro edition) </th>
+      <th> Genisom M1 Pro</th>
+      <th> Genisom M1 Ultra</th>
     </tr>
   </thead>
   <tbody>

@@ -1,10 +1,10 @@
-# Product specifications
+# Product Specifications
 
 [Back to Home](../index.md) | [Accessories](./02-accessories.md) | [Hardware, software and architecture](./03-system-architecture.md)
 
 
 
-## L1 Series longitudinal specifications comparison
+## Genisom L1 Series Specifications
 
 
 
@@ -39,12 +39,12 @@
         <br><strong>L1-W EDU</strong>
       </th>
       <th style="text-align:center;vertical-align:bottom;">
-        <a href="../assets/images/products/l1-edu.jpeg"> <img src="../assets/images/products/l1-edu.jpeg" alt="L1 EDU Roamer X Pro version" style="width:110px;height:90px;object-fit:contain;"> </a>
-        <br> <strong> L1 EDU <br> Roamer X Pro Edition </strong>
+        <a href="../assets/images/products/l1-edu.jpeg"> <img src="../assets/images/products/l1-edu.jpeg" alt="L1 EDU RoamerX Pro edition" style="width:110px;height:90px;object-fit:contain;"> </a>
+        <br> <strong> L1 EDU <br> RoamerX Pro edition </strong>
       </th>
       <th style="text-align:center;vertical-align:bottom;">
-        <a href="../assets/images/products/l1-w-edu.jpeg"> <img src="../assets/images/products/l1-w-edu.jpeg" alt="L1-W EDU Roamer X Pro version" style="width:110px;height:90px;object-fit:contain;"> </a>
-        <br> <strong> L1-W EDU <br> Roamer X Pro Edition </strong>
+        <a href="../assets/images/products/l1-w-edu.jpeg"> <img src="../assets/images/products/l1-w-edu.jpeg" alt="L1-W EDU RoamerX Pro edition" style="width:110px;height:90px;object-fit:contain;"> </a>
+        <br> <strong> L1-W EDU <br> RoamerX Pro edition </strong>
       </th>
     </tr>
   </thead>
@@ -76,8 +76,8 @@
       <td> Round four. </td>
       <td> Four-foot + EDU Load </td>
       <td> Round four + EDU Load </td>
-      <td> Four-foot + EDU Load + Roamer X Pro </td>
-      <td> Rounded four feet + EDU Load + Roamer X Pro </td>
+      <td> Four-foot + EDU Load + RoamerX Pro </td>
+      <td> Rounded four feet + EDU Load + RoamerX Pro </td>
     </tr>
     <tr>
       <th class="specification-label"> Full-body freedom </th>
@@ -335,7 +335,7 @@
       <td> Support </td>
     </tr>
     <tr>
-      <th class="specification-label"> SDK Type of aircraft </th>
+      <th class="specification-label">SDK Model</th>
       <td><code>MODEL_XG</code></td>
       <td><code>MODEL_XGW</code></td>
       <td><code>MODEL_XG</code></td>
@@ -349,8 +349,8 @@
       <td> Not included </td>
       <td> Gift <a href="https://github.com/zsibot/genisom_roamerx_open"> Open </a> <br> GitHub Download </td>
       <td> Gift <a href="https://github.com/zsibot/genisom_roamerx_open"> Open </a> <br> GitHub Download </td>
-      <td> Roamer X Pro included </td>
-      <td> Roamer X Pro included </td>
+      <td> RoamerX Pro included </td>
+      <td> RoamerX Pro included </td>
     </tr>
     <tr>
       <th class="specification-label"> Charts, positioning, navigation </th>
@@ -374,24 +374,24 @@
 </table>
 </div>
 
-## Dimensions, loads and model information
+## Dimensions, Loads and Model Information
 
 For loading or structural design, see [ L1 Size and installation reference](./03-system-architecture.md#dimensions), and [Load Design Reference PDF and Appearance STP Model Download](./03-system-architecture.md#payload-model-downloads).
 
-## Choosing an L1 model
+## Choosing a Genisom L1 Model
 
-- Priority is given to step, balance, joint control or universal quadrilateral development L1.
-- The focus is on rotational movement, low noise, long continuous miles and rotational foot control, with the choice L1-W.
-- Option EDU when laser radar, depth camera, Orin NX, GNSS/RTK, 5 G or ROS navigation development environment is required.
-- Select the Roamer X Pro version if you want to gain direct access to graphics, positioning, navigation, planning, shielding and recharging software.
-- EDU Loads will take up their own payloads and increase their utility. The parameters of the nud machine cannot be directly reproduced when calculating the available payloads and renewing the voyage.
-- Roamer X Pro contains a "backfill" capability for software, with actual automatic refills requiring charging stakes, body electrodes and properly configured map positioning environments, as detailed in [Accessories](./02-accessories.md#charging-dock).
+- Choose Genisom L1 for foot placement, balance, joint control, or general quadruped development.
+- Choose Genisom L1-W for wheeled mobility, low noise, longer range, or wheeled-legged control.
+- Choose EDU if you need LiDAR, a depth camera, Orin NX, GNSS/RTK, 5G, or a ROS navigation development environment.
+- Choose the RoamerX Pro edition for mapping, localization, navigation, planning, obstacle avoidance, and return-to-dock software.
+- The EDU payload uses some of the robot’s payload capacity and increases power consumption. Account for both when estimating available payload and runtime.
+- RoamerX Pro provides return-to-dock software. Automatic charging also requires a charging dock, charging contacts on the robot, and a properly configured map and localization setup. See [Accessories](./02-accessories.md#charging-dock).
 
 <a id="developer-differences"></a>
 
-## Model differences for SDK developers
+## Model Differences for SDK Developers
 
-### Identify the model in the SDK
+### Identify the Model in the SDK
 
 Use the L1 SDK <code>Model</code> enum to distinguish point-foot and wheeled models.
 
@@ -431,19 +431,19 @@ if (model == zsibot::Model::MODEL_XG) {
 }
 ```
 
-Automatic recognition only tells the program's current type, which does not mean that all actions can be executed directly. Applications also need to be combined with solid version, current mode of movement, on-site space and security to disable non-applicable actions.
+Model detection identifies the robot. Before enabling a motion, also check its firmware version, current motion mode, available space, and on-site safety conditions.
 
-### Functions and security boundaries
+### Functions and Security Boundaries
 
-L1 and L1-W All support basic actions such as standing, crumbling, blocking, bowing, high and low and turning horizontally. L1 Supporting stunts such as jumping forward, jumping upwards, standing on both legs, back flipping and greeting; L1-W For a rotational structure, the above-mentioned dots are not included.
+Genisom L1 and Genisom L1-W support standing, lying down, damping, pitching the body, adjusting body height, and turning in place. Genisom L1 also supports forward jumps, vertical jumps, standing on two legs, backflips, and greeting gestures. The wheeled-legged Genisom L1-W does not support these point-foot stunts.
 
-The development and demonstration should take place in an empty, smooth, uninhabited area, and prepare in advance for a stop or switch-over of means to block the pattern. The installation of EDU has changed the weight, load, and inertia, and the security of the operation has to be re-verified.
+Stunts significantly increase joint loads. Test and demonstrate them in an open, non-slip area with nobody near the robot. Have an emergency stop or a way to switch to damping mode ready. Recheck motion safety after installing the EDU payload, which changes the center of gravity, load, and inertia.
 
 ## Standard Packaging & Selection
 ![List of product containers](../assets/images/product-kit.png)
-Standard packaging includes robotics, batteries, chargers, power adaptors and power lines, remote controls, instructions, transport boxes and toolkits. 4 The contents of the boxes will vary depending on the configuration and the contract.
+The standard package includes the robot, battery, charging cradle, power adapter and cord, remote controller, manual, transport case, and tool kit. Point-foot models also include 4 non-slip foot pads. Wheeled-legged models do not include these pads. Verify the contents against the packing list, as the configuration and contract may affect what ships.
 
-For details of charging stakes, long-range diagrams, extra batteries, aviation boxes, different remote controls, and the Roamer X Pro software, see [Accessories](./02-accessories.md).
+See [Accessories](./02-accessories.md) for the charging dock, long-range video transmission kit, optional batteries, flight case, remote controllers, and RoamerX Pro software.
 
 ## Parameter Description
 

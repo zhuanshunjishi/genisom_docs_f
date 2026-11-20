@@ -1,8 +1,8 @@
-# M1 SDK control flow and task handling
+# Genisom M1 SDK Control Flow and Task Handling
 
 [Documentation overview](../index.md) | [M1 SDK quickstart](./04-sdk-quickstart.md) | [SDK API reference](./06-sdk-api-reference.md) | [Callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md)
 
-## Application workflow
+## Application Workflow
 
 A complete M1 SDK control program runs in the following order:
 
@@ -15,7 +15,7 @@ A complete M1 SDK control program runs in the following order:
 7. Keep processing state data, faults, acknowledgments, and connection changes.
 8. Stop motion, release control, and call `Disconnect(true)`.
 
-## Three levels of call results {#three-levels-of-call-results}
+## Three Levels of Call Results {#three-levels-of-call-results}
 
 Check the send result, acknowledgment, and execution state separately.
 
@@ -27,7 +27,7 @@ Check the send result, acknowledgment, and execution state separately.
 
 After a successful `StandUp()` call, check `RobotState::motion_status` to confirm the robot stood up. After receiving the acknowledgment for a recharge request, track task execution through `OnTaskStateData()`.
 
-## Synchronous and asynchronous calls {#synchronous-and-asynchronous-calls}
+## Synchronous and Asynchronous Calls {#synchronous-and-asynchronous-calls}
 
 Use `timeout_ms` and `WriteHandler` to choose how to call a command.
 
@@ -57,13 +57,13 @@ if (ec) {
 
 Keep synchronous calls out of SDK callbacks. Callbacks run on the SDK I/O thread, so waiting synchronously can block subsequent acknowledgments and data processing.
 
-## Control ownership mechanism {#control-ownership-mechanism}
+## Control Ownership Mechanism {#control-ownership-mechanism}
 
 Only one client at a time owns control and can send regular motion, posture, task, and device commands. Other connected clients can receive state and fault data.
 
 ![Control ownership between the M1 SDK and the app](../diagrams/Control-Ownership-Overview.svg)
 
-### Control ownership rules
+### Control Ownership Rules
 
 | Rule | Description |
 | --- | --- |
@@ -76,7 +76,7 @@ Only one client at a time owns control and can send regular motion, posture, tas
 
 ![M1 control ownership sequence](../diagrams/Control-Ownership-Sequence.svg)
 
-### SDK control states
+### SDK Control States
 
 ![M1 SDK control ownership state machine](../diagrams/Control-Ownership-Stateflow.svg)
 
@@ -86,7 +86,7 @@ Only one client at a time owns control and can send regular motion, posture, tas
 | `CONTROL_AVAILABLE` | The robot allows the SDK to request control |
 | `HAS_CONTROL` | The SDK has control |
 
-### Acquiring and releasing control
+### Acquiring and Releasing Control
 
 1. Register control ownership events and acknowledgment callbacks.
 2. When the handshake completes, check whether the SDK has control.
@@ -99,7 +99,7 @@ Only one client at a time owns control and can send regular motion, posture, tas
 
 The prototype of the function is [M1 SDK Interface reference](./06-02-robot-control.md#control-ownership) and the event and response structure is [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md#control-ownership-events).
 
-## Dock pairing {#dock-pairing}
+## Dock Pairing {#dock-pairing}
 
 SDK v0.2.3 supports scanning for, connecting to, querying, and disconnecting BLE charging docks. Verify that the robot system supports pairing, then register the data and control callbacks and run the following from the application thread.
 
@@ -114,7 +114,7 @@ Run one connection or disconnection operation at a time. Check the API return va
 
 See the [API signatures](./06-04-dock-and-tasks.md#dock-pairing), [callbacks and data structures](./07-callbacks-data-types-and-status-reference.md#dock-data), and [pairing example](./08-examples-and-troubleshooting.md#dock-pairing-example).
 
-## Docking and undocking tasks {#docking-and-undocking-tasks}
+## Docking and Undocking Tasks {#docking-and-undocking-tasks}
 
 | Function | Purpose |
 | --- | --- |
@@ -133,7 +133,7 @@ void OnTaskStateData(const TaskStateInfo& info) override {
 }
 ```
 
-### Recharge task states
+### Recharge Task States
 
 After calling `StartRechargeTask()`, the recharge task may report the following states.
 
@@ -143,7 +143,7 @@ After calling `StartRechargeTask()`, the recharge task may report the following 
 
 The recharge task does not transition to `SUCCESS` on its own. To end it, call `StopRechargeTask()` and wait for `TaskType::RECHARGING` to reach `STOPPED`. Use `OnStartRechargeTask()`, `TaskStateInfo`, and `MachineStatus::RECHARGE` together to determine whether the task is running.
 
-### Undocking task states
+### Undocking Task States
 
 After `StartUnDockTask()`, the task may progress through `STARTING -> RUNNING -> SUCCESS`. If it fails, it transitions to `FAILURE`. `TaskType::UNDOCK` with `TaskStatus::SUCCESS` confirms that undocking completed.
 
@@ -153,7 +153,7 @@ See [task and robot state APIs](./06-04-dock-and-tasks.md#task-and-robot-states)
 
 See the SDK guide for [recharge, undocking, and dock calibration requirements and troubleshooting](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_undock_calibration_conditions_zh.md).
 
-## Switching between remote and idle states
+## Switching Between Remote and Idle States
 
 | Function | Purpose | Acknowledgment callback |
 | --- | --- | --- |

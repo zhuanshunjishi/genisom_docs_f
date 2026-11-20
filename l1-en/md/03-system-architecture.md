@@ -1,8 +1,8 @@
-# System architecture
+# System Architecture
 
 [Back to Home](../index.md) | [Hardware interface](./04-hardware-interfaces.md) | [SDK service interfaces](./06-sdk-service-interfaces.md) | [SDK Guidance for development and operation](./08-sdk-development-guide.md) | [Main camera stream](./07-onboard-camera-stream.md)
 
-## System architecture
+## System Architecture
 
 L1 The whole machine consists of hardware equipment, hardware control and data preprocessing, applications and systems interface, Robot Interface and cloud management.
 
@@ -10,11 +10,11 @@ L1 The whole machine consists of hardware equipment, hardware control and data p
 
 This chart displays the functional layers of the whole machine, which do not represent SDK lists of open interfaces.
 
-## Structure and installation
+## Structure and Installation
 
 <a id="dimensions"></a>
 
-### L1 Size and installation reference
+### Genisom L1 Size and Installation Reference
 
 ![ L1 Body size and installation hole (mm)](../assets/images/dimensions/zsl-1-dimensions.png)
 
@@ -22,28 +22,28 @@ This chart displays the functional layers of the whole machine, which do not rep
 
 ### Load Design Reference and Model Download
 
-#### L1
+#### Genisom L1
 
 | Information | Use | Download |
 | --- | --- | --- |
-| L1 Load capacity design reference | View load reference values, coordinates and test conditions for different load core positions | [Download PDF](../assets/downloads/zsl-1-payload-design-reference.pdf) |
-| L1 Appearance model | For visual size viewing, top layout and spatial reference | <a href="../assets/downloads/zsl-1-exterior-model.stp" download> Download STP Model </a> |
-| L1 URDF Model | It's used to see robot poles, joints and collision geometry. | <a href="../assets/downloads/zsl-1-urdf.rar" download> Download URDF </a> |
+| L1 payload capacity reference | View load reference values, coordinates and test conditions for different load core positions | [Download PDF](../assets/downloads/zsl-1-payload-design-reference.pdf) |
+| L1 exterior model | Check the external dimensions, payload layout, and mounting space | <a href="../assets/downloads/zsl-1-exterior-model.stp" download> Download STP Model </a> |
+| L1 URDF Model | Inspect robot links, joints, and collision geometry. | <a href="../assets/downloads/zsl-1-urdf.rar" download> Download URDF </a> |
 
-#### L1 -W
-
-| Information | Use | Download |
-| --- | --- | --- |
-| L1-W Appearance model | For visual size viewing, top layout and spatial reference | <a href="../assets/downloads/l1-w-exterior-model.zip" download> Download STP Model </a> |
-| L1-W URDF Model | It's used to see robot poles, joints and collision geometry. | <a href="../assets/downloads/l1-w-urdf.rar" download> Download URDF </a> |
-
-#### L1  EDU
+#### Genisom L1-W
 
 | Information | Use | Download |
 | --- | --- | --- |
-| L1 EDU Appearance model | For visual size viewing, top layout and spatial reference | <a href="../assets/downloads/l1-edu-exterior-model.step" download> Download STEP Model </a> |
+| L1-W exterior model | Check the external dimensions, payload layout, and mounting space | <a href="../assets/downloads/l1-w-exterior-model.zip" download> Download STP Model </a> |
+| L1-W URDF Model | Inspect robot links, joints, and collision geometry. | <a href="../assets/downloads/l1-w-urdf.rar" download> Download URDF </a> |
 
-## SDK and control
+#### Genisom L1 EDU
+
+| Information | Use | Download |
+| --- | --- | --- |
+| L1 EDU exterior model | Check the external dimensions, payload layout, and mounting space | <a href="../assets/downloads/l1-edu-exterior-model.step" download> Download STEP Model </a> |
+
+## SDK and Control
 
 ### SDK Capacity
 
@@ -58,7 +58,7 @@ Key competencies include:
 - Send, receive and heartbeat through a stand-alone thread
 - Support `x86_64` and `aarch64` Linux platform
 
-### Type of control
+### Type of Control
 
 | Control ownership | Meaning | Apply scene |
 | --- | --- | --- |
@@ -70,15 +70,15 @@ Key competencies include:
 
 ![L1 SDK Scheduling of requests for control](../diagrams/sdk-control-sequence.svg)
 
-## Communications and connectivity
+## Communications and Connectivity
 
-### HighLevel communications structure
+### HighLevel Communications Structure
 
 ![L1 HighLevel communications structure](../diagrams/highlevel-communication.svg)
 
 Commencing the communication thread when you construct `ZsibotExecutor`, the public getter reads the last state from the internal status cache. Stops the communication and waits for the end of the line while the object is deconstructed.
 
-### JSON over UDP
+### JSON Over UDP
 
 HighLevel is used by default JSON over UDP:
 
@@ -93,7 +93,7 @@ JSON It's about organizing commands, roles, remote controls, and status fields. 
 
 ![L1 UDP Communication direction and port](../diagrams/udp-communication.svg)
 
-### Heartbeat and connection status
+### Heartbeat and Connection Status
 
 Heart beats are SDK periodic online signals that are used to maintain communication identity and to determine whether the connection is still valid.
 

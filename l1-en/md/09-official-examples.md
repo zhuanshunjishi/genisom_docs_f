@@ -1,8 +1,8 @@
-# Official examples
+# Official Examples
 
 [Back to Home](../index.md) | [SDK Guidance for development and operation](./08-sdk-development-guide.md) | [Control command interface](./06-01-control-commands.md)
 
-## Example source and selection
+## Example Source and Selection
 
 This chapter describes the process of using two examples of HighLevel in the official [genisom_L1 _sdk repository](https://github.com/zsibot/genisom_L1_sdk/tree/main).
 
@@ -19,7 +19,7 @@ Operate on Linux x86_64 or ARM64 (aarch64) equipment, using a compiler supportin
 
 When robots turn on, the equipment will be developed to connect to robotic networks, and the robot will be placed in a flat, open test area.
 
-### Download and compile
+### Download and Compile
 
 The following command applies to the Linux environment using apt:
 
@@ -45,14 +45,14 @@ Build path based on [Root Build Configuration](https://github.com/zsibot/genisom
 
 ### Confirm Network
 
-Two examples of default connection robots `192.168.234.1` Send it to the robot. `8081/UDP` It's on the machine. `8080/UDP` Receiving status.
+Both examples connect to the robot at `192.168.234.1` by default. They send to the robot’s `8081/UDP` port and listen for status on local port `8080/UDP`.
 
 ```bash
 ip addr
 ping -c 4 192.168.234.1
 ```
 
-Make sure the network is accessible, then run an example. `ping` Success means only IP The link's within reach. We still need confirmation. UDP Status updated on an ongoing basis; SSH It doesn't mean it's a good login. SDK Connected. If field changes IP or port, by delivery SDK. The current example does not provide an explanation of the command line parameters.
+Confirm network reachability before running an example. A successful `ping` confirms IP reachability. Verify that UDP status data keeps updating even if you can log in over SSH. If the robot IP or port changes, update the source using the supplied SDK constructor and rebuild the example. The current examples do not parse command-line arguments.
 
 ## Remote Example Usage Process
 
@@ -66,9 +66,9 @@ Run in SDK root directory:
 
 Keeps the focus of the terminal and uses the English input method to read the state in lowercase `i` and does not need to press back to the car. Starts do not necessarily output the operations menu automatically, and terminal input characters do not resonate.
 
-Focus on checking power, temperature, function mode, mode of control and failure information. Press `i` many times to confirm the validity of the robot ' s state in the light of the actual situation; when zero, long-term constant or abnormal values appear, check the connection and do not attempt to move directly. The program print text " Move forward " means only the corresponding transmission branch, and does not mean that the robot has been successful.
+Check battery level, temperature, function mode, control mode, and fault reports. Press `i` repeatedly and compare the readings with the robot. If values are all zero, stale, or abnormal, diagnose the connection before trying to move. A message such as “Moving forward” confirms that the send branch ran. Verify whether the robot executed the motion separately.
 
-### Stand, move and stop
+### Stand, Move and Stop
 
 The first test proposal is to proceed item by item in the following order and continue after confirmation of feedback at each step:
 
@@ -78,9 +78,9 @@ The first test proposal is to proceed item by item in the following order and co
 4. The other direction will be separately verified as required and will be stopped after each operation by `c`.
 5. Press `1` to get down and confirm that the posture is stable and then press `Ctrl+C` to close the procedure.
 
-**Releasing a direction key does not stop the robot.** The example reads characters and does not send zero motion when a key is released. Press `c` to stop. If something goes wrong, press `0` to request a software emergency stop and use a separate means of taking control if required on site.
+**Do not rely on releasing a direction key to stop the robot.** The example reads characters and does not send zero motion on key release itself. Press `c` to send zero motion immediately. If something goes wrong, press `0` to request a software emergency stop and use a separate means of taking control if required on site.
 
-## SDK Example uses process
+## SDK Example Uses Process
 
 Stop the robot and exit the Remote example first, then from SDK Root directory start:
 
@@ -101,7 +101,7 @@ The example creates an implementer using the `ROLE_SDK` identity. The identifica
 | 7 | Press `r`, press `i` | Request for surrender of Remote control and reconciliation of mode feedback |
 | 8 | Press `Ctrl+C` | Closure of the procedure |
 
-Do not continue to send a motion order if the right of control is not confirmed; a terminal hint after `k` indicates only that the order has been issued. The count and value of the functional mode are based on the delivery of the head document SDK and [Control command interface](./06-01-control-commands.md).
+Confirm control ownership before sending motion commands. After you press `k`, the terminal message indicates that the command was sent. Check the function-mode enum and its values in the supplied SDK headers and the [control command interface](./06-01-control-commands.md).
 
 If you press `r` The post-module was not restored, and the robots were stopped, the connection was checked and the takeover was confirmed by remote means on-site.
 
@@ -128,7 +128,7 @@ The primary control keys of the two examples are consistent, and the effectivene
 
 Note that `q` is a left switch, not an exit key; `0` is a software emergency stop and will not exit the program.
 
-### Other function keys
+### Other Function Keys
 
 | Button | Role |
 | --- | --- |
@@ -150,7 +150,7 @@ For the first test, verify only basic postures, single-direction movement, and s
 
 The Remote example also has `o` buttons, but only Wi-Fi function demonstration tips are exported, and the actual settings are referenced and the network configuration will not be modified.
 
-## How to read and modify examples
+## How to Read and Modify Examples
 
 When reading the source code, you can then view the implementer 's construction, keyboard loop, `SetRemote()`,  `SetCmd()` And state reads the branch.
 
@@ -166,9 +166,9 @@ After changing the source code, re-execut the build command in the SDK root dire
 
 The state output is used only for debugging: the current example of some joint output labels is duplicated or mislabelled, and only the first four arrays are printed at the electric temperature. When a specific joint is confirmed, it should be based on the called Getter, the array index and [Sensor reporting interface in real time](./06-02-real-time-sensor-data.md).
 
-When developing an automated mission, you need to replace the keyboard branch with an operational control logic and complement the connection effectiveness check, control feedback confirmation, motion overtime zero and abnormal exit processing. Examples do not provide a complete automatic task and security exit mechanism, and it cannot be assumed that `Ctrl+C` will automatically enforce the suspension or surrender of control.
+For an automated task, replace the keyboard input branches with task logic. Check the connection, confirm control ownership from feedback, reset motion inputs to zero on timeout, and handle unexpected exits. The examples lack a complete automated task and safe shutdown workflow. Implement explicit motion stop and control release before exiting instead of relying on `Ctrl+C`.
 
-## Exit and common problems
+## Exit and Common Problems
 
 Both programs modify the terminal input mode and, if the content is not shown after exit, you can type the following commands and return to the car:
 

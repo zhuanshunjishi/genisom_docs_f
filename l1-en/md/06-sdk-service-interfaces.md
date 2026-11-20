@@ -1,8 +1,8 @@
-# SDK service interfaces
+# SDK Service Interfaces
 
 [Back to Home](../index.md) | [Hardware, software and architecture](./03-system-architecture.md) | [SDK Guidance for development and operation](./08-sdk-development-guide.md)
 
-## Interface description
+## Interface Description
 
 The Zsibot SDK communicates with the robot over UDP. It provides motion commands, sensor status, connection checks, Wi-Fi configuration, and fault reports.
 
@@ -12,7 +12,7 @@ According to the interface function, this part is divided into five separate doc
 
 The five services share the same UDP send and receive ports. Access the services through `ZsibotExecutor` and leave socket and port management to the SDK.
 
-## Five interface documents
+## Five Interface Documents
 
 | Interface Document | Main elements | Main SDK Entry |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ The five services share the same UDP send and receive ports. Access the services
 
 If you need to modify IP or the port, the parameter should be entered during the construction of `ZsibotExecutor`. The application layer does not normally need to create UDP socket itself, nor does it need to repeat the heartbeat.
 
-## Recommended call order
+## Recommended Call Order
 
 1. Create `ZsibotExecutor`.
 2. Wait for `IsConnected()` to return `true`. See the [heartbeat interface](./06-03-heartbeat.md).
@@ -47,7 +47,7 @@ If you need to modify IP or the port, the parameter should be entered during the
 7. Continuous reading of sensors, connectivity and malfunctioning information during operation.
 8. When the net is broken, the heart beat is timed out, the failure level is raised or the procedure is abnormal, the dispatch of the motion instruction is stopped and the safety is achieved.
 
-## Minimal process example
+## Minimal Process Example
 
 ```cpp
 #include "zsibot_sdk/zsibot_api.h"
@@ -96,7 +96,7 @@ int main()
 }
 ```
 
-## Usage notes
+## Usage Notes
 
 - The five services share one set of UDP ports.
 - The sending port `8081` and the receiving port `8080` are centrally managed by the SDK implementer.

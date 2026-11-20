@@ -1,8 +1,8 @@
-# M1 SDK API reference
+# Genisom M1 SDK API Reference
 
 [Return Document Overview](../index.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [Retrospect, data type and status reference](./07-callbacks-data-types-and-status-reference.md) | [Example program and failure check](./08-examples-and-troubleshooting.md)
 
-## Overview of interfaces
+## Overview of Interfaces
 
 M1 SDK The core category is: `robot_sdk::SDKClient`, header file is `robot_sdk/sdk_client.hpp`. Control orders usually return `std::error_code`. The relationship between connection, control and mission status is described below. [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md).
 
@@ -11,17 +11,17 @@ M1 SDK The core category is: `robot_sdk::SDKClient`, header file is `robot_sdk/s
 | [Connect to Device Information](./06-01-connection-and-device-info.md) | Client tectonics, connections and reconnections, version queries and machine-type capabilities | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
 | [Robotic control](./06-02-robot-control.md) | Control, software stoppage, attitude and motion orders | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
 | [Data reporting](./06-03-data-reporting.md) | Registered callback, equipped with sensors and high frequency reporting. | `SetControlCallback()`, `SetDataCallback()`, `SetImuConfig()` |
-| [Charging dock and missions](./06-04-dock-and-tasks.md) | Charge pillar scanning, pairing, refilling and deposting, machine state switching | `SetDockScanConfig()`, `ConnectDock()`, `StartRechargeTask()`, `StartUnDockTask()` |
+| [Dock and Tasks](./06-04-dock-and-tasks.md) | Scan for and pair charging docks, run recharge and undocking tasks, and switch the robot’s operating state | `SetDockScanConfig()`, `ConnectDock()`, `StartRechargeTask()`, `StartUnDockTask()` |
 | [External and Camera](./06-05-peripherals-and-camera.md) | Lighting light, stop switch, camera code rate, external power supply and status LED | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
 
-## Common parameters and return values {#common-parameters-and-return-values}
+## Common Parameters and Return Values {#common-parameters-and-return-values}
 
 Except for `Connect()`, `Disconnect()`, status query and version query interfaces, command interfaces usually contain the following common parameters:
 
 | Parameter | Type | Description |
 | --- | --- | --- |
 | `timeout_ms` | `int` | `0` denotes a different step; greater than `0` denotes a synchronized wait in milliseconds |
-| `handler` | `WriteHandler` | Retrieval of sent results in staggered mode |
+| `handler` | `WriteHandler` | Callback that receives the send result in asynchronous mode |
 
 ```cpp
 using WriteHandler =
@@ -66,4 +66,4 @@ if (ec) {
 }
 ```
 
-SDK The category for special-purpose errors is `Robot`. When refilling and debarging fail, query [Task Business Error Code](./07-callbacks-data-types-and-status-reference.md#docking-and-undocking-error-codes). See [Official SDK Error Code Document](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_error_zh.md) for extension.
+SDK-specific errors use the `Robot` category. If recharging or undocking fails, see [task error codes](./07-callbacks-data-types-and-status-reference.md#docking-and-undocking-error-codes). For more detail, see the [official SDK error code reference (Chinese)](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_error_zh.md).

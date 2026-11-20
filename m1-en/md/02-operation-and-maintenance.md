@@ -1,16 +1,16 @@
-# M1 operation and maintenance
+# Genisom M1 Operation and Maintenance
 
 [Back to the documentation overview](../index.md) | [Product introduction and specifications](./01-product-introduction-and-specifications.md) | [System components, hardware interfaces, and mechanical design](./03-system-components-and-hardware-interfaces.md)
 
-## Before use
+## Before Use
 
-### Standard package contents
+### Standard Package Contents
 
 ![Standard M1 package contents](../assets/product/m1-package-contents.png)
 
 After unpacking, verify that the package contains the robot, G20 remote controller, two batteries, power cable, charging dock, aviation connector cable kit, flight case, operating manual, packing list, certificate of conformity, and maintenance tools and accessories. If you find visible damage, missing items, or bent connectors, leave the equipment powered off and do not charge it.
 
-### Operating environment
+### Operating Environment
 
 - Complete operator training and read the operating manual and warnings before use.
 - Operating temperature: −20 °C to 55 °C.
@@ -21,7 +21,7 @@ After unpacking, verify that the package contains the robot, G20 remote controll
 - Do not power on or operate the robot in explosive, corrosive, or dusty environments.
 - IP67 protection has limits for prolonged submersion. Keep the connector covers, battery compartments, and housing intact and dry.
 
-### Pre-start checks
+### Pre-Start Checks
 
 1. Inspect the body, bumpers, leg links, and wheel assemblies for cracks, deformation, loose parts, or excessive wear.
 2. Inspect the battery housing, terminals, and latches for swelling, leaks, damage, excessive heat, or debris.
@@ -31,20 +31,20 @@ After unpacking, verify that the package contains the robot, G20 remote controll
 6. Lay the robot flat with its belly on the ground and its legs resting naturally on either side.
 7. Verify that the remote controller is charged and near the robot.
 
-## Startup and basic operation
+## Startup and Basic Operation
 
-### Battery installation and startup
+### Battery Installation and Startup
 
 The M1 has two removable batteries. It can run on one or both batteries and supports hot-swapping.
 
-#### Install the batteries
+#### Install the Batteries
 
 1. Make sure the battery connector and compartment are free of dust, moisture, and debris.
 2. Align the connector and slide the battery in along the guides.
 3. Push the battery all the way in, release the pull strap, and listen for the latch to click.
 4. Verify that the battery housing is flush with the body and that the pull strap does not swing freely.
 
-#### Power on the robot
+#### Power on the Robot
 
 1. Briefly press the battery button to wake the battery and check its charge.
 2. Hold the button for about 3 seconds to power on the battery and start the robot.
@@ -53,11 +53,11 @@ The M1 has two removable batteries. It can run on one or both batteries and supp
 
 Either battery can wake the other. Do not use a battery that is deformed, leaking, overheating, or has damaged terminals. Do not disassemble, strike, crush, puncture, or short-circuit the batteries.
 
-### G20 remote controller
+### G20 Remote Controller
 
 ![G20 remote controller layout](../assets/product/m1-remote-controller-diagram.png)
 
-#### Connect and start
+#### Connect and Start
 
 1. Place the controller near the robot and clear people and obstacles from the surrounding area.
 2. Power on the robot and wait for it to finish starting up.
@@ -108,7 +108,7 @@ Either battery can wake the other. Do not use a battery that is deformed, leakin
 
 Motion mode typically provides low, medium, and high speed settings. At higher speeds, combinations such as sideways movement and turning in place may be limited.
 
-### Status lights
+### Status Lights
 
 ![Locations of the M1 status lights](../assets/product/m1-status-light-locations.png)
 
@@ -128,37 +128,37 @@ Motion mode typically provides low, medium, and high speed settings. At higher s
 
 If the status light shows red or yellow, stop movement and check the app for emergency stop, faults, and battery level. After clearing the emergency stop or resolving the fault, confirm that the status light returns to normal.
 
-### Safe operation
+### Safe Operation
 
 - Medium and high speed settings limit combined actions such as sideways movement and turning in place. Do not bypass these restrictions.
 - The robot can reach 6 m/s. Keep it well away from people when operating at high speed.
 - When climbing onto a raised platform, operate without a payload, verify that the battery indicator shows at least two bars, and maintain more than 2 m of clearance from nearby people.
 
-## Safety and protection
+## Safety and Protection
 
-### Physical emergency stop
+### Physical Emergency Stop
 
 Press the red physical emergency stop button on the robot's back if it goes out of control, develops a serious fault, or someone enters the danger area. The red light stays on and the robot slowly lies down and remains still. Once you have identified the cause and verified that the area is safe, turn the button clockwise to release it.
 
-### Software emergency stop
+### Software Emergency Stop
 
 Press the controller's software emergency stop button to stop the current action. The app shows a notification. Once the area is safe, clear the software emergency stop in the app. Keep the physical emergency stop available even when using the app or remote controller's stop function.
 
-### Overheating protection
+### Overheating Protection
 
 If a joint, the main controller, or the battery overheats, the robot stops moving, lies down automatically, and remains still. Check the affected component and temperature in the app. Once the temperature returns to normal, check the robot state and fault notifications.
 
-### Low-battery protection
+### Low-Battery Protection
 
 A low-battery warning appears when both batteries fall below 20%. When both fall below 10%, the robot automatically lies down and stops responding to motion commands. Replace or recharge the batteries before using it again.
 
-### Fall protection
+### Fall Protection
 
 After a fall, the robot may try to stand up. Keep at least 2 m clear for recovery. Trigger the physical emergency stop before attempting to drag a fallen robot.
 
-## Battery replacement, shutdown, and charging
+## Battery Replacement, Shutdown, and Charging
 
-### Hot-swapping a battery
+### Hot-Swapping a Battery
 
 1. Confirm that the robot is stable and nobody is within reach of the legs.
 2. With both batteries supplying power, remove the one you want to replace.
@@ -174,7 +174,7 @@ After a fall, the robot may try to stand up. Keep at least 2 m clear for recover
 
 Do not disconnect the only powered battery while the robot is standing.
 
-### Dual-battery charging dock
+### Dual-Battery Charging Dock
 
 | Parameter | Value |
 | --- | --- |
@@ -194,13 +194,13 @@ Do not disconnect the only powered battery while the robot is standing.
 
 Use only the original charger and dock. Do not use third-party chargers or nonstandard power supplies, and avoid leaving batteries plugged in to overcharge.
 
-### Responding to faults
+### Responding to Faults
 
 - If water enters the robot, turn it off immediately, remove the batteries, and dry the equipment.
 - If the equipment smokes or catches fire, use a carbon dioxide or dry powder extinguisher. Do not use a foam extinguisher.
 - If a leg swings unexpectedly or movement becomes uncontrolled, trigger the software emergency stop first. Use the physical emergency stop if the software stop is ineffective. Once the robot is still, turn it off, remove the batteries, and leave it powered off until the fault is resolved.
 
-## Daily maintenance
+## Daily Maintenance
 
 Power off the robot before maintenance. After use, wipe the body, cameras, and LiDAR with a clean, dry, soft cloth. Do not use alcohol, disinfectant, or other corrosive liquids.
 

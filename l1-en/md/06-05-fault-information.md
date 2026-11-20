@@ -1,12 +1,12 @@
-# Fault information interface
+# Fault Information Interface
 
 [Return to Software Service Interface](./06-sdk-service-interfaces.md) | [Sensor reporting interface in real time](./06-02-real-time-sensor-data.md)
 
-## Interface description
+## Interface Description
 
 The fail information query interface corresponds to the " fail information query port " in the red box, which is used to read the list of failures carried in robotic status messages. Currently, SDK there are no separate fault queries socket, failure information is reported via UDP receiver port `8080` with robotic status, and the application uses the query function to read the latest cache result.
 
-## Communications parameters
+## Communications Parameters
 
 | Parameter | Default |
 | --- | --- |
@@ -16,7 +16,7 @@ The fail information query interface corresponds to the " fail information query
 | Message Format | JSON |
 | Status Message Type | `fault_info` |
 
-## Retrieving malfunction information
+## Retrieving Malfunction Information
 
 | Field | Contents |
 | --- | --- |
@@ -54,7 +54,7 @@ if (faults.empty()) {
 }
 ```
 
-## Recommended time for inspection
+## Recommended Time for Inspection
 
 The application should read out the malfunction at least at the following times:
 
@@ -64,7 +64,7 @@ The application should read out the malfunction at least at the following times:
 4. When electrical temperature, battery voltage, attitude or communication state abnormality is observed.
 5. Disconnected reconnection or WiFi configuration is completed.
 
-## Treatment of recommendations
+## Treatment of Recommendations
 
 - The list of faults was empty only to indicate that there had been no malfunctions in the latest cache and not that all hardware risks had been eliminated.
 - Upon receipt of the failure, the treatment shall be determined in combination with `level`, `error_code`, electric temperature, battery state and current mode of movement.

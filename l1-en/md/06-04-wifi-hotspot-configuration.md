@@ -1,14 +1,14 @@
-# Wi-Fi hotspot configuration interface
+# Wi-Fi Hotspot Configuration Interface
 
 [Return to Software Service Interface](./06-sdk-service-interfaces.md) | [Control command interface](./06-01-control-commands.md)
 
-## Interface description
+## Interface Description
 
 WiFi hotspot configuration interface corresponds to the " WiFi hotspot configuration port" in the red box, which is used to request changes to the robot WiFi hotspot name and password, and to read the configuration results of the hiccup return.
 
 Current SDK Use UDP Send Port `8081` Send configuration request, via the receiving port `8080` Receives the configuration results. Changes to WiFi may change the robot network immediately and applications need to reconnect to new hot spots.
 
-## Communications parameters
+## Communications Parameters
 
 | Parameter | Default |
 | --- | --- |
@@ -36,7 +36,7 @@ Current SDK Use UDP Send Port `8081` Send configuration request, via the receivi
 | `ssid` | `string` | WiFi Name |
 | `password` | `string` | WiFi Password |
 
-## Read WiFi configuration results
+## Read WiFi Configuration Results
 
 | Functions | Function Prototype | Description |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ if (robot.IsRecvWifiResult()) {
 }
 ```
 
-## Recommended operation process
+## Recommended Operation Process
 
 1. Create SDK Executor confirmed. `IsConnected()` Yes. `true`.
 2. Reads the current WiFi status to confirm that the current connection object is correct.
