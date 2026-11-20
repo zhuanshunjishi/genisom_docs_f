@@ -115,9 +115,11 @@ After requesting control, use `GetFunctionMode()` to verify the transition. The 
 | Function Name | `SetRemote` |
 | Function Prototype | `void SetRemote(const std::array<float32_t, 4> &joy_stick, const std::array<float32_t, 14> &button)` |
 | Function Overview | Send continuous movement input and key-button status |
-| Parameter | `joy_stick` :  4 (a) A roller value in order of front- and back-to-back, rotation, left-to-hand, head angle; `button` :  14 A button value |
+| Parameters | `joy_stick` contains four joystick values in this order: forward/backward, left/right, rotation, and head angle. `button` contains 14 button values. |
 | Return value | None |
 | Notes | The swing pole is definitely more than 1 It's automatically integrated. `[-1, 1]`. Send all when you stop moving 0 Rolling pole value |
+
+Head angle control is available only in Balance Standing Mode (`CM_BALANCE_STAND_MODE`). In this mode, the third `joy_stick` value controls head yaw, and the fourth controls head pitch.
 
 The keyboard example reads direction input from `w`, `s`, `a`, `d`, `q`, and `e`. After 200 ms without any of these inputs, it sends zero for every joystick axis. Pressing `c` also sends all-zero joystick input immediately. This timeout belongs to the keyboard example. Implement your own timeout that resets motion inputs to zero when writing a separate application.
 
