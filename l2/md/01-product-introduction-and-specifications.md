@@ -1,3 +1,9 @@
+<script setup>
+import l2Image from '../assets/product/l2.png'
+import l2wImage from '../assets/product/l2-w.png'
+import l2wUltraImage from '../assets/product/l2-w-ultra.png'
+</script>
+
 # L2 产品介绍与规格
 
 [返回文档总览](../index.md) | [配件与设备组成](./02-accessories.md) | [硬件接口与系统架构](./03-hardware-interfaces-and-system-architecture.md)
@@ -10,8 +16,6 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
 
 ## 系列型号
 
-![L2 系列机器人](../assets/product/l2-series-overview.png)
-
 | 型号 | 足端结构 | 主要能力 |
 | --- | --- | --- |
 | L2 | 点足 | 复杂地形运动、智能避障、自主跟随和二次开发 |
@@ -20,7 +24,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
 
 ## 产品规格
 
-| 分类 | 规格 | L2 | L2-W | L2-W Ultra |
+| 分类 | 规格 | <a :href="l2Image"><img :src="l2Image" alt="L2 点足四足机器人" style="width:110px;height:90px;object-fit:contain;"></a><br><strong>L2</strong> | <a :href="l2wImage"><img :src="l2wImage" alt="L2-W 轮足四足机器人" style="width:110px;height:90px;object-fit:contain;"></a><br><strong>L2-W</strong> | <a :href="l2wUltraImage"><img :src="l2wUltraImage" alt="L2-W Ultra 轮足四足机器人" style="width:110px;height:90px;object-fit:contain;"></a><br><strong>L2-W Ultra</strong> |
 | --- | --- | --- | --- | --- |
 | 基础信息 | 站立尺寸（长 × 宽 × 高） | 约 720 × 390 × 480 mm | 约 760 × 450 × 500 mm | 约 760 × 450 × 500 mm |
 |  | 趴地尺寸（长 × 宽 × 高） | 约 780 × 460 × 190 mm | 约 780 × 550 × 190 mm | 约 780 × 550 × 190 mm |
