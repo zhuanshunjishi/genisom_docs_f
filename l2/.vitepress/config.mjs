@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { docsBase } from '../../.vitepress/docs-base.mjs'
+import { docsNav } from '../../.vitepress/docs-nav.mjs'
 
 const base = docsBase('l2')
 
@@ -9,7 +10,7 @@ export default defineConfig({
   description: '智身钢镚 L2 系列的设备使用、SDK 开发和接口参考',
   base,
   themeConfig: {
-    nav: [{ text: '文档站首页', link: '/../', target: '_self' }],
+    nav: docsNav('l2'),
     sidebar: [
       {
         text: '产品与设备',

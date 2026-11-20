@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   docsVersion: { type: String, required: true },
-  sdkVersion: { type: String, required: true },
+  sdkVersion: String,
   screenMenu: Boolean,
   english: Boolean,
 })
@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <span class="docs-version" :class="{ 'screen-menu': screenMenu }">
-    {{ docsVersion }}{{ english ? ` (SDK ${sdkVersion})` : `（SDK版本${sdkVersion}）` }}
+    {{ docsVersion }}<template v-if="sdkVersion">{{ english ? ` (SDK ${sdkVersion})` : `（SDK版本${sdkVersion}）` }}</template>
   </span>
 </template>
 

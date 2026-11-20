@@ -2,6 +2,7 @@ import { cp } from 'node:fs/promises'
 import { join } from 'node:path'
 import { defineConfig } from 'vitepress'
 import { docsBase } from '../../.vitepress/docs-base.mjs'
+import { docsNav } from '../../.vitepress/docs-nav.mjs'
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -19,11 +20,7 @@ export default defineConfig({
     )
   },
   themeConfig: {
-    nav: [
-      { text: '首页', link: '/' },
-      { text: 'English', link: '/../l1-en/', target: '_self' },
-      { text: 'GitHub', link: 'https://github.com/zsibot/genisom_docs' },
-    ],
+    nav: docsNav('l1'),
     sidebar: [
       {
         text: '产品与配件',
