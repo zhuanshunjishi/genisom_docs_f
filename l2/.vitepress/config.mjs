@@ -26,9 +26,20 @@ export default defineConfig({
         text: 'SDK 开发',
         items: [
           { text: '快速开始', link: '/md/06-sdk-quickstart' },
-          { text: '接口参考', link: '/md/07-sdk-api-reference' },
-          { text: '回调、数据类型与状态', link: '/md/08-callbacks-data-types-and-status-reference' },
           { text: '控制权、任务与外设控制', link: '/md/09-control-ownership-tasks-and-peripherals' },
+          {
+            text: '接口参考',
+            link: '/md/07-sdk-api-reference',
+            collapsed: false,
+            items: [
+              { text: '连接与设备信息', link: '/md/07-01-connection-and-device-info' },
+              { text: '机器人控制', link: '/md/07-02-robot-control' },
+              { text: '数据上报', link: '/md/07-03-data-reporting' },
+              { text: '充电桩与任务', link: '/md/07-04-dock-and-tasks' },
+              { text: '外设与相机', link: '/md/07-05-peripherals-and-camera' },
+            ],
+          },
+          { text: '回调、数据类型与状态', link: '/md/08-callbacks-data-types-and-status-reference' },
           { text: '示例程序与故障排查', link: '/md/10-examples-and-troubleshooting' },
         ],
       },

@@ -18,9 +18,9 @@
 | [4. L2 设备操作、遥控器与 App](./md/04-device-controller-and-app-guide.md) | 开关机、充电、遥控器按键、运动模式、急停、指示灯和日常维护 | 首次操作设备前阅读 |
 | [5. L2 智航 Pro 软件使用](./md/05-roamerx-pro-guide.md) | 网络配置、建图、地图编辑、路网、巡航路径、任务执行、自主回充和巡航记录 | 配置建图、巡航与自主回充时阅读 |
 | [6. L2 SDK 快速开始](./md/06-sdk-quickstart.md) | Ubuntu 环境、SDK 目录、网络与端口配置、编译、连接、运行示例和自建工程 | 第一次编译和运行 SDK 时阅读 |
-| [7. L2 SDK 接口参考](./md/07-sdk-api-reference.md) | 按功能说明 `SDKClient` 公开接口、参数、返回值和 L2 系列能力范围 | 编码时按功能查询 |
-| [8. L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md) | 数据回调、控制应答回调、机器人状态、任务状态、故障信息和主要数据结构 | 处理上报数据和命令应答时查询 |
-| [9. L2 控制权、任务与外设控制](./md/09-control-ownership-tasks-and-peripherals.md) | 控制权切换、回充与离桩任务、机器状态、外设供电和 LED 控制 | 编写控制、回充或外设程序前阅读 |
+| [7. L2 控制权、任务与外设控制](./md/09-control-ownership-tasks-and-peripherals.md) | 控制权切换、回充与离桩任务、机器状态、外设供电和 LED 控制 | 编写控制、回充或外设程序前阅读 |
+| [8. L2 SDK 接口参考](./md/07-sdk-api-reference.md) | 接口能力表、通用参数与返回值，以及连接、机器人控制、数据上报、充电桩和外设接口 | 编码时按功能查询 |
+| [9. L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md) | 数据回调、控制应答回调、机器人状态、任务状态、故障信息和主要数据结构 | 处理上报数据和命令应答时查询 |
 | [10. L2 示例程序与故障排查](./md/10-examples-and-troubleshooting.md) | SDK 自带示例、推荐测试顺序、网络和运行库排查方法 | 运行示例或联调排障时阅读 |
 
 ## 推荐阅读顺序
@@ -35,9 +35,9 @@
 
 1. [L2 硬件接口与系统架构](./md/03-hardware-interfaces-and-system-architecture.md)
 2. [L2 SDK 快速开始](./md/06-sdk-quickstart.md)
-3. [L2 SDK 接口参考](./md/07-sdk-api-reference.md)
-4. [L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md)
-5. [L2 控制权、任务与外设控制](./md/09-control-ownership-tasks-and-peripherals.md)
+3. [L2 控制权、任务与外设控制](./md/09-control-ownership-tasks-and-peripherals.md)
+4. [L2 SDK 接口参考](./md/07-sdk-api-reference.md)
+5. [L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md)
 
 部署自主导航：
 
