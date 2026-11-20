@@ -179,6 +179,10 @@ a.product:focus-visible {
   background: radial-gradient(ellipse at 50% 38%, #fffdf9, #ede7df);
 }
 
+.product-l2 .product-image {
+  background: radial-gradient(ellipse at 50% 38%, #fcfbff, #eae7f1);
+}
+
 .product-copy {
   padding: 12px 12px clamp(14px, 1vw, 18px);
 }
@@ -201,17 +205,11 @@ a.product:hover img { transform: translateY(-3px); }
   letter-spacing: -0.04em;
 }
 
-.product p {
-  margin: 4px 0 10px;
-  color: var(--muted);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
-
 .product-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  margin-top: 10px;
   color: var(--accent);
   font-size: 0.875rem;
   font-weight: 700;
