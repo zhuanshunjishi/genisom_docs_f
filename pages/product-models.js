@@ -53,5 +53,7 @@ for (const preview of previews) {
 }
 
 if (previews.length && document.createElement('canvas').getContext('webgl2')) {
+  window.ModelViewerElement ??= {};
+  window.ModelViewerElement.meshoptDecoderLocation = new URL('./assets/models/meshopt_decoder.js', import.meta.url).href;
   import('./assets/models/model-viewer.min.js').catch(console.error);
 }
