@@ -56,7 +56,7 @@ The corresponding fields are `heading.sol_status`, `bestnav.p_sol_status`, and `
 | `0` | Solution computed |
 | `1` | Insufficient observations |
 | `2` | Solution has yet to converge |
-| `4` | The covariance matrix trace exceeds the limit (trace > 1000 m, using the unit in the reference material) |
+| `4` | The covariance matrix trace exceeds the limit |
 
 **Solution Type (`type`)**
 
