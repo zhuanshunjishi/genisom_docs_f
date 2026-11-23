@@ -40,20 +40,10 @@
   height: 24px;
 }
 
-.docs-brand-logos img + img {
-  margin-left: 12px;
-  padding-left: 12px;
-  border-left: 1px solid var(--vp-c-divider);
-}
-
 .dark .docs-brand-logos {
   padding: 2px 4px;
   border-radius: 4px;
   background-color: #fff;
-}
-
-.dark .docs-brand-logos img + img {
-  border-left-color: #e5e7eb;
 }
 
 @media (max-width: 959px) {
