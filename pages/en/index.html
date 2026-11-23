@@ -7,6 +7,7 @@
     <link rel="alternate" hreflang="zh-CN" href="../">
     <title>Genisom AI Developer Documentation</title>
     <link rel="stylesheet" href="../styles.css">
+    <script type="module" src="../product-models.js"></script>
   </head>
   <body>
     <header class="site-header">
@@ -32,24 +33,30 @@
       <section class="catalog" aria-labelledby="catalog-title">
         <h2 id="catalog-title">Choose a Product</h2>
         <div class="products">
-          <a class="product product-l1" href="../l1-en/" aria-labelledby="l1-title l1-action">
-            <div class="product-image">
+          <article class="product product-l1">
+            <div class="product-image product-preview">
               <img src="../assets/l1.png" width="800" height="693" alt="" decoding="async">
+              <model-viewer src="../assets/models/l1.glb" alt="Genisom L1 3D model"
+                camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
+                camera-orbit="58deg 68deg 100%" shadow-intensity="0.45"></model-viewer>
             </div>
-            <div class="product-copy">
+            <a class="product-copy" href="../l1-en/" aria-labelledby="l1-title l1-action">
               <h3 id="l1-title">Genisom L1</h3>
               <span class="product-action" id="l1-action">View docs <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-          <a class="product product-m1" href="../m1-en/" aria-labelledby="m1-title m1-action">
-            <div class="product-image">
+            </a>
+          </article>
+          <article class="product product-m1">
+            <div class="product-image product-preview">
               <img src="../assets/m1.png" width="800" height="593" alt="" decoding="async">
+              <model-viewer src="../assets/models/m1.glb" alt="Genisom M1 3D model"
+                camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
+                camera-orbit="57deg 68deg 96%" shadow-intensity="0.45"></model-viewer>
             </div>
-            <div class="product-copy">
+            <a class="product-copy" href="../m1-en/" aria-labelledby="m1-title m1-action">
               <h3 id="m1-title">Genisom M1</h3>
               <span class="product-action" id="m1-action">View docs <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
+            </a>
+          </article>
           <a class="product product-l2" href="../l2/" hreflang="zh-CN" aria-labelledby="l2-title l2-action">
             <div class="product-image">
               <img src="../assets/l2.png" width="800" height="699" alt="" loading="lazy" decoding="async">

@@ -61,6 +61,17 @@ The expansion compartment on the robot's back provides mounting, power, and comm
 | ⑧ | RTK antenna connector | 1 |
 | ⑨ | Expansion compartment power button | Controls power to the expansion interfaces |
 
+### Device Paths for the Aviation Expansion Connector
+
+Device paths for the expansion compartment's serial interface (⑤) vary by hardware revision. Use the path for your robot's revision when connecting a peripheral.
+
+| Interface | V3 Device Path | V4 Device Path |
+| --- | --- | --- |
+| RS232 | `/dev/ttyTHS3` | `/dev/ttyCH9344USB4` |
+| RS485 | `/dev/ttyTHS1` | `/dev/ttyCH9344USB5` |
+| SBUS1 | `/dev/ttyACM2` | `/dev/ttyCH9344USB2` |
+| SBUS2 | `/dev/ttyACM3` | `/dev/ttyCH9344USB3` |
+
 ### Power and Protection
 
 - The combined output of all expansion power connectors must stay at or below 480 W.

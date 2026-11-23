@@ -61,6 +61,17 @@ SDK 构造函数默认使用 `TransportProtocol::Udp`。如果使用 WebSocket�
 | ⑧ | RTK 天线接口 | 1 个 |
 | ⑨ | 扩展仓电源按键 | 控制扩展接口供电 |
 
+### 航插扩展接口的设备路径
+
+扩展仓串口（⑤）的设备路径随硬件版本而异。连接外设时，按机器人的硬件版本查找对应路径。
+
+| 接口 | V3 设备路径 | V4 设备路径 |
+| --- | --- | --- |
+| RS232 | `/dev/ttyTHS3` | `/dev/ttyCH9344USB4` |
+| RS485 | `/dev/ttyTHS1` | `/dev/ttyCH9344USB5` |
+| SBUS1 | `/dev/ttyACM2` | `/dev/ttyCH9344USB2` |
+| SBUS2 | `/dev/ttyACM3` | `/dev/ttyCH9344USB3` |
+
 ### 供电与防护
 
 - 所有扩展供电接口的总功率不超过 480 W。

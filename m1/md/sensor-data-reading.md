@@ -4,24 +4,20 @@
 
 下文列出参考配置的 ROS 2 话题，实际可用话题以设备的硬件配置和运行中的服务为准。
 
-## 连接机器人并检查服务
+## 连接机器人并查看话题
 
-1. 通过 Wi-Fi 或网线连接机器人，设置见[连接与流地址](./video-stream-reading.md#连接与流地址)。通过 RK3588 的 Wi-Fi 也可经由内置网桥访问 Orin NX。
+1. 通过 Wi-Fi 或网线连接机器人，设置见[连接与流地址](./video-stream-reading.md#连接与流地址)。
 2. 登录 Orin NX。登录信息见[算力主机 SSH 登录](./03-system-components-and-hardware-interfaces.md#算力主机-ssh-登录)。
 
    ```bash
    ssh robot@192.168.168.100
    ```
 
-3. 登录后查询系统版本和服务状态，再列出可用的 ROS 2 话题。
+3. 登录后列出可用的 ROS 2 话题。
 
    ```bash
-   cat /opt/release/version.yaml
-   robot-launch list
    ros2 topic list
    ```
-
-   在进程列表中，`perception-seg` 是感知进程，`robot-forward` 负责与 RK3588 交互。
 
 ## 激光雷达、IMU 和超声波
 
@@ -51,14 +47,22 @@ ros2 topic echo /rtk_pvh
 
 ### 解算状态与类型
 
-| 状态值 | 含义 |
+**解算状态（`status`）**
+
+对应字段为 `heading.sol_status`、`bestnav.p_sol_status` 和 `bestnav.v_sol_status`。
+
+| 状态码 | 含义 |
 | --- | --- |
 | `0` | 已解出 |
 | `1` | 观测量不足 |
 | `2` | 未收敛 |
-| `4` | 协方差矩阵的迹超过上限（> 1000 m，单位沿用参考资料） |
+| `4` | 协方差矩阵的迹超过上限（迹 > 1000 m，单位沿用参考资料） |
 
-| 类型值 | 含义 |
+**解算类型（`type`）**
+
+对应字段为 `heading.heading_type`、`bestnav.pos_type` 和 `bestnav.vel_type`。
+
+| 类型码 | 含义 |
 | --- | --- |
 | `0` | 不进行解算 |
 | `16` | 单点定位 |

@@ -4,24 +4,20 @@
 
 The ROS 2 topics listed here are for the reference configuration. Available topics depend on the hardware and running services on your robot.
 
-## Connect to the Robot and Check Services
+## Connect to the Robot and List Topics
 
-1. Connect to the robot over Wi-Fi or Ethernet. See [Connections and Stream URLs](./video-stream-reading.md#connections-and-stream-urls) for network settings. You can also reach the Orin NX over the RK3588 Wi-Fi connection through its built-in network bridge.
+1. Connect to the robot over Wi-Fi or Ethernet. See [Connections and Stream URLs](./video-stream-reading.md#connections-and-stream-urls) for network settings.
 2. Sign in to the Orin NX. See [SSH Access to the Compute Host](./03-system-components-and-hardware-interfaces.md#ssh-access-to-the-compute-host) for credentials.
 
    ```bash
    ssh robot@192.168.168.100
    ```
 
-3. Check the system version and service status, then list the available ROS 2 topics.
+3. After signing in, list the available ROS 2 topics.
 
    ```bash
-   cat /opt/release/version.yaml
-   robot-launch list
    ros2 topic list
    ```
-
-   In the process list, `perception-seg` handles perception and `robot-forward` communicates with the RK3588.
 
 ## LiDAR, IMU, and Ultrasonic Sensors
 
@@ -51,14 +47,22 @@ The `/rtk_pvh` topic contains `heading` and `bestnav`. For compatibility with ol
 
 ### Solution Status and Type
 
-| Status value | Meaning |
+**Solution Status (`status`)**
+
+The corresponding fields are `heading.sol_status`, `bestnav.p_sol_status`, and `bestnav.v_sol_status`.
+
+| Status Code | Meaning |
 | --- | --- |
 | `0` | Solution computed |
 | `1` | Insufficient observations |
 | `2` | Solution has yet to converge |
-| `4` | The covariance matrix trace exceeds the limit (> 1000 m, using the unit in the reference material) |
+| `4` | The covariance matrix trace exceeds the limit (trace > 1000 m, using the unit in the reference material) |
 
-| Type value | Meaning |
+**Solution Type (`type`)**
+
+The corresponding fields are `heading.heading_type`, `bestnav.pos_type`, and `bestnav.vel_type`.
+
+| Type Code | Meaning |
 | --- | --- |
 | `0` | Solution computation disabled |
 | `16` | Single-point positioning |
