@@ -13,10 +13,10 @@
    ssh robot@192.168.168.100
    ```
 
-3. 登录后列出可用的 ROS 2 话题。
+3. 登录后列出可用的 ROS 2 话题及其消息类型。
 
    ```bash
-   ros2 topic list
+   ros2 topic list -t
    ```
 
 ## 激光雷达、IMU 和超声波
@@ -25,25 +25,40 @@
 
 | 数据 | ROS 2 话题 | 消息类型 |
 | --- | --- | --- |
-| 前置 Ariy 96 线激光雷达点云 | `/front_lidar` | `sensor_msgs::msg::PointCloud2` |
-| 后置 Ariy 96 线激光雷达点云 | `/rear_lidar` | `sensor_msgs::msg::PointCloud2` |
-| 前置激光雷达内置 IMU | `/front_lidar/imu` | `sensor_msgs::msg::Imu` |
-| 后置激光雷达内置 IMU | `/rear_lidar/imu` | `sensor_msgs::msg::Imu` |
-| 独立 IMU（Quectel_LUA300C(00)） | `/imu_driver/imu_central` | `sensor_msgs::msg::Imu` |
-| 左侧超声波测距（DYP-A22） | `/uss_driver/uss_left/range` | `sensor_msgs::msg::Range` |
-| 右侧超声波测距（DYP-A22） | `/uss_driver/uss_right/range` | `sensor_msgs::msg::Range` |
+| 前置 Ariy 96 线激光雷达点云 | `/front_lidar` | `sensor_msgs/msg/PointCloud2` |
+| 后置 Ariy 96 线激光雷达点云 | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
+| 前置激光雷达内置 IMU | `/front_lidar/imu` | `sensor_msgs/msg/Imu` |
+| 后置激光雷达内置 IMU | `/rear_lidar/imu` | `sensor_msgs/msg/Imu` |
+| 独立 IMU（Quectel_LUA300C(00)） | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
+| 左侧超声波测距（DYP-A22） | `/uss_driver/uss_left/range` | `sensor_msgs/msg/Range` |
+| 右侧超声波测距（DYP-A22） | `/uss_driver/uss_right/range` | `sensor_msgs/msg/Range` |
+
+前后雷达点云包含 `x`、`y`、`z`、`intensity`、`ring`、`timestamp`。解析点云时，以收到的消息中的 `fields`、`point_step` 和 `row_step` 为准。
 
 独立 IMU 话题是否可用取决于设备的硬件版本。可用 `ros2 topic echo` 查看话题数据，例如 `ros2 topic echo /front_lidar/imu`。
 
-## RTK 定位与航向
-
-在 Orin NX 上读取 LK1220D 的定位与航向数据。
+读取超声波测距结果时，查看消息的 `range` 字段。以下命令读取一条左侧测距值。
 
 ```bash
-ros2 topic echo /rtk_pvh
+ros2 topic echo --once /uss_driver/uss_left/range --field range
 ```
 
-`/rtk_pvh` 包含 `heading` 和 `bestnav`。旧版驱动的兼容话题 `/uni_heading` 对应 `heading`，`/uni_best_nav` 对应 `bestnav`。可运行 `ros2 topic type /rtk_pvh` 查看实际消息类型。
+## RTK 定位与航向
+
+在 Orin NX 上读取 LK1220D 的定位与航向数据。订阅前，先加载包含 `robots_dog_msgs` 消息包的 ROS 2 环境。
+
+| ROS 2 话题 | 消息类型 | 数据内容 |
+| --- | --- | --- |
+| `/rtk_pvh` | `robots_dog_msgs/msg/UniRtkPvh` | `heading` 和 `bestnav` |
+| `/uni_heading` | `robots_dog_msgs/msg/UniHeading` | 对应 `heading` 的旧版兼容话题 |
+| `/uni_best_nav` | `robots_dog_msgs/msg/UniBestNav` | 对应 `bestnav` 的旧版兼容话题 |
+
+```bash
+ros2 interface show robots_dog_msgs/msg/UniRtkPvh
+ros2 topic echo --once /rtk_pvh
+```
+
+如果第一条命令提示 `Unknown package 'robots_dog_msgs'`，请检查当前终端是否已加载该消息包所在的 ROS 2 工作区。
 
 ### 解算状态与类型
 
@@ -103,11 +118,13 @@ ros2 topic echo /rtk_pvh
 
 ## 相机数据
 
-参考配置使用 RK3588 提供的 IMX415 前后相机数据，分辨率为 1920 × 1080（1080p）。
+参考配置的 IMX415 前后相机数据由 RK3588 提供。
 
-| 数据 | ROS 2 话题 |
-| --- | --- |
-| 前置相机压缩图像 | `/front_camera/image_compressed` |
-| 后置相机压缩图像 | `/rear_camera/image_compressed` |
+| 数据 | ROS 2 话题 | 消息类型 |
+| --- | --- | --- |
+| 前置相机原始图像 | `/front_camera/image` | `sensor_msgs/msg/Image` |
+| 后置相机原始图像 | `/rear_camera/image` | `sensor_msgs/msg/Image` |
+| 前置相机压缩图像 | `/front_camera/image_compressed` | `sensor_msgs/msg/CompressedImage` |
+| 后置相机压缩图像 | `/rear_camera/image_compressed` | `sensor_msgs/msg/CompressedImage` |
 
 在能发现这些话题的 ROS 2 环境中，可用 `ros2 topic type /front_camera/image_compressed` 查看实际消息类型。通过 Wi-Fi、G20 遥控器通道或网线播放 RTSP 视频，见[视频流读取](./video-stream-reading.md)。

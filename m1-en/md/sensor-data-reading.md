@@ -13,10 +13,10 @@ The ROS 2 topics listed here are for the reference configuration. Available topi
    ssh robot@192.168.168.100
    ```
 
-3. After signing in, list the available ROS 2 topics.
+3. After signing in, list the available ROS 2 topics and their message types.
 
    ```bash
-   ros2 topic list
+   ros2 topic list -t
    ```
 
 ## LiDAR, IMU, and Ultrasonic Sensors
@@ -25,25 +25,40 @@ Read the following topics on the Orin NX.
 
 | Data | ROS 2 topic | Message type |
 | --- | --- | --- |
-| Front Ariy 96-channel LiDAR point cloud | `/front_lidar` | `sensor_msgs::msg::PointCloud2` |
-| Rear Ariy 96-channel LiDAR point cloud | `/rear_lidar` | `sensor_msgs::msg::PointCloud2` |
-| Front LiDAR IMU | `/front_lidar/imu` | `sensor_msgs::msg::Imu` |
-| Rear LiDAR IMU | `/rear_lidar/imu` | `sensor_msgs::msg::Imu` |
-| Standalone IMU (Quectel_LUA300C(00)) | `/imu_driver/imu_central` | `sensor_msgs::msg::Imu` |
-| Left ultrasonic range (DYP-A22) | `/uss_driver/uss_left/range` | `sensor_msgs::msg::Range` |
-| Right ultrasonic range (DYP-A22) | `/uss_driver/uss_right/range` | `sensor_msgs::msg::Range` |
+| Front Ariy 96-channel LiDAR point cloud | `/front_lidar` | `sensor_msgs/msg/PointCloud2` |
+| Rear Ariy 96-channel LiDAR point cloud | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
+| Front LiDAR IMU | `/front_lidar/imu` | `sensor_msgs/msg/Imu` |
+| Rear LiDAR IMU | `/rear_lidar/imu` | `sensor_msgs/msg/Imu` |
+| Standalone IMU (Quectel_LUA300C(00)) | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
+| Left ultrasonic range (DYP-A22) | `/uss_driver/uss_left/range` | `sensor_msgs/msg/Range` |
+| Right ultrasonic range (DYP-A22) | `/uss_driver/uss_right/range` | `sensor_msgs/msg/Range` |
+
+The front and rear point clouds contain `x`, `y`, `z`, `intensity`, `ring`, and `timestamp`. When parsing a point cloud, use `fields`, `point_step`, and `row_step` from the received message.
 
 Availability of the standalone IMU topic depends on the hardware revision. Use `ros2 topic echo` to view messages, for example `ros2 topic echo /front_lidar/imu`.
 
-## RTK Positioning and Heading
-
-Read positioning and heading data from the LK1220D on the Orin NX.
+Use the `range` field for the ultrasonic distance reading. The following command reads one value from the left sensor.
 
 ```bash
-ros2 topic echo /rtk_pvh
+ros2 topic echo --once /uss_driver/uss_left/range --field range
 ```
 
-The `/rtk_pvh` topic contains `heading` and `bestnav`. For compatibility with older drivers, `/uni_heading` corresponds to `heading` and `/uni_best_nav` corresponds to `bestnav`. Run `ros2 topic type /rtk_pvh` to check the message type.
+## RTK Positioning and Heading
+
+Read positioning and heading data from the LK1220D on the Orin NX. Before subscribing, load the ROS 2 environment that provides the `robots_dog_msgs` message package.
+
+| ROS 2 topic | Message type | Contents |
+| --- | --- | --- |
+| `/rtk_pvh` | `robots_dog_msgs/msg/UniRtkPvh` | `heading` and `bestnav` |
+| `/uni_heading` | `robots_dog_msgs/msg/UniHeading` | Legacy topic corresponding to `heading` |
+| `/uni_best_nav` | `robots_dog_msgs/msg/UniBestNav` | Legacy topic corresponding to `bestnav` |
+
+```bash
+ros2 interface show robots_dog_msgs/msg/UniRtkPvh
+ros2 topic echo --once /rtk_pvh
+```
+
+If the first command returns `Unknown package 'robots_dog_msgs'`, check that the ROS 2 workspace containing the package is loaded in the current terminal.
 
 ### Solution Status and Type
 
@@ -103,11 +118,13 @@ The corresponding fields are `heading.heading_type`, `bestnav.pos_type`, and `be
 
 ## Camera Data
 
-In the reference configuration, the RK3588 provides data from the front and rear IMX415 cameras at 1920 × 1080 (1080p).
+In the reference configuration, the RK3588 provides data from the front and rear IMX415 cameras.
 
-| Data | ROS 2 topic |
-| --- | --- |
-| Front camera compressed image | `/front_camera/image_compressed` |
-| Rear camera compressed image | `/rear_camera/image_compressed` |
+| Data | ROS 2 topic | Message type |
+| --- | --- | --- |
+| Front camera raw image | `/front_camera/image` | `sensor_msgs/msg/Image` |
+| Rear camera raw image | `/rear_camera/image` | `sensor_msgs/msg/Image` |
+| Front camera compressed image | `/front_camera/image_compressed` | `sensor_msgs/msg/CompressedImage` |
+| Rear camera compressed image | `/rear_camera/image_compressed` | `sensor_msgs/msg/CompressedImage` |
 
 In a ROS 2 environment that can discover the camera topics, run `ros2 topic type /front_camera/image_compressed` to check the message type. To play RTSP video over Wi-Fi, the G20 remote controller link, or Ethernet, see [Reading Video Streams](./video-stream-reading.md).
