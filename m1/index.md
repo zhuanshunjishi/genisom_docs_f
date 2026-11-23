@@ -4,7 +4,7 @@
 
 ## 文档说明
 
-本文档面向智身铜锤 M1 系列机器人的设备使用、应用开发和现场联调，涵盖视频流读取、产品与设备、SDK 开发和故障排查。
+本文档面向智身铜锤 M1 系列机器人的设备使用、应用开发和现场联调，涵盖数据读取、产品与设备、SDK 开发和故障排查。
 
 M1 SDK 的核心类是 `robot_sdk::SDKClient`。应用程序通过 `SDKClient` 连接机器人、发送控制命令，并通过回调接收状态、故障和命令应答。
 
@@ -12,7 +12,7 @@ M1 SDK 的核心类是 `robot_sdk::SDKClient`。应用程序通过 `SDKClient` �
 
 | 章节 | 主要内容 | 阅读建议 |
 | --- | --- | --- |
-| [1. 视频流读取](./md/video-stream-reading.md) | 前后摄像头的 RTSP 地址、VLC 播放步骤和示例 | 查看摄像头画面时阅读 |
+| 1. 数据读取 | [视频流读取](./md/video-stream-reading.md)、[传感器数据读取](./md/sensor-data-reading.md) | 查看摄像头画面、ROS 2 话题或 RTK 字段时阅读 |
 | [2. M1 产品介绍与规格](./md/01-product-introduction-and-specifications.md) | M1 系列各版本的外观、参数、传感器和软件能力 | 选型或初次了解产品时阅读 |
 | [3. M1 设备使用与维护](./md/02-operation-and-maintenance.md) | 使用准备、开关机、遥控器、运动模式、安全保护、换电、充电和维护 | 首次操作设备前阅读 |
 | [4. M1 系统组成、硬件接口与结构设计资料](./md/03-system-components-and-hardware-interfaces.md) | 介绍系统组成、网络通信、扩展仓和视频接口，并提供[上装空间示意图、负载设计参考、外观模型和 URDF 模型](./md/03-system-components-and-hardware-interfaces.md#payload-model-downloads)。 | 接入网络或安装上装设备前阅读 |

@@ -4,7 +4,7 @@
 
 ## About This Documentation
 
-This guide covers operation, application development, and on-site integration for the Genisom M1 robot series. It includes camera streaming, product specifications, device operation, SDK development, and troubleshooting.
+This guide covers operation, application development, and on-site integration for the Genisom M1 robot series. It includes data access, product specifications, device operation, SDK development, and troubleshooting.
 
 The main SDK class is `robot_sdk::SDKClient`. Use it to connect to the robot and send control commands. Register callbacks to receive state data, fault reports, and command acknowledgments.
 
@@ -12,7 +12,7 @@ The main SDK class is `robot_sdk::SDKClient`. Use it to connect to the robot and
 
 | Chapter | Topics | When to read |
 | --- | --- | --- |
-| [1. Reading video streams](./md/video-stream-reading.md) | Front and rear camera RTSP addresses, VLC playback, and examples | To view the camera feeds |
+| 1. Data Access | [Reading Video Streams](./md/video-stream-reading.md), [Reading Sensor Data](./md/sensor-data-reading.md) | To view camera feeds or look up ROS 2 topics and RTK fields |
 | [2. Product introduction and specifications](./md/01-product-introduction-and-specifications.md) | Design, specifications, sensors, and software capabilities by model | When choosing a model or learning about the product |
 | [3. Operation and maintenance](./md/02-operation-and-maintenance.md) | Preparation, power, remote control, motion modes, safety, battery replacement, charging, and maintenance | Before first use |
 | [4. System components, hardware interfaces, and mechanical design](./md/03-system-components-and-hardware-interfaces.md) | System components, networking, the expansion compartment, video interfaces, and [mounting space drawings, payload design references, exterior models, and URDF models](./md/03-system-components-and-hardware-interfaces.md#payload-model-downloads) | Before connecting to the network or installing a payload |

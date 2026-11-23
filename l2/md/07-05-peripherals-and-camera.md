@@ -27,6 +27,8 @@ std::error_code UpdateCameraBitrate(
 
 设备生效值通过 `OnUpdateCameraBitrateAck()` 返回。
 
+图像格式、分辨率和 Topic 路径见[相机节点与 Topic 配置](./camera-topic-configuration.md)。
+
 ## 外设电源
 
 ```cpp

@@ -39,6 +39,13 @@ export default defineConfig({
               { text: '外设与相机', link: '/md/07-05-peripherals-and-camera' },
             ],
           },
+          {
+            text: '数据读取',
+            collapsed: false,
+            items: [
+              { text: '相机节点与 Topic 配置', link: '/md/camera-topic-configuration' },
+            ],
+          },
           { text: '回调、数据类型与状态', link: '/md/08-callbacks-data-types-and-status-reference' },
           { text: '示例程序与故障排查', link: '/md/10-examples-and-troubleshooting' },
         ],

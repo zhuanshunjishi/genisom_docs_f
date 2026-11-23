@@ -23,6 +23,7 @@ export default defineConfig(englishConfig(
     '外设与相机': 'Peripherals and cameras',
     '数据读取': 'Data access',
     '视频流读取': 'Reading video streams',
+    '传感器数据读取': 'Reading Sensor Data',
     '回调、数据类型与状态参考': 'Callbacks, data types, and status reference',
     '示例程序与故障排查': 'Examples and troubleshooting',
   },

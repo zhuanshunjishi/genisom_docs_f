@@ -48,6 +48,7 @@ export default defineConfig({
             collapsed: false,
             items: [
               { text: '视频流读取', link: '/md/video-stream-reading' },
+              { text: '传感器数据读取', link: '/md/sensor-data-reading' },
             ],
           },
           { text: '回调、数据类型与状态参考', link: '/md/07-callbacks-data-types-and-status-reference' },
