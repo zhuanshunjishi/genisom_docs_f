@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | [1. L2 产品介绍与规格](./md/01-product-introduction-and-specifications.md) | 三个产品版本的足端形态、尺寸、运动能力、续航、感知、通信和扩展能力 | 选型或初次了解产品时阅读 |
 | [2. L2 配件与设备组成](./md/02-accessories.md) | 机器人本体、电池、充电座、适配器、遥控器、UWB 信标和随箱附件 | 开箱验收或确认配件时阅读 |
-| [3. L2 硬件接口与系统架构](./md/03-hardware-interfaces-and-system-architecture.md) | 上装安装范围、扩展仓位置、供电、千兆以太网、UART、SBUS、PPS、USB、SIM 卡槽和航插线序 | 接入网络或安装上装设备前阅读 |
+| [3. L2 硬件接口与系统架构](./md/03-hardware-interfaces-and-system-architecture.md) | 上装安装范围、[外观模型下载](./md/03-hardware-interfaces-and-system-architecture.md#exterior-model-downloads)、扩展仓位置、供电、千兆以太网、UART、SBUS、PPS、USB、SIM 卡槽和航插线序 | 接入网络或安装上装设备前阅读 |
 | [4. L2 设备操作、遥控器与 App](./md/04-device-controller-and-app-guide.md) | 开关机、充电、遥控器按键、运动模式、急停、指示灯和日常维护 | 首次操作设备前阅读 |
 | [5. L2 智航 Pro 软件使用](./md/05-roamerx-pro-guide.md) | 网络配置、建图、地图编辑、路网、巡航路径、任务执行、自主回充和巡航记录 | 配置建图、巡航与自主回充时阅读 |
 | [6. L2 SDK 快速开始](./md/06-sdk-quickstart.md) | Ubuntu 环境、SDK 目录、网络与端口配置、编译、连接、运行示例和自建工程 | 第一次编译和运行 SDK 时阅读 |

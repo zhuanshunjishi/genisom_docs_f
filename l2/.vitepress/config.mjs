@@ -1,3 +1,5 @@
+import { cp } from 'node:fs/promises'
+import { join } from 'node:path'
 import { defineConfig } from 'vitepress'
 import { docsBase } from '../../.vitepress/docs-base.mjs'
 import { docsNav } from '../../.vitepress/docs-nav.mjs'
@@ -9,6 +11,11 @@ export default defineConfig({
   title: '智身钢镚 L2 SDK 开发文档',
   description: '智身钢镚 L2 系列的设备使用、SDK 开发和接口参考',
   base,
+  async buildEnd({ srcDir, outDir }) {
+    await cp(join(srcDir, 'assets', 'downloads'), join(outDir, 'assets', 'downloads'), {
+      recursive: true,
+    })
+  },
   themeConfig: {
     nav: docsNav('l2'),
     sidebar: [

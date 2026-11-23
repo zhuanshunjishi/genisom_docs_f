@@ -40,6 +40,14 @@
   height: 24px;
 }
 
+.docs-brand-logos img:lang(en) {
+  /* Crop the transparent padding of the English logo. */
+  width: 165px;
+  max-width: none;
+  margin-inline: -22px;
+  object-fit: cover;
+}
+
 .dark .docs-brand-logos {
   padding: 2px 4px;
   border-radius: 4px;

@@ -78,3 +78,4 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
 - 部分功能与参数基于实验室测试环境，实际表现可能因使用场景和产品配置不同而变化。
 - 产品配置和功能会持续迭代，实际外观、接口和功能以交付设备为准。
 - 功能拓展接口的电气定义、功率限制和针脚说明见[硬件接口与系统架构](./03-hardware-interfaces-and-system-architecture.md)。
+- 进行上装或结构设计时，可下载 [L2 和 L2-W Ultra 外观模型](./03-hardware-interfaces-and-system-architecture.md#exterior-model-downloads)。

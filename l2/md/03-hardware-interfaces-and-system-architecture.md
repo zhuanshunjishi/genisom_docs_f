@@ -22,6 +22,15 @@ Ubuntu 开发主机
 
 上装设计时应同时考虑重心、安装位置、供电、接口和走线。接入外设前核对工作电压、电流和启动峰值；未使用的航插应安装防护盖。
 
+## 外观模型下载 {#exterior-model-downloads}
+
+按设备型号下载对应的 STP 外观模型，在支持 STEP 格式的 CAD 软件中查看外观尺寸、布置上装和核对装配空间。
+
+| 资料 | 用途 | 下载 |
+| --- | --- | --- |
+| 智身钢镚 L2 外观模型（脱敏版） | 查看 L2 外观尺寸和核对上装空间 | <a href="../assets/downloads/l2-exterior-model.stp" download>下载 STP 模型</a> |
+| 智身钢镚 L2-W Ultra 外观模型（脱敏版） | 查看 L2-W Ultra 外观尺寸和核对上装空间 | <a href="../assets/downloads/l2-w-ultra-exterior-model.stp" download>下载 STP 模型</a> |
+
 ## 扩展仓与接口位置
 
 扩展仓位于机身侧面。使用 3 mm 内六角螺丝刀拆下两颗 M4 螺丝后可取下盖板。接线完成后应复位盖板并均匀锁紧，以保持接口区域防护能力。
