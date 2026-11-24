@@ -19,9 +19,32 @@ The ROS 2 topics listed here are for the reference configuration. Available topi
    ros2 topic list -t
    ```
 
+### List ROS 2 Topics from a Development Computer
+
+Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then connect it to the robot network over Ethernet or Wi-Fi. The example uses domain ID `24` and the Orin NX Zenoh router endpoint `tcp/192.168.168.100:7447`. If your robot uses different settings, check its `/opt/runtime/env.bash` and router configuration.
+
+1. Start the Zenoh router in the first terminal on the development computer and leave it running.
+
+   ```bash
+   source /opt/ros/humble/setup.bash
+   export ZENOH_CONFIG_OVERRIDE='connect/endpoints=["tcp/192.168.168.100:7447"]'
+   ros2 run rmw_zenoh_cpp rmw_zenohd
+   ```
+
+2. In the second terminal on the development computer, set the middleware and domain ID, then list the topics.
+
+   ```bash
+   source /opt/ros/humble/setup.bash
+   export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+   export ROS_DOMAIN_ID=24
+   ros2 topic list -t
+   ```
+
+Once the robot's topics appear, use `ros2 topic echo` in the second terminal to read messages. To read custom messages such as RTK data, load the corresponding message package on the development computer as well. [Zenoh Multi-Host Configuration](https://github.com/ros2/rmw_zenoh/tree/humble#connecting-multiple-hosts)
+
 ## LiDAR, IMU, and Ultrasonic Sensors
 
-Read the following topics on the Orin NX.
+You can read the following topics on the Orin NX.
 
 | Data | ROS 2 topic | Message type |
 | --- | --- | --- |
@@ -29,7 +52,8 @@ Read the following topics on the Orin NX.
 | Rear Ariy 96-channel LiDAR point cloud | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
 | Front LiDAR IMU | `/front_lidar/imu` | `sensor_msgs/msg/Imu` |
 | Rear LiDAR IMU | `/rear_lidar/imu` | `sensor_msgs/msg/Imu` |
-| Standalone IMU (Quectel_LUA300C(00)) | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
+| Orin NX standalone IMU | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
+| RK3588 motion control board IMU | `/imu_shm_publisher/imu_central` | `sensor_msgs/msg/Imu` |
 | Left ultrasonic range (DYP-A22) | `/uss_driver/uss_left/range` | `sensor_msgs/msg/Range` |
 | Right ultrasonic range (DYP-A22) | `/uss_driver/uss_right/range` | `sensor_msgs/msg/Range` |
 

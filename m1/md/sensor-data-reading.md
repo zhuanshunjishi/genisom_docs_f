@@ -19,9 +19,32 @@
    ros2 topic list -t
    ```
 
+### 从开发电脑查看 ROS 2 话题
+
+开发电脑需安装 ROS 2 Humble 和 `rmw_zenoh_cpp`，并通过网线或 Wi-Fi 接入机器人网络。示例使用参考配置的域 ID `24` 和 Orin NX 的 Zenoh 路由端点 `tcp/192.168.168.100:7447`。如果设备使用其他设置，请以设备上的 `/opt/runtime/env.bash` 和路由配置为准。
+
+1. 在开发电脑的第一个终端启动 Zenoh 路由器，并保持该终端运行。
+
+   ```bash
+   source /opt/ros/humble/setup.bash
+   export ZENOH_CONFIG_OVERRIDE='connect/endpoints=["tcp/192.168.168.100:7447"]'
+   ros2 run rmw_zenoh_cpp rmw_zenohd
+   ```
+
+2. 在开发电脑的第二个终端设置中间件和域 ID，然后查看话题。
+
+   ```bash
+   source /opt/ros/humble/setup.bash
+   export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+   export ROS_DOMAIN_ID=24
+   ros2 topic list -t
+   ```
+
+看到机器人话题后，可在第二个终端使用 `ros2 topic echo` 读取数据。读取 RTK 等自定义消息时，开发电脑也需要加载对应的消息包。[Zenoh 多机配置参考](https://github.com/ros2/rmw_zenoh/tree/humble#connecting-multiple-hosts)
+
 ## 激光雷达、IMU 和超声波
 
-以下话题在 Orin NX 上读取。
+可在 Orin NX 上读取下列话题。
 
 | 数据 | ROS 2 话题 | 消息类型 |
 | --- | --- | --- |
@@ -29,7 +52,8 @@
 | 后置 Ariy 96 线激光雷达点云 | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
 | 前置激光雷达内置 IMU | `/front_lidar/imu` | `sensor_msgs/msg/Imu` |
 | 后置激光雷达内置 IMU | `/rear_lidar/imu` | `sensor_msgs/msg/Imu` |
-| 独立 IMU（Quectel_LUA300C(00)） | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
+| Orin NX 侧独立 IMU | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
+| RK3588 运控板 IMU | `/imu_shm_publisher/imu_central` | `sensor_msgs/msg/Imu` |
 | 左侧超声波测距（DYP-A22） | `/uss_driver/uss_left/range` | `sensor_msgs/msg/Range` |
 | 右侧超声波测距（DYP-A22） | `/uss_driver/uss_right/range` | `sensor_msgs/msg/Range` |
 

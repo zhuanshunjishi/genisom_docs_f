@@ -91,7 +91,7 @@ struct PosControlCmd {
 
 | 接口 | 参数 | 说明 |
 | --- | --- | --- |
-| [`Turn()`](#turn) | `direction` | 原地向左或向右翻滚机身 |
+| [`Turn()`](#turn) | `direction` | 原地向左或向右侧倾机身 |
 | [`ControlHead()`](#controlhead) | `left_right`、`up_down` | 左右探头和俯仰 |
 | [`HighLowStance()`](#highlowstance) | `stance` | 调整站姿高度 |
 | [`SetSpeed()`](#setspeed) | `speed_level` | 设置移动速度档位 |
