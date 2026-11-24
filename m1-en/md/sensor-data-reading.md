@@ -21,17 +21,22 @@ The ROS 2 topics listed here are for the reference configuration. Available topi
 
 ### List ROS 2 Topics from a Development Computer
 
-Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then connect it to the robot network over Ethernet or Wi-Fi. The example uses domain ID `24` and the Orin NX Zenoh router endpoint `tcp/192.168.168.100:7447`. If your robot uses different settings, check its `/opt/runtime/env.bash` and router configuration.
+Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then connect it to the robot network over Ethernet or Wi-Fi.
 
-1. Start the Zenoh router in the first terminal on the development computer and leave it running.
+1. **Terminal 1 — Connect to the Robot's Zenoh Router**
+
+   Set `robot_router` to the endpoint in the Orin NX router configuration. Leave this terminal running after starting the router.
 
    ```bash
    source /opt/ros/humble/setup.bash
-   export ZENOH_CONFIG_OVERRIDE='connect/endpoints=["tcp/192.168.168.100:7447"]'
+   robot_router='tcp/192.168.168.100:7447'
+   export ZENOH_CONFIG_OVERRIDE="connect/endpoints=[\"${robot_router}\"]"
    ros2 run rmw_zenoh_cpp rmw_zenohd
    ```
 
-2. In the second terminal on the development computer, set the middleware and domain ID, then list the topics.
+2. **Terminal 2 — List Topics and Message Types**
+
+   Set `ROS_DOMAIN_ID` to the value in the robot's `/opt/runtime/env.bash`. The reference configuration uses `24`.
 
    ```bash
    source /opt/ros/humble/setup.bash
@@ -40,7 +45,7 @@ Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then conne
    ros2 topic list -t
    ```
 
-Once the robot's topics appear, use `ros2 topic echo` in the second terminal to read messages. To read custom messages such as RTK data, load the corresponding message package on the development computer as well. [Zenoh Multi-Host Configuration](https://github.com/ros2/rmw_zenoh/tree/humble#connecting-multiple-hosts)
+Run `ros2 topic echo <topic>` in Terminal 2 to read messages. For custom messages such as RTK data, first load the corresponding message package on the development computer. [Zenoh Multi-Host Configuration](https://github.com/ros2/rmw_zenoh/tree/humble#connecting-multiple-hosts)
 
 ## LiDAR, IMU, and Ultrasonic Sensors
 

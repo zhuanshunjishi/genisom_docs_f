@@ -21,17 +21,22 @@
 
 ### 从开发电脑查看 ROS 2 话题
 
-开发电脑需安装 ROS 2 Humble 和 `rmw_zenoh_cpp`，并通过网线或 Wi-Fi 接入机器人网络。示例使用参考配置的域 ID `24` 和 Orin NX 的 Zenoh 路由端点 `tcp/192.168.168.100:7447`。如果设备使用其他设置，请以设备上的 `/opt/runtime/env.bash` 和路由配置为准。
+在开发电脑上安装 ROS 2 Humble 和 `rmw_zenoh_cpp`，再通过网线或 Wi-Fi 接入机器人网络。
 
-1. 在开发电脑的第一个终端启动 Zenoh 路由器，并保持该终端运行。
+1. **终端 1：连接机器人的 Zenoh 路由器**
+
+   `robot_router` 是机器人 Orin NX 的路由地址。按设备的路由配置填写，启动后保持此终端运行。
 
    ```bash
    source /opt/ros/humble/setup.bash
-   export ZENOH_CONFIG_OVERRIDE='connect/endpoints=["tcp/192.168.168.100:7447"]'
+   robot_router='tcp/192.168.168.100:7447'
+   export ZENOH_CONFIG_OVERRIDE="connect/endpoints=[\"${robot_router}\"]"
    ros2 run rmw_zenoh_cpp rmw_zenohd
    ```
 
-2. 在开发电脑的第二个终端设置中间件和域 ID，然后查看话题。
+2. **终端 2：列出话题和消息类型**
+
+   `ROS_DOMAIN_ID` 需与机器人 `/opt/runtime/env.bash` 中的设置一致。参考配置使用 `24`。
 
    ```bash
    source /opt/ros/humble/setup.bash
@@ -40,7 +45,7 @@
    ros2 topic list -t
    ```
 
-看到机器人话题后，可在第二个终端使用 `ros2 topic echo` 读取数据。读取 RTK 等自定义消息时，开发电脑也需要加载对应的消息包。[Zenoh 多机配置参考](https://github.com/ros2/rmw_zenoh/tree/humble#connecting-multiple-hosts)
+在终端 2 使用 `ros2 topic echo <话题名>` 读取数据。读取 RTK 等自定义消息前，先在开发电脑上加载对应的消息包。[Zenoh 多机配置参考](https://github.com/ros2/rmw_zenoh/tree/humble#connecting-multiple-hosts)
 
 ## 激光雷达、IMU 和超声波
 
