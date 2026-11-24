@@ -81,9 +81,14 @@
         <h2 id="humanoid-title">Humanoid Robots</h2>
         <div class="products">
           <article class="product product-upcoming product-ne01">
-            <div class="product-image product-art">
-              <img src="../assets/NE01.png" alt="Genisom NE01 humanoid robot"
-                width="3840" height="2160" loading="lazy">
+            <div class="product-image product-preview">
+              <model-viewer src="../assets/models/NE01.glb" alt="Genisom NE01 3D model"
+                camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
+                auto-rotate-delay="600" rotation-per-second="18deg"
+                camera-orbit="28deg 80deg 105%" shadow-intensity="0.45">
+                <img slot="poster" src="../assets/NE01.png" alt="" width="3840" height="2160" loading="lazy">
+              </model-viewer>
+              <span class="product-preview-label" hidden>Try dragging me!</span>
             </div>
             <div class="product-copy">
               <h3>Genisom NE01</h3>

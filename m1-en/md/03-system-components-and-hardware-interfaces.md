@@ -63,7 +63,7 @@ The expansion compartment on the robot's back provides mounting, power, and comm
 
 ### Aviation Connector Pinouts {#aviation-connector-pinouts}
 
-The connector numbers match the expansion compartment diagram above. Before wiring, check the board-side connector model and pin diagram against the connector on the robot. The mating harness drawings for the Ethernet and serial connectors show the cable-side viewing direction and wire colors.
+The connector numbers match the expansion compartment diagram above. Before wiring, check the board-side connector model and pin diagram against the connector on the robot.
 
 #### ① 48 V Power and ② 24 V Power
 
@@ -101,10 +101,6 @@ Both ports use the `STA思大-M12- P12A-GPFM12` board-side connector.
 | 11 | Ethernet `D+` | Ethernet `D+` |
 | 12 | Ethernet `D-` | Ethernet `D-` |
 
-::: details Ethernet Mating Harness Drawing
-![12-pin Ethernet mating harness drawing and wire colors](../assets/product/connector-pinouts/ethernet-harness.png)
-:::
-
 #### ⑤ Serial
 
 The board-side connector model is `STA思大-M12- P8A-GPFM12`.
@@ -122,19 +118,11 @@ The board-side connector model is `STA思大-M12- P8A-GPFM12`.
 | 7 | `RS232_RX` |
 | 8 | `GND` |
 
-::: details Serial Mating Harness Drawing
-![Eight-pin serial mating harness drawing and wire colors](../assets/product/connector-pinouts/serial-harness.png)
-:::
-
 #### ⑥ and ⑦ USB 3.0
 
-Both ports use the `STA思大-E10B- FT3-PPF` board-side connector. The source provides board-side and mating harness drawings. Individual USB pin assignments are unspecified.
+Both ports use the `STA思大-E10B- FT3-PPF` board-side connector. The source pinout table leaves the individual USB 3.0 pin assignments unspecified.
 
 ![Board-side USB 3.0 connector drawing](../assets/product/connector-pinouts/usb-connector.png)
-
-::: details USB 3.0 Mating Harness Drawing
-![USB 3.0 mating harness drawing](../assets/product/connector-pinouts/usb-harness.png)
-:::
 
 ### Device Paths for the Aviation Expansion Connector
 

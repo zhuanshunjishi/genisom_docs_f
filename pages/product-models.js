@@ -42,7 +42,7 @@ for (const preview of previews) {
   const viewer = preview.querySelector('model-viewer');
   const label = preview.querySelector('.product-preview-label');
   const link = preview.nextElementSibling;
-  enablePreviewLink(preview, link);
+  if (link?.matches('a[href]')) enablePreviewLink(preview, link);
 
   const updateRotation = () => viewer.toggleAttribute('auto-rotate', !reducedMotion.matches);
   updateRotation();
