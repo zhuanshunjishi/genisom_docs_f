@@ -25,7 +25,7 @@
 
 1. **终端 1：连接机器人的 Zenoh 路由器**
 
-   `robot_router` 是机器人 Orin NX 的路由地址。按设备的路由配置填写，启动后保持此终端运行。
+   `robot_router` 填写 Orin NX 的 Zenoh 路由地址，参考地址为 `tcp/192.168.168.100:7447`。按设备的路由配置调整，启动后保持此终端运行。
 
    ```bash
    source /opt/ros/humble/setup.bash

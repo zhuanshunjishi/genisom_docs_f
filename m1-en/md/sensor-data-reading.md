@@ -25,7 +25,7 @@ Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then conne
 
 1. **Terminal 1 — Connect to the Robot's Zenoh Router**
 
-   Set `robot_router` to the endpoint in the Orin NX router configuration. Leave this terminal running after starting the router.
+   Set `robot_router` to the endpoint in the Orin NX Zenoh router configuration. The reference endpoint is `tcp/192.168.168.100:7447`. Leave this terminal running after starting the router.
 
    ```bash
    source /opt/ros/humble/setup.bash
