@@ -13,14 +13,14 @@ SDKClient(
     TransportProtocol type = TransportProtocol::Udp);
 ```
 
-Create SDK client. `type` Support `TransportProtocol::Udp` and `TransportProtocol::WebSocket`, used by default UDP.
+Create an SDK client. The `type` parameter accepts `TransportProtocol::Udp` and `TransportProtocol::WebSocket`. The default is UDP.
 
-`ConnectionConfig`...........
+`ConnectionConfig` defines the connection and reconnection settings.
 
 | Field | Description |
 | --- | --- |
 | `connect_timeout_ms` | Connection and handshake timeout, default 5000 ms, minimum 500 ms |
-| `auto_reconnect` | Whether or not to open automatic reconnection, default `false` |
+| `auto_reconnect` | Enables automatic reconnection. The default is `false`. |
 | `reconnect_interval_ms` | Auto-reconnection interval, default 1000 ms, minimum 500 ms |
 
 ### Connect
@@ -31,15 +31,15 @@ std::error_code Connect(
     ConnectHandler handler = [](const std::error_code&) {});
 ```
 
-Creates a transfer connection and completes the protocol handshake. Only when the handshake is successful is the connection successful.
+Establish the transport connection and complete the protocol handshake. The connection is ready once the handshake succeeds.
 
-Starting with SDK v0.2.3, when the first connection fails because the transfer, handshake, protocol mismatch or control is denied, it can be called again on the same `SDKClient` instance `Connect()`. The step connection should wait for the result of this failure to be retried by the application thread.
+Starting with SDK v0.2.3, you can retry `Connect()` on the same `SDKClient` instance if the first attempt fails due to a transport error, handshake failure, protocol mismatch, or denial of control. For asynchronous connections, wait for the failure result before retrying from the application thread.
 
 | Parameter | Description |
 | --- | --- |
-| `ip` | Robotic address, e.g. `192.168.234.1` or `192.168.168.168` |
-| `port` | UDP Usual `8082`,WebSocket `8081` |
-| `block` | `false`: walk-through; `true`: blocking pending completion of the connection |
+| `ip` | Robot address, e.g. `192.168.234.1` or `192.168.168.168` |
+| `port` | UDP typically uses `8082`. WebSocket uses `8081`. |
+| `block` | `false` connects asynchronously. `true` blocks until the connection attempt completes. |
 | `handler` | Callback for the asynchronous connection result |
 
 ```cpp
@@ -58,7 +58,7 @@ std::error_code Disconnect(
     DisConnectHandler handler = [](const std::error_code&) {});
 ```
 
-Active disconnection. UDP Mode SDK sends a disconnection notification before releasing the connection resource.
+Disconnect explicitly. In UDP mode, the SDK sends a disconnect notification before releasing the connection resources.
 
 ### IsConnected
 
@@ -81,9 +81,9 @@ Return to current connection status:
 | `DISCONNECTING` | 0 | Disconnecting |
 | `DISCONNECTED` | 1 | Disconnected |
 | `CONNECTING` | 2 | Connecting |
-| `HANDSHAKING` | 3 | Hold hands. |
+| `HANDSHAKING` | 3 | Handshake in progress |
 | `CONNECTED` | 4 | Connected |
-| `RECONNECTING` | 5 | Autoreconnection |
+| `RECONNECTING` | 5 | Reconnecting |
 
 ## Version and Device Information
 
@@ -91,8 +91,8 @@ Return to current connection status:
 | --- | --- | --- |
 | `Version` | `const std::string& Version() const` | SDK Version |
 | `ProtocolVersion` | `const std::string& ProtocolVersion() const` | Communication protocol version |
-| `SystemVersion` | `const std::string& SystemVersion() const` | The robotic version of the handshake. |
-| `GetDeviceInfo` | `DeviceInfo GetDeviceInfo() const` | Get the handshake cache type and serial number |
+| `SystemVersion` | `const std::string& SystemVersion() const` | Robot system version received during the handshake |
+| `GetDeviceInfo` | `DeviceInfo GetDeviceInfo() const` | Robot model and serial number cached during the handshake |
 
 ```cpp
 struct DeviceInfo {
@@ -112,14 +112,14 @@ if (!ec) {
 }
 ```
 
-Before the connection is successful or after it is disconnected, `device_type` Maybe. `DeviceType::UNKNOWN`,  `sn` Could be empty.
+Before connection succeeds or after disconnection, `device_type` may be `DeviceType::UNKNOWN` and `sn` may be empty.
 
 ## Genisom M1 Type Judgement
 
-SDK returns `DeviceType` on handshake. After startup, call `GetDeviceInfo()` and enable the function according to the return model. M1 The relevant numbering values are shown in [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md#deviceinfo-and-devicetype).
+The SDK obtains `DeviceType` during the handshake. After startup, call `GetDeviceInfo()` and enable features supported by the reported model. See [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md#deviceinfo-and-devicetype).
 
 When calling an operation the current model does not support, SDK returns `Errc::UnsupportedDeviceOperation`, and the protocol command will not be sent.
 
 Recharging, undocking, peripheral power, and status LEDs depend on the robot hardware and system configuration. See the [official model capability matrix](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_api_capability_en.md) for API support by model.
 
-The complete combination of interfaces can be found in [M1 Example procedures and troubleshooting](./08-examples-and-troubleshooting.md).
+The complete combination of interfaces can be found in [Genisom M1 Examples and Troubleshooting](./08-examples-and-troubleshooting.md).

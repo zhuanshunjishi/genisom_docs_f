@@ -4,25 +4,25 @@
 
 ## Callback Model
 
-M1 SDK Use two types of echo:
+The Genisom M1 SDK uses two callback interfaces.
 
 | Callback Interface | Receive content | Registration Functions |
 | --- | --- | --- |
-| `IDataCallback` | Sensor, robotic state, failure, control event, mission status and charge-post reporting | `SetDataCallback()` |
+| `IDataCallback` | Sensor data, robot state, faults, control ownership events, task state, and charging dock reports | `SetDataCallback()` |
 | `IControlCallback` | The robot's response to the command. | `SetControlCallback()` |
 
 See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#three-levels-of-call-results) for the relationship between the sending result, the command response and the action status.
 
 ## Callback Threading Rules
 
-The revert function runs in the SDK I/O line. In the echo, only quick data copying, validation, status update and message queues are performed:
+Callbacks run on the SDK I/O thread. Limit callback work to quick data copies, validation, state updates, and queuing messages.
 
 - Do not carry out long calculations.
 - Do not execute file writing, database operation or network request.
-- Do not call the sync SDK interface in the echo.
-- Shared data are protected using atomic variables, mutually exclusive locks or linear queues.
-- Don't throw an anomaly out of the loop.
-- Time-consuming tasks are assigned to the application ' s own workspace.
+- Avoid synchronous SDK calls from callbacks.
+- Protect shared data with atomic variables, mutexes, or thread-safe queues.
+- Keep exceptions from escaping the callback.
+- Run time-consuming tasks on the application’s own worker threads.
 
 ## IDataCallback
 
@@ -45,27 +45,27 @@ public:
 };
 ```
 
-| Rewind | Trigger Method | Data |
+| Callback | Trigger Method | Data |
 | --- | --- | --- |
-| `OnImuData` | Start IMU report and trigger by configuration frequency | `ImuData` |
-| `OnLuxData` | Fixed 1 Hz trigger when light is activated | `LuxData` |
-| `OnMcData` | Fixed 50 Hz trigger after opening motion data | `MotionData` |
-| `OnSpeedData` | Turn on the speed and trigger it by configuration frequency. | `SpeedData` |
-| `OnJointStateData` | Turn on the joint and trigger it. | `JointStateData` |
-| `OnRobotStateData` | Robots report voluntarily, usually 1 Hz | `RobotState` |
-| `OnFaultData` | Actively report the current malfunctions. | `FaultDatas` |
-| `OnTaskStateData` | Actively report changes in mission status | `TaskStateInfo` |
-| `OnDockScanResult` | Reporting charges during the scan. | `DockScanResult` |
-| `OnDockConnectionResult` | Report the final results of the recharge pillar connection or disconnect | `DockConnectionResult` |
+| `OnImuData` | Reports IMU data at the configured rate when enabled | `ImuData` |
+| `OnLuxData` | Reports ambient light at a fixed 1 Hz when enabled | `LuxData` |
+| `OnMcData` | Reports motion data at a fixed 50 Hz when enabled | `MotionData` |
+| `OnSpeedData` | Reports speed at the configured rate when enabled | `SpeedData` |
+| `OnJointStateData` | Reports joint states when enabled | `JointStateData` |
+| `OnRobotStateData` | Reports automatically, typically at 1 Hz | `RobotState` |
+| `OnFaultData` | Reports current faults automatically | `FaultDatas` |
+| `OnTaskStateData` | Reports changes in task state automatically | `TaskStateInfo` |
+| `OnDockScanResult` | Reports charging docks found during scanning | `DockScanResult` |
+| `OnDockConnectionResult` | Reports the final result of connecting to or disconnecting from the charging dock | `DockConnectionResult` |
 
 ### Control Ownership Events {#control-ownership-events}
 
-| Rewind | Meaning | Treatment of recommendations |
+| Callback | Meaning | Recommended action |
 | --- | --- | --- |
-| `OnControlLost` | Current SDK Loss of control | Immediately stop sending a normal control order. |
-| `OnControlAvailable` | Reclaimable right of control | Called by applied workspace `TakeControl()` |
+| `OnControlLost` | The SDK lost control ownership | Immediately stop sending normal control commands. |
+| `OnControlAvailable` | Control is available to request again | Call `TakeControl()` from an application worker thread. |
 
-`OnControlAvailable()` indicates only that the right of control is available and does not mean that SDK has acquired the right of control. The actual result depends on `OnTakeControlAck()`.
+`OnControlAvailable()` signals that the SDK can request control ownership. Use `OnTakeControlAck()` to confirm whether the request was granted.
 
 ## IControlCallback
 
@@ -121,18 +121,18 @@ public:
 
 ### Acknowledgment Callback Categories
 
-| Classification | Rewind | Description |
+| Classification | Callback | Description |
 | --- | --- | --- |
-| Posture Command | `OnStandUp()`, `OnWalk()`, `OnLieDown()`, etc. | The robots have been ordered to proceed to the status data. |
+| Posture Command | `OnStandUp()`, `OnWalk()`, `OnLieDown()`, etc. | The robot received the command. Check state data to determine when the motion completes. |
 | Speed and light. | `OnSpeed()`, `OnFrontLight()`, etc. | Returns settings confirmed by robot |
 | Data Configuration | `OnImuConfig()`, `OnMcConfig()`, etc. | Return effective configuration |
-| Control ownership | `OnTakeControlAck()`, `OnReleaseControlAck()` | Based on `error_code` Business results |
-| Camera | `OnUpdateCameraBitrateAck()` | Return camera actual code rate |
-| charging dock | `OnDockScanConfig()`, `OnDockConnectionAck()`, `OnDockInfo()` | Return to scanned switch, connection or disconnect request admissibility, charge pillar information, respectively |
-| Status and tasks | `OnSwitchRemote()`, `OnStartRechargeTask()`, etc. | Command confirmed. Mission sequence. `OnTaskStateData()` |
+| Control ownership | `OnTakeControlAck()`, `OnReleaseControlAck()` | Check `error_code` to determine whether the robot granted or released control. |
+| Camera | `OnUpdateCameraBitrateAck()` | Returns the camera’s applied bitrate |
+| charging dock | `OnDockScanConfig()`, `OnDockConnectionAck()`, `OnDockInfo()` | Report whether scanning is enabled, whether the connect or disconnect request was accepted, and charging dock details, respectively. |
+| Status and tasks | `OnSwitchRemote()`, `OnStartRechargeTask()`, etc. | Acknowledges the command. Track task progress via `OnTaskStateData()`. |
 | Power and LED | `OnSetPeriphPower()`, `OnSetLedCommand()`, etc. | Return device confirmed channel or light effect |
 
-`Move()`,  `MoveVelocity()`,  `Turn()`,  `ControlHead()`,  `HighLowStance()` and `PosMove()` There's no special control to respond. Send the results through. `WriteHandler` Get in.
+`Move()`,  `MoveVelocity()`,  `Turn()`,  `ControlHead()`,  `HighLowStance()` and `PosMove()` have no dedicated control acknowledgment callback. Check the send result through `WriteHandler`.
 
 ## Base Type
 
@@ -204,12 +204,12 @@ struct MotionData {
 
 | Field | Contents | Units |
 | --- | --- | --- |
-| `quat` | World attitude four dollars `[w, x, y, z]` | — |
-| `v_world` | World Coordinate System Speed `[x, y, z]` | m/s |
-| `position` | Position of the World Coordinate System `[x, y, z]` | m |
-| `omega_world` | World Coordinate Angle Speed | rad/s |
-| `v_body` | Coordinate speed of the body | m/s |
-| `omega_body` | Angular velocity of the body coordinates | rad/s |
+| `quat` | Orientation quaternion in the world frame `[w, x, y, z]` | — |
+| `v_world` | Velocity in the world frame `[x, y, z]` | m/s |
+| `position` | Position in the world frame `[x, y, z]` | m |
+| `omega_world` | Angular velocity in the world frame | rad/s |
+| `v_body` | Velocity in the body frame | m/s |
+| `omega_body` | Angular velocity in the body frame | rad/s |
 | `time_stamp` | Data Timestamp | ns |
 
 ### SpeedData and JointStateData
@@ -236,9 +236,9 @@ struct JointStateData {
 | `SpeedData::yaw` | Rotation angle speed | rad/s |
 | `JointStateData::positions` | Joint Position | rad |
 | `JointStateData::velocities` | Joint speed | rad/s |
-| `JointStateData::efforts` | Artificial force rectangular | N·m |
+| `JointStateData::efforts` | Joint torque | N·m |
 
-The four arrays of `JointStateData` correspond to index one of `names`.
+The four arrays in `JointStateData` align by index with `names`.
 
 ## RobotState
 
@@ -389,16 +389,16 @@ The code-by-code values for the card diagnosis, the protocol name and the defaul
 | `MOTION_STATUS_WALK` | 2 | Mobile standing state |
 | `MOTION_STATUS_BALANCE_STAND` | 3 | Balance Standing |
 | `MOTION_STATUS_LIE_DOWN` | 4 | Lie down |
-| `MOTION_STATUS_CRAWL` | 5 | Shit. |
-| `MOTION_STATUS_CRAWL_WALK` | 6 | Walk on your face. |
+| `MOTION_STATUS_CRAWL` | 5 | Crawling posture |
+| `MOTION_STATUS_CRAWL_WALK` | 6 | Moving while crawling |
 | `MOTION_STATUS_LOCKED` | 7 | Lock |
-| `MOTION_STATUS_CLIMB` | 8 | Climb the tower. |
-| `MOTION_STATUS_STAIR` | 9 | Ceremony |
-| `MOTION_STATUS_SLIM` | 10 | Skinny across the narrow. |
-| `MOTION_STATUS_GAIT` | 11 | A fine step. |
-| `MOTION_STATUS_POS_CONTROL` | 13 | Bit control |
-| `MOTION_STATUS_SK_WALK` | 14 | Walk on your knees. |
-| `MOTION_STATUS_SAND` | 15 | Sand Posture |
+| `MOTION_STATUS_CLIMB` | 8 | Climbing a raised platform |
+| `MOTION_STATUS_STAIR` | 9 | Stair climbing |
+| `MOTION_STATUS_SLIM` | 10 | Narrow-passage posture |
+| `MOTION_STATUS_GAIT` | 11 | Precision gait |
+| `MOTION_STATUS_POS_CONTROL` | 13 | Position control |
+| `MOTION_STATUS_SK_WALK` | 14 | Walking with matching knee posture |
+| `MOTION_STATUS_SAND` | 15 | Posture for sandy terrain |
 
 ### MachineStatus
 
@@ -483,7 +483,7 @@ Recharge progresses through `recharge_preparing` (preparing), `recharge_docking`
 | `TaskStatus` | `FAILURE` | 4 |
 | `TaskStatus` | `STOPPED` | 5 |
 
-Changes in mission status are reported through `OnTaskStateData()`. See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks) for a status determination process between charge and the offline task.
+`OnTaskStateData()` reports task state changes. See [Docking and Undocking Tasks](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks) for how to interpret the states.
 
 ### Docking and Undocking Error Codes {#docking-and-undocking-error-codes}
 
@@ -547,12 +547,12 @@ See [GitHub Business Error Sheet](https://github.com/zsibot/genisom_robot_sdk/bl
 | `DockConnectionAck` | `code`, `accepted`, `error_code`, `error_message` | The result of the request to connect or disconnect from the request is returned by `OnDockConnectionAck()` |
 | `DockConnectionResult` | `code`, `success`, `error_code` | Final result of connection or disconnect, reported by `OnDockConnectionResult()` |
 | `DockInfo` | `code`, `ble_address`, `name`, `dock_sn`, `dock_version`, `error_code`, `error_message` | Query results, identification of charging dock and error information |
-| `DockInfo` | `dock_connected`, `has_contact`, `charging_active` | BLE Connection, mechanical contact and state of charge |
-| `DockInfo` | `light_switch_status`, `fill_light_brightness`, `auto_fill_light_enabled` | Light patches, brightness and automatic light patches |
+| `DockInfo` | `dock_connected`, `has_contact`, `charging_active` | BLE connection, mechanical contact, and whether charging is active |
+| `DockInfo` | `light_switch_status`, `fill_light_brightness`, `auto_fill_light_enabled` | Fill light switch state, brightness, and automatic fill light mode |
 
-`OnDockInfo()` You can return after an active query, or you can trigger a change in the charger status. [Official header](https://github.com/zsibot/genisom_robot_sdk/blob/main/include/robot_sdk/sdk_type.hpp) See you in the order of call. [Charge pillar pairing process](./05-sdk-control-flow-and-task-handling.md#dock-pairing).
+`OnDockInfo()` can run in response to a query or when the charging dock state changes. See the [SDK header](https://github.com/zsibot/genisom_robot_sdk/blob/main/include/robot_sdk/sdk_type.hpp) for field types and [Dock Pairing](./05-sdk-control-flow-and-task-handling.md#dock-pairing) for the call sequence.
 
-## External with LED Counts
+## Peripheral and LED Enums {#external-with-led-counts}
 
 | Type | Enumeration values | Integer Value | Meaning |
 | --- | --- | ---: | --- |
@@ -577,9 +577,9 @@ See [GitHub Business Error Sheet](https://github.com/zsibot/genisom_robot_sdk/bl
 
 | Type | Main fields | Description |
 | --- | --- | --- |
-| `CameraBitrateCmd` / `CameraBitrateAck` | `camera_name`, `camera_bps` | Camera name and code rate, number unit bit/s |
+| `CameraBitrateCmd` / `CameraBitrateAck` | `camera_name`, `camera_bps` | Camera name and bitrate in bit/s |
 | `PowerCtrlCfg` / `PowerCtrlAck` | `power`, `enable` | Power channel and switch status |
-| `PosControlCmd` | `x/y/z`, `roll/pitch/yaw` | Position unit m, attitude angle unit Rad |
+| `PosControlCmd` | `x/y/z`, `roll/pitch/yaw` | Position in m and orientation angles in rad |
 | `LedAutoModeAck` | `auto_mode` | `true` for automatic mode, `false` for manual mode |
 
 ## Structure of Control Response

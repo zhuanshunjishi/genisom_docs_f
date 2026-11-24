@@ -4,9 +4,9 @@
 
 ## Interface Description
 
-WiFi hotspot configuration interface corresponds to the " WiFi hotspot configuration port" in the red box, which is used to request changes to the robot WiFi hotspot name and password, and to read the configuration results of the hiccup return.
+The Wi-Fi hotspot configuration interface is marked in red in the diagram. Use it to request a change to the robot hotspot’s name or password and read the asynchronous configuration result.
 
-Current SDK Use UDP Send Port `8081` Send configuration request, via the receiving port `8080` Receives the configuration results. Changes to WiFi may change the robot network immediately and applications need to reconnect to new hot spots.
+The SDK sends the request over UDP port `8081` and receives the configuration result on port `8080`. The robot can switch networks immediately after a Wi-Fi change. Reconnect to the new hotspot.
 
 ## Communications Parameters
 
@@ -18,31 +18,31 @@ Current SDK Use UDP Send Port `8081` Send configuration request, via the receivi
 | Transfer protocol | UDP |
 | Message Format | JSON |
 
-## Set WiFi Info
+## Set Wi-Fi Information {#set-wifi-info}
 
 | Field | Contents |
 | --- | --- |
 | Function Name | `SetWifi` |
 | Function Prototype | `void SetWifi(const WifiInfo &wifi_info)` |
-| Function Overview | Request changes to robot WiFi's hotspot name and password |
+| Function Overview | Request a change to the robot’s Wi-Fi hotspot name and password |
 | Parameter | `wifi_info.ssid`: new SSID; `wifi_info.password`: new password |
 | Return value | None. Changes are sent back by robots |
-| Notes | After changing WiFi, the current connection may be disconnected and new hot spots need to be reconnected |
+| Notes | A Wi-Fi change may interrupt the current connection. Reconnect to the new hotspot. |
 
 ### WifiInfo Structure
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `ssid` | `string` | WiFi Name |
-| `password` | `string` | WiFi Password |
+| `ssid` | `string` | Wi-Fi network name |
+| `password` | `string` | Wi-Fi password |
 
-## Read WiFi Configuration Results
+## Read Wi-Fi Configuration Results {#read-wifi-configuration-results}
 
 | Functions | Function Prototype | Description |
 | --- | --- | --- |
-| `GetWifiResutlf` | `std::optional<bool> GetWifiResutlf() const` | returns WiFi configuration results;`true` succeeded, `false` failed, `std::nullopt` indicates that results have not yet been received |
-| `IsRecvWifiResult` | `bool IsRecvWifiResult() const` | Finds if the WiFi configuration has been received |
-| `GetWifiSsid` | `std::string GetWifiSsid() const` | Read WiFi in current state SSID |
+| `GetWifiResutlf` | `std::optional<bool> GetWifiResutlf() const` | Returns `true` if the Wi-Fi change succeeded, `false` if it failed, or `std::nullopt` while the result is pending |
+| `IsRecvWifiResult` | `bool IsRecvWifiResult() const` | Checks whether the SDK has received the Wi-Fi configuration result |
+| `GetWifiSsid` | `std::string GetWifiSsid() const` | Reads the Wi-Fi SSID from the current robot state |
 
 > `GetWifiResutlf` is the existing spelling of the current public header file. The application code should be called by the function name of the header file and should not be changed to `GetWifiResult`.
 
@@ -54,29 +54,29 @@ wifi.ssid = "new_robot_wifi";
 wifi.password = "new_password";
 robot.SetWifi(wifi);
 
-// The configuration results in a walkback and cannot be assumed to be successful immediately after SetWifi()
+// Check the asynchronous result after calling SetWifi().
 if (robot.IsRecvWifiResult()) {
     auto result = robot.GetWifiResutlf();
     if (result.has_value() && result.value()) {
-        // Configure successfully to reconnect the new WiFi
+        // Reconnect to the new hotspot after the change succeeds.
     }
 }
 ```
 
 ## Recommended Operation Process
 
-1. Create SDK Executor confirmed. `IsConnected()` Yes. `true`.
-2. Reads the current WiFi status to confirm that the current connection object is correct.
-3. Sets new SSID and passwords and calls `SetWifi()`.
-4. Waiting `IsRecvWifiResult()` returns `true`.
+1. Create the SDK executor and verify that `IsConnected()` returns `true`.
+2. Check the current Wi-Fi status to confirm you are connected to the intended robot.
+3. Set the new SSID and password, then call `SetWifi()`.
+4. Wait until `IsRecvWifiResult()` returns `true`.
 5. Use `GetWifiResutlf()` to judge if the configuration is successful.
-6. When the configuration is successful, reconnect the new robot hotspots.
-7. Reconfirm IP capable of reaching, SDK connectivity and robotic failure.
+6. After a successful change, reconnect to the robot’s new hotspot.
+7. Recheck IP reachability, the SDK connection, and the robot’s fault status.
 
 ## Attention
 
 - Do not assume that the new configuration is effective immediately after `SetWifi()` calls.
-- The modification of WiFi would result in the interruption of the current UDP communication and the procedure should allow for a period of reconnection.
-- SSID and the password shall use the characters and lengths supported by the device, with a specific limitation based on the current solid.
-- Do not write WiFi configuration passwords to public codes, logs or submission records.
-- WiFi configuration interfaces and movement control interfaces are shared SDK communication objects, and applications should not bind separately `8080` or `8081`.
+- Changing Wi-Fi settings interrupts UDP communication. Allow time for the application to reconnect.
+- Use characters and lengths that the device supports for the SSID and password. The specific limits depend on the installed firmware.
+- Keep Wi-Fi passwords out of public code repositories, logs, and commit records.
+- Wi-Fi configuration and motion control share the same SDK communication object. Leave ports `8080` and `8081` bound to the SDK.

@@ -1,12 +1,12 @@
 # SDK Development Guide
 
-[Back to Home](../index.md) | [Hardware, software and architecture](./03-system-architecture.md) | [SDK service interfaces](./06-sdk-service-interfaces.md)
+[Back to Home](../index.md) | [System Architecture](./03-system-architecture.md) | [SDK service interfaces](./06-sdk-service-interfaces.md)
 
 ## Quick Setup
 
-The following steps are implemented in the Linux terminal. SDK Provides `x86_64` and `aarch64` two static reservoirs, and the processor structure for operating the environment must be consistent with the static reservoir used.
+Run the following steps in a Linux terminal. The SDK provides static libraries for `x86_64` and `aarch64`. Use the library that matches the runtime CPU architecture.
 
-Before you start, put the robot in a flat, open area to make sure you can stop moving at any time. When the robot goes on, the Linux device that runs SDK is connected to the robot network.
+Before you start, place the robot on a flat surface in an open area and make sure you can stop it at any time. After the robot boots, connect the Linux device running the SDK to the robot’s network.
 
 ### 1. Installation of Compilation Tools
 
@@ -17,7 +17,7 @@ sudo apt install -y build-essential cmake
 
 ### 2. Enter SDK Root Directory
 
-Replace the path with SDK actual position on Linux device:
+Replace the path with the location of the SDK on your Linux device.
 
 ```bash
 cd /path/to/genisom_L1_sdk-main
@@ -25,7 +25,7 @@ pwd
 ls CMakeLists.txt include/zsibot_sdk example lib
 ```
 
-Terminals should be visible `CMakeLists.txt`, as well as `include`, `example`, `lib` directories.
+Verify that the output lists `CMakeLists.txt` and the `include`, `example`, and `lib` directories.
 
 ### 3. Confirm Processor Structure
 
@@ -57,14 +57,14 @@ ls -l build/example/sdk_control
 
 ### 5. Check the Network Connection to the Robot
 
-SDK Default connection robot IP `192.168.234.1`, send data to the robot `8081/UDP` port and receive the data at its own `8080/UDP` port.
+By default, the SDK sends data to the robot at `192.168.234.1` on `8081/UDP` and receives state data on local port `8080/UDP`.
 
 ```bash
 ip addr
 ping -c 4 192.168.234.1
 ```
 
-`ping` When it's not working, check if Linux's device is connected to the robot network, and the machine itself. IP Whether or not to be in a commotionable section with robots. `ping` After success, run Demo again.
+If `ping` fails, check that the Linux device is connected to the robot’s network and that its IP address is on a subnet that can reach the robot. Run the demo once `ping` succeeds.
 
 ### 6. Run Remote Demo
 
@@ -72,18 +72,18 @@ ping -c 4 192.168.234.1
 ./build/example/remote_control
 ```
 
-The Demo uses `ROLE_REMOTE` identity. After the program starts, you can use the following basis keys:
+The demo uses `ROLE_REMOTE`. After it starts, use the following keys.
 
 | Button | Action |
 | --- | --- |
-| `i` | Output equipment, batteries, mode and motion |
+| `i` | Print device, battery, mode, and motion status |
 | `2` | Stand |
 | `w` / `s` | Forward / Back |
 | `a` / `d` | Move Left / Right |
-| `q` / `e` | Left / Right |
+| `q` / `e` | Turn left / right |
 | `c` | Stop moving |
-| `1` | Get down! |
-| `0` | Squeeze and get down. |
+| `1` | Lie down |
+| `0` | Trigger the software emergency stop and lie down |
 
 For the first test, press `i` to check the robot state. Test standing, a short move in one direction, stopping, and lying down in that order. Press `c` immediately after each direction test. Keep people clear of the robot when testing motion keys.
 
@@ -95,20 +95,20 @@ Press `Ctrl+C` to close `remote_control` and then execute:
 ./build/example/sdk_control
 ```
 
-`sdk_control` Use `ROLE_SDK` Identity. You have to apply first. SDK Control:
+`sdk_control` uses `ROLE_SDK`. Request SDK control ownership before testing motion.
 
-1. Press `k` Send SDK Right of control request.
-2. Press `i` to see feedback on the functional mode and confirm that control has been switched.
-3. Press `2` stand, test only one moving direction and press `c` to stop.
-4. Press `1` Get the robot down.
-5. Remote control is restored as requested by `r` and the mode feedback is reviewed again.
+1. Press `k` to send the SDK control request.
+2. Press `i` to check the reported function mode and confirm that control has switched to the SDK.
+3. Press `2` to stand up. Test motion in one direction only, then press `c` to stop.
+4. Press `1` to make the robot lie down.
+5. Press `r` to request that control return to the remote controller. Verify the reported function mode again.
 6. Press `Ctrl+C` to exit the program.
 
-`ZsibotExecutor(Role::ROLE_SDK)` Creates a communications identity only, which does not mean that the program has achieved control of movement.
+Constructing `ZsibotExecutor(Role::ROLE_SDK)` sets the communication role only. Request control and confirm ownership before sending motion commands.
 
 ### 8. Restore Terminal
 
-Two Demos close the terminal's specifications and character echoes. After exit, if the terminal does not show input content, execute:
+Both demos disable canonical terminal input mode and character echo. After exit, if the terminal does not show input content, execute:
 
 ```bash
 stty sane
@@ -135,9 +135,9 @@ The current project is based on the root directory `CMakeLists.txt`:
 | Thread Library | POSIX Threads, search automatically by CMake |
 | Support structure | `x86_64`, `aarch64` |
 
-Root directory `CMakeLists.txt` Settings `CMAKE_CXX_STANDARD 20`, development works should use the same compilation standards.
+The root `CMakeLists.txt` sets `CMAKE_CXX_STANDARD 20`. Use the same compiler standard in your project.
 
-Root projects are based on the `CMAKE_SYSTEM_PROCESSOR` automatic selection of pre-compile static libraries. When cross-compile or manually specify target structures, settings can be set at configuration stage `ZSIBOT_ARCH`:
+The root project selects the prebuilt static library based on `CMAKE_SYSTEM_PROCESSOR`. Set `ZSIBOT_ARCH` at configure time when cross-compiling or specifying a target architecture manually.
 
 ```bash
 cd build
@@ -146,11 +146,11 @@ cmake --build .
 cd ..
 ```
 
-Yes. ARM64 Replace parameters in the environment with `aarch64`.
+For ARM64, use `aarch64` as the value.
 
 ### Optional Installations
 
-Need for other projects to be quoted from the system directory SDK, which may be implemented:
+To make the SDK available to other projects from the system directories, run the install target.
 
 ```bash
 sudo cmake --build build --target install
@@ -165,22 +165,22 @@ Default installation location:
 
 ## Demo Description
 
-Two examples of full operating steps, key description and control switch process see [Chapter IX: Instructions for the use of official examples](./09-official-examples.md).
+See [Official Examples](./09-official-examples.md) for the full procedures, key bindings, and steps for switching control ownership.
 
-| Example: | Construct Identity | Main uses | Right of control requirement |
+| Example: | Construct Identity | Main uses | Control ownership requirement |
 | --- | --- | --- | --- |
 | `remote_control.cpp` | Default `ROLE_REMOTE` | Keyboard Remote Control and HighLevel Status Read | Remote Control Process |
 | `sdk_control.cpp` | `ROLE_SDK` | Algorithms program and automated control process validation | Send SDK control orders and confirm mode feedback |
 
-Both examples use non-obstructed terminal input, sending continuous motion through `SetRemote()`, sending discrete orders through `SetCmd()`. The definition of control is in [Hardware, software and architecture](./03-system-architecture.md), the order and status confirmation is in [Control command interface](./06-01-control-commands.md). Demo is used to validate interfaces, and formal applications still need to achieve connection checks, control confirmation, stopovers and abnormal exit protection.
+Both examples use non-blocking terminal input. They send continuous motion input through `SetRemote()` and discrete commands through `SetCmd()`. See [System Architecture](./03-system-architecture.md) for control ownership and [Control Command Interface](./06-01-control-commands.md) for commands and state confirmation. The demos validate the interfaces. Applications must check the connection, confirm control ownership, stop motion on timeout, and handle unexpected exits safely.
 
 ## Create Your Own HighLevel Project
 
-The program entry, connection waiting and status reading is an example of the smallest process in [SDK service interfaces](./06-sdk-service-interfaces.md). Custom projects can be used through the following CMake configuration reference SDK.
+The minimal example in [SDK Service Interfaces](./06-sdk-service-interfaces.md) shows how to start the program, wait for a connection, and read robot state. Use the following CMake configuration to include the SDK in your project.
 
 ### CMake Integration
 
-If SDK are placed separately from the application project, the SDK root directory may be added as a sub-item:
+If the SDK and application are in separate directories, add the SDK root as a CMake subproject.
 
 ```cmake
 cmake_minimum_required(VERSION 3.10)

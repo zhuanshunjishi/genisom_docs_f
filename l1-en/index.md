@@ -1,10 +1,10 @@
 # Genisom L1 SDK Documentation
 
-![L1 product photo taken at the Jiuquan Satellite Launch Center in 2025](./assets/images/2025-jiuquan-launch-center-product-03.jpg)
+![Genisom L1 product photo taken at the Jiuquan Satellite Launch Center in 2025](./assets/images/2025-jiuquan-launch-center-product-03.jpg)
 
 ## About This Guide
 
-This guide covers the L1, L1-W, L1 EDU, and L1-W EDU. It includes product specifications, accessories, robot operation, networking, system architecture, SDK communication, hardware interfaces, building and debugging SDK examples, and accessing the onboard camera stream.
+This guide covers Genisom L1, Genisom L1-W, Genisom L1 EDU, and Genisom L1-W EDU. It includes product specifications, accessories, robot operation, networking, system architecture, SDK communication, hardware interfaces, building and debugging SDK examples, and accessing the onboard camera stream.
 
 Before using the robot for the first time, review the models and safety requirements. Then learn how to power the robot on and off, connect the remote controller, join the network, and log in over SSH. Before developing with the SDK, verify the robot model, firmware version, control mode, and test-site safety conditions.
 

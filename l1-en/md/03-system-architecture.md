@@ -1,14 +1,14 @@
 # System Architecture
 
-[Back to Home](../index.md) | [Hardware interface](./04-hardware-interfaces.md) | [SDK service interfaces](./06-sdk-service-interfaces.md) | [SDK Guidance for development and operation](./08-sdk-development-guide.md) | [Main camera stream](./07-onboard-camera-stream.md)
+[Back to Home](../index.md) | [Hardware interface](./04-hardware-interfaces.md) | [SDK service interfaces](./06-sdk-service-interfaces.md) | [SDK Development Guide](./08-sdk-development-guide.md) | [Onboard Camera Stream](./07-onboard-camera-stream.md)
 
 ## System Architecture
 
-L1 The whole machine consists of hardware equipment, hardware control and data preprocessing, applications and systems interface, Robot Interface and cloud management.
+The Genisom L1 system includes hardware, hardware control and data preprocessing, application and system interfaces, the robot interface, and cloud management.
 
 ![ L1 Full system architecture](../assets/images/system-architecture-v15.jpg)
 
-This chart displays the functional layers of the whole machine, which do not represent SDK lists of open interfaces.
+The diagram shows the robot’s functional layers. See the SDK reference for publicly available interfaces.
 
 ## Structure and Installation
 
@@ -47,26 +47,26 @@ This chart displays the functional layers of the whole machine, which do not rep
 
 ### SDK Capacity
 
-L1 SDK Provide a unified HighLevel C++ interface through `zsibot::ZsibotExecutor`.
+The Genisom L1 SDK exposes a unified HighLevel C++ interface through `zsibot::ZsibotExecutor`.
 
-Key competencies include:
+The SDK supports these operations.
 
-- Send discrete commands and continuous remotes
-- Application for different types of control
-- Read batteries, devices, modes, IMU, mileage meters, joints and malfunctions
+- Send discrete commands and continuous motion input
+- Request different types of control ownership
+- Read battery, device, mode, IMU, odometry, joint, and fault data
 - HighLevel communication with robots via JSON over UDP
-- Send, receive and heartbeat through a stand-alone thread
-- Support `x86_64` and `aarch64` Linux platform
+- Use dedicated threads for sending, receiving, and maintaining the heartbeat
+- Run on `x86_64` and `aarch64` Linux
 
 ### Type of Control
 
 | Control ownership | Meaning | Apply scene |
 | --- | --- | --- |
 | Remote | Control of remote controls | Remote operation |
-| SDK | Secondary development of navigation control | Respond to smaller speed commands (e. g. 0.05 m/s, refill etc.) |
+| SDK | Secondary development of navigation control | Responds to lower speed commands, such as 0.05 m/s during return-to-dock maneuvers |
 | General SDK | Universal secondary development navigation control | Respond to larger speed commands (e.g. 3 m/s, climbing stairs etc.) |
 
-`Role` Means program connection SDK The communication identity used at the time, control, indicates which type of control source the robot is currently receiving, and the two are not the same concepts. `ROLE_SDK` It doesn't mean you've got it. SDK right of control; the procedure still requires the delivery of the corresponding control order and is based on `GetFunctionMode()` The feedback confirms the transition result.
+`Role` identifies how the program connects to the SDK. Control ownership indicates which control source the robot currently accepts. After constructing the executor with `ROLE_SDK`, send the appropriate control request and confirm the switch with `GetFunctionMode()`.
 
 ![L1 SDK Scheduling of requests for control](../diagrams/sdk-control-sequence.svg)
 
@@ -76,37 +76,37 @@ Key competencies include:
 
 ![L1 HighLevel communications structure](../diagrams/highlevel-communication.svg)
 
-Commencing the communication thread when you construct `ZsibotExecutor`, the public getter reads the last state from the internal status cache. Stops the communication and waits for the end of the line while the object is deconstructed.
+Constructing `ZsibotExecutor` starts the communication threads. Public getters return the latest cached state. The destructor stops communication and waits for the threads to exit.
 
 ### JSON Over UDP
 
-HighLevel is used by default JSON over UDP:
+HighLevel uses JSON over UDP by default.
 
 | Direction | Default Target |
 | --- | --- |
-| SDK Send to the robot | `192.168.234.1:8081/UDP` |
-| Robot to SDK return state | Computer development `8080/UDP` |
+| SDK to robot | `192.168.234.1:8081/UDP` |
+| Robot state reports to SDK | Development computer `8080/UDP` |
 
-The body camera uses a separate RTSP channel, with the default drop address `rtsp://user:Abcd%232027%21@192.168.234.1:8554/test`, which contains the user name and password by which the URL code is coded. See [Main camera stream](./07-onboard-camera-stream.md) for the play and frame method.
+The onboard camera uses a separate RTSP channel. The default stream URL is `rtsp://user:Abcd%232027%21@192.168.234.1:8554/test`, which includes the username and URL-encoded password. See [Onboard Camera Stream](./07-onboard-camera-stream.md) for playback and frame capture.
 
-JSON It's about organizing commands, roles, remote controls, and status fields. UDP Responsible for low-delayed network transmissions. UDP There is no assurance that each package will arrive, so that state feedback, overtime and connection checks should be used to process the lost package or the missing link.
+JSON structures commands, communication roles, remote control inputs, and state fields. UDP provides low-latency transport, and packets can be lost. Use state feedback, timeouts, and connection checks to handle packet loss and disconnections.
 
 ![L1 UDP Communication direction and port](../diagrams/udp-communication.svg)
 
 ### Heartbeat and Connection Status
 
-Heart beats are SDK periodic online signals that are used to maintain communication identity and to determine whether the connection is still valid.
+The SDK sends periodic heartbeats to maintain its communication role and check whether the connection is still valid.
 
-`IsConnected()` Returns `true` require:
+`IsConnected()` returns `true` when both conditions are met.
 
-1. SDK At least one robot data package was received.
-2. SDK Internal heartbeat count does not exceed the connection timeout threshold
+1. The SDK has received at least one packet from the robot.
+2. The SDK’s heartbeat timer is within the connection timeout.
 
-Therefore, `ping` success is not the same as SDK a two-way communication has been established.
+A successful `ping` confirms IP reachability only. Check `IsConnected()` for the SDK connection.
 
 ## Project Directory and Static Library
 
-SDK See source code and examples [Genisom L1 SDK GitHub repository](https://github.com/zsibot/genisom_L1_sdk/tree/main).
+Find the source code and examples in the [Genisom L1 SDK GitHub repository](https://github.com/zsibot/genisom_L1_sdk/tree/main).
 
 ```text
 genisom_l1_sdk/

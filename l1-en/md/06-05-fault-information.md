@@ -4,7 +4,7 @@
 
 ## Interface Description
 
-The fail information query interface corresponds to the " fail information query port " in the red box, which is used to read the list of failures carried in robotic status messages. Currently, SDK there are no separate fault queries socket, failure information is reported via UDP receiver port `8080` with robotic status, and the application uses the query function to read the latest cache result.
+The fault information interface is marked in red in the diagram. Faults arrive with robot state messages on UDP receive port `8080`. Use the SDK getter to read the latest cached result. No dedicated fault-query socket is required.
 
 ## Communications Parameters
 
@@ -16,26 +16,26 @@ The fail information query interface corresponds to the " fail information query
 | Message Format | JSON |
 | Status Message Type | `fault_info` |
 
-## Retrieving Malfunction Information
+## Reading Fault Information {#retrieving-malfunction-information}
 
 | Field | Contents |
 | --- | --- |
 | Function Name | `GetFaultInfo` |
 | Function Prototype | `std::vector<FaultInfo> GetFaultInfo() const` |
-| Function Overview | Read list of malfunctions in last `fault_info` status message |
+| Function Overview | Read the fault list in the latest `fault_info` status message |
 | Parameter | None |
-| Return value | `FaultInfo` Lists; usually empty lists when there is no malfunction |
+| Return value | A list of `FaultInfo` entries, typically empty when there are no faults |
 | Notes | Current public API provides a status-read function, with no separate `QueryFault()` request function |
 
 ### FaultInfo Structure
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `module` | `std::string` | The module to which the malfunction belongs |
-| `submodule` | `std::string` | Submodules for malfunctions |
-| `error_code` | `uint32_t` | Fault Code |
-| `level` | `std::string` | Fault Level |
-| `info` | `std::string` | Description of failure |
+| `module` | `std::string` | Module reporting the fault |
+| `submodule` | `std::string` | Submodule reporting the fault |
+| `error_code` | `uint32_t` | Fault code |
+| `level` | `std::string` | Fault level |
+| `info` | `std::string` | Fault description |
 
 ## Call Example
 
@@ -54,20 +54,20 @@ if (faults.empty()) {
 }
 ```
 
-## Recommended Time for Inspection
+## When to Check Faults {#recommended-time-for-inspection}
 
-The application should read out the malfunction at least at the following times:
+The application should check faults at least at the following times.
 
-1. SDK After the connection has been established, the first movement command is sent.
-2. Stand, move or perform stunt actions.
-3. Checks are carried out on a regular basis.
-4. When electrical temperature, battery voltage, attitude or communication state abnormality is observed.
-5. Disconnected reconnection or WiFi configuration is completed.
+1. After establishing the SDK connection and before sending the first motion command.
+2. Before standing up, moving, or performing stunts.
+3. At regular intervals during operation.
+4. When motor temperature, battery voltage, robot orientation, or communication state is abnormal.
+5. After reconnecting following a network interruption or after configuring Wi-Fi.
 
-## Treatment of Recommendations
+## Responding to Faults {#treatment-of-recommendations}
 
-- The list of faults was empty only to indicate that there had been no malfunctions in the latest cache and not that all hardware risks had been eliminated.
-- Upon receipt of the failure, the treatment shall be determined in combination with `level`, `error_code`, electric temperature, battery state and current mode of movement.
-- When failure levels rise, out of control, abnormal sound, odor or overheating occur, the movement should cease immediately and take over using on-site security means.
-- Do not simply ignore the unknown fault code in the program; original modules, submodules, codes, classes and descriptions should be kept to facilitate searching.
-- The malfunction information is part of the status report and shall be confirmed as `IsConnected()` `true` before reading.
+- An empty fault list means the latest cached report contains no faults. Hardware risks can still exist.
+- When a fault is reported, determine the response using `level`, `error_code`, motor temperature, battery state, and current motion mode.
+- If fault severity increases or you observe loss of control, unusual noise, odor, or overheating, stop movement immediately and take over using the available on-site safety controls.
+- Retain the original module, submodule, code, severity, and description for unknown faults so they can be investigated.
+- Fault information is part of the status report. Confirm that `IsConnected()` returns `true` before reading the fault list.

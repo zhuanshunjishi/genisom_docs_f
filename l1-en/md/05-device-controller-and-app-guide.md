@@ -10,7 +10,7 @@
 - Check that the legs, tires or foot pads, battery, expansion equipment, and cables are secure.
 - Make sure the battery is sufficiently charged and the operator knows how to trigger an emergency stop and switch to damping mode using the controller.
 - Limit the first test to reading the robot state, standing up, lying down, and making small movements.
-- If the software stops responding, have someone on site take over using physical controls.
+- If the software stops responding, have someone on site take over using physical controls. Do not rely solely on the remote program.
 
 `CMD_EMERGENCY_STOP` triggers a software emergency stop. Keep the remote controller available for on-site takeover during tests.
 
@@ -108,14 +108,14 @@ The controller has physical joysticks, directional and function buttons, and a t
 
 1. Hold the power or screen-lock button at the top of the controller until it starts.
 2. Open `Dog Controller` from the home screen.
-3. Leave the joysticks and motion buttons alone while the app shows **Disconnected** in the upper-right corner.
+3. Leave the joysticks and motion buttons alone while the app shows **Disconnected** (未连接) in the upper-right corner.
 
 ![Remote control application entrance and home page](../assets/images/controller-app-entry.png)
 
 ### Connect to the Robot {#connect-to-the-robot}
 
 1. Verify that the robot is powered on and its tail light is solid blue.
-2. Tap **Disconnected** in the upper-right corner of the app home page.
+2. Tap **Disconnected** (未连接) in the upper-right corner of the app home page.
 3. Select the robot's hotspot on the WLAN page and enter the password. For the first connection, see the [default hotspot name and password](#connect-to-robot-wi-fi).
 4. Return to the app. A connected status or hotspot name in the upper-right corner confirms the connection.
 
@@ -125,12 +125,12 @@ The controller has physical joysticks, directional and function buttons, and a t
 
 ### Basic Control
 
-Tap **Control** in the lower-right corner of the home page to open the control screen. After connecting, you can do the following.
+Tap **Control** (控制) in the lower-right corner of the home page to open the control screen. After connecting, you can do the following.
 
 - Use the on-screen motion buttons or physical buttons to switch to damping, standing, prone, locked, or stationary mode.
 - Use the physical or virtual joysticks to move, turn, and adjust the robot's posture.
 - Start at low speed. Verify the movement direction before switching to medium or high speed.
-- Press the red **Emergency Stop** button to stop movement immediately if something goes wrong. Identify and correct the cause before resuming high-speed movement.
+- Press the red **Emergency Stop** (紧急停止) button to stop movement immediately if something goes wrong. Identify and correct the cause before resuming high-speed movement.
 
 ![Remote control base interface](../assets/images/controller-control-screen.png)
 
@@ -149,7 +149,7 @@ Select the robot's hotspot from the development computer's Wi-Fi networks and en
 
 ![Select Robot in Ubuntu Wi-Fi](../assets/images/wifi-network.png)
 
-### 2. Check the Development Computer'S IPv4 Address
+### 2. Check the Development Computer's IPv4 Address
 
 After connecting to the hotspot, perform the following commands at the terminal to view the IPv4 address of the wireless card:
 
@@ -157,7 +157,7 @@ After connecting to the hotspot, perform the following commands at the terminal 
 ip addr
 ```
 
-![View IPv4 addresses for developing computers](../assets/images/ip-address.png)
+![View the development computer’s IPv4 address](../assets/images/ip-address.png)
 
 ### 3. Check Connectivity to the Robot
 
@@ -167,9 +167,9 @@ The robot's default Wi-Fi address is `192.168.234.1`. Run the following command 
 ping -c 4 192.168.234.1
 ```
 
-![Ping, robot works.](../assets/images/ping-success.png)
+![Successful ping to the robot](../assets/images/ping-success.png)
 
-A successful `ping` verifies IP reachability. Use `IsConnected()` to verify that the SDK connection has received UDP state data.
+A successful `ping` verifies IP reachability only. Use `IsConnected()` to check whether the SDK has received UDP state data.
 
 ## SSH Login
 

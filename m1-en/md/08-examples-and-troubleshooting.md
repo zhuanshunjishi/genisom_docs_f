@@ -1,27 +1,27 @@
 # Genisom M1 Examples and Troubleshooting
 
-[Return Document Overview](../index.md) | [M1 SDK Quick start](./04-sdk-quickstart.md) | [Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK Interface reference](./06-sdk-api-reference.md)
+[Return Document Overview](../index.md) | [M1 SDK Quick start](./04-sdk-quickstart.md) | [Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [Genisom M1 SDK API Reference](./06-sdk-api-reference.md)
 
 ## Example Program Directory
 
-Example in SDK It's a bag. `example/` Directory, written with all C++:
+The SDK’s `example/` directory contains these C++ examples.
 
 | Documentation | Main elements |
 | --- | --- |
-| `quick_start.cpp` | Read-only check for connection, version and front frame robot state |
+| `quick_start.cpp` | Read-only check of the connection, version, and first robot state message |
 | `data.cpp` | Connect robots and read data |
-| `control.cpp` | Integrated control, status reading, light patches, stoppages and stoppages |
-| `async.cpp` | Step-up connection, step-over commands and echoes |
-| `sync.cpp` | Synchronize connection, sync commands and return value checks |
+| `control.cpp` | Integrated control, status readings, fill lights, obstacle stop, and emergency stop |
+| `async.cpp` | Asynchronous connection, commands, and callbacks |
+| `sync.cpp` | Synchronous connection, commands, and return-value checks |
 | `manual_reconnect.cpp` | Manually disconnected and reconnected |
 | `auto_reconnect.cpp` | Automatic reconnection and connectivity changes |
-| `take_control.cpp` | Control incidents, applications and releases |
-| `camera_bitrate.cpp` | Set pre- and post-cam number rate |
+| `take_control.cpp` | Control ownership events, requests, and release |
+| `camera_bitrate.cpp` | Set the bitrate of the front and rear cameras |
 | `recharge.cpp` | Start and stop recharge and undocking tasks |
-| `led.cpp` | LED Automatic mode, manual mode and light |
-| `dock_pairing.cpp` | Scan, select, connect, query and uncharged stakes |
+| `led.cpp` | Automatic and manual LED modes and lighting effects |
+| `dock_pairing.cpp` | Scan for, select, connect to, query, and disconnect from charging docks |
 
-## Run an Engagement
+## Running the Examples {#run-an-engagement}
 
 The compilation of examples and the first steps in running them are shown in [M1 SDK Quick start](./04-sdk-quickstart.md#build-official-examples).
 
@@ -31,35 +31,35 @@ Most examples use the same parameter format:
 <program> <robot-ip> <port>
 ```
 
-An interactive example can be pressed `h` to view the button, and `q` to exit. The program should stop moving and then disconnect SDK before exiting.
+In an interactive example, press `h` to view the keys and `q` to exit. Before exiting, stop the robot and disconnect the SDK.
 
 ## Example of First Connection
 
-`quick_start.cpp` Connect the robot to output version and device information, wait for the front frame robot state, and then disconnect and exit. See how you run it. [Fast start.](./04-sdk-quickstart.md#build-official-examples).
+`quick_start.cpp` connects to the robot, prints version and device information, and waits for the first robot state message before disconnecting and exiting. See [Build Official Examples](./04-sdk-quickstart.md#build-official-examples).
 
 ## data.cpp: Read State
 
-`data.cpp` Validation of connections and data types for reporting. The program registers data and control backslides, then moves to connect robots, and outputs versions of SDK and protocols.
+Use `data.cpp` to verify the connection and data reports. It registers data and control callbacks, connects asynchronously, and prints the SDK and protocol versions.
 
 Check contents:
 
-1. Whether the step `Connect()` is completed, `GetConnectionState()` whether it enters `CONNECTED`.
-2. `OnRobotStateData()` Whether or not to receive. After receiving `OnFaultData()` check the failure code, level and message, the empty list indicates that the currently reported failure has been cleared.
-3. IMU Whether light power, motion data, speed and joints can be opened, received and closed in sequence.
-4. The corresponding configuration answers whether or not to return to the configuration actually used by the device.
+1. Does the asynchronous `Connect()` complete and does `GetConnectionState()` return `CONNECTED`?
+2. Does `OnRobotStateData()` receive state data? In `OnFaultData()`, check the fault code, severity, and message. An empty list indicates the reported faults have cleared.
+3. Can you enable, receive, and disable reports for IMU data, ambient light, motion data, speed, and joint state?
+4. Do the configuration acknowledgments report the settings applied by the device?
 
-It is appropriate to judge whether a network can reach but SDK is actually connected.
+The example helps verify the SDK connection after confirming network reachability.
 
 ## control.cpp: Integrated Control
 
 `control.cpp` Focus on robotic control, including:
 
-- On the other hand, there is a lot of people who are standing, walking, crumbling, locking and other posturing. `z` Corresponding `StandUp()`,  `Z` Corresponding `Walk()`; 
+- Standing, walking, lying down, locking the joints, and other posture changes. Press `z` for `StandUp()` and `Z` for `Walk()`.
 - `Move()`, `MoveVelocity()`, `Turn()`, `ControlHead()` and `HighLowStance()`;
-- Speed slot switching;
-- (b) Back-to-back and auto-supplied models;
-- (a) Cut-off switches;
-- (b) The software emergency stop and state display;
+- Switching speed levels
+- Front and rear fill lights and automatic fill light mode
+- Obstacle stop switch
+- Software emergency stop and state display
 - `PosMove()` Position target;
 - External power source settings and queries;
 - Request for control, release and remote/empty switching;
@@ -68,52 +68,52 @@ It is appropriate to judge whether a network can reach but SDK is actually conne
 
 This example is used to see the combination of multiple control interfaces, and keyboard input triggers the corresponding command directly.
 
-## async.cpp: Off-Step Call
+## async.cpp — Asynchronous Calls {#async-cpp-off-step-call}
 
-The command interface in the step mode returns immediately, the subsequent call results are returned by `WriteHandler`, and the robot answers by `IControlCallback`. Example includes a step-by-step echo, data echo and command queue.
+In asynchronous mode, the command call returns immediately. `WriteHandler` reports the send result, and `IControlCallback` delivers the robot’s acknowledgment. The example includes an asynchronous connection callback, a data callback, and a command queue.
 
-Parameter rules and call structure for synchronisation and staggering are found in [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#synchronous-and-asynchronous-calls).
+See [Synchronous and Asynchronous Calls](./05-sdk-control-flow-and-task-handling.md#synchronous-and-asynchronous-calls) for parameters and call patterns.
 
-The stethoscope needs to be managed by itself:
+Asynchronous applications manage the following.
 
-- (a) The main-line exit condition;
-- (a) Reverting the object life cycle;
-- Stopping and recycling of work lines;
-- (a) Stop actions after the connection has been disconnected;
-- Synchronizes the multi-line sharing status.
+- When the main thread exits
+- The lifetime of callback objects
+- Stopping and joining worker threads
+- Stopping motion after a disconnect
+- Synchronizing shared state across threads
 
 ## sync.cpp: Synchronize Call
 
-Synchronization mode is suitable for the start-up phase, connection testing, and processes that require immediate judgement of the call result. Run the example to focus on the timeout and the return error; do not call for the sync interface in the back of the data or control.
+Use synchronous calls during startup, connection tests, or whenever you need the call result before continuing. Watch for timeouts and returned errors in the example. Keep synchronous calls out of data and control callbacks.
 
-## Example
+## Reconnection Examples {#example}
 
 ### manual_reconnect.cpp
 
 The manual reconnection example uses a stand-alone thread to process the reconnection and avoid blocking the main cycle:
 
-1. Main cycle sends zero paces when connections are normal `Move()` Command.
-2. Wakes up the reconnecting process when writing a callback back error.
-3. Reconnect threads to synchronise calls `Disconnect(true)` and then call `Connect(..., true)`.
-4. Disconnect again when connection failed, wait 2 s Try again afterwards until the connection is successfully made or the application exits.
+1. While connected, the main loop sends zero-velocity `Move()` commands asynchronously.
+2. A write callback reporting an error wakes the reconnection thread.
+3. The reconnection thread calls `Disconnect(true)` and then `Connect(..., true)` synchronously.
+4. If the connection fails, disconnect again, wait 2 s, and retry until the connection succeeds or the application exits.
 
-The example does not read equipment information and does not reapply for control. If business proceedings rely on control, they should be treated separately on the basis of the control event and response after a reconnection.
+The example skips device information queries and control requests. If your application needs control ownership, handle the ownership events and acknowledgments separately after reconnecting.
 
 ### auto_reconnect.cpp
 
-Automatically reconnect through `ConnectionConfig` configuration, fields and default values are in [M1 SDK Interface reference](./06-01-connection-and-device-info.md#sdkclient).
+Automatically reconnect through `ConnectionConfig` configuration, fields and default values are in [Genisom M1 SDK API Reference](./06-01-connection-and-device-info.md#sdkclient).
 
-The automatic reconnection is responsible only for restoring the connection and does not mean that the automatic re-acquisition of control should be applied.
+Automatic reconnection restores the link. After reconnecting, check the control source, robot state, and faults, then follow the control ownership procedure to request control again.
 
 ## take_control.cpp: Control
 
 `take_control.cpp` Address changes of control through `OnControlLost()`, `OnControlAvailable()` and `OnTakeControlAck()`.
 
-Operating this example allows you to observe the loss of control, reappliability, response and voluntary release process. See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism) for the sequence of events.
+Run the example to see how the application loses control, determines when it can request control again, checks the acknowledgment, and releases control. See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism) for the sequence of events.
 
-## camera_bitrate.cpp: Camera Code Rate
+## camera_bitrate.cpp — Camera Bitrate {#camera-bitrate-cpp-camera-code-rate}
 
-This example sets the camera number rate before and after, and reads the actual effective value of the device through `OnUpdateCameraBitrateAck()`. See [M1 SDK Interface reference](./06-05-peripherals-and-camera.md#camera-bitrate) for parameters.
+This example sets the front and rear camera bitrates and reads the applied values from `OnUpdateCameraBitrateAck()`. See [Genisom M1 SDK API Reference](./06-05-peripherals-and-camera.md#camera-bitrate) for parameters.
 
 ## recharge.cpp: Recharge and Undocking
 
@@ -121,17 +121,17 @@ This example starts and stops recharge and undocking tasks and uses task status 
 
 ## led.cpp: LED Control
 
-The example demonstrates the LED automatic/ manual mode, setting the light and querying the current mode. The interface and parameters are [M1 SDK Interface reference](./06-05-peripherals-and-camera.md#led-effects).
+The example demonstrates the LED automatic/ manual mode, setting the light and querying the current mode. The interface and parameters are [Genisom M1 SDK API Reference](./06-05-peripherals-and-camera.md#led-effects).
 
 ## Dock Pairing Example {#dock-pairing-example}
 
-Operates under `example/build/`, replacing a robotic address with an on-site network.
+Run the example from `example/build/` and replace the robot address with the address on your local network. The optional third argument specifies the charging dock address.
 
 ```bash
 ./dock_pairing 192.168.234.1 8082
 ```
 
-Press `1` to start the scan, and when the scan results arrive, press `3` to view, press `4` to select the device, and then press `2` to stop the scan. After confirming that the scan has been stopped, press `5` to connect and wait for the final result to press `6` for a query. Press `7` and press `q` to exit when disconnected. See [Charge pillar pairing process](./05-sdk-control-flow-and-task-handling.md#dock-pairing).
+Press `1` to start scanning. After the results arrive, press `3` to view them, `4` to select a dock, and `2` to stop scanning. Confirm that scanning has stopped, then press `5` to connect. Wait for the final result before pressing `6` to query the dock’s status. To disconnect, press `7`. Once disconnected, press `q` to exit. See [Dock Pairing](./05-sdk-control-flow-and-task-handling.md#dock-pairing).
 
 ## Common Problems
 
@@ -139,18 +139,18 @@ Press `1` to start the scan, and when the scan results arrive, press `3` to view
 
 Check in the following order:
 
-1. Checks the development of mainframe IP and webcard status: `ip addr`.
-2. Checking robotic address: WiFi is usually `192.168.234.1` and cable is usually `192.168.168.168`.
-3. CheckUDP port for use `8082`.
-4. Check if the robot's ready to go.
-5. Checks whether the architecture library used by SDK is correct.
+1. Run `ip addr` to check the development host’s IP address and network adapter status.
+2. Check the robot’s address. The Wi-Fi address is usually `192.168.234.1` and the wired address is usually `192.168.168.168`.
+3. Check that the UDP port is `8082`.
+4. Check that the robot has finished booting.
+5. Verify that the SDK library matches the target architecture.
 6. View `std::error_code::message()` and the `ErrorHandler` output when constructed.
 
 SDK v0.2.3 fixed an issue where an initial connection failure could leave the client in `CONNECTING` or `HANDSHAKING`. After receiving the failure result and addressing its cause, retry on the same `SDKClient` instance. The release also fixed a UDP handshake issue where receiving could stop after a transient socket error or a packet unrelated to the handshake.
 
 ### Ping. SDK Not Connected
 
-`ping` I can only prove it. IP It doesn't mean it's possible. UDP Ports, protocol handshakes and equipment are in good condition.
+A successful `ping` confirms IP reachability. Check the SDK handshake, device state, and the actual UDP port separately.
 
 - `Connect()` Return value;
 - `GetConnectionState()`; 
@@ -166,17 +166,17 @@ Successful connection does not amount to control.
 2. Whether or not to receive `OnTakeControlAck()`.
 3. `ack.error_code` Whether it is 0.
 4. `RobotState::control_source` Whether it is `CTRL_SOURCE_SDK`.
-5. Whether it is in a state of emergency, protection, mission or other prohibited movement.
+5. Check whether an emergency stop, protection state, active task, or other condition is blocking motion.
 
 ### Sensor Data Not Received
 
-`RobotState` and failure information will be reported on its own initiative, IMU, motion data, speed and joint status will require the corresponding configuration interface first.
+The robot reports `RobotState` and faults automatically. Call the corresponding configuration methods to enable IMU, motion, speed, and joint state reports.
 
 - Registered `IDataCallback`;
 - Whether corresponding data are reported;
-- Whether the subject of the recall is still alive;
-- Whether the revert function exits due to abnormalities;
-- Whether or not a blocking operation was performed in the echo.
+- Whether the callback object is still alive.
+- Whether an exception caused the callback to exit.
+- Whether a callback performed a blocking operation.
 
 ### `librobot_sdk.so` Not Found at Startup {#librobot-sdk-so-not-found-at-startup}
 
@@ -188,45 +188,45 @@ find ../lib -name 'librobot_sdk.so*'
 export LD_LIBRARY_PATH=/path/to/genisom_robot_sdk-main/lib/x86_64:$LD_LIBRARY_PATH
 ```
 
-ARM64 Equipment should be used `lib/aarch64`. It can also be set in CMake `BUILD_RPATH`.
+On ARM64 devices, use `lib/aarch64`. You can also set the library search path with CMake’s `BUILD_RPATH`.
 
 ### The Action Was Sent Successfully but the Action Was Not Completed
 
-Function returns value or `WriteHandler` to judge the result of this call, and the control response is used to determine whether the robot has confirmed the command; neither of them represents an action or mission that has been completed. Attitude completion view `RobotState::motion_status`, task status view `OnTaskStateData()` and `TaskStateInfo`.
+Use the return value or `WriteHandler` to check the call result and the control acknowledgment to confirm the robot received the command. To confirm execution, check `RobotState::motion_status` for posture changes and `TaskStateInfo` from `OnTaskStateData()` for task progress and completion.
 
 ### Recharge or Undocking Task Fails
 
-Yes. `OnTaskStateData()` Recording `task_type`,  `task_status`,  `phase` and `error_code` Copy that. `FAILURE`, check by task type [Docking and undocking error codes](./07-callbacks-data-types-and-status-reference.md#docking-and-undocking-error-codes). On-site screening can be consulted. [Recharge, condition of use and failure check for the marking of off-posts and charging stakes](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_undock_calibration_conditions_zh.md).
+Record `task_type`, `task_status`, `phase`, and `error_code` in `OnTaskStateData()`. When the task reports `FAILURE`, look up the code for that task type in [Docking and Undocking Error Codes](./07-callbacks-data-types-and-status-reference.md#docking-and-undocking-error-codes). For on-site troubleshooting, see the [guide to recharging, undocking, and charging dock calibration](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_undock_calibration_conditions_zh.md).
 
-### There'S No Video.
+### No Video {#there-s-no-video}
 
-Check camera lenses and protective film, RTSP Port `8554` / `8555`, the network bandwidth and the camera number rate. The camera number ratio is set to `OnUpdateCameraBitrateAck()` Returns the value.
+Check the camera lenses and any protective film, RTSP ports `8554` and `8555`, network bandwidth, and camera bitrate. `OnUpdateCameraBitrateAck()` reports the applied bitrate.
 
 ## Application Exit Processing
 
-Suggested order of withdrawal:
+Follow this shutdown order.
 
 1. Stop moving and send zero speed.
 2. Stop recharge, undocking, or any other running task.
 3. Release control.
 4. Call `Disconnect(true)`.
-5. Waits for the application line to exit.
+5. Wait for the application’s worker threads to exit.
 6. Destroy callback object and `SDKClient`.
 
-Upon receipt `SIGINT` or `SIGTERM`, do not directly close the process, but should first perform security stoppage and connection clean-up.
+When the application receives `SIGINT` or `SIGTERM`, safely stop the robot and clean up the connection before ending the process.
 
 ## Problem Feedback Template
 
 The following templates can be copied and filled in for submission. Versions and equipment information can be obtained through `Version()`, `ProtocolVersion()`, `SystemVersion()` and `GetDeviceInfo()`.
 
 ```text
-M1 Type and serial number:
-Robotic system version:
+Genisom M1 model and serial number:
+Robot system version:
 SDK Versions and protocol versions:
-Development of mainframe systems and architecture:
-Connections (WiFi / WiFi, UDP / WebSocket, target IP and port):
-Minimum recurrence step or call order:
+Development host OS and architecture:
+Connection (Wi-Fi or wired, UDP or WebSocket, target IP and port):
+Minimal steps to reproduce or API call sequence:
 Expected results:
-Actual result and complete error log (in error category, code, message):
-Reconciliation status (filled when applicable):
+Actual result and full error log (error category, code, and message):
+Relevant callbacks and state (if applicable):
 ```

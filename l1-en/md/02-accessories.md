@@ -63,7 +63,7 @@
 | <a href="#battery"> <img src="../assets/images/accessories/battery.jpeg" alt="L1 Series batteries" /> </a> | [Battery L1 Series](#battery) | Robotic power supply or backup batteries | L1 Series |
 | <a href="#screen-controller"> <img src="../assets/images/accessories/screen-controller.jpeg" alt="Screen remote control" /> </a> | [Screen Remote Control L1 Series](#screen-controller) | Movement control, image display and target selection | L1 Series |
 | <a href="#handheld-controller"> <img src="../assets/images/accessories/handheld-controller.jpeg" alt="Handheld remote" /> </a> | [Handheld remote control L1 series](#handheld-controller) | Basic motion control | L1 Series |
-| <a href="#flight-case"> <img src="../assets/images/accessories/flight-case.jpeg" alt="L1 Series flight cases" /> </a> | [Flight case L1 / L1-W](#flight-case) | Transport, handling and body protection | L1 Series |
+| <a href="#flight-case"> <img src="../assets/images/accessories/flight-case.jpeg" alt="L1 Series flight cases" /> </a> | [Flight case for Genisom L1 / L1-W](#flight-case) | Transport, handling and body protection | L1 Series |
 | <a href="#navigation-pro"><img src="../assets/images/accessories/navigation-pro.jpeg" alt="RoamerX Pro" /></a> | [RoamerX Pro](#navigation-pro) | Mapping, localization, navigation, planning, obstacle avoidance, and return to dock | Genisom L1 EDU, Genisom L1-W EDU |
 | <a href="#video-kit"> <img src="../assets/images/accessories/long-range-video-kit.jpeg" alt="Long-range video transmission kit" /> </a> | [Long-range video transmission kit L1 series](#video-kit) | Remote high-resolution image transmission and screen remote control | L1, L1-W |
 | <a href="#charging-dock"><img src="../assets/images/accessories/charging-dock.jpeg" alt="Genisom L1 Series charging dock" /></a> | [Genisom L1 Series Charging Dock](#charging-dock) | Enables autonomous recharging with the navigation software | Genisom L1, Genisom L1-W, Genisom L1 EDU, Genisom L1-W EDU |
@@ -93,18 +93,18 @@
 
 | Parameter | Value |
 | --- | --- |
-| Use | Producing four-foot robotic power for the L1 series or as a backup battery |
+| Use | Powers Genisom L1 series quadruped robots or serves as a spare battery |
 | Dimensions | About 20 x 12 x 10 cm |
 | Weight | About 1.7 kg |
-| Electric core material | Three cents for lithium. |
-| Punctuation Capacity | 5 Ah |
-| Scaled Capacity | 4.6 Ah |
-| Electricity | 43.2 V |
-| Cycle life | 500 Post-cycle capacity approximately 60%, based on actual battery specifications |
+| Cell chemistry | NCM (ternary) lithium |
+| Nominal capacity | 5 Ah |
+| Rated capacity | 4.6 Ah |
+| Voltage | 43.2 V |
+| Cycle life | Approximately 60% capacity after 500 cycles, subject to the battery specifications |
 
 ### Use Recommendations
 
-The battery shall cease its use immediately in the event of drums, leaks, breakdowns or abnormal heat.
+Use only charging equipment specified by the manufacturer. Stop using the battery immediately if it swells, leaks, is damaged, or overheats.
 
 <a id="screen-controller"></a>
 
@@ -118,17 +118,17 @@ The battery shall cease its use immediately in the event of drums, leaks, breakd
 
 | Parameter | Description |
 | --- | --- |
-| Main roles | Control the robot, display the image, select the target. |
+| Primary function | Control the robot, display the image, select the target. |
 | Dimensions | 185 × 83 × 16 mm |
 | Weight | 261 g |
 | Battery | 5000 mAh |
-| Charge | Support 18 W Quick Fill |
-| Screen | 4.7 Inch, 750 x 1334 Touch screen |
+| Charge | Supports 18 W fast charging |
+| Screen | 4.7-inch touchscreen, 750 × 1334 pixels |
 | Storage | 128 GB UFS 3.1 + TF slots |
 
 ### Use Recommendations
 
-Connect, control, and App processes can be viewed [Instructions for equipment operation, remote control and App](./05-device-controller-and-app-guide.md).
+See [Robot, Controller, and App Operation](./05-device-controller-and-app-guide.md).
 
 <a id="handheld-controller"></a>
 
@@ -142,11 +142,11 @@ Connect, control, and App processes can be viewed [Instructions for equipment op
 
 | Parameter | Description |
 | --- | --- |
-| Main roles | Controlling the basic exercise of robots. |
+| Primary function | Control basic robot movements |
 | Dimensions | 160 × 100 × 70 mm |
 | Weight | 280 g |
 | Wireless connection | 2.4 GHz |
-| Feedback | Double vibrating |
+| Feedback | Dual vibration feedback |
 
 ### Use Recommendations
 
@@ -162,12 +162,12 @@ Handheld remotes are suitable for basic actions and on-site debugging and do not
 
 ### Basic Information
 
-Aluminium structures are used in aeroplanes, with hands on the side of a million-way wheel and top, for robotic cross-site handling and transport protection. L1 Unlike L1-W outer sizes, the choice must be by machine type.
+The aluminium flight case has swivel casters and handles on the top and side for transporting and protecting the robot. Choose the case for your model because Genisom L1 and Genisom L1-W have different dimensions.
 
-| Model | Fitr Type | External dimensions | Weight |
+| Model | Compatible models | External dimensions | Weight |
 | --- | --- | --- | --- |
-| Flight case L1 | Genisom L1 point-foot series | 46 × 34 × 85 cm | 10.3 kg |
-| Flight case L1-W | Genisom L1-W wheeled-legged series | 53 × 37 × 85 cm | 11.9 kg |
+| Flight case for Genisom L1 | Genisom L1 point-foot series | 46 × 34 × 85 cm | 10.3 kg |
+| Flight case for Genisom L1-W | Genisom L1-W wheeled-legged series | 53 × 37 × 85 cm | 11.9 kg |
 
 ### Recommendations on Transport
 
@@ -187,7 +187,7 @@ This illustration shows a point cloud map produced with the RoamerX Pro configur
 
 | Field | Description |
 | --- | --- |
-| Fitr Type | L1 EDU, L1-W EDU |
+| Compatible models | L1 EDU, L1-W EDU |
 | Functions | Mapping, localization, navigation, planning, obstacle avoidance, and return to dock |
 | Included | RoamerX Pro software package, SDK interface, and standard navigation app |
 | Secondary development | Supported |
@@ -204,14 +204,14 @@ This illustration shows a point cloud map produced with the RoamerX Pro configur
 
 | Field | Description |
 | --- | --- |
-| Main roles | Real-time transmission of high-resolution images in an open environment to support the farthest possible 1 km fax |
-| Package Composition | G20 Remote controls, GR01 receivers, remote external antennas |
-| Software fit | Fit L1 Earmarked App |
-| Fitr Type | L1, L1-W |
+| Primary function | Transmits high-definition video in real time over distances of up to about 1 km in open areas |
+| Package Composition | G20 remote controller, GR01 receiver, and long-range external antenna |
+| Software fit | Compatible with the Genisom L1 app |
+| Compatible models | L1, L1-W |
 
 ### Use Recommendations
 
-The nominal 1 km fax distance is applied to an open environment, which affects the effective distance by shielding and co-frequency interference. IP54 does not mean that it can be immersed.
+The nominal 1 km video transmission range assumes an open area with a clear line of sight. Obstructions and co-channel interference reduce the effective range. Keep the IP54-rated kit out of water.
 
 <a id="charging-dock"></a>
 
@@ -226,10 +226,10 @@ The nominal 1 km fax distance is applied to an open environment, which affects t
 | Field | Description |
 | --- | --- |
 | Purpose | Enables autonomous recharging with the navigation software |
-| Fitr Type | L1, L1-W, L1 EDU, L1-W EDU |
+| Compatible models | L1, L1-W, L1 EDU, L1-W EDU |
 | Main composition | High-visibility positioning QR code, folding mounting bracket, charging base, and status indicator |
 | Packaging box dimensions | 580 × 262 × 371 mm |
-| Gross weight of products | About 12 kg, packing boxes |
+| Gross weight of products | About 12 kg, including packaging |
 
 <a id="electrode"></a>
 

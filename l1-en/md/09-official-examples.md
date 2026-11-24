@@ -88,26 +88,26 @@ Stop the robot and exit the Remote example first, then from SDK Root directory s
 ./build/example/sdk_control
 ```
 
-The example creates an implementer using the `ROLE_SDK` identity. The identification is a two-step process and the acquisition of control is followed by an application for control.
+The example creates an executor with the `ROLE_SDK` role. Setting the role is the first step. The program then requests control.
 
-| Steps | Action | Confirm content |
+| Step | Action | What to Verify |
 | --- | --- | --- |
-| 1 | Press `i` | Power, temperature and failure information allowed to continue testing. |
-| 2 | Press `k` | Transmission SDK Application for control |
-| 3 | Press again `i` | Check functional mode feedback switched to SDK Corresponding Mode |
-| 4 | Press `2` | Hold on to the robots. |
-| 5 | Press the short arrow once, then press `c` | One-way movement and cessation are effective. |
-| 6 | Press `1` | The robots are down and steady. |
-| 7 | Press `r`, press `i` | Request for surrender of Remote control and reconciliation of mode feedback |
-| 8 | Press `Ctrl+C` | Closure of the procedure |
+| 1 | Press `i` | Verify that the status data is valid and that the battery level, temperature, and fault status allow you to continue testing. |
+| 2 | Press `k` | Send the request for SDK control ownership. |
+| 3 | Press `i` again | Verify that the reported function mode is the SDK mode. |
+| 4 | Press `2` | Verify that the robot stands steadily. |
+| 5 | Briefly press a movement key once, then immediately press `c` | Verify that the robot moves in the intended direction and then stops. |
+| 6 | Press `1` | Verify that the robot lies down and stays still. |
+| 7 | Press `r`, then press `i` | Request that control return to the remote controller and verify the reported function mode. |
+| 8 | Press `Ctrl+C` | Exit the program. |
 
 Confirm control ownership before sending motion commands. After you press `k`, the terminal message indicates that the command was sent. Check the function-mode enum and its values in the supplied SDK headers and the [control command interface](./06-01-control-commands.md).
 
-If you press `r` The post-module was not restored, and the robots were stopped, the connection was checked and the takeover was confirmed by remote means on-site.
+If remote control is still unavailable after pressing `r`, stop the robot, check the connection, and use the local remote controller to take over.
 
 ## Common Keys
 
-The primary control keys of the two examples are consistent, and the effectiveness of the movement depends on current control, robotic state and type support.
+Both examples use the same main control keys. Whether a motion command takes effect depends on control ownership, the robot state, and model support.
 
 | Button | Role |
 | --- | --- |
@@ -121,28 +121,28 @@ The primary control keys of the two examples are consistent, and the effectivene
 | `q` | Turn left. |
 | `e` | Turn right. |
 | `c` | Send zero motion, stop moving |
-| `0` | We're going to have to stop. We're going down. |
-| `k` | Request SDK Right of control |
-| `r` | Request Remote Control |
+| `0` | Request a software emergency stop. The robot disables motion and lies down. |
+| `k` | Request SDK control ownership |
+| `r` | Request remote control ownership |
 | `Ctrl+C` | Termination of program; robots should be stopped before exit |
 
-Note that `q` is a left switch, not an exit key; `0` is a software emergency stop and will not exit the program.
+Press `q` to turn left and `0` to request a software emergency stop. Both keys leave the program running.
 
 ### Other Function Keys
 
 | Button | Role |
 | --- | --- |
-| `g` | Request common SDK mode |
+| `g` | Request General SDK mode |
 | `b` | Balance Standing Mode |
 | `p` | Lock Mode |
 | `7` | Access to laboratory mode |
 | `8` | Exit Laboratory Mode |
 | `3` | Jump. |
-| `4` | Jump! |
+| `4` | Jump forward |
 | `5` | Say hello. |
-| `6` | Backwards. |
-| `9` | Stand up and press your legs again. |
-| `u` | Unload the cargo and get down. |
+| `6` | Backflip |
+| `9` | Stand on two legs. Press again to cancel. |
+| `u` | Crouch to unload |
 
 > **Choosing an SDK mode:** SDK mode (`k`) and General SDK mode (`g`) use different gaits. SDK mode accepts lower speeds for mapping and returning to charge. General SDK mode supports higher speeds for running and climbing stairs. Choose the mode for the task and verify the mode feedback before testing motion.
 
@@ -152,7 +152,7 @@ The Remote example also has `o` buttons, but only Wi-Fi function demonstration t
 
 ## How to Read and Modify Examples
 
-When reading the source code, you can then view the implementer 's construction, keyboard loop, `SetRemote()`,  `SetCmd()` And state reads the branch.
+Read the source in this order: executor construction, keyboard loop, `SetRemote()`, `SetCmd()`, and the status-reading branches.
 
 | Code Position | Concerns |
 | --- | --- |

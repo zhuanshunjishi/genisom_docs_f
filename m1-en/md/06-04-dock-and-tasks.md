@@ -1,19 +1,19 @@
 # Dock and Tasks
 
-[Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
+[API overview](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 
 ## Dock Pairing {#dock-pairing}
 
-The following interfaces are provided by SDK v0.2.3, `timeout_ms` and `handler` comply [General parameter rules](./06-sdk-api-reference.md#common-parameters-and-return-values).
+These methods are available from SDK v0.2.3. The `timeout_ms` and `handler` parameters follow the [common parameter rules](./06-sdk-api-reference.md#common-parameters-and-return-values).
 
-| Function Prototype | Type of agreement | Response and results |
+| Function prototype | Protocol type | Acknowledgment and result |
 | --- | --- | --- |
-| `std::error_code SetDockScanConfig(bool on, int timeout_ms = 0, WriteHandler handler = ...)` | 1008 (`target=302`) | `OnDockScanConfig()` Confirm opening or stopping scanning, `OnDockScanResult()` report equipment found (1018) |
-| `std::error_code ConnectDock(const DockConnectConfig& config, int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | Adopt `config.address` designated recharging dock. Examination `OnDockConnectionAck()` of admissibility results and `OnDockConnectionResult()` final results (1024) |
-| `std::error_code GetDockInfo(int timeout_ms = 0, WriteHandler handler = ...)` | 1023 | `OnDockInfo()` Return charger information and connection, exposure and charge state |
-| `std::error_code DisconnectDock(int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | Disconnect the current charge stake, use the same response and result as the connection |
+| `std::error_code SetDockScanConfig(bool on, int timeout_ms = 0, WriteHandler handler = ...)` | 1008 (`target=302`) | `OnDockScanConfig()` confirms whether scanning started or stopped. `OnDockScanResult()` reports discovered devices (1018). |
+| `std::error_code ConnectDock(const DockConnectConfig& config, int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | Select the charging dock with `config.address`. Check `OnDockConnectionAck()` to determine whether the request was accepted and `OnDockConnectionResult()` for the final outcome (1024). |
+| `std::error_code GetDockInfo(int timeout_ms = 0, WriteHandler handler = ...)` | 1023 | `OnDockInfo()` returns charging dock information and its connection, contact, and charging states. |
+| `std::error_code DisconnectDock(int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | Disconnect the current charging dock. The acknowledgment and result callbacks are the same as for connecting. |
 
-For the order of call see [Charge pillar pairing process](./05-sdk-control-flow-and-task-handling.md#dock-pairing) and the description of the field is [Dock data](./07-callbacks-data-types-and-status-reference.md#dock-data).
+See [Dock Pairing](./05-sdk-control-flow-and-task-handling.md#dock-pairing) for the call sequence and [Dock Data](./07-callbacks-data-types-and-status-reference.md#dock-data) for field definitions.
 
 ## Task and Robot States {#task-and-robot-states}
 
@@ -26,15 +26,15 @@ std::error_code SwitchRemoteState(int timeout_ms = 0, WriteHandler handler = ...
 std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-| Functions | Functions |
+| Function | Behavior |
 | --- | --- |
 | `StartRechargeTask` | Start an autonomous recharge task |
-| `StopRechargeTask` | Stop Autoback Task |
-| `StartUnDockTask` | Commencing the self-deposition mission. |
-| `StopUnDockTask` | Stop the auto-departure. |
-| `SwitchRemoteState` | Switch to Remote Control |
-| `SwitchIdleState` | Switch to Free Status |
+| `StopRechargeTask` | Stop the autonomous recharge task |
+| `StartUnDockTask` | Start an autonomous undocking task |
+| `StopUnDockTask` | Stop the autonomous undocking task |
+| `SwitchRemoteState` | Switch to the remote-control state |
+| `SwitchIdleState` | Switch to the idle state |
 
-The command sent results are obtained by the return value or `WriteHandler`; the command answer is obtained by `IControlCallback`; the task execution process and final state is obtained by `OnTaskStateData()`. Do not " send the order " as " the task has been completed ".
+Check the return value or `WriteHandler` for the command send result. `IControlCallback` delivers the device acknowledgment. Use `OnTaskStateData()` to track progress and confirm completion.
 
-Full processing processes for charging, ioning and state switching are presented in [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks).
+See [Docking and Undocking Tasks](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks) for the complete workflow.

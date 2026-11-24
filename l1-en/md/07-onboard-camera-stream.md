@@ -1,10 +1,10 @@
 # Onboard Camera Stream
 
-[Back to Home](../index.md) | [Instructions for equipment operation, remote control and App](./05-device-controller-and-app-guide.md) | [SDK Guidance for development and operation](./08-sdk-development-guide.md)
+[Back to Home](../index.md) | [Robot, Controller, and App Operation](./05-device-controller-and-app-guide.md) | [SDK Development Guide](./08-sdk-development-guide.md)
 
 ## Video Stream Information
 
-L1 The body camera provides H.264 video streams by RTSP. The following default address with authentication information can be used to draw images after developing equipment to connect the robot network.
+The onboard camera on Genisom L1 streams H.264 video over RTSP. Connect your development computer to the robot’s network, then use the default stream URL below.
 
 ```text
 rtsp://user:Abcd%232027%21@192.168.234.1:8554/test
@@ -12,39 +12,39 @@ rtsp://user:Abcd%232027%21@192.168.234.1:8554/test
 
 | Item | Default |
 | --- | --- |
-| Agreements | RTSP |
+| Protocol | RTSP |
 | Robot IP | `192.168.234.1` |
 | Port | `8554` |
-| Flow Path | `/test` |
+| Stream path | `/test` |
 | Video encoding | H.264 |
 
-If the robot IP has been modified, the address `192.168.234.1` shall be replaced by the current actual IP.
+If the robot’s IP address has changed, replace `192.168.234.1` with its current address.
 
 ### Account Authentication
 
-Player prompts to enter account numbers and passwords with the following default certificates.
+If the player asks you to sign in, use the default credentials below.
 
 | Item | Value |
 | --- | --- |
 | Username | `user` |
 | Password | `Abcd#2027!` |
 
-The password in the default address has been executed URL Encoding, where `#` Encoding As `%23`,  `!` Encoding As `%21`. Enter the original password in the above table in the independent password input box of the player.
+The default URL encodes `#` as `%23` and `!` as `%21` in the password. If the player has a separate password field, use the original password from the table above.
 
 ## Preparation for Use
 
-1. Turn the robot on and wait for the launch to be completed.
-2. Opens the Video Stream Switch and saves settings on the settings page that the screen remote control application applies.
-3. Connecting pull devices to robotic networks.
-4. Confirms that robots IP can access:
+1. Power on the robot and wait for it to finish booting.
+2. In the remote controller app’s settings, enable the video stream and save your changes.
+3. Connect the playback device to the robot’s network.
+4. Verify that the robot’s IP address is reachable.
 
 ```bash
 ping -c 4 192.168.234.1
 ```
 
-5. Confirms that this firewall or network strategy does not prevent RTSP connections.
+5. Check that the local firewall and network policies allow RTSP connections.
 
-Video stream and HighLevel control use different ports. The ability to run SDK Demo does not mean RTSP will certainly play; likewise, the ability to see images does not mean that the SDK control connection has been established.
+RTSP streaming and HighLevel control use separate ports. Verify the stream and the SDK control connection independently.
 
 ## Play with FFplay
 
@@ -69,7 +69,7 @@ ffplay -rtsp_transport tcp \
   'rtsp://user:Abcd%232027%21@192.168.234.1:8554/test'
 ```
 
-The command uses TCP transmissions and displays delay by reducing detection and buffer reduction. Press `q` to quit playing.
+The command uses TCP and reduces probing and buffering to lower playback latency. Press `q` to stop playback.
 
 ## Play with GStreamer
 
@@ -100,7 +100,7 @@ gst-launch-1.0 \
   ! autovideosink
 ```
 
-Pipes are completed sequentially RTSP Receiving, Receiving H.264 RTP Unpack, decode, decode, colour conversion and image display. At end of period, press at terminal `Ctrl+C`.
+The pipeline receives the RTSP stream, extracts H.264 from the RTP packets, then parses, decodes, converts, and displays the video. Press `Ctrl+C` in the terminal to stop playback.
 
 ## Play with VLC
 
@@ -109,9 +109,9 @@ Pipes are completed sequentially RTSP Receiving, Receiving H.264 RTP Unpack, dec
 3. Enter the default RTSP address at the beginning of this document.
 4. Click Play.
 
-VLC The actual delay and compatibility is affected by the version and cache settings. When it is not possible to open or delay significantly, priority is given to the FFplay or GStreamer authentication of the video stream.
+Playback latency and compatibility depend on the VLC version and cache settings. If VLC cannot open the stream or latency is high, test it with FFplay or GStreamer.
 
-## Read with Open CV
+## Read with OpenCV {#read-with-open-cv}
 
 ### Installation Dependence
 
@@ -171,19 +171,19 @@ if __name__ == "__main__":
     main()
 ```
 
-After running the script, press `q` to exit. `CAP_PROP_BUFFERSIZE` Validity depends on the current Open CV and FFmpeg backends; in case of cumulative video delay, the GStreamer conduit in the next section can be used instead.
+Press `q` to exit the script. Support for `CAP_PROP_BUFFERSIZE` depends on your OpenCV and FFmpeg backend. If latency keeps increasing, try the GStreamer pipeline in the next section.
 
-## Open CV Using GStreamer
+## OpenCV with GStreamer {#open-cv-using-gstreamer}
 
-This way you can receive and decode videos through GStreamer and then give the latest frame to Open CV.
+GStreamer receives and decodes the stream, then passes the latest frame to OpenCV.
 
-### Check Whether Open CV Supports GStreamer
+### Check Whether OpenCV Supports GStreamer {#check-whether-open-cv-supports-gstreamer}
 
 ```bash
 python3 -c "import cv2; print(cv2.getBuildInformation())" | grep GStreamer
 ```
 
-should be shown in the output `GStreamer: YES`. If shown `NO`, Current Open CV Unable to use `cv2.CAP_GSTREAMER`, should be replaced with FFmpeg backend or with GStreamer-supported Open CV.
+Look for `GStreamer: YES` in the output. If it shows `NO`, your OpenCV build cannot use `cv2.CAP_GSTREAMER`. Use the FFmpeg backend or install OpenCV with GStreamer support.
 
 ### Python Example
 
@@ -225,28 +225,28 @@ if __name__ == "__main__":
     main()
 ```
 
-`drop=true max-buffers=1` Discarding the backlog frame would be appropriate to give priority to real-time display and visual treatment.
+`drop=true max-buffers=1` drops queued frames so real-time display and vision processing can work with recent frames.
 
 ## Delay Optimization
 
-- Priority is given to the use of wired networks or stable signals Wi-Fi to avoid the development of equipment for simultaneous high-flow downloads.
+- Use a wired connection or a stable Wi-Fi signal. Avoid large downloads on the development computer while streaming.
 - FFplay uses `-rtsp_transport tcp`, `-fflags nobuffer` and `-flags low_delay`.
-- GStreamer will `latency` Sets a smaller value, and `appsink` Medium Settings `drop=true max-buffers=1`.
-- OpenCV processing cycle does not perform time-consuming blocking operations; reasoning, save disks and displays can be divided into different threads.
-- Do not execute `resize` extras or repeat colour conversions when only algorithms are required.
-- TCP It is usually more stable in the dump environment, but may be delayed due to re-transmission; it should be tested in conjunction with the site network.
+- Set a low `latency` value in GStreamer and set `drop=true max-buffers=1` on `appsink`.
+- Keep slow, blocking work out of the OpenCV capture loop. Use separate threads for inference, saving frames, or display as needed.
+- If the frames are only used as algorithm input, skip unnecessary `resize` calls and repeated colour conversions.
+- TCP is usually more stable when packets are lost. Retransmissions can increase latency, so test on the network you will use.
 
 ## Common Problems
 
-| The phenomenon | Inspection and processing |
+| Symptom | What to check |
 | --- | --- |
-| `ping` It's not working. | Check if there's any connection to robot networks, robots. IP Whether it's right or not, and it's the webcard configuration. |
-| `Connection refused` | Confirm the robot's active and open the video stream switch in remote control applications. |
-| `401 Unauthorized` or hint account authentication | Checks whether the default address with authentication information at the beginning of this document is used when connecting through URL. When the player individually suggests authentication, fill in the username and original password in the Account Authentication section. |
-| FFplay can play, Open CV cannot open | Check FFmpeg/GStreamer backend support for Open CV |
-| GStreamer hint missing elements | Install GStreamer plugins listed in this chapter, use `gst-inspect-1.0` to check missing plugins |
-| It's connected, but there's no image. | CheckRTSP path for `/test`, then restart the player and switch the video stream switch |
-| The delay continues to increase. | Reduction of buffers, disposal of backlog frames and avoidance of time-consuming disposal during frame-taking |
-| Carton or the screen. | Check wireless signals, bandwidth and littering, test FFplay TCP and GStreamer, respectively |
+| `ping` fails | Check the connection to the robot’s network, the robot’s IP address, and the network adapter settings. |
+| `Connection refused` | Confirm that the robot has finished booting, then enable the video stream in the remote controller app. |
+| `401 Unauthorized` or sign-in prompt | Check that the stream URL includes the credentials as shown at the top of the page. If the player prompts for credentials separately, use the username and original password from Account Authentication. |
+| FFplay plays the stream but OpenCV cannot open it | Check whether your OpenCV build supports the FFmpeg or GStreamer backend. |
+| GStreamer reports missing elements | Install the listed GStreamer plugin packages. Use `gst-inspect-1.0` to identify missing elements. |
+| Connected but no video | Check that the RTSP path is `/test`, then restart the player and toggle the video stream setting. |
+| Latency keeps increasing | Reduce buffering, drop queued frames, and keep slow processing off the capture thread. |
+| Stuttering or visual artifacts | Check wireless signal strength, bandwidth, and packet loss. Test FFplay over TCP and GStreamer separately. |
 
 [Back to Home](../index.md)

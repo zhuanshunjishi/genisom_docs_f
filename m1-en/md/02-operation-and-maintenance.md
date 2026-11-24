@@ -19,7 +19,7 @@ After unpacking, verify that the package contains the robot, G20 remote controll
 - When operating on stairs, slopes, or raised platforms, stay clear of the route and avoid standing directly above or below the robot.
 - Keep the robot in sight during operation. Maintain at least 2 m of clearance when it is stationary and at least 3 m when it moves or performs a task.
 - Do not power on or operate the robot in explosive, corrosive, or dusty environments.
-- IP67 protection has limits for prolonged submersion. Keep the connector covers, battery compartments, and housing intact and dry.
+- Avoid prolonged submersion even with the IP67 rating. Keep the connector covers, battery compartments, and housing intact and dry.
 
 ### Pre-Start Checks
 
@@ -62,41 +62,41 @@ Either battery can wake the other. Do not use a battery that is deformed, leakin
 1. Place the controller near the robot and clear people and obstacles from the surrounding area.
 2. Power on the robot and wait for it to finish starting up.
 3. Hold the controller's power button for about 3 seconds. The controller and robot are paired at the factory and connect automatically after startup.
-4. `GenisDog` App, enter the control interface and confirm the equipment connection and state of health.
+4. Open the `GenisDog` app, go to the control screen, and check the robot’s connection and health status.
 
 #### Keys and Interfaces
 
 | Number | Keys or Interfaces | Number | Keys or Interfaces |
 | ---: | --- | ---: | --- |
-| ① | 2.4 G / 5.8 G antenna | ⑬ | Squeeze button |
-| ② | Undefined | ⑭ | Remote control power beacons |
-| ③ | Back to key | ⑮ | Facing frequency indicators |
-| ④ | Left swing. | ⑯ | B2 Keys |
-| ⑤ | H key | ⑰ | SIM Cartons |
-| ⑥ | L1 Keys | ⑱ | B1 Keys |
-| ⑦ | L2 Keys | ⑲ | Wave |
-| ⑧ | The microphone. | ⑳ | Lighting button |
-| ⑨ | R2 Keys | ㉑ | Hanging rope. |
-| ⑩ | R1 Keys | ㉒ | Type-C Interface |
-| ⑪ | Power Key | ㉓ | USB Interface |
-| ⑫ | Right swing. | ㉔ | Shoot / Video button |
+| ① | 2.4 GHz / 5.8 GHz antenna | ⑬ | Software emergency stop button |
+| ② | Undefined | ⑭ | Controller battery indicator |
+| ③ | Back button | ⑮ | Pairing indicator |
+| ④ | Left joystick | ⑯ | B2 button |
+| ⑤ | H button | ⑰ | SIM card slot |
+| ⑥ | L1 button | ⑱ | B1 button |
+| ⑦ | L2 button | ⑲ | Scroll wheel |
+| ⑧ | Microphone | ⑳ | Fill light button |
+| ⑨ | R2 button | ㉑ | Lanyard attachment |
+| ⑩ | R1 button | ㉒ | USB Type-C port |
+| ⑪ | Power button | ㉓ | USB port |
+| ⑫ | Right joystick | ㉔ | Photo/video button |
 
 #### Common Operations
 
-| Action | Functions |
+| Action | Function |
 | --- | --- |
-| Back to key | Back to Previous Page |
-| Left swing. | Control the movement of robots around and around. |
-| Right swing. | Control the in-situ bends, right-and-right probes and downsides. |
-| `H` + Right Rock Up and Down | Align your heights. |
-| `H` + Right swing around | Turning over at execution level |
-| `L1` + `R1` | Switch the tail of the machine. |
-| `L2` + `R2` | Toggle knee joints. |
-| Squeeze button | Stop Current Motion |
-| Lighting button | Cyclical Switching Light Group |
-| Shoot key point press | Take a picture. |
-| Hold the capture button for 3 seconds | Start recording |
-| Press the filming button again during the video | Stop Video |
+| Back button | Return to the previous screen |
+| Left joystick | Move the robot forward, backward, left, or right. |
+| Right joystick | Turn the robot in place, look left or right, or adjust pitch. |
+| `H` + move the right joystick up or down | Adjust body height. |
+| `H` + move the right joystick left or right | Turn horizontally in place. |
+| `L1` + `R1` | Reverse the robot’s front and rear directions. |
+| `L2` + `R2` | Switch knee posture. |
+| Software emergency stop button | Stop the current movement. |
+| Fill light button | Cycle through fill light combinations. |
+| Press the photo/video button | Take a picture. |
+| Hold the photo/video button for 3 seconds | Start recording |
+| Press the photo/video button again while recording | Stop recording |
 
 ### Motion Mode
 
@@ -142,7 +142,7 @@ Press the red physical emergency stop button on the robot's back if it goes out 
 
 ### Software Emergency Stop
 
-Press the controller's software emergency stop button to stop the current action. The app shows a notification. Once the area is safe, clear the software emergency stop in the app. Keep the physical emergency stop available even when using the app or remote controller's stop function.
+Press the controller's software emergency stop button to stop the current action. The app shows a notification. Once the area is safe, clear the software emergency stop in the app. The SDK and remote controller software emergency stops cannot replace the physical emergency stop.
 
 ### Overheating Protection
 

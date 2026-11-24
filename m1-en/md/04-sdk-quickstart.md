@@ -1,6 +1,6 @@
 # Genisom M1 SDK Quickstart
 
-[Return Document Overview](../index.md) | [System composition, hardware interfaces and structural design information](./03-system-components-and-hardware-interfaces.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK Interface reference](./06-sdk-api-reference.md)
+[Return Document Overview](../index.md) | [System composition, hardware interfaces and structural design information](./03-system-components-and-hardware-interfaces.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [Genisom M1 SDK API Reference](./06-sdk-api-reference.md)
 
 ::: tip Before starting
 See [M1 System compatibility with SDK version](./sdk-version-compatibility.md), select the corresponding SDK according to the robot's system version.
@@ -12,28 +12,28 @@ The main operating environments are Ubuntu 22.04, GCC 11.4, CMake 3.8+ and Boost
 
 ## SDK Contents
 
-SDK The source code, publication instructions and example programs can be obtained from GitHub: [zsibot/genisom_robot_sdk](https://github.com/zsibot/genisom_robot_sdk).
+Find the SDK source code, release notes, and examples in the [Genisom Robot SDK repository](https://github.com/zsibot/genisom_robot_sdk).
 
-SDK The core catalogue of the package is as follows:
+The SDK package contains these files and directories.
 
 ```text
 genisom_robot_sdk-main/
-Ideas - include/robot_sdk/ C++ headers
-Ideas-lib/x86_64 / x86_64 Pre-Compilator
-├── lib/aarch64 / ARM64 Pre-compilation Library
-Ideas - example/ C++ Example
-Ideas -docs/ SDK Details
-Ideas - README.md English Overview
-⁇  README_zh.md Chinese General
+├── include/robot_sdk/     C++ headers
+├── lib/x86_64/            Prebuilt x86_64 library
+├── lib/aarch64/           Prebuilt ARM64 library
+├── example/               C++ examples
+├── docs/                  SDK documentation
+├── README.md              English overview
+└── README_zh.md           Chinese overview
 ```
 
-Correlation of header and library documents:
+The following table lists the main headers and libraries.
 
 | Documentation | Role |
 | --- | --- |
-| `include/robot_sdk/sdk_client.hpp` | `SDKClient` Class and all public calls interfaces |
-| `include/robot_sdk/sdk_callback.hpp` | Data reporting and control response switch interface |
-| `include/robot_sdk/sdk_connection.hpp` | Connect Status and Connect Configuration |
+| `include/robot_sdk/sdk_client.hpp` | The `SDKClient` class and its public API |
+| `include/robot_sdk/sdk_callback.hpp` | Callbacks for data reports and control acknowledgments |
+| `include/robot_sdk/sdk_connection.hpp` | Connection state and settings |
 | `include/robot_sdk/sdk_error.hpp` | SDK Error code |
 | `include/robot_sdk/sdk_type.hpp` | Enumeration, structure and data type |
 | `lib/x86_64/librobot_sdk.so*` | x86_64 Linux Dynamic Library and its version files |
@@ -42,11 +42,11 @@ Correlation of header and library documents:
 
 ## Choose a Development Computer
 
-SDK Need Linux environment compilation. Available:
+Build the SDK in a Linux environment. Supported setups include the following.
 
 - Ubuntu 22.04 desktops or notebooks;
 - Ubuntu 22.04 virtual machine;
-- It's inside the robot. ARM64 Linux system, provided that there are compilation tools and development depend on it.
+- The robot’s onboard ARM64 Linux system, provided the build tools and dependencies are installed.
 
 Build on an Ubuntu 22.04 development computer, then copy the executable and the `.so` files for the matching architecture to the runtime environment. An x86_64 executable cannot run directly on ARM64, and an ARM64 executable cannot run directly on x86_64.
 
@@ -67,7 +67,7 @@ Use `ping` to verify IP reachability. Check the return value of `Connect()` or c
 
 ### Wired Connection
 
-When connected by cable, the target address is normally `192.168.168.168` for the mainframe, SDK is still in use UDP `8082`. If the site network redistributes the address, the actual address of the device should be used.
+For a wired connection, the motion control host is usually at `192.168.168.168`. The SDK still uses UDP port `8082`. If the local network assigns a different address, use the actual device address.
 
 ## Build Official Examples {#build-official-examples}
 
@@ -81,7 +81,7 @@ cmake ..
 make -j6
 ```
 
-Run read-only examples `quick_start` after the compilation has been completed, confirming that the connection, handshake and front frame robots are in normal condition:
+After building, run the read-only `quick_start` example to verify the connection, handshake, and receipt of the first robot state message.
 
 ```bash
 ./quick_start 192.168.234.1 8082
@@ -93,7 +93,7 @@ Runs a cable connection:
 ./quick_start 192.168.168.168 8082
 ```
 
-Displays when running properly `[OK] Connected`,  `[OK] First robot state received` and `[OK] Disconnected cleanly`. Old version SDK If not provided `quick_start`, can run the attached version `data`. You need to verify that sensors and profile configurations are also available `data` See. [M1 Example procedures and troubleshooting](./08-examples-and-troubleshooting.md).
+On success, the example prints `[OK] Connected`, `[OK] First robot state received`, and `[OK] Disconnected cleanly`. If your SDK version does not include `quick_start`, run its `data` example. You can also use `data` to verify sensor and reporting settings. See [Genisom M1 Examples and Troubleshooting](./08-examples-and-troubleshooting.md).
 
 ## First Connection Program
 
@@ -167,6 +167,6 @@ The SDK dynamic library of the corresponding architecture is provided with the p
 ## Next
 
 - Read [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) before starting to write the control program.
-- When searching for prototypes and parameters for functions, use [M1 SDK Interface reference](./06-sdk-api-reference.md).
-- Use [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md) when viewing echoes, structure and status count.
-- Use [M1 Example procedures and troubleshooting](./08-examples-and-troubleshooting.md) when aligning specific functions.
+- When searching for prototypes and parameters for functions, use [Genisom M1 SDK API Reference](./06-sdk-api-reference.md).
+- Use [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md) for callbacks, data structures, and state enums.
+- Use [Genisom M1 Examples and Troubleshooting](./08-examples-and-troubleshooting.md) when aligning specific functions.

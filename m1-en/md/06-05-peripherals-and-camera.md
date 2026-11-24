@@ -2,7 +2,7 @@
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 
-## Lights and Sensor Switches.
+## Lights and Sensor Switches {#lights-and-sensor-switches}
 
 ```cpp
 std::error_code FrontLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
@@ -11,14 +11,14 @@ std::error_code AutoModeLight(bool on, int timeout_ms = 0, WriteHandler handler 
 std::error_code ObstacleAvoidance(bool on, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-| Functions | Functions |
+| Function | Behavior |
 | --- | --- |
-| `FrontLight` | Lighting before switch. |
-| `BackLight` | Lighting after switch |
-| `AutoModeLight` | Switch automatic patch mode |
-| `ObstacleAvoidance` | Switch disabled. |
+| `FrontLight` | Enable or disable the front fill light |
+| `BackLight` | Enable or disable the rear fill light |
+| `AutoModeLight` | Enable or disable automatic fill lighting |
+| `ObstacleAvoidance` | Enable or disable obstacle stop |
 
-Four Functions `on` Parameters are: `true` Turn it on. `false` Close. Current status passes. `RobotState` It's... `front_fill_light`,  `back_fill_light`,  `auto_mode_light` and `obstacle_avoidance` Get in.
+For all four functions, set `on` to `true` to enable the feature or `false` to disable it. Read the current setting from `RobotState` fields `front_fill_light`, `back_fill_light`, `auto_mode_light`, and `obstacle_avoidance`.
 
 ## Camera Bitrate {#camera-bitrate}
 
@@ -42,7 +42,7 @@ struct CameraBitrateCmd {
 | `camera_name` | `camera_front` or `camera_back` |
 | `camera_bps` | 50000 to 100000000 bit/s |
 
-The actual effective value of the device is returned by `OnUpdateCameraBitrateAck()`. The modification of the code rate should be followed by simultaneous observation of RTSP video streams and network loads.
+`OnUpdateCameraBitrateAck()` returns the bitrate applied by the device. After changing it, monitor the RTSP stream and network load together.
 
 ## External Power Supply
 
@@ -61,7 +61,7 @@ struct PowerCtrlCfg {
 };
 ```
 
-`power` May be set to `M1_12V`, `M1_24V` or `M1_48V`, `enable` to `true` for electricity, `false` for power outages. Response is by `OnSetPeriphPower()` returning.
+Set `power` to `M1_12V`, `M1_24V`, or `M1_48V`. Set `enable` to `true` to turn on the output or `false` to turn it off. `OnSetPeriphPower()` reports the acknowledgment.
 
 ### GetPeriphPower
 
@@ -71,7 +71,7 @@ std::error_code GetPeriphPower(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-Query for the specified power channel state. `cfg.power`, the result is passed `OnGetPeriphPower()` Go back. `ack.enable` is the current actual status.
+Select the channel with `cfg.power`. The result arrives through `OnGetPeriphPower()`, where `ack.enable` reports the current output state.
 
 ## LED Effects {#led-effects}
 
@@ -110,13 +110,13 @@ client.SetLedCommand(cmd);
 
 `LedId::UNKNOWN` or `LedEffect::UNKNOWN` returns `std::errc::invalid_argument`. Settings and queries are retrieved through the corresponding `IControlCallback` callback.
 
-The state LED is not the same set of interfaces as the rear and back-up light. The back and back-up light is used `FrontLight()`, `BackLight()` and `AutoModeLight()`.
+Status LEDs have separate controls. Use `FrontLight()`, `BackLight()`, and `AutoModeLight()` for the front and rear fill lights.
 
 ### Auto and Manual Mode
 
 | Mode | Behaviour and call order |
 | --- | --- |
 | Manual | Call `SetLedAutoMode(false)`, wait `OnSetLedAutoMode()` confirm `auto_mode == false` and then use `SetLedCommand()` to set a custom light. |
-| Auto | Call `SetLedAutoMode(true)`, wait for confirmation of response `auto_mode == true`. `SetLedCommand()` At this time, the submission is a user-light event, and the device will determine the performance according to its own strategy. The failure, emergency stoppage, alarm or low power alert may overwhelm the user-light. |
+| Auto | Call `SetLedAutoMode(true)`, wait for confirmation of response `auto_mode == true`. `SetLedCommand()` At this time, the submission is a user-light event, and the device will determine the performance according to its own strategy. Faults, emergency stops, warnings, or low-battery alerts can override custom lighting effects. |
 
-The current mode can be consulted by `GetLedAutoMode()` and read in `OnGetLedAutoMode()`. On-site contact, please observe the light effect actually displayed by the device. [Official LED Guide](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_led_control_en.md)
+Call `GetLedAutoMode()` and read the current mode in `OnGetLedAutoMode()`. During on-site commissioning, verify the lighting effect on the robot. [Official LED Guide](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_led_control_en.md)

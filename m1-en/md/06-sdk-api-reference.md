@@ -4,15 +4,15 @@
 
 ## Overview of Interfaces
 
-M1 SDK The core category is: `robot_sdk::SDKClient`, header file is `robot_sdk/sdk_client.hpp`. Control orders usually return `std::error_code`. The relationship between connection, control and mission status is described below. [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md).
+The core class in the Genisom M1 SDK is `robot_sdk::SDKClient`, declared in `robot_sdk/sdk_client.hpp`. Control commands typically return `std::error_code`. Check the send result and the robot’s execution result separately. See [Control Flow and Task Handling](./05-sdk-control-flow-and-task-handling.md) for how connection, control ownership, and task state interact.
 
 | Interface Chapter | Main elements | Common interfaces |
 | --- | --- | --- |
-| [Connect to Device Information](./06-01-connection-and-device-info.md) | Client tectonics, connections and reconnections, version queries and machine-type capabilities | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
-| [Robotic control](./06-02-robot-control.md) | Control, software stoppage, attitude and motion orders | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
-| [Data reporting](./06-03-data-reporting.md) | Registered callback, equipped with sensors and high frequency reporting. | `SetControlCallback()`, `SetDataCallback()`, `SetImuConfig()` |
+| [Connect to Device Information](./06-01-connection-and-device-info.md) | Client construction, connection and reconnection, version queries, and model capabilities | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
+| [Robotic control](./06-02-robot-control.md) | Control ownership, software emergency stop, and posture and motion commands | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
+| [Data reporting](./06-03-data-reporting.md) | Register callbacks and configure sensor and high-frequency status reporting | `SetControlCallback()`, `SetDataCallback()`, `SetImuConfig()` |
 | [Dock and Tasks](./06-04-dock-and-tasks.md) | Scan for and pair charging docks, run recharge and undocking tasks, and switch the robot’s operating state | `SetDockScanConfig()`, `ConnectDock()`, `StartRechargeTask()`, `StartUnDockTask()` |
-| [External and Camera](./06-05-peripherals-and-camera.md) | Lighting light, stop switch, camera code rate, external power supply and status LED | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
+| [External and Camera](./06-05-peripherals-and-camera.md) | Fill lights, obstacle stop, camera bitrate, peripheral power, and status LEDs | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
 
 ## Common Parameters and Return Values {#common-parameters-and-return-values}
 
@@ -20,7 +20,7 @@ Except for `Connect()`, `Disconnect()`, status query and version query interface
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `timeout_ms` | `int` | `0` denotes a different step; greater than `0` denotes a synchronized wait in milliseconds |
+| `timeout_ms` | `int` | `0` sends asynchronously. A value greater than `0` sets a synchronous wait in milliseconds. |
 | `handler` | `WriteHandler` | Callback that receives the send result in asynchronous mode |
 
 ```cpp
@@ -30,9 +30,9 @@ using WriteHandler =
 
 Return value:
 
-- In step mode, the function returns immediately and the subsequent result returns by `handler`.
-- In Sync mode, the function blocks the result of this call or timeout, which is expressed in the returned `std::error_code`.
-- Whether or not the robot actually executes the command depends on the corresponding control response, state correction or `RobotState`.
+- In asynchronous mode, the function returns immediately. The callback `handler` receives the send result.
+- In synchronous mode, the function blocks until the call completes or times out. The returned `std::error_code` reports the result.
+- Check the corresponding control acknowledgment, status callback, or `RobotState` to determine whether the robot executed the command.
 
 Common error:
 
@@ -43,17 +43,17 @@ Common error:
 | `robot_sdk::Errc::ProtocolMismatch` | 10001 | The protocol version does not match |
 | `robot_sdk::Errc::ControlledDenial` | 10002 | Control denied |
 | `robot_sdk::Errc::ConnectFailed` | 10003 | Connection failed |
-| `robot_sdk::Errc::UnsupportedDeviceOperation` | 10004 | The current type does not support this operation |
-| `robot_sdk::Errc::UnknownError` | 19999 | Unclassified SDK Errors |
-| `std::errc::invalid_argument` | — | Invalid parameter crossing or combination of parameters |
+| `robot_sdk::Errc::UnsupportedDeviceOperation` | 10004 | The current model does not support this operation |
+| `robot_sdk::Errc::UnknownError` | 19999 | Unclassified SDK error |
+| `std::errc::invalid_argument` | — | Parameter out of range or invalid parameter combination |
 | `std::errc::not_connected` | — | Connection not yet established |
-| `std::errc::timed_out` | — | Waiting for timeout |
+| `std::errc::timed_out` | — | Timed out |
 | `std::errc::operation_canceled` | — | Operation cancelled |
 | `std::errc::operation_in_progress` | — | The same operation is ongoing. |
 
-### Judgment and Record SDK Error
+### Interpreting and Logging SDK Errors {#judgment-and-record-sdk-error}
 
-The application can be directly compared to `robot_sdk::Errc` count. `Errc::UnsupportedDeviceOperation` It can also be judged by standard error conditions `std::errc::operation_not_supported`.
+Compare the result directly with a `robot_sdk::Errc` enum value. You can also check `Errc::UnsupportedDeviceOperation` using the standard error condition `std::errc::operation_not_supported`.
 
 ```cpp
 // ec returns std::error_code for the SDK interface.
@@ -61,7 +61,7 @@ if (ec) {
     std::cerr << ec.category().name() << " [" << ec.value()
               << "] " << ec.message() << '\n';
     if (ec == robot_sdk::Errc::UnsupportedDeviceOperation) {
-        // Disables the function by current type.
+        // Disable the feature for the current model.
     }
 }
 ```

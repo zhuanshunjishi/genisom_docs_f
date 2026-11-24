@@ -39,7 +39,7 @@ Let the SDK send heartbeats. Avoid creating a separate heartbeat thread for the 
 | Purpose | Checks that the SDK has received robot data and that the connection is still valid |
 | Parameter | None |
 | Return value | `true` means the SDK has received robot data and the heartbeat timer has not exceeded 5 s. `false` means the connection has not been established or has timed out. |
-| Notes | Confirm motion control ownership separately before sending motion commands |
+| Notes | `true` confirms that the communication link is valid. Verify motion control ownership separately before sending motion commands. |
 
 ## Connection Criteria
 
@@ -70,7 +70,7 @@ If communication drops or `IsConnected()` returns `false`, take these steps.
 
 ## Connection State and Control Ownership
 
-Check network reachability, SDK connection state, and motion control ownership separately.
+Network reachability, heartbeat status, and motion control ownership describe different aspects of the connection.
 
 | State | Meaning |
 | --- | --- |

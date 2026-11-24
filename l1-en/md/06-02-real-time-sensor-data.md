@@ -4,9 +4,9 @@
 
 ## Interface Description
 
-The sensor's real-time reporting interface is used to receive the robotic inherently state, corresponding to the "sensor's real-time reporting port" in the red box. UDP Receiving Port `8080` Align SDK It's a state report. SDK The last data is deciphered and cached during the receiving thread, and the application reads the cache through a query function.
+The real-time sensor reporting interface is marked in red in the diagram. The robot sends state data to the SDK on UDP receive port `8080`. The SDK receive thread parses and caches the latest data. Applications read the cache through SDK getters.
 
-Check your state before reading it. `IsConnected()`. The status-reading function does not usually initiate new network requests on its own initiative, and data are up to date depending on the robot reporting cycle and application reading time.
+Check `IsConnected()` before reading state. Getters typically read cached data. How recent the data is depends on the robot’s reporting interval and when the application reads it.
 
 ## Communications Parameters
 
@@ -22,13 +22,13 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | Message Type | Corresponding | Common SDK functions |
 | --- | --- | --- |
 | `dog_state` | Basic information on electricity, temperature, equipment name, WiFi SSID, serial number, model, etc. | `GetPower()`, `GetTemperature()`, `GetSn()`, `GetDevName()`, `GetWifiSsid()`, `GetModel()` |
-| `version` | Transport and Task Versions | `GetVersion()` |
+| `version` | Motion control and task software versions | `GetVersion()` |
 | `speed_set` | Current speed level | `GetSpeedLevel()` |
-| `feedback` | Functional mode, control mode, motor mode, motor type and electric temperature | `GetFunctionMode()`, `GetControlMode()`, `GetMotionMode()`, `GetMotionType()`, `GetMotorTemp()` |
-| `imu_info` | Four dollars, RPY, aerodynamic acceleration and aerodynamic agular velocity | `GetQuaternion()`, `GetRPY()`, `GetBodyAcc()`, `GetBodyGyro()` |
-| `odom_info` | Location, world speed and airframe speed | `GetPosition()`, `GetWorldVelocity()`, `GetBodyVelocity()` |
-| `leg_joint_info` | 4 Angle, angular velocity and force rectangles of legs | `GetLeg*Joint()`, `GetLeg*JointVel()`, `GetLeg*JointTorque()` |
-| `dev_info` | Battery voltage, current, temperature, electricity and error codes | `GetBatteryInfo()` |
+| `feedback` | Function mode, control mode, motion mode, motion type, and motor temperatures | `GetFunctionMode()`, `GetControlMode()`, `GetMotionMode()`, `GetMotionType()`, `GetMotorTemp()` |
+| `imu_info` | Quaternion, roll, pitch, and yaw, plus body-frame linear acceleration and angular velocity | `GetQuaternion()`, `GetRPY()`, `GetBodyAcc()`, `GetBodyGyro()` |
+| `odom_info` | Position and velocity in the world and body frames | `GetPosition()`, `GetWorldVelocity()`, `GetBodyVelocity()` |
+| `leg_joint_info` | Joint angles, angular velocities, and torques for all 4 legs | `GetLeg*Joint()`, `GetLeg*JointVel()`, `GetLeg*JointTorque()` |
+| `dev_info` | Battery voltage, current, temperature, charge level, and error codes | `GetBatteryInfo()` |
 
 ## Access to Basic Information
 
@@ -39,7 +39,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `GetSn` | `std::string GetSn() const` | Device Serial Number |
 | `GetDevName` | `std::string GetDevName() const` | Device Name |
 | `GetWifiSsid` | `std::string GetWifiSsid() const` | Current WiFi SSID |
-| `GetVersion` | `VersionInfo GetVersion() const` | Transport and Task Versions |
+| `GetVersion` | `VersionInfo GetVersion() const` | Motion control and task software versions |
 | `GetModel` | `Model GetModel() const` | Enum value for the current robot model |
 
 ### Relevant Data Type
@@ -106,7 +106,7 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | --- | --- | --- |
 | `CM_NULL` | `0` | Invalid value |
 | `CM_STAND_UP` | `1` | Stand |
-| `CM_SIT_DOWN` | `2` | Get down! |
+| `CM_SIT_DOWN` | `2` | Lying down |
 | `CM_LOCK_MODE` | `3` | Lock Mode |
 | `CM_EMERGENCY_STOP` | `4` | Emergency stop. |
 | `CM_MOVE_MODE` | `5` | Move Mode |
@@ -128,24 +128,24 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | --- | --- | --- |
 | `MT_NULL` | `0` | Invalid value |
 | `MT_JUMP` | `1` | Jump. |
-| `MT_FORWARD_JUMP` | `2` | Jump! |
-| `MT_BACK_FLIP` | `3` | Backwards. |
+| `MT_FORWARD_JUMP` | `2` | Forward jump |
+| `MT_BACK_FLIP` | `3` | Backflip |
 | `MT_GREET` | `4` | Wave! |
-| `MT_TWO_LEG_STAND` | `5` | Stand on your legs. |
-| `MT_FORBID` | `6` | Ban (unopened violent mode) |
+| `MT_TWO_LEG_STAND` | `5` | Stand on two legs |
+| `MT_FORBID` | `6` | Prohibited (high-performance mode is disabled) |
 | `MT_UNKNOWN` | `7` | Unknown (no stunting) |
-| `MT_UNLOADING_SQUAT` | `8` | Unload the cargo and get down. |
+| `MT_UNLOADING_SQUAT` | `8` | Crouch to unload |
 
 ## Accessing IMU and Attitude Data
 
 | Functions | Type and content of return |
 | --- | --- |
-| `GetQuaternion()` | `std::array<float32_t, 4>`, four dollars `[w, x, y, z]` |
-| `GetRPY()` | `std::array<float32_t, 3>` Rolling, leaning, deviating, in radians |
+| `GetQuaternion()` | `std::array<float32_t, 4>`, quaternion `[w, x, y, z]` |
+| `GetRPY()` | `std::array<float32_t, 3>` roll, pitch, and yaw in radians |
 | `GetBodyAcc()` | `std::array<float32_t, 3>`, acceleration in the robot body frame, in m/s² |
 | `GetBodyGyro()` | `std::array<float32_t, 3>`, angular velocity of the body coordinates, units rad/s |
 
-## Retrieving Mileage Data
+## Retrieving Odometry Data {#retrieving-mileage-data}
 
 | Functions | Type and content of return |
 | --- | --- |
@@ -153,15 +153,15 @@ Check your state before reading it. `IsConnected()`. The status-reading function
 | `GetWorldVelocity()` | `std::array<float32_t, 3>`, velocity of the world coordinates, units m/s |
 | `GetBodyVelocity()` | `std::array<float32_t, 3>`, velocity of body coordinates, units m/s |
 
-## Access to Electrical and Joint Data
+## Retrieving Motor and Joint Data {#access-to-electrical-and-joint-data}
 
 | Data | Functions |
 | --- | --- |
-| Electric temperature | `GetMotorTemp()`, return 16 electric temperature |
-| Helium outreach joint angle / Angular speed / Strength rectangular | `GetLegAbadJoint()` / `GetLegAbadJointVel()` / `GetLegAbadJointTorque()` |
-| hip angle / Angular speed / Strength rectangular | `GetLegHipJoint()` / `GetLegHipJointVel()` / `GetLegHipJointTorque()` |
-| Knee joint angle / corner speed / force rectangles | `GetLegKneeJoint()` / `GetLegKneeJointVel()` / `GetLegKneeJointTorque()` |
-| Foot joint angle / Angular speed / Force rectangles | `GetLegFootJoint()` / `GetLegFootJointVel()` / `GetLegFootJointTorque()` |
+| Motor temperatures | `GetMotorTemp()` returns 16 motor temperature readings |
+| Abduction/adduction joint angle, angular velocity, and torque | `GetLegAbadJoint()` / `GetLegAbadJointVel()` / `GetLegAbadJointTorque()` |
+| Hip joint angle, angular velocity, and torque | `GetLegHipJoint()` / `GetLegHipJointVel()` / `GetLegHipJointTorque()` |
+| Knee joint angle, angular velocity, and torque | `GetLegKneeJoint()` / `GetLegKneeJointVel()` / `GetLegKneeJointTorque()` |
+| Foot joint angle, angular velocity, and torque | `GetLegFootJoint()` / `GetLegFootJointVel()` / `GetLegFootJointTorque()` |
 
 Each joint function returns `std::array<float32_t, 4>` with an array order of:
 
@@ -169,7 +169,7 @@ Each joint function returns `std::array<float32_t, 4>` with an array order of:
 [Left front leg, right front leg, left back leg, right back leg]
 ```
 
-The joint name of each leg is `abad`, `hip`, `knee`, `foot`. The angle is rad, the angular velocity is rad/s and the force trajectory is N.m.
+The joint name of each leg is `abad`, `hip`, `knee`, `foot`. Angles are in rad, angular velocities in rad/s, and torques in N·m.
 
 ## Get Battery Information
 
