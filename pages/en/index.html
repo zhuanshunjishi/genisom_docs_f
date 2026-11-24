@@ -14,7 +14,7 @@
       <div class="shell topbar">
         <div class="brand">
           <div class="brand-logos">
-            <img src="../assets/genisomai-logo-en.png" alt="Genisom AI" width="4530" height="2481">
+            <img src="../assets/genisomai-logo-en.webp" alt="Genisom AI" width="906" height="496">
           </div>
           <strong>Developer Docs</strong>
         </div>
@@ -31,14 +31,17 @@
           <h1 id="page-title">Product Documentation</h1>
           <p>User Guides · SDK Development · API Reference</p>
         </div>
-        <img src="../assets/family.jpg" width="1800" height="1012" alt="Genisom AI robot lineup" fetchpriority="high">
+        <img src="../assets/family-preview.webp" data-full-src="../assets/family.webp"
+          width="1800" height="1012" alt="Genisom AI robot lineup" fetchpriority="high" decoding="async">
       </section>
       <section class="catalog" aria-labelledby="catalog-title">
         <h2 id="catalog-title">Quadruped Robots</h2>
         <div class="products">
           <article class="product product-l1">
             <div class="product-image product-preview">
-              <model-viewer src="../assets/models/l1.glb" alt="Genisom L1 3D model"
+              <img class="product-poster" src="../assets/l1-preview.webp" alt=""
+                width="460" height="398" loading="lazy" decoding="async">
+              <model-viewer data-src="../assets/models/l1.glb" loading="eager" alt="Genisom L1 3D model"
                 camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
                 auto-rotate-delay="600" rotation-per-second="18deg"
                 camera-orbit="58deg 68deg 100%" shadow-intensity="0.45"></model-viewer>
@@ -51,7 +54,9 @@
           </article>
           <article class="product product-m1">
             <div class="product-image product-preview">
-              <model-viewer src="../assets/models/m1.glb" alt="Genisom M1 3D model"
+              <img class="product-poster" src="../assets/m1-preview.webp" alt=""
+                width="460" height="341" loading="lazy" decoding="async">
+              <model-viewer data-src="../assets/models/m1.glb" loading="eager" alt="Genisom M1 3D model"
                 camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
                 auto-rotate-delay="600" rotation-per-second="18deg"
                 camera-orbit="57deg 68deg 96%" shadow-intensity="0.45"></model-viewer>
@@ -64,7 +69,9 @@
           </article>
           <article class="product product-l2">
             <div class="product-image product-preview">
-              <model-viewer src="../assets/models/l2.glb" alt="Genisom L2-W Ultra 3D model"
+              <img class="product-poster" src="../assets/l2-preview.webp" alt=""
+                width="460" height="402" loading="lazy" decoding="async">
+              <model-viewer data-src="../assets/models/l2.glb" loading="eager" alt="Genisom L2-W Ultra 3D model"
                 camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
                 auto-rotate-delay="600" rotation-per-second="18deg"
                 camera-orbit="58deg 74deg 100%" shadow-intensity="0.45"></model-viewer>
@@ -82,12 +89,12 @@
         <div class="products">
           <article class="product product-upcoming product-ne01">
             <div class="product-image product-preview">
-              <model-viewer src="../assets/models/NE01.glb" alt="Genisom NE01 3D model"
+              <img class="product-poster" src="../assets/ne01-preview.webp" alt=""
+                width="768" height="432" loading="lazy" decoding="async">
+              <model-viewer data-src="../assets/models/NE01.glb" loading="eager" alt="Genisom NE01 3D model"
                 camera-controls disable-pan touch-action="pan-y" interaction-prompt="none"
                 auto-rotate-delay="600" rotation-per-second="18deg"
-                camera-orbit="28deg 80deg 105%" shadow-intensity="0.45">
-                <img slot="poster" src="../assets/NE01.png" alt="" width="3840" height="2160" loading="lazy">
-              </model-viewer>
+                camera-orbit="28deg 80deg 105%" shadow-intensity="0.45"></model-viewer>
               <span class="product-preview-label" hidden>Try dragging me!</span>
             </div>
             <div class="product-copy">
@@ -102,18 +109,21 @@
         <div class="products">
           <article class="product product-upcoming product-software product-matrix">
             <div class="product-image product-art">
-              <img src="../assets/MATRiX.png" alt="Robot simulation in a MATRiX forest scene"
-                width="1956" height="1217" loading="lazy">
+              <img src="../assets/matrix-preview.webp" data-full-src="../assets/matrix.webp"
+                data-full-srcset="../assets/matrix-960.webp 960w, ../assets/matrix.webp 1956w"
+                data-full-sizes="(max-width: 600px) calc(100vw - 34px), min(31vw, 445px)"
+                alt="Robot simulation in a MATRiX forest scene"
+                width="1956" height="1217" loading="lazy" decoding="async">
             </div>
             <div class="product-copy">
               <h3>MATRiX</h3>
               <span class="product-status">Coming Soon</span>
             </div>
           </article>
-          <article class="product product-upcoming product-software">
+          <article class="product product-upcoming product-software product-roamerx">
             <div class="product-image product-art">
-              <img src="../assets/RoamerX%20Pro.jpeg" alt="RoamerX Pro navigation point cloud map"
-                width="641" height="417" loading="lazy">
+              <img src="../assets/roamerx-pro-preview.webp" data-full-src="../assets/roamerx-pro.webp" alt="RoamerX Pro navigation point cloud map"
+                width="641" height="417" loading="lazy" decoding="async">
             </div>
             <div class="product-copy">
               <h3>RoamerX Pro</h3>
