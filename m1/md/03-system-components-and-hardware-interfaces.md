@@ -61,6 +61,81 @@ SDK 构造函数默认使用 `TransportProtocol::Udp`。如果使用 WebSocket�
 | ⑧ | RTK 天线接口 | 1 个 |
 | ⑨ | 扩展仓电源按键 | 控制扩展接口供电 |
 
+### 航空插头线序 {#aviation-connector-pinouts}
+
+下列接口编号与上方扩展仓示意图一致。接线前，请对照板端航插型号和针脚图核对实物。网口和串口的对插线束图标出了线束端的观察方向和线色。
+
+#### ① 48 V 电源与 ② 24 V 电源
+
+板端航插型号均为 `STA思大-M12-S4S-GPFM16-135-CS24044`。
+
+![四针电源接口的板端针脚图](../assets/product/connector-pinouts/power-connector.png)
+
+| 针脚 | ① 48 V / 10 A | ② 24 V / 20 A |
+| --- | --- | --- |
+| 1 | `GND` | `GND` |
+| 2 | 48 V | 24 V |
+| 3 | 48 V | 24 V |
+| 4 | `GND` | `GND` |
+
+原图的 `PIN 4/PE` 对应表中的 4 号针脚，M1 线序表将其标为 `GND`。
+
+#### ③ 24 V + 网口与 ④ 12 V + 网口
+
+板端航插型号均为 `STA思大-M12- P12A-GPFM12`。
+
+![十二针电源和网口组合接口的板端针脚图](../assets/product/connector-pinouts/ethernet-connector.png)
+
+| 针脚 | ③ 24 V + 网口 | ④ 12 V + 网口 |
+| --- | --- | --- |
+| 1 | `GND` | `GND` |
+| 2 | 24 V | 12 V |
+| 3 | 24 V | 12 V |
+| 4 | 网口 `A+` | 网口 `A+` |
+| 5 | 网口 `A-` | 网口 `A-` |
+| 6 | 网口 `B+` | 网口 `B+` |
+| 7 | 网口 `B-` | 网口 `B-` |
+| 8 | 网口 `C+` | 网口 `C+` |
+| 9 | 网口 `C-` | 网口 `C-` |
+| 10 | `GND` | `GND` |
+| 11 | 网口 `D+` | 网口 `D+` |
+| 12 | 网口 `D-` | 网口 `D-` |
+
+::: details 网口对插线束图
+![十二针网口对插线束图及线色](../assets/product/connector-pinouts/ethernet-harness.png)
+:::
+
+#### ⑤ 串口
+
+板端航插型号为 `STA思大-M12- P8A-GPFM12`。
+
+![八针串口的板端针脚图](../assets/product/connector-pinouts/serial-connector.png)
+
+| 针脚 | 信号 |
+| --- | --- |
+| 1 | `PPS` |
+| 2 | `SBUS1` |
+| 3 | `SBUS2` |
+| 4 | `RS485A` |
+| 5 | `RS485B` |
+| 6 | `RS232_TX` |
+| 7 | `RS232_RX` |
+| 8 | `GND` |
+
+::: details 串口对插线束图
+![八针串口对插线束图及线色](../assets/product/connector-pinouts/serial-harness.png)
+:::
+
+#### ⑥、⑦ USB 3.0
+
+两个接口的板端航插型号均为 `STA思大-E10B- FT3-PPF`。原线序表提供板端和对插线束图，未列出逐针定义。
+
+![USB 3.0 板端接口图](../assets/product/connector-pinouts/usb-connector.png)
+
+::: details USB 3.0 对插线束图
+![USB 3.0 对插线束图](../assets/product/connector-pinouts/usb-harness.png)
+:::
+
 ### 航插扩展接口的设备路径
 
 扩展仓串口（⑤）的设备路径随硬件版本而异。连接外设时，按机器人的硬件版本查找对应路径。

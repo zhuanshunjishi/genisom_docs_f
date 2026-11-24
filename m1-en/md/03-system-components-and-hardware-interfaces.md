@@ -61,6 +61,81 @@ The expansion compartment on the robot's back provides mounting, power, and comm
 | ⑧ | RTK antenna connector | 1 |
 | ⑨ | Expansion compartment power button | Controls power to the expansion interfaces |
 
+### Aviation Connector Pinouts {#aviation-connector-pinouts}
+
+The connector numbers match the expansion compartment diagram above. Before wiring, check the board-side connector model and pin diagram against the connector on the robot. The mating harness drawings for the Ethernet and serial connectors show the cable-side viewing direction and wire colors.
+
+#### ① 48 V Power and ② 24 V Power
+
+Both ports use the `STA思大-M12-S4S-GPFM16-135-CS24044` board-side connector.
+
+![Board-side pin diagram for the four-pin power connector](../assets/product/connector-pinouts/power-connector.png)
+
+| Pin | ① 48 V / 10 A | ② 24 V / 20 A |
+| --- | --- | --- |
+| 1 | `GND` | `GND` |
+| 2 | 48 V | 24 V |
+| 3 | 48 V | 24 V |
+| 4 | `GND` | `GND` |
+
+The drawing labels pin 4 as `PIN 4/PE`. The Genisom M1 pinout table lists its signal as `GND`.
+
+#### ③ 24 V + Ethernet and ④ 12 V + Ethernet
+
+Both ports use the `STA思大-M12- P12A-GPFM12` board-side connector.
+
+![Board-side pin diagram for the 12-pin power and Ethernet connector](../assets/product/connector-pinouts/ethernet-connector.png)
+
+| Pin | ③ 24 V + Ethernet | ④ 12 V + Ethernet |
+| --- | --- | --- |
+| 1 | `GND` | `GND` |
+| 2 | 24 V | 12 V |
+| 3 | 24 V | 12 V |
+| 4 | Ethernet `A+` | Ethernet `A+` |
+| 5 | Ethernet `A-` | Ethernet `A-` |
+| 6 | Ethernet `B+` | Ethernet `B+` |
+| 7 | Ethernet `B-` | Ethernet `B-` |
+| 8 | Ethernet `C+` | Ethernet `C+` |
+| 9 | Ethernet `C-` | Ethernet `C-` |
+| 10 | `GND` | `GND` |
+| 11 | Ethernet `D+` | Ethernet `D+` |
+| 12 | Ethernet `D-` | Ethernet `D-` |
+
+::: details Ethernet Mating Harness Drawing
+![12-pin Ethernet mating harness drawing and wire colors](../assets/product/connector-pinouts/ethernet-harness.png)
+:::
+
+#### ⑤ Serial
+
+The board-side connector model is `STA思大-M12- P8A-GPFM12`.
+
+![Board-side pin diagram for the eight-pin serial connector](../assets/product/connector-pinouts/serial-connector.png)
+
+| Pin | Signal |
+| --- | --- |
+| 1 | `PPS` |
+| 2 | `SBUS1` |
+| 3 | `SBUS2` |
+| 4 | `RS485A` |
+| 5 | `RS485B` |
+| 6 | `RS232_TX` |
+| 7 | `RS232_RX` |
+| 8 | `GND` |
+
+::: details Serial Mating Harness Drawing
+![Eight-pin serial mating harness drawing and wire colors](../assets/product/connector-pinouts/serial-harness.png)
+:::
+
+#### ⑥ and ⑦ USB 3.0
+
+Both ports use the `STA思大-E10B- FT3-PPF` board-side connector. The source provides board-side and mating harness drawings. Individual USB pin assignments are unspecified.
+
+![Board-side USB 3.0 connector drawing](../assets/product/connector-pinouts/usb-connector.png)
+
+::: details USB 3.0 Mating Harness Drawing
+![USB 3.0 mating harness drawing](../assets/product/connector-pinouts/usb-harness.png)
+:::
+
 ### Device Paths for the Aviation Expansion Connector
 
 Device paths for the expansion compartment's serial interface (⑤) vary by hardware revision. Use the path for your robot's revision when connecting a peripheral.
