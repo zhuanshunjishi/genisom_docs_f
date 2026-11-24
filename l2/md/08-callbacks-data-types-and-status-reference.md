@@ -88,7 +88,6 @@ struct DeviceInfo {
 | L2 | `L2F` |
 | L2-W | `L2` |
 | L2-W Ultra | `L2_ULTRA` |
-| 点足环视设备枚举 | `L2F_ULTRA` |
 
 连接成功前、断开后或握手未返回类型时，`device_type` 为 `UNKNOWN`。
 
