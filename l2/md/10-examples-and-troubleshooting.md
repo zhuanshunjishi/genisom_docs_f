@@ -1,6 +1,6 @@
 # L2 示例程序与故障排查
 
-[返回文档总览](../index.md) | [SDK 快速开始](./06-sdk-quickstart.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+[返回文档总览](../index.md) | [SDK 快速开始](./06-sdk-quickstart.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 示例程序
 
@@ -224,7 +224,7 @@ ARM64 使用 `lib/aarch64`。出现 `Exec format error` 或无法加载时，通
 
 ### 回充任务不执行
 
-- 检查充电桩供电和蓝牙配对。
+- 检查充电桩供电和[蓝牙配对](./07-04-dock-and-tasks.md#充电桩配对)。
 - 检查地图充电点及朝向。
 - 检查 `charging_pile_connected`、`machine_status` 和 `TaskStateInfo`。
 - 清理对接区域，确保雷达和相机无遮挡。

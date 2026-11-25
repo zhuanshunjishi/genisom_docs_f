@@ -259,5 +259,7 @@ auto ec = client.StandUp(2000);
 
 - 全部函数和能力范围：[L2 SDK 接口参考](./07-sdk-api-reference.md)
 - 数据和回调：[L2 回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md)
-- 控制权和任务：[L2 控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+- 控制流程：[L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md)
+- 充电桩配对、回充和离桩：[L2 充电桩与任务](./07-04-dock-and-tasks.md)
+- 外设供电、LED 与相机：[L2 外设与相机](./07-05-peripherals-and-camera.md)
 - 示例与排障：[L2 示例程序与故障排查](./10-examples-and-troubleshooting.md)

@@ -1,6 +1,6 @@
 # L2 机器人控制
 
-[SDK 接口参考](./07-sdk-api-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+[SDK 接口参考](./07-sdk-api-reference.md) | [L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 控制权
 

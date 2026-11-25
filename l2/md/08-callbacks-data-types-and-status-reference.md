@@ -1,6 +1,6 @@
 # L2 回调、数据类型与状态
 
-[返回文档总览](../index.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+[返回文档总览](../index.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 回调模型
 

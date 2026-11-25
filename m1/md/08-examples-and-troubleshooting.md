@@ -1,6 +1,6 @@
 # M1 示例程序与故障排查
 
-[返回文档总览](../index.md) | [M1 SDK 快速开始](./04-sdk-quickstart.md) | [控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md)
+[返回文档总览](../index.md) | [M1 SDK 快速开始](./04-sdk-quickstart.md) | [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md)
 
 ## 示例程序目录
 
@@ -72,7 +72,7 @@
 
 异步模式下命令接口立即返回，后续调用结果由 `WriteHandler` 返回，机器人应答由 `IControlCallback` 返回。示例包含异步连接回调、数据回调和命令队列。
 
-同步与异步的参数规则及调用结构见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#同步与异步调用)。
+同步与异步的参数规则及调用结构见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md#同步与异步调用)。
 
 异步程序需要自己管理：
 
@@ -109,7 +109,7 @@
 
 `take_control.cpp` 通过 `OnControlLost()`、`OnControlAvailable()` 和 `OnTakeControlAck()` 处理控制权变化。
 
-运行该示例可以观察控制权丢失、重新可申请、申请应答和主动释放过程。各事件的处理顺序见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#控制权机制)。
+运行该示例可以观察控制权丢失、重新可申请、申请应答和主动释放过程。各事件的处理顺序见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md#控制权机制)。
 
 ## camera_bitrate.cpp：相机码率
 
@@ -117,7 +117,7 @@
 
 ## recharge.cpp：回充和离桩
 
-该示例演示启动和停止回充、启动和停止离桩，以及通过任务状态回调跟踪执行结果。任务流程见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#充电与离桩任务)。
+该示例演示启动和停止回充、启动和停止离桩，以及通过任务状态回调跟踪执行结果。任务流程见 [充电与离桩任务](./06-04-dock-and-tasks.md#充电与离桩任务)。
 
 ## led.cpp：LED 控制
 
@@ -131,7 +131,7 @@
 ./dock_pairing 192.168.234.1 8082
 ```
 
-按 `1` 开始扫描，扫描结果到达后按 `3` 查看、按 `4` 选择设备，再按 `2` 停止扫描。确认已停止扫描后按 `5` 连接，等待最终结果后按 `6` 查询状态。需要断开时按 `7`，按 `q` 退出。参见[充电桩配对流程](./05-sdk-control-flow-and-task-handling.md#充电桩配对)。
+按 `1` 开始扫描，扫描结果到达后按 `3` 查看、按 `4` 选择设备，再按 `2` 停止扫描。确认已停止扫描后按 `5` 连接，等待最终结果后按 `6` 查询状态。需要断开时按 `7`，按 `q` 退出。参见[充电桩配对流程](./06-04-dock-and-tasks.md#充电桩配对)。
 
 ## 常见问题
 

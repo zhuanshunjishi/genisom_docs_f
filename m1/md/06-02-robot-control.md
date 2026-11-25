@@ -24,7 +24,7 @@ std::error_code ReleaseControl(
 
 主动释放控制权。程序退出或不再控制机器人时建议调用。
 
-控制权的申请、接管和恢复流程见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#控制权机制)。
+控制权的申请、接管和恢复流程见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md#控制权机制)。
 
 ## 安全控制
 

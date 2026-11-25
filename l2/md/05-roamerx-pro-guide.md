@@ -1,6 +1,6 @@
 # L2 智航 Pro 软件使用
 
-[返回文档总览](../index.md) | [L2 设备操作与安全使用](./04-device-controller-and-app-guide.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+[返回文档总览](../index.md) | [L2 设备操作与安全使用](./04-device-controller-and-app-guide.md) | [L2 充电桩与任务](./07-04-dock-and-tasks.md)
 
 ## 功能范围
 
@@ -149,15 +149,16 @@
 
 ## 自主回充与出桩
 
-使用智航 Pro 自主回充和出桩前，需要安装选配充电桩。通过 SDK 发起任务的流程见[回充与离桩任务](./09-control-ownership-tasks-and-peripherals.md#回充与离桩任务)。
+使用智航 Pro 自主回充和出桩前，需要安装选配充电桩。通过 SDK 发起任务的流程见[回充与离桩任务](./07-04-dock-and-tasks.md#回充与离桩任务)。
 
 ### 配置充电点
 
-1. 在 App 中完成机器人与充电桩蓝牙配对。
-2. 在路网编辑页面添加目标点。
-3. 选中目标点并点击“标记充电桩”。
-4. 调整充电点朝向，使其正对实体充电桩。
-5. 保存地图和路网配置。
+先完成[充电桩配对](./07-04-dock-and-tasks.md#充电桩配对)。
+
+1. 在路网编辑页面添加目标点。
+2. 选中目标点并点击“标记充电桩”。
+3. 调整充电点朝向，使其正对实体充电桩。
+4. 保存地图和路网配置。
 
 ![充电点标记](../assets/navigation/navigation-recharge-ui.png)
 

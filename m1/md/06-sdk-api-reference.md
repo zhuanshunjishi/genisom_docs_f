@@ -1,10 +1,10 @@
 # M1 SDK 接口参考
 
-[返回文档总览](../index.md) | [SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md) | [回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md) | [示例程序与故障排查](./08-examples-and-troubleshooting.md)
+[返回文档总览](../index.md) | [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md) | [回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md) | [示例程序与故障排查](./08-examples-and-troubleshooting.md)
 
 ## 接口概览
 
-M1 SDK 的核心类是 `robot_sdk::SDKClient`，头文件为 `robot_sdk/sdk_client.hpp`。控制命令通常返回 `std::error_code`，命令发送结果和机器人业务结果需要分别判断。连接、控制权和任务状态之间的关系见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md)。
+M1 SDK 的核心类是 `robot_sdk::SDKClient`，头文件为 `robot_sdk/sdk_client.hpp`。控制命令通常返回 `std::error_code`，命令发送结果和机器人业务结果需要分别判断。连接、控制权和命令执行结果的处理流程见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md)。
 
 | 接口章节 | 主要内容 | 常用接口 |
 | --- | --- | --- |

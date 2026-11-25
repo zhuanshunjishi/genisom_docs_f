@@ -1,4 +1,4 @@
-# Genisom M1 SDK Control Flow and Task Handling
+# Genisom M1 SDK Control Workflow
 
 [Documentation overview](../index.md) | [M1 SDK quickstart](./04-sdk-quickstart.md) | [SDK API reference](./06-sdk-api-reference.md) | [Callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md)
 
@@ -25,7 +25,7 @@ Check the send result, acknowledgment, and execution state separately.
 | Acknowledgment | `IControlCallback` | Whether the robot received and processed the command |
 | Execution | `RobotState` or `IDataCallback` | Whether the action or task is running, complete, or failed |
 
-After a successful `StandUp()` call, check `RobotState::motion_status` to confirm the robot stood up. After receiving the acknowledgment for a recharge request, track task execution through `OnTaskStateData()`.
+After a successful `StandUp()` call, check `RobotState::motion_status` to confirm the robot stood up. Use `OnTaskStateData()` to track task execution.
 
 ## Synchronous and Asynchronous Calls {#synchronous-and-asynchronous-calls}
 
@@ -99,59 +99,15 @@ Only one client at a time owns control and can send regular motion, posture, tas
 
 The prototype of the function is [M1 SDK Interface reference](./06-02-robot-control.md#control-ownership) and the event and response structure is [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md#control-ownership-events).
 
-## Dock Pairing {#dock-pairing}
+<a id="dock-pairing"></a>
 
-SDK v0.2.3 supports scanning for, connecting to, querying, and disconnecting BLE charging docks. Verify that the robot system supports pairing, then register the data and control callbacks and run the following from the application thread.
+See [Dock Pairing](./06-04-dock-and-tasks.md#dock-pairing) for pairing procedure and APIs.
 
-1. Call `SetDockScanConfig(true)`. Wait for `OnDockScanConfig(true)` to confirm scanning has started.
-2. Use `OnDockScanResult()` to receive scan reports and update the device list by address. Select a dock whose `connectable` is `true` and save its address.
-3. Call `SetDockScanConfig(false)`. When scanning has stopped, set `DockConnectConfig::address` to the selected address and call `ConnectDock()`.
-4. Check `accepted` in `OnDockConnectionAck()`. If the request was accepted, wait for `OnDockConnectionResult()` and check `success` and `error_code`.
-5. After pairing, call `GetDockInfo()` and check `dock_connected`, `has_contact`, and `charging_active` in `OnDockInfo()`.
-6. To disconnect, call `DisconnectDock()` and wait for both the acknowledgment and the final result.
+<a id="docking-and-undocking-tasks"></a>
+<a id="recharge-task-states"></a>
+<a id="undocking-task-states"></a>
 
-Run one connection or disconnection operation at a time. Check the API return value and `WriteHandler` for the call and send results, then use `OnDockConnectionResult()` for the final pairing result. During autonomous docking or undocking, `OnTaskStateData()` reports progress and the final result.
-
-See the [API signatures](./06-04-dock-and-tasks.md#dock-pairing), [callbacks and data structures](./07-callbacks-data-types-and-status-reference.md#dock-data), and [pairing example](./08-examples-and-troubleshooting.md#dock-pairing-example).
-
-## Docking and Undocking Tasks {#docking-and-undocking-tasks}
-
-| Function | Purpose |
-| --- | --- |
-| `StartRechargeTask()` | Start autonomous docking for charging |
-| `StopRechargeTask()` | Stop the autonomous docking task |
-| `StartUnDockTask()` | Start autonomous undocking |
-| `StopUnDockTask()` | Stop autonomous undocking |
-
-Check the API call, acknowledgment, and execution result for task commands. Acknowledgments such as `OnStartRechargeTask()` indicate that the robot processed the start or stop request. Use `OnTaskStateData()` to track execution and the final result.
-
-```cpp
-void OnTaskStateData(const TaskStateInfo& info) override {
-    if (info.task_type == TaskType::RECHARGING) {
-        // Processing task status according to info.task_status and info.error_code
-    }
-}
-```
-
-### Recharge Task States
-
-After calling `StartRechargeTask()`, the recharge task may report the following states.
-
-- `STARTING`: Task is starting.
-- `RUNNING`: Task is running.
-- `FAILURE`: Task failed to start or complete. Check `TaskStateInfo::error_code`.
-
-The recharge task does not transition to `SUCCESS` on its own. To end it, call `StopRechargeTask()` and wait for `TaskType::RECHARGING` to reach `STOPPED`. Use `OnStartRechargeTask()`, `TaskStateInfo`, and `MachineStatus::RECHARGE` together to determine whether the task is running.
-
-### Undocking Task States
-
-After `StartUnDockTask()`, the task may progress through `STARTING -> RUNNING -> SUCCESS`. If it fails, it transitions to `FAILURE`. `TaskType::UNDOCK` with `TaskStatus::SUCCESS` confirms that undocking completed.
-
-To stop undocking in progress, call `StopUnDockTask()` and wait for `TaskType::UNDOCK` to reach `STOPPED`.
-
-See [task and robot state APIs](./06-04-dock-and-tasks.md#task-and-robot-states) and the [task state structure](./07-callbacks-data-types-and-status-reference.md#task-state).
-
-See the SDK guide for [recharge, undocking, and dock calibration requirements and troubleshooting](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_undock_calibration_conditions_zh.md).
+See [Docking and Undocking Tasks](./06-04-dock-and-tasks.md#docking-and-undocking-tasks) for task APIs and states.
 
 ## Switching Between Remote and Idle States
 

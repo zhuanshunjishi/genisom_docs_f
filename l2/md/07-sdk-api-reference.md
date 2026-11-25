@@ -1,6 +1,6 @@
 # L2 SDK 接口参考
 
-[返回文档总览](../index.md) | [SDK 快速开始](./06-sdk-quickstart.md) | [回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+[返回文档总览](../index.md) | [SDK 快速开始](./06-sdk-quickstart.md) | [回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md) | [L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 核心类
 
@@ -15,7 +15,7 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 | [连接与设备信息](./07-01-connection-and-device-info.md) | 客户端构造、连接与断开、连接状态、版本和设备信息 | `SDKClient`、`Connect()`、`GetConnectionState()`、`GetDeviceInfo()` |
 | [机器人控制](./07-02-robot-control.md) | 控制权、软件急停、姿态和运动命令 | `TakeControl()`、`SoftEmergencyStop()`、`StandUp()`、`Move()` |
 | [数据上报](./07-03-data-reporting.md) | 回调注册、传感器与运动数据上报配置 | `SetDataCallback()`、`SetControlCallback()`、`SetImuConfig()` |
-| [充电桩与任务](./07-04-dock-and-tasks.md) | 回充与离桩任务、远程与空闲状态切换 | `StartRechargeTask()`、`StartUnDockTask()`、`SwitchIdleState()` |
+| [充电桩与任务](./07-04-dock-and-tasks.md) | App 蓝牙配对、回充与离桩任务、远程与空闲状态切换 | `StartRechargeTask()`、`StartUnDockTask()`、`SwitchIdleState()` |
 | [外设与相机](./07-05-peripherals-and-camera.md) | 补光灯、相机码率、[相机节点与 Topic 配置](./camera-topic-configuration.md)、外设供电及 LED 控制 | `FrontLight()`、`UpdateCameraBitrate()`、`SetPeriphPower()`、`SetLedCommand()` |
 
 ## L2 系列设备类型

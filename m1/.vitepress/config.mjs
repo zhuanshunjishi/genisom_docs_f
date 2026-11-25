@@ -30,7 +30,7 @@ export default defineConfig({
         items: [
           { text: 'M1 系统与 SDK 版本兼容性', link: '/md/sdk-version-compatibility' },
           { text: '快速开始', link: '/md/04-sdk-quickstart' },
-          { text: '控制流程与任务机制', link: '/md/05-sdk-control-flow-and-task-handling' },
+          { text: 'M1 SDK 控制流程', link: '/md/05-sdk-control-flow-and-task-handling' },
           {
             text: '接口参考',
             link: '/md/06-sdk-api-reference',

@@ -14,7 +14,7 @@ export default defineConfig(englishConfig(
     'SDK 开发': 'SDK Development',
     'M1 系统与 SDK 版本兼容性': 'Genisom M1 System and SDK Version Compatibility',
     '快速开始': 'Quickstart',
-    '控制流程与任务机制': 'Control Flow and Task Handling',
+    'M1 SDK 控制流程': 'Genisom M1 SDK Control Workflow',
     '接口参考': 'API Reference',
     '连接与设备信息': 'Connection and Device Information',
     '机器人控制': 'Robot Control',

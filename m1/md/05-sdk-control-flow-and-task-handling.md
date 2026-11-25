@@ -1,4 +1,4 @@
-# M1 SDK 控制流程与任务机制
+# M1 SDK 控制流程
 
 [返回文档总览](../index.md) | [M1 SDK 快速开始](./04-sdk-quickstart.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md) | [回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md)
 
@@ -25,7 +25,7 @@ SDK 调用需要分别判断发送、应答和执行状态：
 | 应答层 | `IControlCallback` | 机器人是否接收并处理该命令 |
 | 执行层 | `RobotState` 或 `IDataCallback` | 动作或任务是否正在运行、完成或失败 |
 
-接口调用未返回错误不等于动作完成。例如，`StandUp()` 调用成功后仍需观察 `RobotState::motion_status`；启动回充命令收到应答后，仍需通过 `OnTaskStateData()` 跟踪任务状态。
+接口调用未返回错误不等于动作完成。例如，`StandUp()` 调用成功后仍需观察 `RobotState::motion_status`。任务执行状态通过 `OnTaskStateData()` 跟踪。
 
 ## 同步与异步调用
 
@@ -99,59 +99,15 @@ if (ec) {
 
 函数原型见 [M1 SDK 接口参考](./06-02-robot-control.md#控制权)，事件和应答结构见 [M1 回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md#控制权事件)。
 
-## 充电桩配对
+<a id="充电桩配对"></a>
 
-SDK v0.2.3 支持扫描、连接、查询和断开 BLE 充电桩。确认机器人系统支持配对后，先注册数据回调和控制回调，再从应用线程执行以下流程。
+配对接口和步骤见[充电桩配对](./06-04-dock-and-tasks.md#充电桩配对)。
 
-1. 调用 `SetDockScanConfig(true)`，等待 `OnDockScanConfig(true)` 确认开始扫描。
-2. 通过 `OnDockScanResult()` 接收扫描上报，按地址更新设备列表，选出 `connectable` 为 `true` 的充电桩并保存其地址。
-3. 调用 `SetDockScanConfig(false)`，收到关闭扫描确认后，将选中的地址填入 `DockConnectConfig::address` 并调用 `ConnectDock()`。
-4. 检查 `OnDockConnectionAck()` 的 `accepted`。请求受理后，等待 `OnDockConnectionResult()` 并检查 `success` 和 `error_code`。
-5. 配对成功后调用 `GetDockInfo()`，通过 `OnDockInfo()` 查看 `dock_connected`、`has_contact` 和 `charging_active`。
-6. 需要解除连接时调用 `DisconnectDock()`，同样等待受理应答和最终结果。
+<a id="充电与离桩任务"></a>
+<a id="回充任务状态"></a>
+<a id="离桩任务状态"></a>
 
-一次只发起一个连接或断开操作。函数返回值和 `WriteHandler` 用于检查调用与发送结果，`OnDockConnectionResult()` 用于确认配对操作的最终结果。机器人执行自主回充或离桩时，进度和结果由 `OnTaskStateData()` 上报。
-
-参见[接口原型](./06-04-dock-and-tasks.md#充电桩配对)、[回调与数据结构](./07-callbacks-data-types-and-status-reference.md#充电桩数据)和[配对示例](./08-examples-and-troubleshooting.md#充电桩配对示例)。
-
-## 充电与离桩任务
-
-| 函数 | 功能 |
-| --- | --- |
-| `StartRechargeTask()` | 启动自主回充任务 |
-| `StopRechargeTask()` | 停止自主回充任务 |
-| `StartUnDockTask()` | 启动自主离桩任务 |
-| `StopUnDockTask()` | 停止自主离桩任务 |
-
-任务命令同样需要依次判断调用层、应答层和执行层。`OnStartRechargeTask()` 等应答表示机器人已经处理启动或停止请求，`OnTaskStateData()` 才用于跟踪任务的运行和最终结果。
-
-```cpp
-void OnTaskStateData(const TaskStateInfo& info) override {
-    if (info.task_type == TaskType::RECHARGING) {
-        // 根据 info.task_status 和 info.error_code 处理任务状态
-    }
-}
-```
-
-### 回充任务状态
-
-调用 `StartRechargeTask()` 后，回充任务可能上报：
-
-- `STARTING`：任务开始；
-- `RUNNING`：任务执行中；
-- `FAILURE`：任务启动或执行失败，此时读取 `TaskStateInfo::error_code`。
-
-回充任务不会自然进入 `SUCCESS`。需要结束回充任务时调用 `StopRechargeTask()`，并等待 `TaskType::RECHARGING` 的状态变为 `STOPPED`。判断任务是否已经进入执行状态时，可结合 `OnStartRechargeTask()`、`TaskStateInfo` 和 `MachineStatus::RECHARGE`。
-
-### 离桩任务状态
-
-调用 `StartUnDockTask()` 后，离桩任务可能按 `STARTING -> RUNNING -> SUCCESS` 流转；执行失败时进入 `FAILURE`。`TaskType::UNDOCK` 和 `TaskStatus::SUCCESS` 表示离桩任务完成。
-
-需要中途停止离桩任务时调用 `StopUnDockTask()`，并等待 `TaskType::UNDOCK` 的状态变为 `STOPPED`。
-
-接口原型见 [M1 SDK 接口参考](./06-04-dock-and-tasks.md#任务和机器状态)，任务状态结构见 [M1 回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md#任务状态)。
-
-参见[回充、离桩与充电桩标定的使用条件和故障排查](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_undock_calibration_conditions_zh.md)。
+任务接口和状态判断见[充电与离桩任务](./06-04-dock-and-tasks.md#充电与离桩任务)。
 
 ## 远程和空闲状态切换
 

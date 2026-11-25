@@ -80,7 +80,7 @@ The UWB beacon locates the target in follow mode. Before use, check the battery 
 
 ## Charging Dock
 
-The optional charging dock supports autonomous return-to-dock charging. Before using RoamerX Pro to return a Genisom L2-W Ultra to the dock, install the dock, pair it over Bluetooth, mark the charging point on the map, and calibrate its orientation. See the [RoamerX Pro User Guide](./05-roamerx-pro-guide.md). For SDK docking and undocking prerequisites, see [Genisom L2 Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md).
+The optional charging dock supports autonomous return-to-dock charging. Before using RoamerX Pro to return a Genisom L2-W Ultra to the dock, [install and pair the charging dock](./07-04-dock-and-tasks.md#charging-dock-pairing), then [mark the charging point on the map and calibrate its orientation](./05-roamerx-pro-guide.md#configure-a-charging-point). For SDK recharging and undocking prerequisites, see [Task Prerequisites and Operating Conditions](./07-04-dock-and-tasks.md#task-prerequisites-and-operating-conditions).
 
 ## Arrival Inspection
 

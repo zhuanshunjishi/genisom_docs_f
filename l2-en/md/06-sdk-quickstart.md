@@ -259,5 +259,7 @@ auto ec = client.StandUp(2000);
 
 - [SDK API Reference](./07-sdk-api-reference.md) for functions and supported capabilities.
 - [Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) for data and callbacks.
-- [Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md) for ownership and tasks.
+- [Genisom L2 SDK Control Workflow](./09-control-ownership-tasks-and-peripherals.md) for control ownership, machine states, and shutdown.
+- [Genisom L2 Charging Dock and Tasks](./07-04-dock-and-tasks.md) for pairing, recharging, and undocking.
+- [Genisom L2 Peripherals and Cameras](./07-05-peripherals-and-camera.md) for peripheral power, LEDs, and cameras.
 - [Examples and Troubleshooting](./10-examples-and-troubleshooting.md) for sample programs and diagnostics.

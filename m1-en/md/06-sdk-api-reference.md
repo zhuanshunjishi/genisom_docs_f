@@ -1,10 +1,10 @@
 # Genisom M1 SDK API Reference
 
-[Return Document Overview](../index.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [Retrospect, data type and status reference](./07-callbacks-data-types-and-status-reference.md) | [Example program and failure check](./08-examples-and-troubleshooting.md)
+[Return Document Overview](../index.md) | [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md) | [Retrospect, data type and status reference](./07-callbacks-data-types-and-status-reference.md) | [Example program and failure check](./08-examples-and-troubleshooting.md)
 
 ## Overview of Interfaces
 
-The core class in the Genisom M1 SDK is `robot_sdk::SDKClient`, declared in `robot_sdk/sdk_client.hpp`. Control commands typically return `std::error_code`. Check the send result and the robot’s execution result separately. See [Control Flow and Task Handling](./05-sdk-control-flow-and-task-handling.md) for how connection, control ownership, and task state interact.
+The core class in the Genisom M1 SDK is `robot_sdk::SDKClient`, declared in `robot_sdk/sdk_client.hpp`. Control commands typically return `std::error_code`. Check the send result and the robot’s execution result separately. For connection setup, control ownership, and checking command results, see [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md).
 
 | Interface Chapter | Main elements | Common interfaces |
 | --- | --- | --- |

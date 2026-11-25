@@ -80,7 +80,7 @@ UWB 信标用于跟随模式下的目标定位。使用前应确认信标电量�
 
 ## 充电桩
 
-充电桩属于选配设备，可提供自主回充。L2-W Ultra 使用智航 Pro 回充前，需要完成充电桩安装、蓝牙配对、地图充电点标记和朝向校准，见 [L2 智航 Pro 软件使用](./05-roamerx-pro-guide.md)。SDK 回充和离桩的前置条件见 [L2 控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)。
+充电桩属于选配设备，可提供自主回充。L2-W Ultra 使用智航 Pro 回充前，需要[安装并配对充电桩](./07-04-dock-and-tasks.md#充电桩配对)，再[标记地图充电点并校准朝向](./05-roamerx-pro-guide.md#配置充电点)。SDK 回充和离桩的前置条件见[任务运行要求](./07-04-dock-and-tasks.md#任务运行要求)。
 
 ## 到货检查
 

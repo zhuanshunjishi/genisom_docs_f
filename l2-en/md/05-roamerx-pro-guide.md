@@ -1,6 +1,6 @@
 # RoamerX Pro User Guide for Genisom L2
 
-[Back to Documentation Overview](../index.md) | [Genisom L2 Operation and Safety](./04-device-controller-and-app-guide.md) | [Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md)
+[Back to Documentation Overview](../index.md) | [Genisom L2 Operation and Safety](./04-device-controller-and-app-guide.md) | [Genisom L2 Charging Dock and Tasks](./07-04-dock-and-tasks.md)
 
 ## Features
 
@@ -151,15 +151,16 @@ If there is insufficient space, the robot brakes to a stop and waits. Watch clos
 
 ## Autonomous Recharging and Undocking
 
-Install the optional charging dock before using autonomous recharging and undocking in RoamerX Pro. To start these tasks through the SDK, see [Recharge and Undock Tasks](./09-control-ownership-tasks-and-peripherals.md#recharge-and-undock-tasks).
+Install the optional charging dock before using autonomous recharging and undocking in RoamerX Pro. To start these tasks through the SDK, see [Recharge and Undock Tasks](./07-04-dock-and-tasks.md#recharge-and-undock-tasks).
 
 ### Configure a Charging Point
 
-1. Pair the robot and charging dock over Bluetooth in the app.
-2. Add a target point in the route network editor.
-3. Select the target point and tap **Mark Charging Dock** (标记充电桩).
-4. Set the heading of the charging point so it faces the physical charging dock directly.
-5. Save the map and route network configuration.
+Complete [Charging Dock Pairing](./07-04-dock-and-tasks.md#charging-dock-pairing) first.
+
+1. Add a target point in the route network editor.
+2. Select the target point and tap **Mark Charging Dock** (标记充电桩).
+3. Set the heading of the charging point so it faces the physical charging dock directly.
+4. Save the map and route network configuration.
 
 ![Marking a target point as a charging point](../assets/navigation/navigation-recharge-ui.png)
 

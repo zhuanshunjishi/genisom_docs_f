@@ -35,7 +35,7 @@ export default defineConfig({
         text: 'SDK 开发',
         items: [
           { text: '快速开始', link: '/md/06-sdk-quickstart' },
-          { text: '控制权、任务与外设控制', link: '/md/09-control-ownership-tasks-and-peripherals' },
+          { text: 'L2 SDK 控制流程', link: '/md/09-control-ownership-tasks-and-peripherals' },
           {
             text: '接口参考',
             link: '/md/07-sdk-api-reference',

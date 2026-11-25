@@ -1,6 +1,6 @@
 # Genisom M1 Callbacks, Data Types, and Status Reference
 
-[Return Document Overview](../index.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK Interface reference](./06-sdk-api-reference.md) | [Example program and failure check](./08-examples-and-troubleshooting.md)
+[Return Document Overview](../index.md) | [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK Interface reference](./06-sdk-api-reference.md) | [Example program and failure check](./08-examples-and-troubleshooting.md)
 
 ## Callback Model
 
@@ -11,7 +11,7 @@ The Genisom M1 SDK uses two callback interfaces.
 | `IDataCallback` | Sensor data, robot state, faults, control ownership events, task state, and charging dock reports | `SetDataCallback()` |
 | `IControlCallback` | The robot's response to the command. | `SetControlCallback()` |
 
-See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#three-levels-of-call-results) for the relationship between the sending result, the command response and the action status.
+See [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md#three-levels-of-call-results) for the relationship between the sending result, the command response and the action status.
 
 ## Callback Threading Rules
 
@@ -483,7 +483,7 @@ Recharge progresses through `recharge_preparing` (preparing), `recharge_docking`
 | `TaskStatus` | `FAILURE` | 4 |
 | `TaskStatus` | `STOPPED` | 5 |
 
-`OnTaskStateData()` reports task state changes. See [Docking and Undocking Tasks](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks) for how to interpret the states.
+`OnTaskStateData()` reports task state changes. See [Docking and Undocking Tasks](./06-04-dock-and-tasks.md#docking-and-undocking-tasks) for how to interpret the states.
 
 ### Docking and Undocking Error Codes {#docking-and-undocking-error-codes}
 
@@ -550,7 +550,7 @@ See [GitHub Business Error Sheet](https://github.com/zsibot/genisom_robot_sdk/bl
 | `DockInfo` | `dock_connected`, `has_contact`, `charging_active` | BLE connection, mechanical contact, and whether charging is active |
 | `DockInfo` | `light_switch_status`, `fill_light_brightness`, `auto_fill_light_enabled` | Fill light switch state, brightness, and automatic fill light mode |
 
-`OnDockInfo()` can run in response to a query or when the charging dock state changes. See the [SDK header](https://github.com/zsibot/genisom_robot_sdk/blob/main/include/robot_sdk/sdk_type.hpp) for field types and [Dock Pairing](./05-sdk-control-flow-and-task-handling.md#dock-pairing) for the call sequence.
+`OnDockInfo()` can run in response to a query or when the charging dock state changes. See the [SDK header](https://github.com/zsibot/genisom_robot_sdk/blob/main/include/robot_sdk/sdk_type.hpp) for field types and [Dock Pairing](./06-04-dock-and-tasks.md#dock-pairing) for the call sequence.
 
 ## Peripheral and LED Enums {#external-with-led-counts}
 
@@ -599,7 +599,7 @@ struct ReleaseControlAck {
 };
 ```
 
-`TakeControlAck::error_code == 0` indicates that the control application was successful. The complete control transition process is in [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism).
+`TakeControlAck::error_code == 0` indicates that the control application was successful. The complete control transition process is in [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism).
 
 ## Callback Registration Example {#callback-registration-example}
 

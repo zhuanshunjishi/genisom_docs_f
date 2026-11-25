@@ -1,6 +1,6 @@
 # Genisom L2 Callbacks, Data Types, and Status
 
-[Documentation Overview](../index.md) | [SDK API Reference](./07-sdk-api-reference.md) | [Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md)
+[Documentation Overview](../index.md) | [SDK API Reference](./07-sdk-api-reference.md) | [Genisom L2 SDK Control Workflow](./09-control-ownership-tasks-and-peripherals.md)
 
 ## Callback Model
 

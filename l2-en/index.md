@@ -20,8 +20,8 @@ Applications use `robot_sdk::SDKClient` to connect to the robot, request control
 | [6. Maintenance, Storage, and Troubleshooting](./md/12-maintenance.md) | Cleaning, routine checks, storage, and device troubleshooting | When servicing, storing, or troubleshooting the robot |
 | [7. RoamerX Pro User Guide](./md/05-roamerx-pro-guide.md) | Network setup, mapping, route networks, cruise tasks, autonomous recharging, and cruise history for Genisom L2-W Ultra | When deploying Autonomous Navigation on Genisom L2-W Ultra |
 | [8. SDK Quickstart](./md/06-sdk-quickstart.md) | Ubuntu setup, SDK layout, network and port configuration, building, connecting, running examples, and creating a project | When building and running the SDK for the first time |
-| [9. Control Ownership, Tasks, and Peripheral Control](./md/09-control-ownership-tasks-and-peripherals.md) | Control ownership handover, recharge and undock tasks, machine states, peripheral power, and LED control | Before writing an application that controls the robot, starts recharge tasks, or manages peripherals |
-| [10. SDK API Reference](./md/07-sdk-api-reference.md) | Capability matrix, common parameters and return values, and APIs for connection, robot control, data reporting, charging docks, and peripherals | When looking up an API by function |
+| [9. Genisom L2 SDK Control Workflow](./md/09-control-ownership-tasks-and-peripherals.md) | Requesting and releasing control, switching between remote and idle states, shutdown, and exception handling | Before writing an SDK application that controls the robot |
+| [10. SDK API Reference](./md/07-sdk-api-reference.md) | Capability matrix, common parameters and return values, and APIs for connection, robot control, data reporting, [charging dock pairing and tasks](./md/07-04-dock-and-tasks.md), and [peripheral and camera APIs](./md/07-05-peripherals-and-camera.md) | When looking up an API by function |
 | [11. Data Access: Camera Nodes and Topic Configuration](./md/camera-topic-configuration.md) | Camera image formats, resolutions, and topic paths | When accessing front stereo or surround camera images |
 | [12. Callbacks, Data Types, and Status](./md/08-callbacks-data-types-and-status-reference.md) | Data and control acknowledgment callbacks, robot and task status, faults, and key data structures | When processing reported data and command acknowledgments |
 | [13. Examples and Troubleshooting](./md/10-examples-and-troubleshooting.md) | Included SDK examples, recommended test order, and troubleshooting for networking and runtime libraries | When running the examples or troubleshooting integration |
@@ -39,7 +39,7 @@ For SDK development, read the following in order.
 
 1. [Hardware Interfaces and System Architecture](./md/03-hardware-interfaces-and-system-architecture.md)
 2. [SDK Quickstart](./md/06-sdk-quickstart.md)
-3. [Control Ownership, Tasks, and Peripheral Control](./md/09-control-ownership-tasks-and-peripherals.md)
+3. [Genisom L2 SDK Control Workflow](./md/09-control-ownership-tasks-and-peripherals.md)
 4. [SDK API Reference](./md/07-sdk-api-reference.md)
 5. [Callbacks, Data Types, and Status](./md/08-callbacks-data-types-and-status-reference.md)
 
@@ -47,7 +47,7 @@ To deploy RoamerX Pro Autonomous Navigation on the L2-W Ultra, read the followin
 
 1. [Operation and Safety](./md/04-device-controller-and-app-guide.md)
 2. [RoamerX Pro User Guide](./md/05-roamerx-pro-guide.md)
-3. [Control Ownership, Tasks, and Peripheral Control](./md/09-control-ownership-tasks-and-peripherals.md)
+3. If you start recharging or undocking through the SDK, see [Recharge and Undock Tasks](./md/07-04-dock-and-tasks.md#recharge-and-undock-tasks).
 
 If you have trouble powering on the robot, using the remote controller, or connecting to the network, see [Device Troubleshooting](./md/12-maintenance.md#device-troubleshooting).
 

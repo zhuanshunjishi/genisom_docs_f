@@ -24,7 +24,7 @@ std::error_code ReleaseControl(
 
 Release control when the application exits or finishes controlling the robot.
 
-For the process of application, taking over and restoration of control, see [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism).
+For the process of application, taking over and restoration of control, see [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism).
 
 ## Safety Controls {#security-control}
 

@@ -1,6 +1,6 @@
 # Genisom L2 SDK API Reference
 
-[Documentation Overview](../index.md) | [SDK Quickstart](./06-sdk-quickstart.md) | [Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) | [Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md)
+[Documentation Overview](../index.md) | [SDK Quickstart](./06-sdk-quickstart.md) | [Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) | [Genisom L2 SDK Control Workflow](./09-control-ownership-tasks-and-peripherals.md)
 
 ## Core Class
 
@@ -15,7 +15,7 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 | [Connection and Device Information](./07-01-connection-and-device-info.md) | Client construction, connection and disconnection, connection state, version and device information | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
 | [Robot Control](./07-02-robot-control.md) | Control ownership, software emergency stop, posture and motion commands | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
 | [Data Reporting](./07-03-data-reporting.md) | Callback registration, sensor and motion data reporting | `SetDataCallback()`, `SetControlCallback()`, `SetImuConfig()` |
-| [Charging Dock and Tasks](./07-04-dock-and-tasks.md) | Recharge and undocking tasks, switching between remote control and idle states | `StartRechargeTask()`, `StartUnDockTask()`, `SwitchIdleState()` |
+| [Charging Dock and Tasks](./07-04-dock-and-tasks.md) | Bluetooth pairing in the app, recharge and undock tasks, and switching between remote and idle states | `StartRechargeTask()`, `StartUnDockTask()`, `SwitchIdleState()` |
 | [Peripherals and Cameras](./07-05-peripherals-and-camera.md) | Fill light, camera bitrate, [camera nodes and topic configuration](./camera-topic-configuration.md), peripheral power, and LED control | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
 
 ## Genisom L2 Series Device Types

@@ -1,6 +1,6 @@
 # Genisom M1 SDK Quickstart
 
-[Return Document Overview](../index.md) | [System composition, hardware interfaces and structural design information](./03-system-components-and-hardware-interfaces.md) | [SDK Control of processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [Genisom M1 SDK API Reference](./06-sdk-api-reference.md)
+[Return Document Overview](../index.md) | [System composition, hardware interfaces and structural design information](./03-system-components-and-hardware-interfaces.md) | [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md) | [Genisom M1 SDK API Reference](./06-sdk-api-reference.md)
 
 ::: tip Before starting
 See [M1 System compatibility with SDK version](./sdk-version-compatibility.md), select the corresponding SDK according to the robot's system version.
@@ -126,7 +126,7 @@ int main() {
 
 `Connect(..., true)` is synchronized to wait for the connection and protocol handshake to be completed. Only when the handshake is successful will `IsConnected()` return `true`.
 
-The distinction between synchronization and the state of call, command response and action completion is found in [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md).
+For synchronous and asynchronous calls, command acknowledgments, and action completion, see [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md).
 
 ## Custom CMake Project
 
@@ -166,7 +166,8 @@ The SDK dynamic library of the corresponding architecture is provided with the p
 
 ## Next
 
-- Read [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) before starting to write the control program.
+- Read [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md) before starting to write the control program.
 - When searching for prototypes and parameters for functions, use [Genisom M1 SDK API Reference](./06-sdk-api-reference.md).
+- To pair a charging dock or run a recharge or undocking task, see [Dock and Tasks](./06-04-dock-and-tasks.md).
 - Use [M1 callbacks, data types, and status reference](./07-callbacks-data-types-and-status-reference.md) for callbacks, data structures, and state enums.
 - Use [Genisom M1 Examples and Troubleshooting](./08-examples-and-troubleshooting.md) when aligning specific functions.

@@ -17,7 +17,7 @@ export default defineConfig(englishConfig(
     '智航 Pro 软件使用': 'RoamerX Pro User Guide',
     'SDK 开发': 'SDK Development',
     '快速开始': 'Quickstart',
-    '控制权、任务与外设控制': 'Control Ownership, Tasks, and Peripheral Control',
+    'L2 SDK 控制流程': 'Genisom L2 SDK Control Workflow',
     '接口参考': 'API Reference',
     '连接与设备信息': 'Connection and Device Information',
     '机器人控制': 'Robot Control',

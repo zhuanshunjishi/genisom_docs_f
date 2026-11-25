@@ -1,6 +1,6 @@
 # M1 回调、数据类型与状态参考
 
-[返回文档总览](../index.md) | [SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md) | [示例程序与故障排查](./08-examples-and-troubleshooting.md)
+[返回文档总览](../index.md) | [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md) | [示例程序与故障排查](./08-examples-and-troubleshooting.md)
 
 ## 回调模型
 
@@ -11,7 +11,7 @@ M1 SDK 使用两类回调：
 | `IDataCallback` | 传感器、机器人状态、故障、控制权事件、任务状态和充电桩上报 | `SetDataCallback()` |
 | `IControlCallback` | 机器人对控制命令的应答 | `SetControlCallback()` |
 
-发送结果、命令应答和动作状态的关系见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#调用结果的三个层次)。
+发送结果、命令应答和动作状态的关系见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md#调用结果的三个层次)。
 
 ## 回调线程规则
 
@@ -483,7 +483,7 @@ struct TaskStateInfo {
 | `TaskStatus` | `FAILURE` | 4 |
 | `TaskStatus` | `STOPPED` | 5 |
 
-任务状态变化时通过 `OnTaskStateData()` 上报。充电与离桩任务的状态判断流程见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#充电与离桩任务)。
+任务状态变化时通过 `OnTaskStateData()` 上报。回充和离桩的状态判断见[充电桩与任务](./06-04-dock-and-tasks.md#充电与离桩任务)。
 
 ### 回充与离桩业务错误码
 
@@ -550,7 +550,7 @@ struct TaskStateInfo {
 | `DockInfo` | `dock_connected`、`has_contact`、`charging_active` | BLE 连接、机械接触和正在充电的状态 |
 | `DockInfo` | `light_switch_status`、`fill_light_brightness`、`auto_fill_light_enabled` | 补光灯开关、亮度和自动补光状态 |
 
-`OnDockInfo()` 可在主动查询后返回，也可能在充电桩状态变化时触发。字段类型见[官方头文件](https://github.com/zsibot/genisom_robot_sdk/blob/main/include/robot_sdk/sdk_type.hpp)，调用顺序见[充电桩配对流程](./05-sdk-control-flow-and-task-handling.md#充电桩配对)。
+`OnDockInfo()` 可在主动查询后返回，也可能在充电桩状态变化时触发。字段类型见[官方头文件](https://github.com/zsibot/genisom_robot_sdk/blob/main/include/robot_sdk/sdk_type.hpp)，调用顺序见[充电桩配对流程](./06-04-dock-and-tasks.md#充电桩配对)。
 
 ## 外设与 LED 枚举
 
@@ -599,7 +599,7 @@ struct ReleaseControlAck {
 };
 ```
 
-`TakeControlAck::error_code == 0` 表示控制权申请成功。完整的控制权切换流程见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md#控制权机制)。
+`TakeControlAck::error_code == 0` 表示控制权申请成功。完整的控制权切换流程见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md#控制权机制)。
 
 ## 注册回调示例
 

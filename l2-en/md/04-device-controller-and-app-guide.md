@@ -261,6 +261,10 @@ To view your photos and videos, open **Album** (相册) in **Settings** (设置)
 
 This feature is unavailable when the robot's battery level is below 20%. In follow mode, keep the robot in sight, watch its path, and be ready to trigger an emergency stop.
 
+## Charging Dock Pairing
+
+After installing the optional charging dock, open **Charging Dock** (充电桩) in GenisDog **Settings** (设置) and follow the app prompts to pair over Bluetooth. For the full steps and screenshot, see [Genisom L2 Charging Dock and Tasks](./07-04-dock-and-tasks.md#charging-dock-pairing).
+
 ## Charging
 
 ### Battery and Power Safety
@@ -287,7 +291,7 @@ Avoid touching the adapter while it is hot during charging. If the battery gives
 
 ### Autonomous Recharging
 
-With the optional charging dock installed, the Genisom L2-W Ultra can [use RoamerX Pro to configure a charging point and start autonomous recharging](./05-roamerx-pro-guide.md#autonomous-recharging-and-undocking). When starting a recharge through the SDK, check the charging point, dock connection status, and task status callbacks together to determine whether the task has completed. See [SDK Recharge and Undock Tasks](./09-control-ownership-tasks-and-peripherals.md#recharge-and-undock-tasks).
+After installing and [pairing the optional charging dock](#charging-dock-pairing), use RoamerX Pro to [configure a charging point and start autonomous recharging](./05-roamerx-pro-guide.md#autonomous-recharging-and-undocking) on Genisom L2-W Ultra. When starting a recharge through the SDK, check the charging point, dock connection status, and task status callbacks together to determine whether the task has completed. See [SDK Recharge and Undock Tasks](./07-04-dock-and-tasks.md#recharge-and-undock-tasks).
 
 <a id="日常维护"></a>
 <a id="存放"></a>

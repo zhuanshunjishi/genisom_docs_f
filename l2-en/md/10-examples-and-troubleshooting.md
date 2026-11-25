@@ -1,6 +1,6 @@
 # Genisom L2 Examples and Troubleshooting
 
-[Documentation Overview](../index.md) | [SDK Quickstart](./06-sdk-quickstart.md) | [SDK API Reference](./07-sdk-api-reference.md) | [Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md)
+[Documentation Overview](../index.md) | [SDK Quickstart](./06-sdk-quickstart.md) | [SDK API Reference](./07-sdk-api-reference.md) | [Genisom L2 SDK Control Workflow](./09-control-ownership-tasks-and-peripherals.md)
 
 ## Example Programs
 
@@ -224,7 +224,7 @@ A successful send only indicates that the command passed the SDK checks and ente
 
 ### The Recharge Task Does Not Run
 
-- Check the charging dock's power and Bluetooth pairing.
+- Check the charging dock's power and [Bluetooth pairing](./07-04-dock-and-tasks.md#charging-dock-pairing).
 - Check the charging point and orientation on the map.
 - Check `charging_pile_connected`, `machine_status`, and `TaskStateInfo`.
 - Clear the docking area and ensure the LiDAR and cameras are unobstructed.

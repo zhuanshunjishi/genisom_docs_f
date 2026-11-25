@@ -1,6 +1,6 @@
 # M1 SDK 快速开始
 
-[返回文档总览](../index.md) | [系统组成、硬件接口与结构设计资料](./03-system-components-and-hardware-interfaces.md) | [SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md)
+[返回文档总览](../index.md) | [系统组成、硬件接口与结构设计资料](./03-system-components-and-hardware-interfaces.md) | [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md) | [M1 SDK 接口参考](./06-sdk-api-reference.md)
 
 ::: tip 开始前
 请先查阅 [M1 系统与 SDK 版本兼容性](./sdk-version-compatibility.md)，根据机器人的系统版本选择对应的 SDK。
@@ -126,7 +126,7 @@ int main() {
 
 `Connect(..., true)` 是同步连接，会等待连接和协议握手完成。只有握手成功后，`IsConnected()` 才会返回 `true`。
 
-同步与异步调用、命令应答和动作完成状态的区别见 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md)。
+同步与异步调用、命令应答和动作完成状态的区别见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md)。
 
 ## 自定义 CMake 项目
 
@@ -166,7 +166,8 @@ cmake --build .
 
 ## 下一步
 
-- 开始编写控制程序前，先阅读 [M1 SDK 控制流程与任务机制](./05-sdk-control-flow-and-task-handling.md)。
+- 开始编写控制程序前，先阅读 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md)。
 - 查询函数原型和参数时，使用 [M1 SDK 接口参考](./06-sdk-api-reference.md)。
+- 配对充电桩或执行回充、离桩任务时，查看[充电桩与任务](./06-04-dock-and-tasks.md)。
 - 查看回调、结构体和状态枚举时，使用 [M1 回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md)。
 - 联调具体功能时，使用 [M1 示例程序与故障排查](./08-examples-and-troubleshooting.md)。

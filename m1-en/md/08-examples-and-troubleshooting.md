@@ -1,6 +1,6 @@
 # Genisom M1 Examples and Troubleshooting
 
-[Return Document Overview](../index.md) | [M1 SDK Quick start](./04-sdk-quickstart.md) | [Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md) | [Genisom M1 SDK API Reference](./06-sdk-api-reference.md)
+[Return Document Overview](../index.md) | [M1 SDK Quick start](./04-sdk-quickstart.md) | [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md) | [Genisom M1 SDK API Reference](./06-sdk-api-reference.md)
 
 ## Example Program Directory
 
@@ -109,7 +109,7 @@ Automatic reconnection restores the link. After reconnecting, check the control 
 
 `take_control.cpp` Address changes of control through `OnControlLost()`, `OnControlAvailable()` and `OnTakeControlAck()`.
 
-Run the example to see how the application loses control, determines when it can request control again, checks the acknowledgment, and releases control. See [M1 SDK Control processes and task mechanisms](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism) for the sequence of events.
+Run the example to see how the application loses control, determines when it can request control again, checks the acknowledgment, and releases control. See [Genisom M1 SDK Control Workflow](./05-sdk-control-flow-and-task-handling.md#control-ownership-mechanism) for the sequence of events.
 
 ## camera_bitrate.cpp — Camera Bitrate {#camera-bitrate-cpp-camera-code-rate}
 
@@ -117,7 +117,7 @@ This example sets the front and rear camera bitrates and reads the applied value
 
 ## recharge.cpp: Recharge and Undocking
 
-This example starts and stops recharge and undocking tasks and uses task status callbacks to track results. See [Control Flow and Task Handling](./05-sdk-control-flow-and-task-handling.md#docking-and-undocking-tasks).
+This example starts and stops recharge and undocking tasks and uses task status callbacks to track results. See [Docking and Undocking Tasks](./06-04-dock-and-tasks.md#docking-and-undocking-tasks).
 
 ## led.cpp: LED Control
 
@@ -131,7 +131,7 @@ Run the example from `example/build/` and replace the robot address with the add
 ./dock_pairing 192.168.234.1 8082
 ```
 
-Press `1` to start scanning. After the results arrive, press `3` to view them, `4` to select a dock, and `2` to stop scanning. Confirm that scanning has stopped, then press `5` to connect. Wait for the final result before pressing `6` to query the dock’s status. To disconnect, press `7`. Once disconnected, press `q` to exit. See [Dock Pairing](./05-sdk-control-flow-and-task-handling.md#dock-pairing).
+Press `1` to start scanning. After the results arrive, press `3` to view them, `4` to select a dock, and `2` to stop scanning. Confirm that scanning has stopped, then press `5` to connect. Wait for the final result before pressing `6` to query the dock’s status. To disconnect, press `7`. Once disconnected, press `q` to exit. See [Dock Pairing](./06-04-dock-and-tasks.md#dock-pairing).
 
 ## Common Problems
 

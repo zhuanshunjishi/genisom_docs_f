@@ -1,4 +1,4 @@
-# Genisom L2 Control Ownership, Tasks, and Peripheral Control
+# Genisom L2 SDK Control Workflow
 
 [Documentation Overview](../index.md) | [SDK API Reference](./07-sdk-api-reference.md) | [Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) | [Examples and Troubleshooting](./10-examples-and-troubleshooting.md)
 
@@ -65,61 +65,9 @@ std::error_code ReleaseControl(
 7. If you lose control, stop the command loop and reset the target velocity to zero.
 8. Release control and disconnect before exiting.
 
-## Recharge and Undock Tasks
+<a id="recharge-and-undock-tasks"></a>
 
-| API | Function |
-| --- | --- |
-| `StartRechargeTask()` | Start autonomous recharging |
-| `StopRechargeTask()` | Stop the recharge task |
-| `StartUnDockTask()` | Start autonomous undocking |
-| `StopUnDockTask()` | Stop the undock task |
-
-### Send, Acknowledgment, and Execution Results
-
-| Stage | How to Check | What It Confirms |
-| --- | --- | --- |
-| Send | Return value or `WriteHandler` | Whether the command was sent |
-| Acknowledgment | `OnStartRechargeTask()` or the corresponding callback | Whether the robot acknowledged the command |
-| Execution | `OnTaskStateData()` | Whether the task is starting, running, successful, failed, or stopped |
-
-```cpp
-void OnTaskStateData(const TaskStateInfo& info) override {
-    if (info.task_type == TaskType::RECHARGING) {
-        if (info.task_status == TaskStatus::FAILURE) {
-            // Log info.error_code and enter the application's safety handling routine
-        }
-    }
-}
-```
-
-### Checking Recharge Progress
-
-After starting a recharge task, check the following.
-
-- `task_type == TaskType::RECHARGING`.
-- Whether `task_status` changes to `STARTING` or `RUNNING`.
-- `RobotState::machine_status == MachineStatus::RECHARGE`.
-- Whether `RobotState::charging_pile_connected` becomes `true` after docking.
-- Whether the battery status changes to `PowerSupplyStatus::CHARGING`.
-
-A successful return from the API does not confirm that the robot has reached the charging dock or started charging.
-
-### Checking Undock Progress
-
-After starting an undock task, check the following.
-
-- `task_type == TaskType::UNDOCK`.
-- Whether `task_status` progresses through `STARTING` and `RUNNING` and reaches `SUCCESS`.
-- `RobotState::machine_status == MachineStatus::UNDOCK`.
-- Whether the dock connection status clears once the robot has undocked.
-
-### Task Prerequisites and Operating Conditions
-
-- Verify that the charging dock has power, Bluetooth pairing is active, and the map's charging point is valid.
-- Align the charging point's orientation with the physical charging dock.
-- Keep the cameras and LiDAR clear of obstructions.
-- Do not send regular motion commands such as `Move()` during a recharge or undock task.
-- If a task fails, record `phase`, `error_code`, the machine state, and the battery state.
+To start a recharge or undock task through the SDK, see [Recharge and Undock Tasks](./07-04-dock-and-tasks.md#recharge-and-undock-tasks).
 
 ## Remote and Idle States
 
@@ -130,85 +78,16 @@ After starting an undock task, check the following.
 
 The acknowledgment confirms receipt of the switch command. Check `RobotState::machine_status` for the resulting state.
 
-## Peripheral Power Control
+<a id="peripheral-power-control"></a>
+<a id="power-safety"></a>
 
-```cpp
-struct PowerCtrlCfg {
-    PeripheralPower power;
-    bool enable;
-};
+See [Peripheral Power Control](./07-05-peripherals-and-camera.md#peripheral-power-control) for power APIs and safety requirements.
 
-std::error_code SetPeriphPower(
-    const PowerCtrlCfg& cfg, int timeout_ms = 0, WriteHandler handler = ...);
+<a id="led-control"></a>
+<a id="automatic-and-manual-modes"></a>
+<a id="setledcommand"></a>
 
-std::error_code GetPeriphPower(
-    const PowerCtrlCfg& cfg, int timeout_ms = 0, WriteHandler handler = ...);
-```
-
-`SetPeriphPower()` controls the protocol power channel. `GetPeriphPower()` queries the channel state. `OnSetPeriphPower()` and `OnGetPeriphPower()` report the respective results.
-
-### Power Safety
-
-- First verify how the protocol channels map to the M12 connector's 24 V output and the M14 connector's VBAT output.
-- The M12 connector's 24 V output and the M14 connector's VBAT output each have a total power limit of 100 W. Verify the actual VBAT voltage before connecting a peripheral.
-- Check the peripheral's rated voltage, polarity, and startup current, and inspect the cable insulation before enabling power.
-- Let the peripheral save its data and shut down normally before disabling the channel.
-- After a successful acknowledgment, verify power at the peripheral by checking its state or measuring voltage.
-- Do not substitute software switching for fuses, emergency stops, or hardware isolation.
-
-## LED Control
-
-### Automatic and Manual Modes
-
-```cpp
-std::error_code SetLedAutoMode(
-    bool auto_mode, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code GetLedAutoMode(
-    int timeout_ms = 0, WriteHandler handler = ...);
-```
-
-In automatic mode, the robot sets the LED effects according to its operating, warning, low-battery, and emergency stop states. In manual mode, the application can call `SetLedCommand()`.
-
-### SetLedCommand
-
-```cpp
-struct LedColor {
-    uint8_t r, g, b, a;
-};
-
-struct LedCommand {
-    LedId id;
-    LedEffect effect;
-    LedColor color;
-    uint32_t duration_ms;
-};
-```
-
-| `LedId` | Meaning |
-| --- | --- |
-| `ALL` | All LEDs |
-| `FRONT` | Front LEDs |
-| `BACK` | Rear LEDs |
-
-| `LedEffect` | Meaning |
-| --- | --- |
-| `OFF` | Off |
-| `ON` | Steady on |
-| `BREATH` | Pulsing |
-| `BLINK` | Blinking |
-| `BLINK_TRANSIENT` | Brief blinking |
-
-```cpp
-LedCommand cmd{
-    LedId::ALL,
-    LedEffect::BLINK,
-    {255, 128, 0, 255},
-    300
-};
-client.SetLedCommand(cmd, 1000);
-```
-
-Restore automatic mode when the manual effect ends so that emergency stop, low-battery, and fault indicators can display normally.
+See [LED Control](./07-05-peripherals-and-camera.md#led-control) for lighting modes and commands.
 
 ## Shutdown and Error Handling
 

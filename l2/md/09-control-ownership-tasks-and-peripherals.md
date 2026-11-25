@@ -1,4 +1,4 @@
-# L2 控制权、任务与外设控制
+# L2 SDK 控制流程
 
 [返回文档总览](../index.md) | [SDK 接口参考](./07-sdk-api-reference.md) | [回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md) | [示例程序与故障排查](./10-examples-and-troubleshooting.md)
 
@@ -65,61 +65,9 @@ std::error_code ReleaseControl(
 7. 失去控制权后停止命令循环，并把目标速度清零。
 8. 退出前释放控制权并断开连接。
 
-## 回充与离桩任务
+<a id="回充与离桩任务"></a>
 
-| 接口 | 功能 |
-| --- | --- |
-| `StartRechargeTask()` | 启动自主回充 |
-| `StopRechargeTask()` | 停止回充任务 |
-| `StartUnDockTask()` | 启动自主离桩 |
-| `StopUnDockTask()` | 停止离桩任务 |
-
-### 三层结果
-
-| 层次 | 判断方式 | 含义 |
-| --- | --- | --- |
-| 发送层 | 返回值或 `WriteHandler` | 命令是否发出 |
-| 应答层 | `OnStartRechargeTask()` 等 | 机器人是否确认收到命令 |
-| 执行层 | `OnTaskStateData()` | 任务启动、运行、成功、失败或停止 |
-
-```cpp
-void OnTaskStateData(const TaskStateInfo& info) override {
-    if (info.task_type == TaskType::RECHARGING) {
-        if (info.task_status == TaskStatus::FAILURE) {
-            // 记录 info.error_code，并转入安全处理
-        }
-    }
-}
-```
-
-### 回充判断
-
-启动回充后重点检查：
-
-- `task_type == TaskType::RECHARGING`。
-- `task_status` 是否进入 `STARTING` 或 `RUNNING`。
-- `RobotState::machine_status == MachineStatus::RECHARGE`。
-- `RobotState::charging_pile_connected` 是否在对接后变为 `true`。
-- 电池状态是否进入 `PowerSupplyStatus::CHARGING`。
-
-接口返回成功不能证明机器人已经到桩或开始充电。
-
-### 离桩判断
-
-启动离桩后检查：
-
-- `task_type == TaskType::UNDOCK`。
-- `task_status` 是否进入 `STARTING`、`RUNNING`，最终进入 `SUCCESS`。
-- `RobotState::machine_status == MachineStatus::UNDOCK`。
-- 离桩完成后充电桩连接状态是否解除。
-
-### 任务运行要求
-
-- 充电桩供电、蓝牙配对和地图充电点有效。
-- 充电点朝向与实体充电桩一致。
-- 相机和激光雷达无遮挡。
-- 回充或离桩期间不发送 `Move()` 等普通运动命令。
-- 任务失败后记录 `phase`、`error_code`、机器状态和电池状态。
+通过 SDK 启动回充或离桩时，参阅[回充与离桩任务](./07-04-dock-and-tasks.md#回充与离桩任务)。
 
 ## 远程与空闲状态
 
@@ -130,85 +78,16 @@ void OnTaskStateData(const TaskStateInfo& info) override {
 
 应答表示机器人收到切换命令，最终状态以 `RobotState::machine_status` 为准。
 
-## 外设供电控制
+<a id="外设供电控制"></a>
+<a id="供电安全"></a>
 
-```cpp
-struct PowerCtrlCfg {
-    PeripheralPower power;
-    bool enable;
-};
+外设供电接口与安全要求见[外设供电控制](./07-05-peripherals-and-camera.md#外设供电控制)。
 
-std::error_code SetPeriphPower(
-    const PowerCtrlCfg& cfg, int timeout_ms = 0, WriteHandler handler = ...);
+<a id="led-控制"></a>
+<a id="自动与手动模式"></a>
+<a id="setledcommand"></a>
 
-std::error_code GetPeriphPower(
-    const PowerCtrlCfg& cfg, int timeout_ms = 0, WriteHandler handler = ...);
-```
-
-`SetPeriphPower()` 控制协议电源通道，`GetPeriphPower()` 查询通道状态。实际结果分别由 `OnSetPeriphPower()` 和 `OnGetPeriphPower()` 返回。
-
-### 供电安全
-
-- 先确认协议通道与 M12 的 24 V 输出、M14 的 VBAT 输出的对应关系。
-- M12 的 24 V 输出与 M14 的 VBAT 输出各自的总功率均不超过 100 W。外设接入前确认 VBAT 的实际输出电压。
-- 上电前检查外设额定电压、极性、启动电流和线束绝缘。
-- 关闭通道前先让外设完成数据保存和正常停止。
-- 应答成功后仍应通过外设状态或电压检测确认实际供电。
-- 不得用软件开关代替保险、急停或硬件隔离。
-
-## LED 控制
-
-### 自动与手动模式
-
-```cpp
-std::error_code SetLedAutoMode(
-    bool auto_mode, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code GetLedAutoMode(
-    int timeout_ms = 0, WriteHandler handler = ...);
-```
-
-自动模式由机器人根据运行、告警、低电和急停状态管理灯效。手动模式允许应用调用 `SetLedCommand()`。
-
-### SetLedCommand
-
-```cpp
-struct LedColor {
-    uint8_t r, g, b, a;
-};
-
-struct LedCommand {
-    LedId id;
-    LedEffect effect;
-    LedColor color;
-    uint32_t duration_ms;
-};
-```
-
-| `LedId` | 含义 |
-| --- | --- |
-| `ALL` | 全部 LED |
-| `FRONT` | 前部 LED |
-| `BACK` | 后部 LED |
-
-| `LedEffect` | 含义 |
-| --- | --- |
-| `OFF` | 关闭 |
-| `ON` | 常亮 |
-| `BREATH` | 呼吸 |
-| `BLINK` | 闪烁 |
-| `BLINK_TRANSIENT` | 瞬时闪烁 |
-
-```cpp
-LedCommand cmd{
-    LedId::ALL,
-    LedEffect::BLINK,
-    {255, 128, 0, 255},
-    300
-};
-client.SetLedCommand(cmd, 1000);
-```
-
-在手动灯效结束后恢复自动模式，避免覆盖急停、低电和故障指示。
+灯效模式与命令见 [LED 控制](./07-05-peripherals-and-camera.md#led-控制)。
 
 ## 退出和异常处理
 
