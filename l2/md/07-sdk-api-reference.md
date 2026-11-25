@@ -27,6 +27,7 @@
 | L2 点足版 | `L2F` | L2 |
 | L2-W 轮足版 | `L2` | L2-W |
 | L2-W Ultra | `L2_ULTRA` | L2-W Ultra |
+| 点足环视设备枚举 | `L2F_ULTRA` | L2F Ultra |
 
 ## 接口能力表
 
@@ -34,6 +35,7 @@
 
 ### 连接、信息与基础控制
 
+<<<<<<< HEAD
 | API | L2 | L2-W | L2-W Ultra |
 | --- | :---: | :---: | :---: |
 | `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ |
@@ -66,18 +68,49 @@
 | `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ |
 | `SetJointStateConfig()` | ✓ | ✓ | ✓ |
 | `UpdateCameraBitrate()` | ✓ | ✓ | ✓ |
+=======
+| API | L2 | L2-W | L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
+| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ | ✓ |
+| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ | ✓ |
+| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ | ✓ |
+| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ | ✓ |
+| `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
+| `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
+| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
+| `Climb()` | — | — | — | — |
+| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
+| `Gait()` | — | ✓ | ✓ | — |
+| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |
+| `ReverseHeadTail()` | — | — | — | — |
+
+### 运动、灯光和数据
+
+| API | L2 | L2-W | L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
+| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
+| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
+| `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
+| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
+>>>>>>> parent of 3731631 (update)
 
 ### 控制权、任务和外设
 
-| API | L2 | L2-W | L2-W Ultra |
-| --- | :---: | :---: | :---: |
-| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ |
-| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ |
-| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ |
-| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ |
-| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ |
-| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ |
-| `SetLedCommand()` | ✓ | ✓ | ✓ |
+| API | L2 | L2-W | L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ | ✓ |
+| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ | ✓ |
+| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ | ✓ |
+| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ | ✓ |
+| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ | ✓ |
+| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ | ✓ |
+| `SetLedCommand()` | ✓ | ✓ | ✓ | ✓ |
 
 能力允许不代表每次调用都会成功。连接、控制权、急停、机器人状态、参数范围和外设安装情况仍会影响执行结果。
 

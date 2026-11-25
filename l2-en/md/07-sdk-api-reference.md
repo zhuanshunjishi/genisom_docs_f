@@ -27,6 +27,7 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 | Genisom L2 (point-foot) | `L2F` | L2 |
 | Genisom L2-W (wheeled-legged) | `L2` | L2-W |
 | Genisom L2-W Ultra | `L2_ULTRA` | L2-W Ultra |
+| Point-foot device with surround view | `L2F_ULTRA` | L2F Ultra |
 
 <a id="接口能力表"></a>
 
@@ -36,6 +37,7 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 
 ### Connection, Information, and Basic Control
 
+<<<<<<< HEAD
 | API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
 | --- | :---: | :---: | :---: |
 | `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ |
@@ -68,18 +70,49 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 | `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ |
 | `SetJointStateConfig()` | ✓ | ✓ | ✓ |
 | `UpdateCameraBitrate()` | ✓ | ✓ | ✓ |
+=======
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
+| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ | ✓ |
+| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ | ✓ |
+| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ | ✓ |
+| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ | ✓ |
+| `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
+| `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
+| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
+| `Climb()` | — | — | — | — |
+| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
+| `Gait()` | — | ✓ | ✓ | — |
+| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |
+| `ReverseHeadTail()` | — | — | — | — |
+
+### Motion, Lights, and Data
+
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
+| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
+| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
+| `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
+| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
+>>>>>>> parent of 3731631 (update)
 
 ### Control Ownership, Tasks, and Peripherals
 
-| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
-| --- | :---: | :---: | :---: |
-| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ |
-| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ |
-| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ |
-| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ |
-| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ |
-| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ |
-| `SetLedCommand()` | ✓ | ✓ | ✓ |
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ | ✓ |
+| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ | ✓ |
+| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ | ✓ |
+| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ | ✓ |
+| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ | ✓ |
+| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ | ✓ |
+| `SetLedCommand()` | ✓ | ✓ | ✓ | ✓ |
 
 A supported API can still fail depending on the connection, control ownership, emergency stop status, robot state, parameter ranges, and installed peripherals.
 

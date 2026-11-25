@@ -9,14 +9,7 @@ std::error_code FrontLight(bool on, int timeout_ms = 0, WriteHandler handler = .
 std::error_code AutoModeLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-| Function | Purpose | `RobotState` Field |
-| --- | --- | --- |
-| `FrontLight()` | Turn the front fill light on or off | `front_fill_light` |
-| `AutoModeLight()` | Enable or disable automatic fill lighting | `auto_mode_light` |
-
-For both functions, set `on` to `true` to enable the feature or `false` to disable it. Turning the front fill light on or off manually disables automatic fill lighting. Read the current state from [RobotState reports](./08-callbacks-data-types-and-status-reference.md#robotstate).
-
-The Genisom L2 series does not support `BackLight()` (rear fill light). Calling it returns `Errc::UnsupportedDeviceOperation` without sending the command.
+The Genisom L2 series supports a front fill light and an automatic fill light mode. The SDK capability check rejects `BackLight()` and `ObstacleAvoidance()`.
 
 ## Camera Bitrate
 
