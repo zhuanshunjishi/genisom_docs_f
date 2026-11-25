@@ -6,7 +6,7 @@
 
 Look up the robot's RK3588 version to find the corresponding app, SDK, S100, and OrinNX versions. An RK3588 version may have multiple combinations. `—` indicates that the version record leaves the component version unspecified.
 
-<table tabindex="0">
+<table class="m1-version-matrix" tabindex="0">
   <thead>
     <tr>
       <th scope="col">RK3588 Version</th>

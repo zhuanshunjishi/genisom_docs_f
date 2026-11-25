@@ -6,7 +6,7 @@
 
 按机器人的 RK3588 版本查询对应的 APP、SDK、S100 和 OrinNX 版本。同一 RK3588 版本可能有多组搭配。`—` 表示版本记录中未列出该组件的版本。
 
-<table tabindex="0">
+<table class="m1-version-matrix" tabindex="0">
   <thead>
     <tr>
       <th scope="col">RK3588 版本</th>

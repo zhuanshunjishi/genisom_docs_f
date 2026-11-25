@@ -54,6 +54,11 @@
   background-color: #fff;
 }
 
+.vp-doc .m1-version-matrix tbody tr,
+.vp-doc .m1-version-matrix th[scope='rowgroup'] {
+  background-color: var(--vp-c-bg);
+}
+
 @media (max-width: 959px) {
   .VPNavBar .container > .title {
     min-width: 0;
