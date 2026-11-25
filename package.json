@@ -15,7 +15,10 @@
     "docs:l1-en:preview": "vitepress preview l1-en",
     "docs:m1-en:dev": "vitepress dev m1-en",
     "docs:m1-en:build": "vitepress build m1-en",
-    "docs:m1-en:preview": "vitepress preview m1-en"
+    "docs:m1-en:preview": "vitepress preview m1-en",
+    "docs:l2-en:dev": "vitepress dev l2-en",
+    "docs:l2-en:build": "vitepress build l2-en",
+    "docs:l2-en:preview": "vitepress preview l2-en"
   },
   "devDependencies": {
     "vitepress": "1.6.4"

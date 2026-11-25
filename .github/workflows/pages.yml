@@ -29,13 +29,15 @@ jobs:
           npm run docs:l1-en:build
           npm run docs:m1-en:build
           npm run docs:l2:build
-          mkdir -p _site/l1 _site/m1 _site/l1-en _site/m1-en _site/l2
+          npm run docs:l2-en:build
+          mkdir -p _site/l1 _site/m1 _site/l1-en _site/m1-en _site/l2 _site/l2-en
           cp -R pages/. _site/
           cp -R l1/.vitepress/dist/. _site/l1/
           cp -R m1/.vitepress/dist/. _site/m1/
           cp -R l1-en/.vitepress/dist/. _site/l1-en/
           cp -R m1-en/.vitepress/dist/. _site/m1-en/
           cp -R l2/.vitepress/dist/. _site/l2/
+          cp -R l2-en/.vitepress/dist/. _site/l2-en/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

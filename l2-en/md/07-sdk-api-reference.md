@@ -1,0 +1,106 @@
+# Genisom L2 SDK API Reference
+
+[Documentation Overview](../index.md) | [SDK Quickstart](./06-sdk-quickstart.md) | [Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) | [Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md)
+
+## Core Class
+
+The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk_client.hpp`. Its public APIs use `std::error_code` to report send results, timeouts, connection results, and capability checks.
+
+![Synchronous and asynchronous SDK command flow](../diagrams/sdk-send-command.svg)
+
+## API Categories
+
+| Section | Topics | Common APIs |
+| --- | --- | --- |
+| [Connection and Device Information](./07-01-connection-and-device-info.md) | Client construction, connection and disconnection, connection state, version and device information | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
+| [Robot Control](./07-02-robot-control.md) | Control ownership, software emergency stop, posture and motion commands | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
+| [Data Reporting](./07-03-data-reporting.md) | Callback registration, sensor and motion data reporting | `SetDataCallback()`, `SetControlCallback()`, `SetImuConfig()` |
+| [Charging Dock and Tasks](./07-04-dock-and-tasks.md) | Recharge and undocking tasks, switching between remote control and idle states | `StartRechargeTask()`, `StartUnDockTask()`, `SwitchIdleState()` |
+| [Peripherals and Cameras](./07-05-peripherals-and-camera.md) | Fill light, camera bitrate, [camera nodes and topic configuration](./camera-topic-configuration.md), peripheral power, and LED control | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
+
+## Genisom L2 Series Device Types
+
+| Model or Device Configuration | `DeviceType` | Short Name |
+| --- | --- | --- |
+| Genisom L2 (point-foot) | `L2F` | L2 |
+| Genisom L2-W (wheeled-legged) | `L2` | L2-W |
+| Genisom L2-W Ultra | `L2_ULTRA` | L2-W Ultra |
+| Point-foot device with surround view | `L2F_ULTRA` | L2F Ultra |
+
+<a id="接口能力表"></a>
+
+## API Support by Model
+
+`✓` means the device type passes the SDK capability check for that API. For `—`, the SDK returns `Errc::UnsupportedDeviceOperation` without sending the command.
+
+### Connection, Information, and Basic Control
+
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
+| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ | ✓ |
+| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ | ✓ |
+| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ | ✓ |
+| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ | ✓ |
+| `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
+| `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
+| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` / `Climb()` | ✓ | ✓ | ✓ | ✓ |
+| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
+| `Gait()` | — | ✓ | ✓ | — |
+| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |
+| `ReverseHeadTail()` | — | — | — | — |
+
+The `DSB()` entry applies to earlier SDK releases that expose this method. SDK v0.2.3 removed it. [SDK changelog](https://github.com/zsibot/genisom_robot_sdk/blob/main/CHANGELOG.md#v023---2026)
+
+### Motion, Lights, and Data
+
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
+| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
+| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
+| `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
+| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
+| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
+
+### Control Ownership, Tasks, and Peripherals
+
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
+| --- | :---: | :---: | :---: | :---: |
+| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ | ✓ |
+| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ | ✓ |
+| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ | ✓ |
+| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ | ✓ |
+| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ | ✓ |
+| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ | ✓ |
+| `SetLedCommand()` | ✓ | ✓ | ✓ | ✓ |
+
+A supported API can still fail depending on the connection, control ownership, emergency stop status, robot state, parameter ranges, and installed peripherals.
+
+## Common Parameters and Return Values
+
+```cpp
+using WriteHandler =
+    std::function<void(const std::error_code&, std::size_t)>;
+```
+
+| Parameter | Description |
+| --- | --- |
+| `timeout_ms == 0` | Send asynchronously. `WriteHandler` reports the result. |
+| `timeout_ms > 0` | Wait synchronously. The function's return value reports the result. |
+| `handler` | Callback for the asynchronous send result |
+
+| Common Error | Meaning |
+| --- | --- |
+| `std::errc::invalid_argument` | A parameter is out of range or the parameter combination is invalid. |
+| `std::errc::not_connected` | No connection has been established. |
+| `std::errc::timed_out` | The synchronous wait timed out. |
+| `std::errc::operation_in_progress` | The same operation is already in progress. |
+| `Errc::ShakeHandFailed` | The handshake failed. |
+| `Errc::ProtocolMismatch` | The communication protocol versions do not match. |
+| `Errc::ControlledDenial` | Control ownership is currently unavailable. |
+| `Errc::ConnectFailed` | The connection failed. |
+| `Errc::UnsupportedDeviceOperation` | The current device type does not support this API. |

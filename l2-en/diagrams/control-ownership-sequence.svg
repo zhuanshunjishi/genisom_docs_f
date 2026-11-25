@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="900" viewBox="0 0 1240 900" role="img" aria-labelledby="title desc">
+  <title id="title">Control Handover Between the SDK and App</title>
+  <desc id="desc">The SDK connects first, becomes an observer when the app takes over, and requests control again after the app disconnects.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity=".08"/>
+    </filter>
+    <marker id="m-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="m-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="m-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="m-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+    <style>
+      text { font-family: Inter, "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .title { font-size: 32px; font-weight: 750; }
+      .subtitle { font-size: 17px; fill: #475569; }
+      .actor { font-size: 18px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .msg { font-size: 16px; fill: #334155; text-anchor: middle; }
+      .note-title { font-size: 15px; font-weight: 700; }
+      .note-body { font-size: 14px; }
+      .legend { font-size: 15px; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect width="1240" height="900" fill="#f8fafc"/>
+  <text x="70" y="56" class="title">Control Handover When the SDK Connects First</text>
+  <text x="70" y="88" class="subtitle">The SDK acquires control, observes during app control, and requests control again when the app disconnects.</text>
+
+  <line x1="200" y1="164" x2="200" y2="845" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 6"/>
+  <line x1="620" y1="164" x2="620" y2="845" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 6"/>
+  <line x1="1040" y1="164" x2="1040" y2="845" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <line x1="200" y1="252" x2="200" y2="403" stroke="#16a34a" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+  <line x1="200" y1="417" x2="200" y2="763" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+  <line x1="200" y1="777" x2="200" y2="838" stroke="#16a34a" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+  <line x1="1040" y1="368" x2="1040" y2="548" stroke="#2563eb" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+
+  <g filter="url(#shadow)">
+    <rect x="85" y="120" width="230" height="44" rx="12" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+    <rect x="505" y="120" width="230" height="44" rx="12" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="925" y="120" width="230" height="44" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  </g>
+  <text x="200" y="142" class="actor">SDK Client</text>
+  <text x="620" y="142" class="actor">Robot (Control Arbiter)</text>
+  <text x="1040" y="142" class="actor">App</text>
+
+  <text x="410" y="183" class="msg">① Connect() connects and performs the handshake</text>
+  <line x1="212" y1="195" x2="608" y2="195" stroke="#64748b" stroke-width="2" marker-end="url(#m-slate)"/>
+
+  <text x="410" y="233" class="msg">② First successful handshake gives the SDK control</text>
+  <line x1="608" y1="245" x2="212" y2="245" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
+
+  <text x="410" y="288" class="msg">③ Regular commands such as Move() and StandUp()</text>
+  <line x1="212" y1="300" x2="608" y2="300" stroke="#64748b" stroke-width="2" marker-end="url(#m-slate)"/>
+
+  <text x="830" y="348" class="msg">④ The app connects and takes control</text>
+  <line x1="1028" y1="360" x2="632" y2="360" stroke="#2563eb" stroke-width="2" marker-end="url(#m-blue)"/>
+
+  <text x="410" y="398" class="msg">⑤ The robot announces the change in control</text>
+  <line x1="608" y1="410" x2="212" y2="410" stroke="#dc2626" stroke-width="2" marker-end="url(#m-red)"/>
+
+  <rect x="230" y="440" width="360" height="98" rx="10" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="250" y="466" class="note-title" fill="#b45309">OnControlLost()</text>
+  <text x="250" y="488" class="note-body" fill="#78350f">Stop regular commands immediately.</text>
+  <text x="250" y="507" class="note-body" fill="#78350f">Software emergency stop remains available.</text>
+  <text x="250" y="526" class="note-body" fill="#78350f">Monitor state and faults as an observer.</text>
+
+  <text x="830" y="543" class="msg">⑥ The app disconnects</text>
+  <line x1="1028" y1="555" x2="632" y2="555" stroke="#64748b" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#m-slate)"/>
+
+  <text x="410" y="593" class="msg">⑦ The robot announces control is available</text>
+  <line x1="608" y1="605" x2="212" y2="605" stroke="#2563eb" stroke-width="2" marker-end="url(#m-blue)"/>
+
+  <rect x="230" y="635" width="360" height="62" rx="10" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="250" y="660" class="note-title" fill="#1d4ed8">OnControlAvailable()</text>
+  <text x="250" y="683" class="note-body" fill="#1e40af">Call TakeControl() if the application needs control.</text>
+
+  <text x="410" y="713" class="msg">⑧ TakeControl() requests control</text>
+  <line x1="212" y1="725" x2="608" y2="725" stroke="#64748b" stroke-width="2" marker-end="url(#m-slate)"/>
+
+  <text x="410" y="758" class="msg">⑨ OnTakeControlAck(error_code = 0) confirms control</text>
+  <line x1="608" y1="770" x2="212" y2="770" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
+
+  <text x="410" y="803" class="msg">⑩ Resume regular control commands</text>
+  <line x1="212" y1="815" x2="608" y2="815" stroke="#64748b" stroke-width="2" marker-end="url(#m-slate)"/>
+
+  <line x1="70" y1="872" x2="100" y2="872" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+  <text x="110" y="877" class="legend">SDK controls</text>
+  <line x1="260" y1="872" x2="290" y2="872" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+  <text x="300" y="877" class="legend">SDK observes</text>
+  <line x1="450" y1="872" x2="480" y2="872" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+  <text x="490" y="877" class="legend">App controls</text>
+</svg>
