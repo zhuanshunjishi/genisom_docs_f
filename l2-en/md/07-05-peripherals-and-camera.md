@@ -27,12 +27,14 @@ std::error_code UpdateCameraBitrate(
     CameraBitrateCmd cmd, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-| Field | Allowed Values |
-| --- | --- |
-| `camera_name` | `camera_front` or `camera_back` |
-| `camera_bps` | 50000 to 100000000 bit/s |
+`UpdateCameraBitrate()` changes the encoding bitrate of the selected camera stream. Pass the requested settings in `cmd`.
 
-`OnUpdateCameraBitrateAck()` reports the bitrate applied by the device.
+| `CameraBitrateCmd` Field | Purpose and Allowed Values |
+| --- | --- |
+| `camera_name` | Select the front camera (`camera_front`) or rear camera (`camera_back`). |
+| `camera_bps` | Requested bitrate, 50000 to 100000000 bit/s. |
+
+`OnUpdateCameraBitrateAck()` returns a `CameraBitrateAck`. Its `camera_name` identifies the stream and `camera_bps` gives the bitrate applied by the device.
 
 See [Camera Nodes and Topic Configuration](./camera-topic-configuration.md) for image formats, resolutions, and topic paths.
 
@@ -52,7 +54,15 @@ std::error_code GetPeriphPower(
     const PowerCtrlCfg& cfg, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-`PowerCtrlCfg` contains the power channel `power` and the on/off setting `enable`. `SetPeriphPower()` controls the protocol power channel. `GetPeriphPower()` queries the channel state. `OnSetPeriphPower()` and `OnGetPeriphPower()` report the respective results.
+| Function | Purpose and Result |
+| --- | --- |
+| `SetPeriphPower(cfg)` | Set the selected protocol power channel to the requested state. `OnSetPeriphPower()` echoes the channel and state in `PowerCtrlAck`. |
+| `GetPeriphPower(cfg)` | Query the selected channel. `OnGetPeriphPower()` returns its current reported state in `PowerCtrlAck`. |
+
+| `PowerCtrlCfg` / `PowerCtrlAck` Field | Purpose |
+| --- | --- |
+| `power` | Protocol channel to set or query. The SDK header defines `PeripheralPower::L2_24V` and `PeripheralPower::L2_AVIA` for Genisom L2. Confirm the connector mapping on the installed system before switching power. |
+| `enable` | `true` means on and `false` means off. Set it when writing. For a query, only `cfg.power` selects the channel. Read `ack.enable` for the reported state. |
 
 ### Power Safety
 
@@ -74,6 +84,8 @@ std::error_code GetLedAutoMode(
     int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
+`SetLedAutoMode(auto_mode)` selects how the LED effects are controlled. Pass `true` for automatic mode or `false` for manual mode. `GetLedAutoMode()` queries the current mode. `OnSetLedAutoMode()` and `OnGetLedAutoMode()` return a `LedAutoModeAck` with the mode in `auto_mode`.
+
 In automatic mode, the robot sets the LED effects according to its operating, warning, low-battery, and emergency stop states. In manual mode, the application can call `SetLedCommand()`.
 
 ### SetLedCommand
@@ -94,7 +106,14 @@ std::error_code SetLedCommand(
     const LedCommand& cmd, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-`LedCommand` specifies the LED group, lighting effect, RGBA color, and duration.
+`SetLedCommand(cmd)` applies an LED effect in manual mode. Read the returned settings from `LedCommandAck` in `OnSetLedCommand()`.
+
+| `LedCommand` / `LedCommandAck` Field | Purpose |
+| --- | --- |
+| `id` | LED group to control. |
+| `effect` | Lighting pattern for that group. |
+| `color` | `LedColor` with red (`r`), green (`g`), blue (`b`), and brightness/alpha (`a`). Each component ranges from 0 to 255. |
+| `duration_ms` | Effect period or blink interval in ms, depending on the effect. |
 
 | `LedId` | Meaning |
 | --- | --- |

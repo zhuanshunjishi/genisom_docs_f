@@ -4,7 +4,9 @@
 
 ## 核心类
 
-SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_client.hpp`。公开接口统一使用 `std::error_code` 报告发送、超时、连接和能力检查结果。
+`robot_sdk::SDKClient` 声明在 `include/robot_sdk/sdk_client.hpp`，负责管理连接、发送命令和注册回调。命令接口返回 `std::error_code`，状态和信息查询接口返回各自的数据类型。
+
+用 `Version()` 确认已安装的 SDK 版本，并核对机器人系统版本的兼容性。SDK v0.2.3 新增 `Walk()` 和充电桩配对接口，同时移除 `DSB()`。详见[官方 SDK 变更记录](https://github.com/zsibot/genisom_robot_sdk/blob/main/CHANGELOG.md)和[头文件](https://github.com/zsibot/genisom_robot_sdk/tree/main/include/robot_sdk)。
 
 ![SDK 命令发送流程](../assets/sdk/sdk-send-command.svg)
 
@@ -44,10 +46,11 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 | `ObstacleAvoidance()` (停障开关) | — | — | — |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
 | `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
-| `Climb()` | — | — | — |
+| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ |
+| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
 | `Gait()` | — | ✓ | ✓ |
-| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — |
+| `Slim()` / `SkWalk()` / `Sand()` | — | — | — |
 | `ReverseHeadTail()` | — | — | — |
 
 ### 运动、灯光和数据
@@ -55,6 +58,7 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 | API | L2 | L2-W | L2-W Ultra |
 | --- | :---: | :---: | :---: |
 | `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
+| `MoveVelocity()` | ✓ | ✓ | ✓ |
 | `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
 | `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
 | `BackLight()` | — | — | — |
@@ -89,6 +93,8 @@ using WriteHandler =
 | `timeout_ms == 0` | 异步发送，结果由 `WriteHandler` 返回 |
 | `timeout_ms > 0` | 同步等待，结果由函数返回值报告 |
 | `handler` | 异步发送结果回调 |
+
+`WriteHandler` 的两个参数分别为发送错误码和传输层报告的写入字节数。异步调用时也要检查立即返回的错误码，例如参数无效、未连接或能力不支持。设备应答请查看[对应回调](./08-callbacks-data-types-and-status-reference.md#icontrolcallback)，动作和任务是否完成则通过状态上报确认。
 
 常见错误：
 

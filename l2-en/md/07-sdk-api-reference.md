@@ -4,7 +4,9 @@
 
 ## Core Class
 
-The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk_client.hpp`. Its public APIs use `std::error_code` to report send results, timeouts, connection results, and capability checks.
+`robot_sdk::SDKClient` is declared in `include/robot_sdk/sdk_client.hpp`. It manages the connection, sends commands, and registers callbacks. Commands return `std::error_code`. State and information queries return their documented types.
+
+Check the installed SDK version with `Version()` and verify compatibility with the robot system before using version-specific APIs. SDK v0.2.3 adds `Walk()` and charging dock pairing APIs and removes `DSB()`. See the [official SDK changelog](https://github.com/zsibot/genisom_robot_sdk/blob/main/CHANGELOG.md) and [headers](https://github.com/zsibot/genisom_robot_sdk/tree/main/include/robot_sdk).
 
 ![Synchronous and asynchronous SDK command flow](../diagrams/sdk-send-command.svg)
 
@@ -46,10 +48,11 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 | `ObstacleAvoidance()` (Obstacle stop) | — | — | — |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
 | `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
-| `Climb()` | — | — | — |
+| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ |
+| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
 | `Gait()` | — | ✓ | ✓ |
-| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — |
+| `Slim()` / `SkWalk()` / `Sand()` | — | — | — |
 | `ReverseHeadTail()` | — | — | — |
 
 ### Motion, Lights, and Data
@@ -57,6 +60,7 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 | API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
 | --- | :---: | :---: | :---: |
 | `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
+| `MoveVelocity()` | ✓ | ✓ | ✓ |
 | `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
 | `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
 | `BackLight()` | — | — | — |
@@ -91,6 +95,8 @@ using WriteHandler =
 | `timeout_ms == 0` | Send asynchronously. `WriteHandler` reports the result. |
 | `timeout_ms > 0` | Wait synchronously. The function's return value reports the result. |
 | `handler` | Callback for the asynchronous send result |
+
+`WriteHandler` receives an error code and the number of bytes reported written. Read the error code to check the transport result. In asynchronous mode, also check the immediate return value for errors such as invalid parameters, a missing connection, or an unsupported operation. For commands with a device acknowledgment, read the corresponding [callback](./08-callbacks-data-types-and-status-reference.md#icontrolcallback). Confirm physical actions and task completion from state reports.
 
 | Common Error | Meaning |
 | --- | --- |

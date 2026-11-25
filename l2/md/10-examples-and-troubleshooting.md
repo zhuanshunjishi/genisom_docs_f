@@ -71,7 +71,7 @@ cmake --build . -j6
 
 下列操作在相应机型上不受支持。如果当前 SDK 提供对应接口，调用该接口会返回 `Errc::UnsupportedDeviceOperation`。
 
-- `Climb()`、`Slim()`、`DSB()`、`SkWalk()`、`Sand()`、`ReverseHeadTail()`。
+- `Slim()`、`SkWalk()`、`Sand()`、`ReverseHeadTail()`。SDK v0.2.3 已移除 `DSB()`。`Climb()` 的支持范围见[接口能力表](./07-sdk-api-reference.md#接口能力表)。
 - `BackLight()`。
 - 点足设备上的 `Gait()`。
 

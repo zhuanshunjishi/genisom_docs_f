@@ -71,7 +71,7 @@ The `control.cpp` example covers a range of general-purpose SDK APIs. When runni
 
 The operations below are unsupported on the applicable models. If your SDK provides a method for one of these operations, calling it on an unsupported model returns `Errc::UnsupportedDeviceOperation`.
 
-- `Climb()`, `Slim()`, `DSB()`, `SkWalk()`, `Sand()`, and `ReverseHeadTail()`.
+- `Slim()`, `SkWalk()`, `Sand()`, and `ReverseHeadTail()`. SDK v0.2.3 removes `DSB()`. Check [API Support by Model](./07-sdk-api-reference.md#api-support-by-model) for `Climb()`.
 - `BackLight()`.
 - `Gait()` on point-foot models.
 
