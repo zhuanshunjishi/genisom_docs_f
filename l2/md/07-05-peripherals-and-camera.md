@@ -38,7 +38,7 @@ std::error_code GetPeriphPower(
     const PowerCtrlCfg& cfg, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-`PowerCtrlCfg` 包含电源通道 `power` 和开关 `enable`。调用前必须确认当前系统中的协议通道与 24 V、50.4 V 实体接口对应关系。应答分别通过 `OnSetPeriphPower()` 和 `OnGetPeriphPower()` 返回。
+`PowerCtrlCfg` 包含电源通道 `power` 和开关 `enable`。调用前必须确认当前系统中的协议通道与 M12 的 24 V 输出、M14 的 VBAT 输出的对应关系，具体见[接口功能与参数](./03-hardware-interfaces-and-system-architecture.md#接口功能与参数)。应答分别通过 `OnSetPeriphPower()` 和 `OnGetPeriphPower()` 返回。
 
 ## LED 控制
 

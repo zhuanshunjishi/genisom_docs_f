@@ -24,6 +24,7 @@ export default defineConfig({
         items: [
           { text: '产品介绍与规格', link: '/md/01-product-introduction-and-specifications' },
           { text: '配件与设备组成', link: '/md/02-accessories' },
+          { text: '首次使用', link: '/md/11-first-use' },
           { text: '硬件接口与系统架构', link: '/md/03-hardware-interfaces-and-system-architecture' },
           { text: '设备操作、遥控器与 App', link: '/md/04-device-controller-and-app-guide' },
           { text: '智航 Pro 软件使用', link: '/md/05-roamerx-pro-guide' },
