@@ -1,6 +1,6 @@
 # L2 智航 Pro 软件使用
 
-[返回文档总览](../index.md) | [设备操作、遥控器与 App](./04-device-controller-and-app-guide.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
+[返回文档总览](../index.md) | [L2 设备操作与安全使用](./04-device-controller-and-app-guide.md) | [控制权、任务与外设控制](./09-control-ownership-tasks-and-peripherals.md)
 
 ## 功能范围
 

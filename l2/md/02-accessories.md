@@ -1,6 +1,6 @@
 # L2 配件与设备组成
 
-[返回文档总览](../index.md) | [产品介绍与规格](./01-product-introduction-and-specifications.md) | [设备操作、遥控器与 App](./04-device-controller-and-app-guide.md)
+[返回文档总览](../index.md) | [产品介绍与规格](./01-product-introduction-and-specifications.md) | [L2 设备操作与安全使用](./04-device-controller-and-app-guide.md)
 
 ## 随箱组成
 
@@ -63,7 +63,7 @@ L2-W Ultra 增加鱼眼相机、激光雷达、麦克风、扬声器和硬急停
 | 适配器交流输入 | 110 至 240 V AC |
 | 充电时间（25 °C） | 约 2 h |
 
-首次装入电池见[安装电池](./11-first-use.md#安装电池)。电量判断、充电和存放方法见 [L2 设备操作、遥控器与 App](./04-device-controller-and-app-guide.md)。
+首次装入电池见[安装电池](./11-first-use.md#安装电池)。相关操作见[电量指示](./04-device-controller-and-app-guide.md#电量指示)、[离机充电](./04-device-controller-and-app-guide.md#电池离机充电)和[存放](./12-maintenance.md#存放)。
 
 ## 遥控器配置
 
@@ -72,7 +72,7 @@ L2-W Ultra 增加鱼眼相机、激光雷达、麦克风、扬声器和硬急停
 | 无屏遥控器 | L2、L2-W | ![无屏遥控器](../assets/product/l2-screenless-remote-diagram.png) |
 | G12 带屏遥控器 | L2-W Ultra | ![G12 带屏遥控器](../assets/product/l2-screen-remote-product.png) |
 
-遥控器的部件、按键和急停方法见 [L2 设备操作、遥控器与 App](./04-device-controller-and-app-guide.md)。App 配网和激活见 [L2 首次使用](./11-first-use.md#安装-genisdog)。
+遥控器的部件、按键和急停方法见 [L2 设备操作与安全使用](./04-device-controller-and-app-guide.md#遥控器)。App 配网和激活见 [L2 首次使用](./11-first-use.md#安装-genisdog)。
 
 ## UWB 信标
 

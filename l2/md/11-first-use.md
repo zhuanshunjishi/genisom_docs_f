@@ -1,8 +1,8 @@
 # L2 首次使用
 
-[返回文档总览](../index.md) | [配件与设备组成](./02-accessories.md) | [设备操作、遥控器与 App](./04-device-controller-and-app-guide.md)
+[返回文档总览](../index.md) | [配件与设备组成](./02-accessories.md) | [L2 设备操作与安全使用](./04-device-controller-and-app-guide.md)
 
-本页适用于 L2、L2-W 和 L2-W Ultra，涵盖开箱、安装电池、开机、联网和 GenisDog 首次激活。界面示意图来自产品使用说明书 V1.3，按钮名称以当前 App 界面为准。
+本页适用于 L2、L2-W 和 L2-W Ultra，涵盖开箱、安装电池、开机、联网和 GenisDog 首次激活。界面示意图来自产品使用说明书 V1.3（32080071-A1），按钮名称以当前 App 界面为准。
 
 ## 开箱与摆放
 
@@ -37,8 +37,8 @@
 
 ## 安装 GenisDog
 
-- 使用安卓手机时，扫描下方二维码或[下载并安装 GenisDog App](https://p1iscu6mj28.feishu.cn/drive/folder/VlZffrW1il5Capdvy7yc4Sg7nqg?from=from_copylink)。
-- L2-W Ultra 标配的 G12 带屏遥控器已内置 GenisDog App，可在遥控器上完成配网和激活。
+- **L2、L2-W** 标配无屏遥控器。请使用安卓手机扫描下方二维码或打开 [GenisDog 下载页面](https://p1iscu6mj28.feishu.cn/drive/folder/VlZffrW1il5Capdvy7yc4Sg7nqg?from=from_copylink)，下载安装 App 后在手机上完成配网和激活。
+- **L2-W Ultra** 标配的 G12 带屏遥控器已内置 GenisDog App，可直接在遥控器上完成配网和激活。
 - 首次激活前，准备可联网的 Wi-Fi 名称和密码，或可用的上网卡。
 
 ![GenisDog 安卓版下载二维码](../assets/first-use/genisdog-download-qr.png)
@@ -76,4 +76,4 @@
 
 ![GenisDog 激活完成界面，显示进入主页的入口](../assets/first-use/genisdog-activation-complete.png)
 
-遇到蓝牙、Wi-Fi 或激活问题时，查看[设备故障排查](./04-device-controller-and-app-guide.md#设备故障排查)。日常使用时可在 App 中[切换连接方式](./04-device-controller-and-app-guide.md#切换连接方式)。
+遇到蓝牙、Wi-Fi 或激活问题时，查看[设备故障排查](./12-maintenance.md#设备故障排查)。日常使用时可在 App 中[切换连接方式](./04-device-controller-and-app-guide.md#切换连接方式)。
