@@ -7,6 +7,13 @@
 ## 连接机器人并查看话题
 
 1. 通过 Wi-Fi 或网线连接机器人，设置见[连接与流地址](./video-stream-reading.md#连接与流地址)。
+
+   通过机器人 Wi-Fi 热点接入时，先在 Linux 开发电脑上添加以下路由。热点和 Orin NX 位于不同网段，这条路由将热点网关 `192.168.234.1` 设为发往 `192.168.168.0/24` 的下一跳，使开发电脑能访问 Orin NX（`192.168.168.100`）。
+
+   ```bash
+   sudo ip route add 192.168.168.0/24 via 192.168.234.1
+   ```
+
 2. 登录 Orin NX。登录信息见[算力主机 SSH 登录](./03-system-components-and-hardware-interfaces.md#算力主机-ssh-登录)。
 
    ```bash
@@ -21,11 +28,11 @@
 
 ### 从开发电脑查看 ROS 2 话题
 
-在开发电脑上安装 ROS 2 Humble 和 `rmw_zenoh_cpp`，再通过网线或 Wi-Fi 接入机器人网络。
+在开发电脑上安装 ROS 2 Humble 和 `rmw_zenoh_cpp`，再通过网线或 Wi-Fi 接入机器人网络。通过机器人 Wi-Fi 热点接入时，先按[连接机器人并查看话题](#连接机器人并查看话题)中的步骤添加路由。
 
 1. **终端 1：连接机器人的 Zenoh 路由器**
 
-   `robot_router` 填写 Orin NX 的 Zenoh 路由地址，参考地址为 `tcp/192.168.168.100:7447`。按设备的路由配置调整，启动后保持此终端运行。
+   `robot_router` 填写 Orin NX 上的 Zenoh 路由地址，参考地址为 `tcp/192.168.168.100:7447`。按设备的路由配置调整，启动后保持此终端运行。
 
    ```bash
    source /opt/ros/humble/setup.bash
@@ -49,12 +56,23 @@
 
 ## 激光雷达、IMU 和超声波
 
+| 激光雷达 | 默认设备 IP 地址 |
+| --- | --- |
+| 前置激光雷达 | `192.168.1.200` |
+| 后置激光雷达 | `192.168.2.200` |
+
+::: tip 激光雷达数据与设备信息
+在 Orin NX 上直接读取原始数据时，可使用 RoboSense 原厂驱动 `rs_driver`。选择在线雷达模式和 `RSAIRY` 型号，按每台雷达实际配置的目标地址和 UDP 端口接收数据包并解码点云。上表的设备 IP 是雷达发包的源地址。需要将解码后的点云发布到 ROS 2 时，可使用原厂 `rslidar_sdk`。[在线雷达解码指南](https://github.com/RoboSense-LiDAR/rs_driver/blob/main/doc/howto/08_how_to_decode_online_lidar.md) · [原厂 ROS 2 SDK](https://github.com/RoboSense-LiDAR/rslidar_sdk)
+
+在能够访问雷达网段的浏览器中打开设备 IP，可通过 Web 界面查看设备信息和运行状态。[Airy 用户手册](https://robosense-robotics.github.io/product-manual/en/Airy/)
+:::
+
 可在 Orin NX 上读取下列话题。
 
 | 数据 | ROS 2 话题 | 消息类型 |
 | --- | --- | --- |
-| 前置 Ariy 96 线激光雷达点云 | `/front_lidar` | `sensor_msgs/msg/PointCloud2` |
-| 后置 Ariy 96 线激光雷达点云 | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
+| 前置 Airy 96 线激光雷达点云 | `/front_lidar` | `sensor_msgs/msg/PointCloud2` |
+| 后置 Airy 96 线激光雷达点云 | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
 | 前置激光雷达内置 IMU | `/front_lidar/imu` | `sensor_msgs/msg/Imu` |
 | 后置激光雷达内置 IMU | `/rear_lidar/imu` | `sensor_msgs/msg/Imu` |
 | Orin NX 侧独立 IMU | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
@@ -62,7 +80,7 @@
 | 左侧超声波测距（DYP-A22） | `/uss_driver/uss_left/range` | `sensor_msgs/msg/Range` |
 | 右侧超声波测距（DYP-A22） | `/uss_driver/uss_right/range` | `sensor_msgs/msg/Range` |
 
-前后雷达点云包含 `x`、`y`、`z`、`intensity`、`ring`、`timestamp`。解析点云时，以收到的消息中的 `fields`、`point_step` 和 `row_step` 为准。
+ROS 2 话题中的前后雷达点云包含 `x`、`y`、`z`、`intensity`、`ring`、`timestamp`。解析点云时，以收到的消息中的 `fields`、`point_step` 和 `row_step` 为准。
 
 独立 IMU 话题是否可用取决于设备的硬件版本。可用 `ros2 topic echo` 查看话题数据，例如 `ros2 topic echo /front_lidar/imu`。
 

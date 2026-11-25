@@ -71,33 +71,23 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>材质</td>
-      <td>铝合金与高强度工程塑料</td>
-      <td>铝合金与高强度工程塑料</td>
-      <td>铝合金与高强度工程塑料</td>
+      <td colspan="3">铝合金与高强度工程塑料</td>
     </tr>
     <tr>
       <td>工作温度</td>
-      <td>-20 至 55 °C</td>
-      <td>-20 至 55 °C</td>
-      <td>-20 至 55 °C</td>
+      <td colspan="3">-20 至 55 °C</td>
     </tr>
     <tr>
       <td>使用湿度</td>
-      <td>10%–90% RH，无凝露</td>
-      <td>10%–90% RH，无凝露</td>
-      <td>10%–90% RH，无凝露</td>
+      <td colspan="3">10%–90% RH，无凝露</td>
     </tr>
     <tr>
       <td>存储湿度</td>
-      <td>5%–95% RH，无凝露</td>
-      <td>5%–95% RH，无凝露</td>
-      <td>5%–95% RH，无凝露</td>
+      <td colspan="3">5%–95% RH，无凝露</td>
     </tr>
     <tr>
       <td>主机防护等级</td>
-      <td>IP66</td>
-      <td>IP66</td>
-      <td>IP66</td>
+      <td colspan="3">IP66</td>
     </tr>
     <tr>
       <td>轮毂电机防护等级</td>
@@ -140,9 +130,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>额定负载</td>
-      <td>16 kg</td>
-      <td>16 kg</td>
-      <td>16 kg</td>
+      <td colspan="3">16 kg</td>
     </tr>
     <tr>
       <td>持续攀爬楼梯的台阶高度</td>
@@ -152,27 +140,19 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>空载攀高台高度</td>
-      <td>70 cm</td>
-      <td>70 cm</td>
-      <td>70 cm</td>
+      <td colspan="3">70 cm</td>
     </tr>
     <tr>
       <td>空载可跨越最大距离</td>
-      <td>40 cm</td>
-      <td>40 cm</td>
-      <td>40 cm</td>
+      <td colspan="3">40 cm</td>
     </tr>
     <tr>
       <td>空载最大爬坡角度</td>
-      <td>40°</td>
-      <td>40°</td>
-      <td>40°</td>
+      <td colspan="3">40°</td>
     </tr>
     <tr>
       <td>满载最大爬坡角度</td>
-      <td>35°</td>
-      <td>35°</td>
-      <td>35°</td>
+      <td colspan="3">35°</td>
     </tr>
     <tr>
       <td>基础动作</td>
@@ -185,21 +165,15 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <th scope="rowgroup" rowspan="5">关节参数</th>
       <td>执行器类型</td>
-      <td>高功率密度运动单元</td>
-      <td>高功率密度运动单元</td>
-      <td>高功率密度运动单元</td>
+      <td colspan="3">高功率密度运动单元</td>
     </tr>
     <tr>
       <td>最大关节扭矩</td>
-      <td>95 N·m</td>
-      <td>95 N·m</td>
-      <td>95 N·m</td>
+      <td colspan="3">95 N·m</td>
     </tr>
     <tr>
       <td>铝合金精密关节电机</td>
-      <td>12 个</td>
-      <td>12 个</td>
-      <td>12 个</td>
+      <td colspan="3">12 个</td>
     </tr>
     <tr>
       <td>高性能轮毂电机</td>
@@ -209,9 +183,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>关节运动空间</td>
-      <td>机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
-      <td>机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
-      <td>机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
+      <td colspan="3">机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
     </tr>
   </tbody>
   <tbody>
@@ -224,9 +196,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>IMU</td>
-      <td>1 个</td>
-      <td>1 个</td>
-      <td>1 个</td>
+      <td colspan="3">1 个</td>
     </tr>
     <tr>
       <td>3D 激光雷达</td>
@@ -266,9 +236,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <th scope="rowgroup" rowspan="6">通信与交互</th>
       <td>Wi-Fi / 蓝牙</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
     <tr>
       <td>4G / 5G</td>
@@ -278,15 +246,11 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>补光灯</td>
-      <td>前向 1 个</td>
-      <td>前向 1 个</td>
-      <td>前向 1 个</td>
+      <td colspan="3">前向 1 个</td>
     </tr>
     <tr>
       <td>UWB</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
     <tr>
       <td>麦克风 / 扬声器</td>
@@ -296,45 +260,33 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>功能拓展接口</td>
-      <td>USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
-      <td>USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
-      <td>USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
+      <td colspan="3">USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
     </tr>
   </tbody>
   <tbody>
     <tr>
       <th scope="rowgroup" rowspan="3">拓展能力</th>
       <td>实时图像传输</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
     <tr>
       <td>OTA 升级</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
     <tr>
       <td>二次开发</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
   </tbody>
   <tbody>
     <tr>
       <th scope="rowgroup" rowspan="6">配件</th>
       <td>电池额定容量</td>
-      <td>14 Ah（705.6 Wh）</td>
-      <td>14 Ah（705.6 Wh）</td>
-      <td>14 Ah（705.6 Wh）</td>
+      <td colspan="3">14 Ah（705.6 Wh）</td>
     </tr>
     <tr>
       <td>电池重量</td>
-      <td>4.5 kg</td>
-      <td>4.5 kg</td>
-      <td>4.5 kg</td>
+      <td colspan="3">4.5 kg</td>
     </tr>
     <tr>
       <td>遥控器</td>
@@ -344,21 +296,15 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>适配器</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
     <tr>
       <td>充电座</td>
-      <td>标配</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="3">标配</td>
     </tr>
     <tr>
       <td>充电桩（包含自主回充功能）</td>
-      <td>可选配</td>
-      <td>可选配</td>
-      <td>可选配</td>
+      <td colspan="3">可选配</td>
     </tr>
   </tbody>
 </table>

@@ -132,7 +132,7 @@ std::error_code Turn(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-Roll the body in stationary mode. Use `0` to return to the neutral position, `1` to roll left, or `2` to roll right. Other values return `std::errc::invalid_argument`.
+Turn the robot in place. Use `0` to return to the neutral position, `1` to turn left, or `2` to turn right. Other values return `std::errc::invalid_argument`.
 
 ### ControlHead
 

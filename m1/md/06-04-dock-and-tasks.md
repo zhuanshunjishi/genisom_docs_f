@@ -4,7 +4,7 @@
 
 ## 充电桩配对
 
-以下接口自 SDK v0.2.3 提供，`timeout_ms` 和 `handler` 遵循[通用参数规则](./06-sdk-api-reference.md#通用参数和返回值)。
+`timeout_ms` 和 `handler` 遵循[通用参数规则](./06-sdk-api-reference.md#通用参数和返回值)。
 
 | 函数原型 | 协议类型 | 应答与结果 |
 | --- | --- | --- |

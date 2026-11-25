@@ -24,6 +24,8 @@ The diagram shows how the main controller, compute board, sensors, power modules
 | External Ethernet port | Provides wired network access | Assigned by the LAN |  |
 | SDK development computer | Runs your C++ program | Same network as the robot | Connects to the robot's Wi-Fi AP |
 
+For the default IP addresses of the front and rear LiDAR units, see [Reading Sensor Data](./sensor-data-reading.md#lidar-imu-and-ultrasonic-sensors).
+
 ## Network and Communication Ports
 
 The robot's Wi-Fi hotspot is named `M1-xxxxxxx`. The factory password is `12345678`.

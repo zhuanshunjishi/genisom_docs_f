@@ -132,7 +132,7 @@ std::error_code Turn(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-原地模式下控制机体左右翻滚：`0` 恢复，`1` 左翻滚，`2` 右翻滚。其他值返回 `std::errc::invalid_argument`。
+原地模式下控制机体旋转。`0` 恢复，`1` 左旋转，`2` 右旋转。其他值返回 `std::errc::invalid_argument`。
 
 ### ControlHead
 

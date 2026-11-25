@@ -7,6 +7,13 @@ The ROS 2 topics listed here are for the reference configuration. Available topi
 ## Connect to the Robot and List Topics
 
 1. Connect to the robot over Wi-Fi or Ethernet. See [Connections and Stream URLs](./video-stream-reading.md#connections-and-stream-urls) for network settings.
+
+   When connected through the robot's Wi-Fi hotspot, add the following route on your Linux development computer. The hotspot and the Orin NX are on different subnets. This route sends traffic for `192.168.168.0/24` through the hotspot gateway at `192.168.234.1` so your computer can reach the Orin NX at `192.168.168.100`.
+
+   ```bash
+   sudo ip route add 192.168.168.0/24 via 192.168.234.1
+   ```
+
 2. Sign in to the Orin NX. See [SSH Access to the Compute Host](./03-system-components-and-hardware-interfaces.md#ssh-access-to-the-compute-host) for credentials.
 
    ```bash
@@ -21,11 +28,11 @@ The ROS 2 topics listed here are for the reference configuration. Available topi
 
 ### List ROS 2 Topics from a Development Computer
 
-Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then connect it to the robot network over Ethernet or Wi-Fi.
+Install ROS 2 Humble and `rmw_zenoh_cpp` on the development computer, then connect it to the robot network over Ethernet or Wi-Fi. If you use the robot's Wi-Fi hotspot, first add the route described in [Connect to the Robot and List Topics](#connect-to-the-robot-and-list-topics).
 
 1. **Terminal 1 — Connect to the Robot's Zenoh Router**
 
-   Set `robot_router` to the endpoint in the Orin NX Zenoh router configuration. The reference endpoint is `tcp/192.168.168.100:7447`. Leave this terminal running after starting the router.
+   Set `robot_router` to the Zenoh router endpoint on the Orin NX. The reference endpoint is `tcp/192.168.168.100:7447`. Adjust the endpoint to match your robot's router configuration and leave this terminal running after starting the router.
 
    ```bash
    source /opt/ros/humble/setup.bash
@@ -49,12 +56,23 @@ Run `ros2 topic echo <topic>` in Terminal 2 to read messages. For custom message
 
 ## LiDAR, IMU, and Ultrasonic Sensors
 
+| LiDAR | Default Device IP Address |
+| --- | --- |
+| Front LiDAR | `192.168.1.200` |
+| Rear LiDAR | `192.168.2.200` |
+
+::: tip LiDAR Data and Device Information
+To read raw LiDAR data directly on the Orin NX, use RoboSense's `rs_driver`. Select online LiDAR mode and the `RSAIRY` model. Use each LiDAR's configured destination address and UDP ports to receive packets and decode them into point clouds. The device IP addresses above are the packet source addresses. Use RoboSense's `rslidar_sdk` if you need to publish the decoded point clouds to ROS 2. [Online LiDAR Decoding Guide](https://github.com/RoboSense-LiDAR/rs_driver/blob/main/doc/howto/08_how_to_decode_online_lidar.md) · [RoboSense ROS 2 SDK](https://github.com/RoboSense-LiDAR/rslidar_sdk)
+
+On a computer that can reach the LiDAR subnet, open the device IP address in a browser to view device information and operating status in the web interface. [Airy User Manual](https://robosense-robotics.github.io/product-manual/en/Airy/)
+:::
+
 You can read the following topics on the Orin NX.
 
 | Data | ROS 2 topic | Message type |
 | --- | --- | --- |
-| Front Ariy 96-channel LiDAR point cloud | `/front_lidar` | `sensor_msgs/msg/PointCloud2` |
-| Rear Ariy 96-channel LiDAR point cloud | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
+| Front Airy 96-channel LiDAR point cloud | `/front_lidar` | `sensor_msgs/msg/PointCloud2` |
+| Rear Airy 96-channel LiDAR point cloud | `/rear_lidar` | `sensor_msgs/msg/PointCloud2` |
 | Front LiDAR IMU | `/front_lidar/imu` | `sensor_msgs/msg/Imu` |
 | Rear LiDAR IMU | `/rear_lidar/imu` | `sensor_msgs/msg/Imu` |
 | Orin NX standalone IMU | `/imu_driver/imu_central` | `sensor_msgs/msg/Imu` |
@@ -62,7 +80,7 @@ You can read the following topics on the Orin NX.
 | Left ultrasonic range (DYP-A22) | `/uss_driver/uss_left/range` | `sensor_msgs/msg/Range` |
 | Right ultrasonic range (DYP-A22) | `/uss_driver/uss_right/range` | `sensor_msgs/msg/Range` |
 
-The front and rear point clouds contain `x`, `y`, `z`, `intensity`, `ring`, and `timestamp`. When parsing a point cloud, use `fields`, `point_step`, and `row_step` from the received message.
+The front and rear LiDAR point clouds in the ROS 2 topics contain `x`, `y`, `z`, `intensity`, `ring`, and `timestamp`. When parsing a point cloud, use `fields`, `point_step`, and `row_step` from the received message.
 
 Availability of the standalone IMU topic depends on the hardware revision. Use `ros2 topic echo` to view messages, for example `ros2 topic echo /front_lidar/imu`.
 

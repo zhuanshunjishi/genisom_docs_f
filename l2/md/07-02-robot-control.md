@@ -91,7 +91,7 @@ struct PosControlCmd {
 
 | 接口 | 参数 | 说明 |
 | --- | --- | --- |
-| [`Turn()`](#turn) | `direction` | 原地向左或向右侧倾机身 |
+| [`Turn()`](#turn) | `direction` | 原地向左或向右旋转机身 |
 | [`ControlHead()`](#controlhead) | `left_right`、`up_down` | 左右探头和俯仰 |
 | [`HighLowStance()`](#highlowstance) | `stance` | 调整站姿高度 |
 | [`SetSpeed()`](#setspeed) | `speed_level` | 设置移动速度档位 |
@@ -106,7 +106,7 @@ std::error_code Turn(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`direction` 取 `0` 时恢复，取 `1` 时向左翻滚，取 `2` 时向右翻滚。超出范围时返回 `std::errc::invalid_argument`。
+`direction` 取 `0` 时恢复，取 `1` 时左旋转，取 `2` 时右旋转。超出范围时返回 `std::errc::invalid_argument`。
 
 #### ControlHead
 

@@ -4,7 +4,7 @@
 
 ## Dock Pairing {#dock-pairing}
 
-These methods are available from SDK v0.2.3. The `timeout_ms` and `handler` parameters follow the [common parameter rules](./06-sdk-api-reference.md#common-parameters-and-return-values).
+The `timeout_ms` and `handler` parameters follow the [common parameter rules](./06-sdk-api-reference.md#common-parameters-and-return-values).
 
 | Function prototype | Protocol type | Acknowledgment and result |
 | --- | --- | --- |
