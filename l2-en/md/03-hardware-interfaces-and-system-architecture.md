@@ -47,13 +47,13 @@ The expansion compartment is on the side of the robot. Use the supplied 3 mm hex
 | 2 | M14 18PIN | PPS | 1 | For GNSS and base station synchronization, multi-device coordination, synchronized payload triggering, SLAM map time alignment, and time-aligned log analysis. |
 | 2 | M14 18PIN | Ethernet | 1 | Supports 1000 Mbps for high-speed data transfer, network access, remote monitoring, and payload communication. |
 | 2 | M14 18PIN | Power | 1 | `VBAT` output, with a total power limit of 100 W. |
-| 2 | M14 18PIN | RS485 | 1 | Differential serial bus for industrial PLCs, external sensors, and actuators. The user manual specifies a transmission distance of up to 1200 m. |
+| 2 | M14 18PIN | RS485 | 1 | Differential serial bus for industrial PLCs, external sensors, and actuators. The user manual specifies a transmission distance of up to 1,200 m. |
 | 3 | M12 17PIN | SBUS | 1 | Connects a remote control receiver or another device that supports SBUS. |
 | 3 | M12 17PIN | UART | 1 | Connects embedded systems, communication equipment, or other devices that support UART. |
 | 3 | M12 17PIN | Ethernet | 1 | Supports 1000 Mbps for high-speed data transfer, network access, remote monitoring, and payload communication. |
 | 3 | M12 17PIN | Power | 1 | 24 V output, with a total power limit of 100 W. |
 | 5 | SIM card slot | 4G/5G | 1 | For cellular communication. Supports SIM cards from China Mobile, China Unicom, and China Telecom only. |
-| Top | RTK connector | RTK | 2 | Connects RTK antennas or positioning modules on the Genisom L2-W Ultra. |
+| Top | RTK connector | RTK | 2 | The Genisom L2-W Ultra uses these connectors for RTK antennas or positioning modules. |
 
 ## Wiring Requirements
 

@@ -1,6 +1,6 @@
 # Genisom L2 Operation and Safety
 
-[Back to Documentation Overview](../index.md) | [First Use of Genisom L2](./11-first-use.md) | [Accessories and Equipment](./02-accessories.md) | [RoamerX Pro User Guide](./05-roamerx-pro-guide.md) | [Genisom L2 Maintenance, Storage, and Troubleshooting](./12-maintenance.md)
+[Back to Documentation Overview](../index.md) | [First Use of Genisom L2](./11-first-use.md) | [Accessories and Components](./02-accessories.md) | [RoamerX Pro User Guide](./05-roamerx-pro-guide.md) | [Genisom L2 Maintenance, Storage, and Troubleshooting](./12-maintenance.md)
 
 <a id="使用前检查"></a>
 
@@ -16,12 +16,12 @@
 ::: warning Abnormal Operation and Overheating
 Stop using the robot immediately if a joint is loose, the robot cannot stand normally, or it makes noticeably unusual sounds. Wait until the robot has stopped moving and is stable, then power it off and contact after-sales support for service.
 
-At low battery levels, the robot may suddenly collapse because it cannot produce enough power. Check the remaining charge before starting a task. Extended continuous operation can overheat the joint motors. Schedule breaks with the robot powered off, and avoid touching the metal surfaces of the joint motors to prevent burns.
+At low battery levels, the robot may suddenly collapse because it cannot produce enough power. Check the remaining charge before starting a task. Extended continuous operation can overheat the joint motors. Schedule breaks to stop operation and let the joint motors cool. To prevent burns, avoid touching the metal surfaces of the joint motors.
 :::
 
 ### Safe Distances and Operator Requirements
 
-- The operator must be an adult who has read and understood the entire product manual. Keep the robot in sight during operation. Operators must stay at least 2 m from the robot, and bystanders at least 3 m away. Keep the 5 m of travel path immediately ahead of the robot clear of people and pets.
+- The operator must be an adult who has read and understood the entire product manual. Keep the robot in sight during operation. Operators must stay at least 2 m from the robot, and bystanders at least 3 m away. Keep the travel path clear of people and pets for 5 m ahead of the robot.
 - Never place children or pets on the robot, even when it is stationary. Keep children and pets away from the robot while it is operating.
 - The remote controller has a communication range of about 100 m in open areas and about 20 m in areas with obstructions such as trees or walls. Shorten the operating distance as conditions require to avoid losing the connection.
 - When the robot travels on stairs or slopes, stay clear of its path and any stairs, landings, or ramps below it. Slow down and avoid sharp turns on slopes or uneven ground. Avoid turning directly on steeper slopes.
@@ -216,7 +216,7 @@ Call [`SoftEmergencyStop(true)`](./07-02-robot-control.md#softemergencystop) to 
 
 ![Location of the robot's status indicator](../assets/product/l2-status-light-location.png)
 
-The Genisom L2-W Ultra has a separate indicator on its physical emergency stop button. The light is off when the physical emergency stop is inactive and solid red when it is active.
+The Genisom L2-W Ultra has a separate indicator on its physical emergency stop button. The light is off when the physical emergency stop is not triggered and solid red while it is triggered.
 
 ## Connect the App
 

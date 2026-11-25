@@ -43,7 +43,8 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 | `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
 | `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
-| `Stair()` / `Crawl()` / `CrawlWalk()` / `Climb()` | ✓ | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
+| `Climb()` | — | — | — | — |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
 | `Gait()` | — | ✓ | ✓ | — |
 | `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |

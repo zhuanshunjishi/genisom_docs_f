@@ -1,6 +1,6 @@
 # Genisom L2 Charging Dock and Tasks
 
-[SDK API Reference](./07-sdk-api-reference.md) | [Recharge and Undocking Tasks](./09-control-ownership-tasks-and-peripherals.md#recharge-and-undock-tasks)
+[SDK API Reference](./07-sdk-api-reference.md) | [Recharge and Undock Tasks](./09-control-ownership-tasks-and-peripherals.md#recharge-and-undock-tasks)
 
 ## Tasks and Machine States
 

@@ -9,7 +9,7 @@ export default defineConfig(englishConfig(
   {
     '产品与设备': 'Product and Operation',
     '产品介绍与规格': 'Product Introduction and Specifications',
-    '配件与设备组成': 'Accessories and Equipment',
+    '配件与设备组成': 'Accessories and Components',
     '首次使用': 'First Use',
     '硬件接口与系统架构': 'Hardware Interfaces and System Architecture',
     'L2 设备操作与安全使用': 'Operation and Safety',

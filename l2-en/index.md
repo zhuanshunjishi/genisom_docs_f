@@ -13,7 +13,7 @@ Applications use `robot_sdk::SDKClient` to connect to the robot, request control
 | Chapter | Topics | When to Read |
 | --- | --- | --- |
 | [1. Product Introduction and Specifications](./md/01-product-introduction-and-specifications.md) | Foot configurations, dimensions, motion capabilities, runtime, perception, communications, and expansion options for all three variants | When choosing a model or learning about the product |
-| [2. Accessories and Equipment](./md/02-accessories.md) | Robot, battery, battery charging base, adapter, remote controller, UWB beacon, and included accessories | When unpacking or checking accessories |
+| [2. Accessories and Components](./md/02-accessories.md) | Robot, battery, battery charging base, adapter, remote controller, UWB beacon, and included accessories | When unpacking or checking accessories |
 | [3. First Use](./md/11-first-use.md) | Unpacking, positioning, installing the battery, powering on, setting up the network in GenisDog, and activating the robot | When setting up the robot for the first time |
 | [4. Hardware Interfaces and System Architecture](./md/03-hardware-interfaces-and-system-architecture.md) | Payload mounting envelope, [exterior model downloads](./md/03-hardware-interfaces-and-system-architecture.md#exterior-model-downloads), expansion compartment location, power, Gigabit Ethernet, UART, RS485, SBUS, PPS, USB, SIM card slot, and aviation connector breakout cables | Before connecting to a network or installing a payload |
 | [5. Operation and Safety](./md/04-device-controller-and-app-guide.md) | Safety checks, powering on and off, remote controllers, emergency stop, app operation, and charging | Before operating the robot |
@@ -31,7 +31,7 @@ Applications use `robot_sdk::SDKClient` to connect to the robot, request control
 For first-time use, read the following in order.
 
 1. [Product Introduction and Specifications](./md/01-product-introduction-and-specifications.md)
-2. [Accessories and Equipment](./md/02-accessories.md)
+2. [Accessories and Components](./md/02-accessories.md)
 3. [First Use](./md/11-first-use.md) for powering on, configuring the network in GenisDog, and activating the robot.
 4. [Operation and Safety](./md/04-device-controller-and-app-guide.md) for the remote controller and emergency stop.
 
@@ -65,6 +65,6 @@ If you have trouble powering on the robot, using the remote controller, or conne
 
 - Before connecting to a physical robot, place it on level ground in an open area and keep people clear of its travel path.
 - During initial testing, read the robot state before testing stand-up, lie-down, and low-speed movement.
-- A successful motion command indicates that it passed the send or acknowledgment check. Verify the actual motion state through the callbacks.
+- A successful result for a motion command confirms only that the command passed the send or acknowledgment check. Use callbacks to verify the robot's actual motion state.
 - Control applications should handle disconnections, loss of control ownership, emergency stops, and fault callbacks.
 - A software emergency stop cannot replace a physical emergency stop or an emergency stop on a remote controller that personnel can operate on site.

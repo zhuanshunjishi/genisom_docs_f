@@ -67,9 +67,11 @@ cmake --build . -j6
 
 ### control.cpp
 
-综合控制示例包含多种通用接口。L2 系列运行时只测试[接口能力表](./07-sdk-api-reference.md#接口能力表)中支持的接口。以下接口会返回 `Errc::UnsupportedDeviceOperation`：
+综合控制示例包含多种通用接口。运行示例时，只测试[接口能力表](./07-sdk-api-reference.md#接口能力表)中当前机型支持的接口。
 
-- `Slim()`、`DSB()`、`SkWalk()`、`Sand()`、`ReverseHeadTail()`。
+下列操作在相应机型上不受支持。如果当前 SDK 提供对应接口，调用该接口会返回 `Errc::UnsupportedDeviceOperation`。
+
+- `Climb()`、`Slim()`、`DSB()`、`SkWalk()`、`Sand()`、`ReverseHeadTail()`。
 - `BackLight()`、`ObstacleAvoidance()`。
 - 点足设备上的 `Gait()`。
 

@@ -87,7 +87,7 @@ ip addr
 ping <robot-ip>
 ```
 
-Replace `<robot-ip>` with the robot's IP address. The SDK defaults to UDP on port `8082`. The client uses port `8081` only if you create it with `TransportProtocol::WebSocket`. Even if the app connects or displays video, the SDK still needs to reach its own port and complete the handshake.
+Replace `<robot-ip>` with the robot's IP address. UDP is the default transport and uses port `8082`. For WebSocket, construct `SDKClient` with `TransportProtocol::WebSocket` and pass port `8081` to `Connect()`. Even if the app connects or displays video, the SDK connection requires the corresponding port on the robot to be reachable and the handshake to complete.
 
 ## Building the Examples
 

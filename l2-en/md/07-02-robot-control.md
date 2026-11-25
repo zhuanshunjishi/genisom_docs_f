@@ -9,7 +9,7 @@ std::error_code TakeControl(int timeout_ms = 0, WriteHandler handler = ...);
 std::error_code ReleaseControl(int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-Check the result from sending `TakeControl()` for transmission errors. Control is granted only when `OnTakeControlAck()` reports `error_code == 0`.
+Check the send result from `TakeControl()` for transmission errors. Control ownership is confirmed only when `OnTakeControlAck()` reports `error_code == 0`.
 
 ## Safety Control
 
@@ -32,13 +32,13 @@ Use `on == true` to activate the software emergency stop or pass `false` to clea
 | `Stair()` | Switch to a stair-climbing posture | Supported |
 | `Crawl()` | Switch to a crawling posture | Supported |
 | `CrawlWalk()` | Move while crawling | Supported |
-| `Climb()` | Switch to a posture for climbing onto a raised platform | Supported |
+| `Climb()` | Switch to a posture for climbing onto a raised platform | Unsupported |
 | `Gait()` | Switch to a precision gait | Wheeled-legged device types only |
 | `PosControl()` | Switch to the position-control posture | Supported |
 | `Locked()` | Lock the current posture | Supported |
 | `Slim()` | Switch to a posture for narrow passages | Unsupported |
 | `DSB()` | Switch to a posture for crossing rodent barriers | Unsupported |
-| `SkWalk()` | Walk with matching knee posture | Unsupported |
+| `SkWalk()` | Switch to the same-knee posture | Unsupported |
 | `Sand()` | Switch to a posture for sandy terrain | Unsupported |
 | `ReverseHeadTail()` | Reverse the front and rear directions | Unsupported |
 
@@ -92,7 +92,7 @@ struct PosControlCmd {
 | API | Parameters | Description |
 | --- | --- | --- |
 | [`Turn()`](#turn) | `direction` | Rotate the body left or right in place. |
-| [`ControlHead()`](#controlhead) | `left_right`, `up_down` | Look left or right and tilt up or down. |
+| [`ControlHead()`](#controlhead) | `left_right`, `up_down` | Lean the head left or right and raise or lower it. |
 | [`HighLowStance()`](#highlowstance) | `stance` | Adjust the standing height. |
 | [`SetSpeed()`](#setspeed) | `speed_level` | Set the movement speed level. |
 
@@ -106,7 +106,7 @@ std::error_code Turn(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-Set `direction` to `0` to return to the neutral position, `1` to rotate left, or `2` to rotate right. Other values return `std::errc::invalid_argument`.
+Set `direction` to `0` to return to the neutral position, `1` to rotate left in place, or `2` to rotate right in place. Other values return `std::errc::invalid_argument`.
 
 #### ControlHead
 
@@ -118,8 +118,8 @@ std::error_code ControlHead(
 
 | Parameter | Range | Description |
 | --- | --- | --- |
-| `left_right` | `[-1.0, 1.0]` rad/s | Positive values look left and negative values look right. |
-| `up_down` | `[-1.0, 1.0]` rad/s | Positive values tilt up and negative values tilt down. |
+| `left_right` | `[-1.0, 1.0]` rad/s | Positive values lean the head left and negative values lean it right. |
+| `up_down` | `[-1.0, 1.0]` rad/s | Positive values raise the head and negative values lower it. |
 
 Out-of-range values return `std::errc::invalid_argument`.
 

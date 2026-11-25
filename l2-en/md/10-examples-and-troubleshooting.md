@@ -67,9 +67,11 @@ Check the following.
 
 ### control.cpp
 
-The control example uses APIs shared across multiple models. On the L2 series, test only the APIs the [support matrix](./07-sdk-api-reference.md#api-support-by-model) lists for your model. The following operations return `Errc::UnsupportedDeviceOperation` when the method exists in your SDK release.
+The `control.cpp` example covers a range of general-purpose SDK APIs. When running the example, test only the APIs the [support matrix](./07-sdk-api-reference.md#api-support-by-model) lists for your model.
 
-- `Slim()`, `DSB()`, `SkWalk()`, `Sand()`, and `ReverseHeadTail()`.
+The operations below are unsupported on the applicable models. If your SDK provides a method for one of these operations, calling it on an unsupported model returns `Errc::UnsupportedDeviceOperation`.
+
+- `Climb()`, `Slim()`, `DSB()`, `SkWalk()`, `Sand()`, and `ReverseHeadTail()`.
 - `BackLight()` and `ObstacleAvoidance()`.
 - `Gait()` on point-foot models.
 
@@ -212,7 +214,7 @@ On ARM64, use `lib/aarch64`. An `Exec format error` or failure to load usually i
 
 ### The Motion Command Sends Successfully but the State Does Not Change
 
-A successful send indicates that the command passed the SDK checks and entered the communication flow. Check the following.
+A successful send only indicates that the command passed the SDK checks and entered the communication flow. Check the following.
 
 - Whether the corresponding `IControlCallback` acknowledgment arrived.
 - Whether `motion_status` reached the target state.

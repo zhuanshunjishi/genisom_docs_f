@@ -113,7 +113,7 @@ Links define the routes the robot can take. Every segment must lie in an area th
 5. Mark areas with temporary obstacles as temporary no-go zones.
 6. Save the route and check every link.
 
-At action points, the robot performs actions such as taking photos. Waypoints only guide the robot along the route.
+At action points, the robot performs actions such as taking photos. Waypoints only constrain the robot's path.
 
 ![Editing target points for a cruise task](../assets/navigation/navigation-mapping-ui.png)
 
@@ -141,11 +141,11 @@ Continuously monitor the robot's position, trajectory, and target point status d
 | Item | Condition |
 | --- | --- |
 | Static obstacles | Forward field of view of about 115°, height and width both greater than 30 cm, reflectivity at least 10% |
-| Moving obstacles | Pedestrians, vehicles, and two-wheeled vehicles within the forward field of view of about 115°. Vehicles and two-wheeled vehicles must travel at no more than 1.5 m/s. |
+| Moving obstacles | Within the forward field of view of about 115°, obstacle avoidance applies to pedestrians and to vehicles or two-wheeled vehicles traveling at up to 1.5 m/s. |
 | Clearance to go around obstacles | More than the robot body width plus 60 cm |
 | Forward blind zone | About 30 cm in front of the LiDAR sensor |
 
-If there is insufficient space, the robot brakes to a stop and waits. Watch closely for fast-moving vehicles, low, transparent, or highly reflective objects, and obstacles that enter the close-range blind zone.
+If there is insufficient space, the robot brakes to a stop and waits. Watch closely for fast-moving vehicles, low objects, transparent objects, highly reflective objects, and obstacles that enter the close-range blind zone.
 
 <a id="自主回充与出桩"></a>
 

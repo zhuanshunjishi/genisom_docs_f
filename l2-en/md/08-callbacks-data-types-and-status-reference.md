@@ -58,7 +58,7 @@ public:
 
 ## IControlCallback
 
-Control callbacks acknowledge receipt of commands by the robot. The table lists the main categories.
+Control callbacks acknowledge that the robot has received a command. The table lists the main categories.
 
 | Category | Callbacks |
 | --- | --- |
@@ -206,7 +206,7 @@ Common `MotionStatus` values are listed below.
 | `MOTION_STATUS_GAIT` | Precision gait, available on wheeled-legged device types |
 | `MOTION_STATUS_POS_CONTROL` | Position control |
 
-Some enum values may be unavailable on the current device. Do not force state values to bypass SDK capability checks.
+Some enum values may be unavailable on the current device. Do not bypass SDK capability checks by forcibly writing state values.
 
 ### Machine Status
 

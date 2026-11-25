@@ -24,7 +24,7 @@ Check the contents against the packing list as soon as you unpack the robot. If 
 | Quick start guide | 1 | Common procedures |
 | Packing list | 1 | Verifies package contents |
 | Certificate of conformity | 1 | Product identification |
-| Maintenance tools and accessories | 1 | Basic maintenance and removal and installation of interface covers |
+| Maintenance tools and accessories | 1 | For basic maintenance and for removing and installing interface covers |
 
 ## Robot Body
 
@@ -80,7 +80,7 @@ The UWB beacon locates the target in follow mode. Before use, check the battery 
 
 ## Charging Dock
 
-The optional charging dock supports autonomous return-to-dock charging. Before using RoamerX Pro to return a Genisom L2-W Ultra to the dock, install the dock, pair it over Bluetooth, mark the charging point on the map, and calibrate its orientation. See the [Genisom L2 RoamerX Pro Guide](./05-roamerx-pro-guide.md). For SDK docking and undocking prerequisites, see [Genisom L2 Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md).
+The optional charging dock supports autonomous return-to-dock charging. Before using RoamerX Pro to return a Genisom L2-W Ultra to the dock, install the dock, pair it over Bluetooth, mark the charging point on the map, and calibrate its orientation. See the [RoamerX Pro User Guide](./05-roamerx-pro-guide.md). For SDK docking and undocking prerequisites, see [Genisom L2 Control Ownership, Tasks, and Peripheral Control](./09-control-ownership-tasks-and-peripherals.md).
 
 ## Arrival Inspection
 

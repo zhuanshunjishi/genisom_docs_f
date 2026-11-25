@@ -32,7 +32,7 @@ std::error_code SoftEmergencyStop(
 | `Stair()` | 登阶姿态 | 支持 |
 | `Crawl()` | 匍匐姿态 | 支持 |
 | `CrawlWalk()` | 匍匐行走 | 支持 |
-| `Climb()` | 爬高台姿态 | 支持 |
+| `Climb()` | 爬高台姿态 | 不支持 |
 | `Gait()` | 精细步态 | 仅轮足设备类型支持 |
 | `PosControl()` | 位置控制姿态 | 支持 |
 | `Locked()` | 锁定当前姿态 | 支持 |
@@ -106,7 +106,7 @@ std::error_code Turn(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`direction` 取 `0` 时恢复，取 `1` 时左旋转，取 `2` 时右旋转。超出范围时返回 `std::errc::invalid_argument`。
+`direction` 取 `0` 时恢复，取 `1` 时原地左旋转，取 `2` 时原地右旋转。超出范围时返回 `std::errc::invalid_argument`。
 
 #### ControlHead
 

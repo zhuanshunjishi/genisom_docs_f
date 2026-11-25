@@ -312,7 +312,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
 ## Specification Notes
 
 - Dimensions, weight, motion performance, and electrical specifications come from the *Genisom L2 Series Robot User Manual*, V1.3. Actual performance may vary with operating conditions, usage, and product configuration.
-- Do not command forward or upward jumps while the robot is carrying a payload.
+- The robot must not jump forward or upward while carrying a payload.
 - Product configurations and features evolve over time. Check the delivered unit for its actual appearance, interfaces, and features.
 - For the electrical specifications, power limits, and pinouts of the expansion interfaces, see [Hardware Interfaces and System Architecture](./03-hardware-interfaces-and-system-architecture.md).
 - For payload or mechanical design, download the [Genisom L2 and Genisom L2-W Ultra exterior models](./03-hardware-interfaces-and-system-architecture.md#exterior-model-downloads).

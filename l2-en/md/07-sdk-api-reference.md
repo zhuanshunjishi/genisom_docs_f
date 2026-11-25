@@ -45,13 +45,12 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 | `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
 | `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
-| `Stair()` / `Crawl()` / `CrawlWalk()` / `Climb()` | ✓ | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
+| `Climb()` | — | — | — | — |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
 | `Gait()` | — | ✓ | ✓ | — |
 | `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |
 | `ReverseHeadTail()` | — | — | — | — |
-
-The `DSB()` entry applies to earlier SDK releases that expose this method. SDK v0.2.3 removed it. [SDK changelog](https://github.com/zsibot/genisom_robot_sdk/blob/main/CHANGELOG.md#v023---2026)
 
 ### Motion, Lights, and Data
 

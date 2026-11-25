@@ -14,7 +14,7 @@ Power off the robot before cleaning or servicing it. Unplug the battery charging
 
 | Interval | Checks and Maintenance |
 | --- | --- |
-| Before each use | Check the body and leg linkages, joints, foot pads or tires, fasteners, wire harnesses, and connector covers. Check that the battery is free of swelling and leaks, the terminals are clean, and the battery is fully latched. Check video transmission. Test from within 10 m to verify a stable remote control signal and prompt response. Check that the robot moves smoothly and quietly. Recharge the battery if it is below 20%. |
+| Before each use | Check the body and leg linkages, joints, foot pads or tires, fasteners, wire harnesses, and connector covers. Check that the battery is free of swelling and leaks, the terminals are clean, and the battery is fully latched. Check video transmission. Test from within 10 m to verify a stable remote control signal and prompt response. Check that the robot moves smoothly and makes no unusual noises. Recharge the battery if it is below 20%. |
 | Weekly | Clean the body, the areas around the sensors, and gaps around the joints. Remove debris wrapped around the tires. Check joint movement, screws, and cables for binding, unusual noise, looseness, or wear. |
 | Monthly | Remove dust from internal gaps and inspect the tires and leg-to-body connections. Inspect the battery case and bottom terminals. Follow the user manual to discharge the battery to 30% and then recharge it to 60%. |
 
@@ -25,7 +25,7 @@ Power off the robot before cleaning or servicing it. Unplug the battery charging
 
 Before storage, clean the surfaces of the robot, remote controller, battery, and battery charging base. Keep liquids out of connectors and vents. Check that all components are undamaged and work correctly.
 
-If you plan to leave the robot unused for more than 30 days, power it off, remove the battery, and place the robot in its original box in its natural prone position. Charge the battery to 50%–60% and keep the terminals away from metal objects. Turn off the remote controller and put it in its protective case. Store the charger separately. Store the equipment in a dry, well-ventilated place at -20 to 60 °C, away from strong magnetic fields and sources of heavy vibration. Do not stack heavy objects on the box.
+If you plan to leave the robot unused for more than 30 days, power it off, remove the battery, and place the robot in its dedicated packaging box, keeping it in its natural prone position. Charge the battery to 50%–60% and keep the terminals away from metal objects. Turn off the remote controller and put it in its protective case. Store the charger separately. Store the equipment in a dry, well-ventilated place at -20 to 60 °C, away from strong magnetic fields and sources of heavy vibration. Do not stack heavy objects on the box.
 
 - For 1 to 3 months of storage, check the equipment for damage and check the battery level monthly. If the battery drops below 40%, charge it to 50%–60%. Charge it at least once every 3 months during storage.
 - For more than 3 months of storage, discharge the battery to 30% and recharge it to 60% every month. Every 2 months, power on and run the robot for 5 to 10 minutes. Check that the remote controller and charger work every 3 months.
