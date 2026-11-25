@@ -111,6 +111,11 @@ See [Docking and Undocking Tasks](./06-04-dock-and-tasks.md#docking-and-undockin
 
 ## Switching Between Remote and Idle States
 
+```cpp
+std::error_code SwitchRemoteState(int timeout_ms = 0, WriteHandler handler = ...);
+std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
+```
+
 | Function | Purpose | Acknowledgment callback |
 | --- | --- | --- |
 | `SwitchRemoteState()` | Switch to remote control state | `OnSwitchRemote()` |

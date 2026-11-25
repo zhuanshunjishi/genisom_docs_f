@@ -9,9 +9,9 @@ The core class in the Genisom M1 SDK is `robot_sdk::SDKClient`, declared in `rob
 | Interface Chapter | Main elements | Common interfaces |
 | --- | --- | --- |
 | [Connect to Device Information](./06-01-connection-and-device-info.md) | Client construction, connection and reconnection, version queries, and model capabilities | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
-| [Robotic control](./06-02-robot-control.md) | Control ownership, software emergency stop, and posture and motion commands | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
+| [Robotic control](./06-02-robot-control.md) | Control ownership, software emergency stop, posture and motion commands, and [switching between remote and idle states](./05-sdk-control-flow-and-task-handling.md#switching-between-remote-and-idle-states) | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
 | [Data reporting](./06-03-data-reporting.md) | Register callbacks and configure sensor and high-frequency status reporting | `SetControlCallback()`, `SetDataCallback()`, `SetImuConfig()` |
-| [Dock and Tasks](./06-04-dock-and-tasks.md) | Scan for and pair charging docks, run recharge and undocking tasks, and switch the robot’s operating state | `SetDockScanConfig()`, `ConnectDock()`, `StartRechargeTask()`, `StartUnDockTask()` |
+| [Dock and Tasks](./06-04-dock-and-tasks.md) | Scan for and pair charging docks and run recharge and undocking tasks | `SetDockScanConfig()`, `ConnectDock()`, `StartRechargeTask()`, `StartUnDockTask()` |
 | [External and Camera](./06-05-peripherals-and-camera.md) | Fill lights, obstacle stop, camera bitrate, peripheral power, and status LEDs | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
 
 ## Common Parameters and Return Values {#common-parameters-and-return-values}

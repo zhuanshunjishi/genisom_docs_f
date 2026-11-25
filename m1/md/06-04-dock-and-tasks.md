@@ -1,17 +1,8 @@
 # 充电桩与任务
 
-[接口概览](./06-sdk-api-reference.md) | [通用参数和返回值](./06-sdk-api-reference.md#通用参数和返回值)
+[接口概览](./06-sdk-api-reference.md) | [通用参数和返回值](./06-sdk-api-reference.md#通用参数和返回值) | [远程和空闲状态切换](./05-sdk-control-flow-and-task-handling.md#远程和空闲状态切换)
 
 ## 充电桩配对
-
-`timeout_ms` 和 `handler` 遵循[通用参数规则](./06-sdk-api-reference.md#通用参数和返回值)。
-
-| 函数原型 | 协议类型 | 应答与结果 |
-| --- | --- | --- |
-| `std::error_code SetDockScanConfig(bool on, int timeout_ms = 0, WriteHandler handler = ...)` | 1008（`target=302`） | `OnDockScanConfig()` 确认开启或停止扫描，`OnDockScanResult()` 上报发现的设备（1018） |
-| `std::error_code ConnectDock(const DockConnectConfig& config, int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | 通过 `config.address` 指定充电桩。检查 `OnDockConnectionAck()` 的受理结果和 `OnDockConnectionResult()` 的最终结果（1024） |
-| `std::error_code GetDockInfo(int timeout_ms = 0, WriteHandler handler = ...)` | 1023 | `OnDockInfo()` 返回充电桩信息以及连接、接触和充电状态 |
-| `std::error_code DisconnectDock(int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | 断开当前充电桩，使用与连接操作相同的应答和结果回调 |
 
 ### 充电桩配对流程
 
@@ -22,28 +13,34 @@ SDK v0.2.3 支持扫描、连接、查询和断开 BLE 充电桩。确认机器�
 3. 调用 `SetDockScanConfig(false)`，收到关闭扫描确认后，将选中的地址填入 `DockConnectConfig::address` 并调用 `ConnectDock()`。
 4. 检查 `OnDockConnectionAck()` 的 `accepted`。请求受理后，等待 `OnDockConnectionResult()` 并检查 `success` 和 `error_code`。
 5. 配对成功后调用 `GetDockInfo()`，通过 `OnDockInfo()` 查看 `dock_connected`、`has_contact` 和 `charging_active`。
-6. 需要解除连接时调用 `DisconnectDock()`，同样等待受理应答和最终结果。
 
-一次只发起一个连接或断开操作。函数返回值和 `WriteHandler` 用于检查调用与发送结果，`OnDockConnectionResult()` 用于确认配对操作的最终结果。机器人执行自主回充或离桩时，进度和结果由 `OnTaskStateData()` 上报。
+需要解除连接时，调用 `DisconnectDock()` 并等待受理应答和最终结果。
+
+一次只发起一个连接或断开操作。函数返回值和 `WriteHandler` 用于检查调用与发送结果，`OnDockConnectionResult()` 用于确认配对操作的最终结果。
 
 字段说明见[充电桩数据](./07-callbacks-data-types-and-status-reference.md#充电桩数据)，完整调用示例见[充电桩配对示例](./08-examples-and-troubleshooting.md#充电桩配对示例)。
 
-## 任务和机器状态
+### 配对接口
+
+`timeout_ms` 和 `handler` 遵循[通用参数规则](./06-sdk-api-reference.md#通用参数和返回值)。
+
+| 函数原型 | 协议类型 | 应答与结果 |
+| --- | --- | --- |
+| `std::error_code SetDockScanConfig(bool on, int timeout_ms = 0, WriteHandler handler = ...)` | 1008（`target=302`） | `OnDockScanConfig()` 确认开启或停止扫描，`OnDockScanResult()` 上报发现的设备（1018） |
+| `std::error_code ConnectDock(const DockConnectConfig& config, int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | 通过 `config.address` 指定充电桩。检查 `OnDockConnectionAck()` 的受理结果和 `OnDockConnectionResult()` 的最终结果（1024） |
+| `std::error_code GetDockInfo(int timeout_ms = 0, WriteHandler handler = ...)` | 1023 | `OnDockInfo()` 返回充电桩信息以及连接、接触和充电状态 |
+| `std::error_code DisconnectDock(int timeout_ms = 0, WriteHandler handler = ...)` | 1022 | 断开当前充电桩，使用与连接操作相同的应答和结果回调 |
+
+## 充电与离桩任务
+
+### 任务接口 {#任务和机器状态}
 
 ```cpp
 std::error_code StartRechargeTask(int timeout_ms = 0, WriteHandler handler = ...);
 std::error_code StopRechargeTask(int timeout_ms = 0, WriteHandler handler = ...);
 std::error_code StartUnDockTask(int timeout_ms = 0, WriteHandler handler = ...);
 std::error_code StopUnDockTask(int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code SwitchRemoteState(int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
 ```
-
-命令发送结果由返回值或 `WriteHandler` 获取；命令应答由 `IControlCallback` 获取；任务执行过程和最终状态由 `OnTaskStateData()` 获取。不要把“命令已发送”当作“任务已完成”。
-
-远程控制与空闲状态的切换及应答见 [M1 SDK 控制流程](./05-sdk-control-flow-and-task-handling.md#远程和空闲状态切换)。
-
-## 充电与离桩任务
 
 | 函数 | 功能 |
 | --- | --- |
@@ -52,7 +49,7 @@ std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
 | `StartUnDockTask()` | 启动自主离桩任务 |
 | `StopUnDockTask()` | 停止自主离桩任务 |
 
-任务命令同样需要依次判断调用层、应答层和执行层。`OnStartRechargeTask()` 等应答表示机器人已经处理启动或停止请求，`OnTaskStateData()` 才用于跟踪任务的运行和最终结果。
+任务命令需要依次检查调用结果、命令应答和任务执行状态。返回值或 `WriteHandler` 用于检查调用与发送结果。`IControlCallback` 中的 `OnStartRechargeTask()` 等应答表示机器人已处理启动或停止请求。通过 `OnTaskStateData()` 跟踪任务运行和最终结果。
 
 ```cpp
 void OnTaskStateData(const TaskStateInfo& info) override {
@@ -78,6 +75,6 @@ void OnTaskStateData(const TaskStateInfo& info) override {
 
 需要中途停止离桩任务时调用 `StopUnDockTask()`，并等待 `TaskType::UNDOCK` 的状态变为 `STOPPED`。
 
-接口原型见 [任务和机器状态](#任务和机器状态)，任务状态结构见 [M1 回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md#任务状态)。
+任务状态结构见 [M1 回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md#任务状态)。
 
 参见[回充、离桩与充电桩标定的使用条件和故障排查](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_recharge_undock_calibration_conditions_zh.md)。

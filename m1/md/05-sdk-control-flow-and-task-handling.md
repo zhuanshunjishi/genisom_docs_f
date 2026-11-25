@@ -111,6 +111,11 @@ if (ec) {
 
 ## 远程和空闲状态切换
 
+```cpp
+std::error_code SwitchRemoteState(int timeout_ms = 0, WriteHandler handler = ...);
+std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
+```
+
 | 函数 | 功能 | 应答回调 |
 | --- | --- | --- |
 | `SwitchRemoteState()` | 切换到远程控制状态 | `OnSwitchRemote()` |

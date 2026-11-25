@@ -9,9 +9,9 @@ M1 SDK 的核心类是 `robot_sdk::SDKClient`，头文件为 `robot_sdk/sdk_clie
 | 接口章节 | 主要内容 | 常用接口 |
 | --- | --- | --- |
 | [连接与设备信息](./06-01-connection-and-device-info.md) | 客户端构造、连接与重连、版本查询及机型能力 | `SDKClient`、`Connect()`、`GetConnectionState()`、`GetDeviceInfo()` |
-| [机器人控制](./06-02-robot-control.md) | 控制权、软件急停、姿态和运动命令 | `TakeControl()`、`SoftEmergencyStop()`、`StandUp()`、`Move()` |
+| [机器人控制](./06-02-robot-control.md) | 控制权、软件急停、姿态和运动命令、[远程和空闲状态切换](./05-sdk-control-flow-and-task-handling.md#远程和空闲状态切换) | `TakeControl()`、`SoftEmergencyStop()`、`StandUp()`、`Move()` |
 | [数据上报](./06-03-data-reporting.md) | 注册回调，配置传感器及高频状态上报 | `SetControlCallback()`、`SetDataCallback()`、`SetImuConfig()` |
-| [充电桩与任务](./06-04-dock-and-tasks.md) | 充电桩扫描、配对、回充与离桩任务、机器状态切换 | `SetDockScanConfig()`、`ConnectDock()`、`StartRechargeTask()`、`StartUnDockTask()` |
+| [充电桩与任务](./06-04-dock-and-tasks.md) | 充电桩扫描、配对、回充与离桩任务 | `SetDockScanConfig()`、`ConnectDock()`、`StartRechargeTask()`、`StartUnDockTask()` |
 | [外设与相机](./06-05-peripherals-and-camera.md) | 补光灯、停障开关、相机码率、外设电源和状态 LED | `FrontLight()`、`UpdateCameraBitrate()`、`SetPeriphPower()`、`SetLedCommand()` |
 
 ## 通用参数和返回值
