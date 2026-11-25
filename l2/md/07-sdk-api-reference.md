@@ -33,42 +33,10 @@
 
 `✓` 表示 SDK 不会因设备类型拒绝接口。`—` 表示 SDK 返回 `Errc::UnsupportedDeviceOperation`，并且不发送命令。
 
+<!-- TODO: 待确认 L2F Ultra(点足环视) 对 Walk()、MoveVelocity() 的能力取值 -->
+
 ### 连接、信息与基础控制
 
-<<<<<<< HEAD
-| API | L2 | L2-W | L2-W Ultra |
-| --- | :---: | :---: | :---: |
-| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ |
-| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ |
-| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ |
-| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ |
-| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ |
-| `GetDeviceInfo()` | ✓ | ✓ | ✓ |
-| `SoftEmergencyStop()` | ✓ | ✓ | ✓ |
-| `ObstacleAvoidance()` (停障开关) | — | — | — |
-| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
-| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
-| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ |
-| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) |
-| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
-| `Gait()` | — | ✓ | ✓ |
-| `Slim()` / `SkWalk()` / `Sand()` | — | — | — |
-| `ReverseHeadTail()` | — | — | — |
-
-### 运动、灯光和数据
-
-| API | L2 | L2-W | L2-W Ultra |
-| --- | :---: | :---: | :---: |
-| `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
-| `MoveVelocity()` | ✓ | ✓ | ✓ |
-| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
-| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
-| `BackLight()` | — | — | — |
-| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ |
-| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ |
-| `SetJointStateConfig()` | ✓ | ✓ | ✓ |
-| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ |
-=======
 | API | L2 | L2-W | L2-W Ultra | L2F Ultra |
 | --- | :---: | :---: | :---: | :---: |
 | `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
@@ -80,10 +48,11 @@
 | `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
 | `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
-| `Climb()` | — | — | — | — |
+| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ | ✓ |
+| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) | — |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
 | `Gait()` | — | ✓ | ✓ | — |
-| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |
+| `Slim()` / `SkWalk()` / `Sand()` | — | — | — | — |
 | `ReverseHeadTail()` | — | — | — | — |
 
 ### 运动、灯光和数据
@@ -91,6 +60,7 @@
 | API | L2 | L2-W | L2-W Ultra | L2F Ultra |
 | --- | :---: | :---: | :---: | :---: |
 | `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
+| `MoveVelocity()` | ✓ | ✓ | ✓ | ✓ |
 | `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
 | `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
 | `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
@@ -98,7 +68,6 @@
 | `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
 | `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
 | `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
->>>>>>> parent of 3731631 (update)
 
 ### 控制权、任务和外设
 

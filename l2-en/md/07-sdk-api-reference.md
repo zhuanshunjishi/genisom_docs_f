@@ -35,42 +35,10 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 
 `✓` means the device type passes the SDK capability check for that API. For `—`, the SDK returns `Errc::UnsupportedDeviceOperation` without sending the command.
 
+<!-- TODO: confirm L2F Ultra (point-foot with surround view) support for Walk() and MoveVelocity() -->
+
 ### Connection, Information, and Basic Control
 
-<<<<<<< HEAD
-| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
-| --- | :---: | :---: | :---: |
-| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ |
-| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ |
-| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ |
-| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ |
-| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ |
-| `GetDeviceInfo()` | ✓ | ✓ | ✓ |
-| `SoftEmergencyStop()` | ✓ | ✓ | ✓ |
-| `ObstacleAvoidance()` (Obstacle stop) | — | — | — |
-| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
-| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
-| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ |
-| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) |
-| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
-| `Gait()` | — | ✓ | ✓ |
-| `Slim()` / `SkWalk()` / `Sand()` | — | — | — |
-| `ReverseHeadTail()` | — | — | — |
-
-### Motion, Lights, and Data
-
-| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
-| --- | :---: | :---: | :---: |
-| `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
-| `MoveVelocity()` | ✓ | ✓ | ✓ |
-| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
-| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
-| `BackLight()` | — | — | — |
-| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ |
-| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ |
-| `SetJointStateConfig()` | ✓ | ✓ | ✓ |
-| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ |
-=======
 | API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
 | --- | :---: | :---: | :---: | :---: |
 | `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
@@ -82,10 +50,11 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 | `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
 | `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
-| `Climb()` | — | — | — | — |
+| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ | ✓ |
+| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) | — |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
 | `Gait()` | — | ✓ | ✓ | — |
-| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — | — |
+| `Slim()` / `SkWalk()` / `Sand()` | — | — | — | — |
 | `ReverseHeadTail()` | — | — | — | — |
 
 ### Motion, Lights, and Data
@@ -93,6 +62,7 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 | API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
 | --- | :---: | :---: | :---: | :---: |
 | `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
+| `MoveVelocity()` | ✓ | ✓ | ✓ | ✓ |
 | `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
 | `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
 | `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
@@ -100,7 +70,6 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 | `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
 | `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
 | `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
->>>>>>> parent of 3731631 (update)
 
 ### Control Ownership, Tasks, and Peripherals
 
