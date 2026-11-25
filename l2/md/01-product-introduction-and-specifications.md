@@ -22,64 +22,346 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
 
 ## 系列型号
 
-| 产品版本 | 产品型号 | 足端结构 | 主要能力 |
-| --- | --- | --- | --- |
-| L2 | `ZSXG06` | 点足 | 复杂地形运动、智能避障、自主跟随和二次开发 |
-| L2-W | `ZSXG07` | 轮足 | 轮足高速移动、智能避障、自主跟随和二次开发 |
-| L2-W Ultra | `ZSXG09` | 轮足 | 多传感器融合感知、自主导航、融合避障和全向自主跟随 |
+| 产品版本 | 产品型号 | 足端结构 |
+| --- | --- | --- |
+| L2 | `ZSXG06` | 点足 |
+| L2-W | `ZSXG07` | 轮足 |
+| L2-W Ultra | `ZSXG09` | 轮足 |
 
 ## 产品规格
 
-| 分类 | 规格 | <a :href="l2Image"><img :src="l2Image" alt="L2 点足四足机器人" class="spec-product-image"></a><br><strong>L2</strong> | <a :href="l2wImage"><img :src="l2wImage" alt="L2-W 轮足四足机器人" class="spec-product-image"></a><br><strong>L2-W</strong> | <a :href="l2wUltraImage"><img :src="l2wUltraImage" alt="L2-W Ultra 轮足四足机器人" class="spec-product-image"></a><br><strong>L2-W Ultra</strong> |
-| --- | --- | --- | --- | --- |
-| 基础信息 | 站立尺寸（长 × 宽 × 高） | 720 × 395 × 475 mm | 765 × 480 × 500 mm | 765 × 480 × 510 mm |
-|  | 趴地尺寸（长 × 宽 × 高） | 780 × 450 × 195 mm | 785 × 580 × 195 mm | 785 × 580 × 210 mm |
-|  | 整机重量（含电池） | 22 kg | 27.6 kg | 28.6 kg |
-|  | 材质 | 铝合金与高强度工程塑料 | 铝合金与高强度工程塑料 | 铝合金与高强度工程塑料 |
-|  | 工作温度 | -20 至 55 °C | -20 至 55 °C | -20 至 55 °C |
-|  | 使用湿度 | 10%–90% RH，无凝露 | 10%–90% RH，无凝露 | 10%–90% RH，无凝露 |
-|  | 存储湿度 | 5%–95% RH，无凝露 | 5%–95% RH，无凝露 | 5%–95% RH，无凝露 |
-|  | 主机防护等级 | IP66 | IP66 | IP66 |
-|  | 轮毂电机防护等级 | / | IP67 | IP67 |
-| 性能参数 | 标配算力 | 8 核高性能 CPU | 8 核高性能 CPU | 8 核高性能 CPU + 6 核高性能 CPU（80 TOPS） |
-|  | 自由度 | 12 | 16（12 + 4） | 16（12 + 4） |
-|  | 空载续航时间 | 5.5 h | 5.5 h | 4.5 h |
-|  | 满载续航时间 | 3.5 h | 3.5 h | 3 h |
-|  | 空载最大速度 | 3.0 m/s | 3.7 m/s | 3.7 m/s |
-|  | 额定负载 | 16 kg | 16 kg | 16 kg |
-|  | 持续攀爬楼梯的台阶高度 | 22 cm | 25 cm | 25 cm |
-|  | 空载攀高台高度 | 70 cm | 70 cm | 70 cm |
-|  | 空载可跨越最大距离 | 40 cm | 40 cm | 40 cm |
-|  | 空载最大爬坡角度 | 40° | 40° | 40° |
-|  | 满载最大爬坡角度 | 35° | 35° | 35° |
-|  | 基础动作 | 站立、卧倒、匍匐、匍匐前进、向前跳、向上跳 | 站立、卧倒、匍匐、匍匐前进、向前跳、向上跳 | 站立、卧倒、匍匐、匍匐前进 |
-| 关节参数 | 执行器类型 | 高功率密度运动单元 | 高功率密度运动单元 | 高功率密度运动单元 |
-|  | 最大关节扭矩 | 95 N·m | 95 N·m | 95 N·m |
-|  | 铝合金精密关节电机 | 12 个 | 12 个 | 12 个 |
-|  | 高性能轮毂电机 | / | 4 个 | 4 个 |
-|  | 关节运动空间 | 机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156° | 机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156° | 机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156° |
-| 感知能力 | 相机类型 | 双目相机 | 双目相机 | 双目相机和 4 个鱼眼相机 |
-|  | IMU | 1 个 | 1 个 | 1 个 |
-|  | 3D 激光雷达 | / | / | 标配 |
-|  | GPS/RTK 定位模块 | / | / | 标配 |
-| 智能决策 | 自主导航 | / | / | 标配 |
-|  | 智能避障 | 标配 | 标配 | 激光 + 视觉融合避障 |
-|  | 自主跟随 | 标配 | 标配 | GLUE 全向自主跟随 |
-| 通信与交互 | Wi-Fi / 蓝牙 | 标配 | 标配 | 标配 |
-|  | 4G / 5G | 4G | 4G | 5G |
-|  | 补光灯 | 前向 1 个 | 前向 1 个 | 前向 1 个 |
-|  | UWB | 标配 | 标配 | 标配 |
-|  | 麦克风 / 扬声器 | / | / | 标配 |
-|  | 功能拓展接口 | USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1 | USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1 | USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1 |
-| 拓展能力 | 实时图像传输 | 标配 | 标配 | 标配 |
-|  | OTA 升级 | 标配 | 标配 | 标配 |
-|  | 二次开发 | 标配 | 标配 | 标配 |
-| 配件 | 电池额定容量 | 14 Ah（705.6 Wh） | 14 Ah（705.6 Wh） | 14 Ah（705.6 Wh） |
-|  | 电池重量 | 4.5 kg | 4.5 kg | 4.5 kg |
-|  | 遥控器 | 无屏遥控器 | 无屏遥控器 | 带屏遥控器 |
-|  | 适配器 | 标配 | 标配 | 标配 |
-|  | 充电座 | 标配 | 标配 | 标配 |
-|  | 充电桩（包含自主回充功能） | 可选配 | 可选配 | 可选配 |
+<table tabindex="0">
+  <thead>
+    <tr>
+      <th scope="col">分类</th>
+      <th scope="col">规格</th>
+      <th scope="col">
+        <a :href="l2Image"><img :src="l2Image" alt="L2 点足四足机器人" class="spec-product-image"></a><br>
+        <strong>L2</strong>
+      </th>
+      <th scope="col">
+        <a :href="l2wImage"><img :src="l2wImage" alt="L2-W 轮足四足机器人" class="spec-product-image"></a><br>
+        <strong>L2-W</strong>
+      </th>
+      <th scope="col">
+        <a :href="l2wUltraImage"><img :src="l2wUltraImage" alt="L2-W Ultra 轮足四足机器人" class="spec-product-image"></a><br>
+        <strong>L2-W Ultra</strong>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="9">基础信息</th>
+      <td>站立尺寸（长 × 宽 × 高）</td>
+      <td>720 × 395 × 475 mm</td>
+      <td>765 × 480 × 500 mm</td>
+      <td>765 × 480 × 510 mm</td>
+    </tr>
+    <tr>
+      <td>趴地尺寸（长 × 宽 × 高）</td>
+      <td>780 × 450 × 195 mm</td>
+      <td>785 × 580 × 195 mm</td>
+      <td>785 × 580 × 210 mm</td>
+    </tr>
+    <tr>
+      <td>整机重量（含电池）</td>
+      <td>22 kg</td>
+      <td>27.6 kg</td>
+      <td>28.6 kg</td>
+    </tr>
+    <tr>
+      <td>材质</td>
+      <td>铝合金与高强度工程塑料</td>
+      <td>铝合金与高强度工程塑料</td>
+      <td>铝合金与高强度工程塑料</td>
+    </tr>
+    <tr>
+      <td>工作温度</td>
+      <td>-20 至 55 °C</td>
+      <td>-20 至 55 °C</td>
+      <td>-20 至 55 °C</td>
+    </tr>
+    <tr>
+      <td>使用湿度</td>
+      <td>10%–90% RH，无凝露</td>
+      <td>10%–90% RH，无凝露</td>
+      <td>10%–90% RH，无凝露</td>
+    </tr>
+    <tr>
+      <td>存储湿度</td>
+      <td>5%–95% RH，无凝露</td>
+      <td>5%–95% RH，无凝露</td>
+      <td>5%–95% RH，无凝露</td>
+    </tr>
+    <tr>
+      <td>主机防护等级</td>
+      <td>IP66</td>
+      <td>IP66</td>
+      <td>IP66</td>
+    </tr>
+    <tr>
+      <td>轮毂电机防护等级</td>
+      <td>/</td>
+      <td>IP67</td>
+      <td>IP67</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="12">性能参数</th>
+      <td>标配算力</td>
+      <td>8 核高性能 CPU</td>
+      <td>8 核高性能 CPU</td>
+      <td>8 核高性能 CPU + 6 核高性能 CPU（80 TOPS）</td>
+    </tr>
+    <tr>
+      <td>自由度</td>
+      <td>12</td>
+      <td>16（12 + 4）</td>
+      <td>16（12 + 4）</td>
+    </tr>
+    <tr>
+      <td>空载续航时间</td>
+      <td>5.5 h</td>
+      <td>5.5 h</td>
+      <td>4.5 h</td>
+    </tr>
+    <tr>
+      <td>满载续航时间</td>
+      <td>3.5 h</td>
+      <td>3.5 h</td>
+      <td>3 h</td>
+    </tr>
+    <tr>
+      <td>空载最大速度</td>
+      <td>3.0 m/s</td>
+      <td>3.7 m/s</td>
+      <td>3.7 m/s</td>
+    </tr>
+    <tr>
+      <td>额定负载</td>
+      <td>16 kg</td>
+      <td>16 kg</td>
+      <td>16 kg</td>
+    </tr>
+    <tr>
+      <td>持续攀爬楼梯的台阶高度</td>
+      <td>22 cm</td>
+      <td>25 cm</td>
+      <td>25 cm</td>
+    </tr>
+    <tr>
+      <td>空载攀高台高度</td>
+      <td>70 cm</td>
+      <td>70 cm</td>
+      <td>70 cm</td>
+    </tr>
+    <tr>
+      <td>空载可跨越最大距离</td>
+      <td>40 cm</td>
+      <td>40 cm</td>
+      <td>40 cm</td>
+    </tr>
+    <tr>
+      <td>空载最大爬坡角度</td>
+      <td>40°</td>
+      <td>40°</td>
+      <td>40°</td>
+    </tr>
+    <tr>
+      <td>满载最大爬坡角度</td>
+      <td>35°</td>
+      <td>35°</td>
+      <td>35°</td>
+    </tr>
+    <tr>
+      <td>基础动作</td>
+      <td>站立、卧倒、匍匐、匍匐前进、向前跳、向上跳</td>
+      <td>站立、卧倒、匍匐、匍匐前进、向前跳、向上跳</td>
+      <td>站立、卧倒、匍匐、匍匐前进</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="5">关节参数</th>
+      <td>执行器类型</td>
+      <td>高功率密度运动单元</td>
+      <td>高功率密度运动单元</td>
+      <td>高功率密度运动单元</td>
+    </tr>
+    <tr>
+      <td>最大关节扭矩</td>
+      <td>95 N·m</td>
+      <td>95 N·m</td>
+      <td>95 N·m</td>
+    </tr>
+    <tr>
+      <td>铝合金精密关节电机</td>
+      <td>12 个</td>
+      <td>12 个</td>
+      <td>12 个</td>
+    </tr>
+    <tr>
+      <td>高性能轮毂电机</td>
+      <td>/</td>
+      <td>4 个</td>
+      <td>4 个</td>
+    </tr>
+    <tr>
+      <td>关节运动空间</td>
+      <td>机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
+      <td>机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
+      <td>机身：-28° 至 28°；大腿：-170° 至 66°；小腿：34.5° 至 156°</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="4">感知能力</th>
+      <td>相机类型</td>
+      <td>双目相机</td>
+      <td>双目相机</td>
+      <td>双目相机和 4 个鱼眼相机</td>
+    </tr>
+    <tr>
+      <td>IMU</td>
+      <td>1 个</td>
+      <td>1 个</td>
+      <td>1 个</td>
+    </tr>
+    <tr>
+      <td>3D 激光雷达</td>
+      <td>/</td>
+      <td>/</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>GPS/RTK 定位模块</td>
+      <td>/</td>
+      <td>/</td>
+      <td>标配</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="3">智能决策</th>
+      <td>自主导航</td>
+      <td>/</td>
+      <td>/</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>智能避障</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>激光 + 视觉融合避障</td>
+    </tr>
+    <tr>
+      <td>自主跟随</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>GLUE 全向自主跟随</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="6">通信与交互</th>
+      <td>Wi-Fi / 蓝牙</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>4G / 5G</td>
+      <td>4G</td>
+      <td>4G</td>
+      <td>5G</td>
+    </tr>
+    <tr>
+      <td>补光灯</td>
+      <td>前向 1 个</td>
+      <td>前向 1 个</td>
+      <td>前向 1 个</td>
+    </tr>
+    <tr>
+      <td>UWB</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>麦克风 / 扬声器</td>
+      <td>/</td>
+      <td>/</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>功能拓展接口</td>
+      <td>USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
+      <td>USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
+      <td>USB Type-C × 2、M12 17PIN × 1、M14 18PIN × 1、SIM 卡槽 × 1</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="3">拓展能力</th>
+      <td>实时图像传输</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>OTA 升级</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>二次开发</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th scope="rowgroup" rowspan="6">配件</th>
+      <td>电池额定容量</td>
+      <td>14 Ah（705.6 Wh）</td>
+      <td>14 Ah（705.6 Wh）</td>
+      <td>14 Ah（705.6 Wh）</td>
+    </tr>
+    <tr>
+      <td>电池重量</td>
+      <td>4.5 kg</td>
+      <td>4.5 kg</td>
+      <td>4.5 kg</td>
+    </tr>
+    <tr>
+      <td>遥控器</td>
+      <td>无屏遥控器</td>
+      <td>无屏遥控器</td>
+      <td>带屏遥控器</td>
+    </tr>
+    <tr>
+      <td>适配器</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>充电座</td>
+      <td>标配</td>
+      <td>标配</td>
+      <td>标配</td>
+    </tr>
+    <tr>
+      <td>充电桩（包含自主回充功能）</td>
+      <td>可选配</td>
+      <td>可选配</td>
+      <td>可选配</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 参数说明
 

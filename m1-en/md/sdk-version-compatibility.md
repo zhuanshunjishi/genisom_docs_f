@@ -4,7 +4,7 @@
 
 ## Version Matrix
 
-Look up the robot's RK3588 version to find the corresponding app, SDK, S100, and OrinNX versions. An RK3588 version may have multiple combinations. `—` indicates that the version record leaves the component version unspecified.
+On the remote controller, open **设置 (Settings)** → **设备信息 (Device Information)** to find the robot's RK3588 version. Use that version to look up the corresponding app, SDK, S100, and OrinNX versions. An RK3588 version may have multiple combinations.
 
 <table class="m1-version-matrix" tabindex="0">
   <thead>
