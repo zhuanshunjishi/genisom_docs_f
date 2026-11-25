@@ -72,7 +72,7 @@ cmake --build . -j6
 下列操作在相应机型上不受支持。如果当前 SDK 提供对应接口，调用该接口会返回 `Errc::UnsupportedDeviceOperation`。
 
 - `Climb()`、`Slim()`、`DSB()`、`SkWalk()`、`Sand()`、`ReverseHeadTail()`。
-- `BackLight()`、`ObstacleAvoidance()`。
+- `BackLight()`。
 - 点足设备上的 `Gait()`。
 
 第一次运行时先禁用连续运动和跳跃相关操作，只测试软件急停、站立、卧倒、前补光灯和低速移动。

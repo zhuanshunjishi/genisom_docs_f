@@ -9,7 +9,14 @@ std::error_code FrontLight(bool on, int timeout_ms = 0, WriteHandler handler = .
 std::error_code AutoModeLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-L2 系列支持前补光灯和自动补光模式。`BackLight()` 与 `ObstacleAvoidance()` 会被 SDK 能力检查拒绝。
+| 函数 | 功能 | `RobotState` 字段 |
+| --- | --- | --- |
+| `FrontLight()` | 开关前补光灯 | `front_fill_light` |
+| `AutoModeLight()` | 开关自动补光模式 | `auto_mode_light` |
+
+两个函数的 `on` 参数均为 `true` 时开启，`false` 时关闭。手动开关前补光灯会关闭自动补光模式。通过 [RobotState 状态上报](./08-callbacks-data-types-and-status-reference.md#robotstate)读取当前状态。
+
+L2 系列不支持 `BackLight()`（后补光灯）。调用该接口时，SDK 返回 `Errc::UnsupportedDeviceOperation`，不发送命令。
 
 ## 相机码率
 

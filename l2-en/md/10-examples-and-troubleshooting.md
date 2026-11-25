@@ -72,7 +72,7 @@ The `control.cpp` example covers a range of general-purpose SDK APIs. When runni
 The operations below are unsupported on the applicable models. If your SDK provides a method for one of these operations, calling it on an unsupported model returns `Errc::UnsupportedDeviceOperation`.
 
 - `Climb()`, `Slim()`, `DSB()`, `SkWalk()`, `Sand()`, and `ReverseHeadTail()`.
-- `BackLight()` and `ObstacleAvoidance()`.
+- `BackLight()`.
 - `Gait()` on point-foot models.
 
 On the first run, disable continuous motion and jumping operations. Test only the software emergency stop, stand-up, lie-down, front fill light, and low-speed motion.
