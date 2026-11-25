@@ -4,9 +4,7 @@
 
 ## 核心类
 
-`robot_sdk::SDKClient` 声明在 `include/robot_sdk/sdk_client.hpp`，负责管理连接、发送命令和注册回调。命令接口返回 `std::error_code`，状态和信息查询接口返回各自的数据类型。
-
-用 `Version()` 确认已安装的 SDK 版本，并核对机器人系统版本的兼容性。SDK v0.2.3 新增 `Walk()` 和充电桩配对接口，同时移除 `DSB()`。详见[官方 SDK 变更记录](https://github.com/zsibot/genisom_robot_sdk/blob/main/CHANGELOG.md)和[头文件](https://github.com/zsibot/genisom_robot_sdk/tree/main/include/robot_sdk)。
+SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_client.hpp`。公开接口统一使用 `std::error_code` 报告发送、超时、连接和能力检查结果。
 
 ![SDK 命令发送流程](../assets/sdk/sdk-send-command.svg)
 
@@ -27,59 +25,55 @@
 | L2 点足版 | `L2F` | L2 |
 | L2-W 轮足版 | `L2` | L2-W |
 | L2-W Ultra | `L2_ULTRA` | L2-W Ultra |
-| 点足环视设备枚举 | `L2F_ULTRA` | L2F Ultra |
 
 ## 接口能力表
 
 `✓` 表示 SDK 不会因设备类型拒绝接口。`—` 表示 SDK 返回 `Errc::UnsupportedDeviceOperation`，并且不发送命令。
 
-<!-- TODO: 待确认 L2F Ultra(点足环视) 对 Walk()、MoveVelocity() 的能力取值 -->
-
 ### 连接、信息与基础控制
 
-| API | L2 | L2-W | L2-W Ultra | L2F Ultra |
-| --- | :---: | :---: | :---: | :---: |
-| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
-| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ | ✓ |
-| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ | ✓ |
-| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ | ✓ |
-| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ | ✓ |
-| `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
-| `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
-| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
-| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
-| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ | ✓ |
-| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) | — |
-| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
-| `Gait()` | — | ✓ | ✓ | — |
-| `Slim()` / `SkWalk()` / `Sand()` | — | — | — | — |
-| `ReverseHeadTail()` | — | — | — | — |
+| API | L2 | L2-W | L2-W Ultra |
+| --- | :---: | :---: | :---: |
+| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ |
+| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ |
+| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ |
+| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ |
+| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ |
+| `GetDeviceInfo()` | ✓ | ✓ | ✓ |
+| `SoftEmergencyStop()` | ✓ | ✓ | ✓ |
+| `ObstacleAvoidance()` (停障开关) | — | — | — |
+| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
+| `Climb()` | — | — | — |
+| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
+| `Gait()` | — | ✓ | ✓ |
+| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — |
+| `ReverseHeadTail()` | — | — | — |
 
 ### 运动、灯光和数据
 
-| API | L2 | L2-W | L2-W Ultra | L2F Ultra |
-| --- | :---: | :---: | :---: | :---: |
-| `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
-| `MoveVelocity()` | ✓ | ✓ | ✓ | ✓ |
-| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
-| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
-| `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
-| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ | ✓ |
-| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
-| `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
-| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
+| API | L2 | L2-W | L2-W Ultra |
+| --- | :---: | :---: | :---: |
+| `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
+| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
+| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
+| `BackLight()` | — | — | — |
+| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ |
+| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ |
+| `SetJointStateConfig()` | ✓ | ✓ | ✓ |
+| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ |
 
 ### 控制权、任务和外设
 
-| API | L2 | L2-W | L2-W Ultra | L2F Ultra |
-| --- | :---: | :---: | :---: | :---: |
-| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ | ✓ |
-| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ | ✓ |
-| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ | ✓ |
-| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ | ✓ |
-| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ | ✓ |
-| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ | ✓ |
-| `SetLedCommand()` | ✓ | ✓ | ✓ | ✓ |
+| API | L2 | L2-W | L2-W Ultra |
+| --- | :---: | :---: | :---: |
+| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ |
+| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ |
+| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ |
+| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ |
+| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ |
+| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ |
+| `SetLedCommand()` | ✓ | ✓ | ✓ |
 
 能力允许不代表每次调用都会成功。连接、控制权、急停、机器人状态、参数范围和外设安装情况仍会影响执行结果。
 
@@ -95,8 +89,6 @@ using WriteHandler =
 | `timeout_ms == 0` | 异步发送，结果由 `WriteHandler` 返回 |
 | `timeout_ms > 0` | 同步等待，结果由函数返回值报告 |
 | `handler` | 异步发送结果回调 |
-
-`WriteHandler` 的两个参数分别为发送错误码和传输层报告的写入字节数。异步调用时也要检查立即返回的错误码，例如参数无效、未连接或能力不支持。设备应答请查看[对应回调](./08-callbacks-data-types-and-status-reference.md#icontrolcallback)，动作和任务是否完成则通过状态上报确认。
 
 常见错误：
 

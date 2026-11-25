@@ -12,17 +12,6 @@
 
 L2-W Ultra 使用智航 Pro 自主回充时，配对后还需[配置地图充电点](./05-roamerx-pro-guide.md#配置充电点)。
 
-### SDK 配对（v0.2.3）
-
-| 函数 | 用途 | 回调 |
-| --- | --- | --- |
-| `SetDockScanConfig(on)` | `true` 启动蓝牙扫描，`false` 停止扫描。 | `OnDockScanConfig()` 返回扫描设置。`OnDockScanResult()` 上报发现的充电桩。 |
-| `ConnectDock(config)` | 连接 `DockConnectConfig::address` 指定的充电桩。地址取自 `OnDockScanResult()` 中可连接设备的蓝牙地址。 | `OnDockConnectionAck()` 返回请求是否受理。`OnDockConnectionResult()` 上报最终结果。 |
-| `DisconnectDock()` | 断开机器人与当前充电桩的连接。 | `OnDockConnectionAck()` 返回请求是否受理。`OnDockConnectionResult()` 上报最终结果。 |
-| `GetDockInfo()` | 查询充电桩身份、连接、物理接触和充电状态。 | `OnDockInfo()` 返回上报状态。 |
-
-连接前先停止扫描。一次只提交一个连接或断开请求，收到最终结果后再提交下一个。蓝牙连接、物理接触和实际充电的区别见[充电桩回调字段](./08-callbacks-data-types-and-status-reference.md#充电桩回调数据)。
-
 ## 任务与机器状态
 
 ```cpp
@@ -36,21 +25,14 @@ std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
 
 任务接口需要可用充电桩、地图和机器人端配置。任务执行状态以 `OnTaskStateData()` 为主，`RobotState::machine_status` 为辅。状态切换见[远程与空闲状态](./09-control-ownership-tasks-and-peripherals.md#远程与空闲状态)。
 
-| 函数 | 用途 | 结果 |
-| --- | --- | --- |
-| `SwitchRemoteState()` | 请求切换到远程控制状态，供遥控或 SDK 操作。 | `OnSwitchRemote()` 应答。通过 `RobotState::machine_status` 确认进入 `REMOTE`。 |
-| `SwitchIdleState()` | 请求切换到空闲业务状态。 | `OnSwitchIdle()` 应答。通过 `RobotState::machine_status` 确认进入 `IDLE`。 |
-
 ## 回充与离桩任务
 
-| 函数 | 用途 | 应答 |
-| --- | --- | --- |
-| `StartRechargeTask()` | 请求机器人自主返回充电桩并充电。 | `OnStartRechargeTask()` |
-| `StopRechargeTask()` | 请求停止当前回充任务。 | `OnStopRechargeTask()` |
-| `StartUnDockTask()` | 请求机器人自主驶离充电桩。 | `OnStartUnDockTask()` |
-| `StopUnDockTask()` | 请求停止当前离桩任务。 | `OnStopUnDockTask()` |
-
-这四个函数的实际任务状态均通过 `OnTaskStateData()` 判断。
+| 接口 | 功能 |
+| --- | --- |
+| `StartRechargeTask()` | 启动自主回充 |
+| `StopRechargeTask()` | 停止回充任务 |
+| `StartUnDockTask()` | 启动自主离桩 |
+| `StopUnDockTask()` | 停止离桩任务 |
 
 ### 三层结果
 

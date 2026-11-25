@@ -9,12 +9,7 @@ std::error_code TakeControl(int timeout_ms = 0, WriteHandler handler = ...);
 std::error_code ReleaseControl(int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-| 函数 | 用途与结果 |
-| --- | --- |
-| `TakeControl()` | 申请控制权。`OnTakeControlAck()` 中 `ack.error_code == 0` 时才取得控制权。 |
-| `ReleaseControl()` | 让出 SDK 控制权并保持连接。通过 `OnReleaseControlAck()` 确认是否释放成功。 |
-
-两个函数均使用[通用发送参数](./07-sdk-api-reference.md#通用参数和返回值)。发送接口返回空错误码时，根据发送模式，仅表示请求已提交或命令已发送。
+`TakeControl()` 的发送结果不等于获得控制权。只有 `OnTakeControlAck()` 返回的 `error_code == 0` 才表示成功。
 
 ## 安全控制
 
@@ -27,25 +22,22 @@ std::error_code SoftEmergencyStop(
 
 `on == true` 触发软件急停，`false` 解除。应答通过 `OnSoftEmergencyStop()` 返回，状态通过 `RobotState::software_emergency_status` 读取。
 
-`ObstacleAvoidance(on)` 在支持的设备上控制停障开关。`true` 开启，`false` 关闭。L2 系列未通过 SDK 开放该开关。
-
 ## 姿态控制
 
 | 接口 | 功能 | L2 系列说明 |
 | --- | --- | --- |
-| `StandUp()` | 从休息姿态起身。发送运动命令前确认 `MOTION_STATUS_WALK`。 | 支持 |
-| `Walk()` | 切换到行走姿态。确认 `MOTION_STATUS_WALK` 后，再通过运动命令让机器人移动。 | SDK v0.2.3 |
+| `StandUp()` | 站立 | 支持 |
 | `BalanceStandUp()` | 原地平衡站立 | 支持 |
 | `LieDown()` | 卧倒 | 支持 |
 | `Stair()` | 登阶姿态 | 支持 |
 | `Crawl()` | 匍匐姿态 | 支持 |
-| `CrawlWalk()` | 切换到用于低姿态移动的匍匐行走姿态。 | 支持 |
-| `Climb()` | 切换到用于爬高台的姿态。 | 官方 v0.2.3 能力表列出轮足版支持，须核对实机 SDK 和系统版本。 |
+| `CrawlWalk()` | 匍匐行走 | 支持 |
+| `Climb()` | 爬高台姿态 | 不支持 |
 | `Gait()` | 精细步态 | 仅轮足设备类型支持 |
 | `PosControl()` | 位置控制姿态 | 支持 |
-| `Locked()` | 保持各关节当前位置。后续姿态命令可解除锁定。 | 支持 |
+| `Locked()` | 锁定当前姿态 | 支持 |
 | `Slim()` | 窄道姿态 | 不支持 |
-| `DSB()` | 切换到用于通过挡鼠板的姿态。 | L2 不支持。SDK v0.2.3 已移除该函数。 |
+| `DSB()` | 挡鼠板姿态 | 不支持 |
 | `SkWalk()` | 同膝姿态 | 不支持 |
 | `Sand()` | 沙地姿态 | 不支持 |
 | `ReverseHeadTail()` | 调换头尾 | 不支持 |
@@ -62,8 +54,6 @@ std::error_code Move(
     int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-`Move()` 发送归一化摇杆输入，控制机身平移和偏航。实际速度上限由当前速度档位决定。
-
 | 参数 | 范围 | 说明 |
 | --- | --- | --- |
 | `left_right` | `[-1.0, 1.0]` | 正数左移，负数右移 |
@@ -71,24 +61,6 @@ std::error_code Move(
 | `yaw` | `[-1.0, 1.0]` | 正数左转，负数右转 |
 
 连续移动时以 10 至 20 Hz 周期发送。停止时明确发送 `Move(0, 0, 0)`，不要只停止应用循环。
-
-### MoveVelocity
-
-```cpp
-std::error_code MoveVelocity(
-    float x, float y, float yaw, int timeout_ms = 0,
-    WriteHandler handler = [](const std::error_code&, std::size_t) {});
-```
-
-控制器已计算出带物理单位的目标速度时，用 `MoveVelocity()` 直接发送。SDK 按当前 `SetSpeed()` 档位限制目标速度。调用前确认所用 SDK 的 `sdk_client.hpp` 声明了该函数。
-
-| 参数 | 单位 | 用途 |
-| --- | --- | --- |
-| `x` | m/s | 机身坐标系前后速度，正值向前。 |
-| `y` | m/s | 机身坐标系横移速度，正值向左。 |
-| `yaw` | rad/s | 机身坐标系偏航角速度，正方向按右手定则。 |
-
-连续移动时以 10 至 20 Hz 发送。停止时发送 `MoveVelocity(0, 0, 0)`。传入非有限值会返回 `std::errc::invalid_argument`。用发送结果检查传输情况，通过 `OnSpeedData()` 观察上报速度。
 
 ### PosMove
 
@@ -111,16 +83,7 @@ struct PosControlCmd {
 };
 ```
 
-`cmd` 为目标机身位姿。
-
-| `PosControlCmd` 字段 | 用途 |
-| --- | --- |
-| `x` | x 轴目标位置，单位为 m。 |
-| `y` | y 轴目标位置，单位为 m。 |
-| `z` | z 轴目标位置，单位为 m。 |
-| `roll` | 绕 x 轴的目标横滚角，单位为 rad。 |
-| `pitch` | 绕 y 轴的目标俯仰角，单位为 rad。 |
-| `yaw` | 绕 z 轴的目标偏航角，单位为 rad。 |
+`x`、`y`、`z` 为目标位置，单位为 m。`roll`、`pitch`、`yaw` 分别为目标横滚角、俯仰角和偏航角，单位为 rad。
 
 异步发送结果通过 `WriteHandler` 获取。发送成功只表示命令已发出。公共参数和返回值见 [SDK 接口参考](./07-sdk-api-reference.md#通用参数和返回值)。
 
@@ -128,7 +91,7 @@ struct PosControlCmd {
 
 | 接口 | 参数 | 说明 |
 | --- | --- | --- |
-| [`Turn()`](#turn) | `direction` | 平衡站立时原地向左或向右转向 |
+| [`Turn()`](#turn) | `direction` | 原地向左或向右旋转机身 |
 | [`ControlHead()`](#controlhead) | `left_right`、`up_down` | 左右探头和俯仰 |
 | [`HighLowStance()`](#highlowstance) | `stance` | 调整站姿高度 |
 | [`SetSpeed()`](#setspeed) | `speed_level` | 设置移动速度档位 |
@@ -143,7 +106,7 @@ std::error_code Turn(
     WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`direction` 取 `0` 时恢复，取 `1` 时原地左转，取 `2` 时原地右转。超出范围时返回 `std::errc::invalid_argument`。
+`direction` 取 `0` 时恢复，取 `1` 时原地左旋转，取 `2` 时原地右旋转。超出范围时返回 `std::errc::invalid_argument`。
 
 #### ControlHead
 

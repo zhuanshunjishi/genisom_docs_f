@@ -13,13 +13,7 @@ SDKClient(
     TransportProtocol type = TransportProtocol::Udp);
 ```
 
-`SDKClient()` creates a client with transport and reconnection settings. Call `Connect()` to begin the connection. `~SDKClient()` closes the connection, stops the internal I/O threads, and frees client resources.
-
-| Constructor Parameter | Purpose |
-| --- | --- |
-| `error_callback` | Receives SDK communication errors as a `std::error_code`. The default callback ignores them. |
-| `connection_config` | Configures the connect timeout and automatic reconnection. See the fields below. |
-| `type` | Selects `TransportProtocol::Udp` (default) or `TransportProtocol::WebSocket`. Match the port passed to `Connect()` to the selected transport. |
+The `ConnectionConfig` fields are listed below.
 
 | Field | Default | Description |
 | --- | ---: | --- |
@@ -41,10 +35,7 @@ Open the transport connection and complete the protocol handshake.
 | --- | --- |
 | `ip` | Robot IP address |
 | `port` | Use `8082` for UDP and `8081` for WebSocket. |
-| `block` | `true` waits for the handshake to succeed or fail. `false` returns after submitting the request. |
-| `handler` | Receives the final connection result in asynchronous mode. An empty error code means the handshake succeeded. |
-
-In synchronous mode, use the return value as the final connection result. In asynchronous mode, use the return value to check request submission and `handler` to check the outcome.
+| `block` | Set to `true` to wait synchronously. |
 
 ### Disconnect
 
@@ -56,11 +47,6 @@ std::error_code Disconnect(
 
 Close the connection and release internal communication resources. Calling `Disconnect()` does not trigger automatic reconnection.
 
-| Parameter | Purpose |
-| --- | --- |
-| `block` | `true` waits for disconnection to finish and returns the result. `false` returns the request submission result. |
-| `handler` | Receives the final disconnection result when `block` is `false`. |
-
 ### Connection State
 
 ```cpp
@@ -68,16 +54,7 @@ bool IsConnected() const;
 ConnectionState GetConnectionState() const;
 ```
 
-`IsConnected()` returns `true` once the handshake has completed and the state is `CONNECTED`. Use `GetConnectionState()` to inspect the current stage.
-
-| `ConnectionState` | Meaning |
-| --- | --- |
-| `DISCONNECTING` | The connection is closing. |
-| `DISCONNECTED` | No connection is active. |
-| `CONNECTING` | The transport connection is being established. |
-| `HANDSHAKING` | The transport is ready and protocol negotiation is in progress. |
-| `CONNECTED` | The handshake succeeded and communication is ready. |
-| `RECONNECTING` | The SDK is attempting to restore the connection. |
+`ConnectionState` includes `DISCONNECTING`, `DISCONNECTED`, `CONNECTING`, `HANDSHAKING`, `CONNECTED`, and `RECONNECTING`.
 
 ## Version and Device Information
 
@@ -93,5 +70,3 @@ const auto info = client.GetDeviceInfo();
 std::cout << DeviceTypeName(info.device_type) << '\n';
 std::cout << info.sn << '\n';
 ```
-
-`DeviceTypeName()` converts a `DeviceType` value to a readable name for display or logging. See [DeviceInfo](./08-callbacks-data-types-and-status-reference.md#deviceinfo) for what `device_type` and `sn` contain.

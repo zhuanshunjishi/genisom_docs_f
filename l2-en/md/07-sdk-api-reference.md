@@ -4,9 +4,7 @@
 
 ## Core Class
 
-`robot_sdk::SDKClient` is declared in `include/robot_sdk/sdk_client.hpp`. It manages the connection, sends commands, and registers callbacks. Commands return `std::error_code`. State and information queries return their documented types.
-
-Check the installed SDK version with `Version()` and verify compatibility with the robot system before using version-specific APIs. SDK v0.2.3 adds `Walk()` and charging dock pairing APIs and removes `DSB()`. See the [official SDK changelog](https://github.com/zsibot/genisom_robot_sdk/blob/main/CHANGELOG.md) and [headers](https://github.com/zsibot/genisom_robot_sdk/tree/main/include/robot_sdk).
+The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk_client.hpp`. Its public APIs use `std::error_code` to report send results, timeouts, connection results, and capability checks.
 
 ![Synchronous and asynchronous SDK command flow](../diagrams/sdk-send-command.svg)
 
@@ -27,7 +25,6 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 | Genisom L2 (point-foot) | `L2F` | L2 |
 | Genisom L2-W (wheeled-legged) | `L2` | L2-W |
 | Genisom L2-W Ultra | `L2_ULTRA` | L2-W Ultra |
-| Point-foot device with surround view | `L2F_ULTRA` | L2F Ultra |
 
 <a id="接口能力表"></a>
 
@@ -35,53 +32,50 @@ Check the installed SDK version with `Version()` and verify compatibility with t
 
 `✓` means the device type passes the SDK capability check for that API. For `—`, the SDK returns `Errc::UnsupportedDeviceOperation` without sending the command.
 
-<!-- TODO: confirm L2F Ultra (point-foot with surround view) support for Walk() and MoveVelocity() -->
-
 ### Connection, Information, and Basic Control
 
-| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
-| --- | :---: | :---: | :---: | :---: |
-| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ | ✓ |
-| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ | ✓ |
-| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ | ✓ |
-| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ | ✓ |
-| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ | ✓ |
-| `GetDeviceInfo()` | ✓ | ✓ | ✓ | ✓ |
-| `SoftEmergencyStop()` | ✓ | ✓ | ✓ | ✓ |
-| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ | ✓ |
-| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ | ✓ |
-| `Walk()` (v0.2.3) | ✓ | ✓ | ✓ | ✓ |
-| `Climb()` | — | ✓ (v0.2.3) | ✓ (v0.2.3) | — |
-| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ | ✓ |
-| `Gait()` | — | ✓ | ✓ | — |
-| `Slim()` / `SkWalk()` / `Sand()` | — | — | — | — |
-| `ReverseHeadTail()` | — | — | — | — |
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
+| --- | :---: | :---: | :---: |
+| `SDKClient()` / `~SDKClient()` | ✓ | ✓ | ✓ |
+| `Connect()` / `Disconnect()` | ✓ | ✓ | ✓ |
+| `IsConnected()` / `GetConnectionState()` | ✓ | ✓ | ✓ |
+| `SetControlCallback()` / `SetDataCallback()` | ✓ | ✓ | ✓ |
+| `Version()` / `ProtocolVersion()` / `SystemVersion()` | ✓ | ✓ | ✓ |
+| `GetDeviceInfo()` | ✓ | ✓ | ✓ |
+| `SoftEmergencyStop()` | ✓ | ✓ | ✓ |
+| `ObstacleAvoidance()` (Obstacle stop) | — | — | — |
+| `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
+| `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
+| `Climb()` | — | — | — |
+| `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
+| `Gait()` | — | ✓ | ✓ |
+| `Slim()` / `DSB()` / `SkWalk()` / `Sand()` | — | — | — |
+| `ReverseHeadTail()` | — | — | — |
 
 ### Motion, Lights, and Data
 
-| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
-| --- | :---: | :---: | :---: | :---: |
-| `Move()` / `PosMove()` | ✓ | ✓ | ✓ | ✓ |
-| `MoveVelocity()` | ✓ | ✓ | ✓ | ✓ |
-| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ | ✓ |
-| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ | ✓ |
-| `BackLight()` / `ObstacleAvoidance()` | — | — | — | — |
-| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ | ✓ |
-| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ | ✓ |
-| `SetJointStateConfig()` | ✓ | ✓ | ✓ | ✓ |
-| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ | ✓ |
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
+| --- | :---: | :---: | :---: |
+| `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
+| `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
+| `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
+| `BackLight()` | — | — | — |
+| `SetImuConfig()` / `SetLuxConfig()` | ✓ | ✓ | ✓ |
+| `SetMcConfig()` / `SetSpeedReportConfig()` | ✓ | ✓ | ✓ |
+| `SetJointStateConfig()` | ✓ | ✓ | ✓ |
+| `UpdateCameraBitrate()` | ✓ | ✓ | ✓ |
 
 ### Control Ownership, Tasks, and Peripherals
 
-| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra | L2F Ultra |
-| --- | :---: | :---: | :---: | :---: |
-| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ | ✓ |
-| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ | ✓ |
-| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ | ✓ |
-| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ | ✓ |
-| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ | ✓ |
-| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ | ✓ |
-| `SetLedCommand()` | ✓ | ✓ | ✓ | ✓ |
+| API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
+| --- | :---: | :---: | :---: |
+| `TakeControl()` / `ReleaseControl()` | ✓ | ✓ | ✓ |
+| `StartRechargeTask()` / `StopRechargeTask()` | ✓ | ✓ | ✓ |
+| `StartUnDockTask()` / `StopUnDockTask()` | ✓ | ✓ | ✓ |
+| `SwitchRemoteState()` / `SwitchIdleState()` | ✓ | ✓ | ✓ |
+| `SetPeriphPower()` / `GetPeriphPower()` | ✓ | ✓ | ✓ |
+| `SetLedAutoMode()` / `GetLedAutoMode()` | ✓ | ✓ | ✓ |
+| `SetLedCommand()` | ✓ | ✓ | ✓ |
 
 A supported API can still fail depending on the connection, control ownership, emergency stop status, robot state, parameter ranges, and installed peripherals.
 
@@ -97,8 +91,6 @@ using WriteHandler =
 | `timeout_ms == 0` | Send asynchronously. `WriteHandler` reports the result. |
 | `timeout_ms > 0` | Wait synchronously. The function's return value reports the result. |
 | `handler` | Callback for the asynchronous send result |
-
-`WriteHandler` receives an error code and the number of bytes reported written. Read the error code to check the transport result. In asynchronous mode, also check the immediate return value for errors such as invalid parameters, a missing connection, or an unsupported operation. For commands with a device acknowledgment, read the corresponding [callback](./08-callbacks-data-types-and-status-reference.md#icontrolcallback). Confirm physical actions and task completion from state reports.
 
 | Common Error | Meaning |
 | --- | --- |

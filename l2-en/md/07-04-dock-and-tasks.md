@@ -12,17 +12,6 @@
 
 To use RoamerX Pro for autonomous recharging on Genisom L2-W Ultra, [configure a charging point on the map](./05-roamerx-pro-guide.md#configure-a-charging-point) after pairing.
 
-### SDK Pairing (v0.2.3)
-
-| Function | Purpose | Callback |
-| --- | --- | --- |
-| `SetDockScanConfig(on)` | Start Bluetooth scanning with `true` or stop it with `false`. | `OnDockScanConfig()` reports the setting. `OnDockScanResult()` reports discovered docks. |
-| `ConnectDock(config)` | Connect the robot to the dock selected by `DockConnectConfig::address`. Use the Bluetooth address of a connectable dock from `OnDockScanResult()`. | `OnDockConnectionAck()` reports whether the request was accepted. `OnDockConnectionResult()` reports the final outcome. |
-| `DisconnectDock()` | Disconnect the robot from the currently connected dock. | `OnDockConnectionAck()` reports whether the request was accepted. `OnDockConnectionResult()` reports the final outcome. |
-| `GetDockInfo()` | Query dock identity, connection, physical contact, and charging state. | `OnDockInfo()` returns the reported state. |
-
-Stop scanning before connecting. Wait for the final result of a connect or disconnect request before sending another. Consult [the dock callback fields](./08-callbacks-data-types-and-status-reference.md#dock-callback-data) for the different meanings of Bluetooth connection, physical contact, and active charging.
-
 ## Tasks and Machine States
 
 ```cpp
@@ -36,23 +25,14 @@ std::error_code SwitchIdleState(int timeout_ms = 0, WriteHandler handler = ...);
 
 The task APIs require an available charging dock, a map, and configuration on the robot. Use `OnTaskStateData()` as the primary source of task status and `RobotState::machine_status` for additional context. For state transitions, see [Remote and Idle States](./09-control-ownership-tasks-and-peripherals.md#remote-and-idle-states).
 
-| Function | Purpose | Result |
-| --- | --- | --- |
-| `SwitchRemoteState()` | Request remote-control mode for manual or SDK operation. | `OnSwitchRemote()` acknowledges the request. Check `RobotState::machine_status` for `REMOTE`. |
-| `SwitchIdleState()` | Request that the robot enter its idle operating state. | `OnSwitchIdle()` acknowledges the request. Check `RobotState::machine_status` for `IDLE`. |
-
 ## Recharge and Undock Tasks
 
 | API | Function |
 | --- | --- |
-| Function | Purpose | Acknowledgment |
-| --- | --- | --- |
-| `StartRechargeTask()` | Request autonomous return to the dock and charging. | `OnStartRechargeTask()` |
-| `StopRechargeTask()` | Request that the current return-to-dock task stop. | `OnStopRechargeTask()` |
-| `StartUnDockTask()` | Request that the robot leave the dock autonomously. | `OnStartUnDockTask()` |
-| `StopUnDockTask()` | Request that the current undocking task stop. | `OnStopUnDockTask()` |
-
-For all four functions, use `OnTaskStateData()` to check the actual task state.
+| `StartRechargeTask()` | Start autonomous recharging |
+| `StopRechargeTask()` | Stop the recharge task |
+| `StartUnDockTask()` | Start autonomous undocking |
+| `StopUnDockTask()` | Stop the undock task |
 
 ### Send, Acknowledgment, and Execution Results
 
