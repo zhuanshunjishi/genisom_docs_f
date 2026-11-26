@@ -4,15 +4,21 @@
 
 ## Lighting APIs
 
+Fill lights provide illumination. [Status LEDs](#led-control) indicate device states, warnings, tasks, or user events and have their own control mode.
+
 ```cpp
-std::error_code FrontLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code AutoModeLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
+std::error_code FrontLight(
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+std::error_code AutoModeLight(
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-| Function | Purpose | `RobotState` Field |
-| --- | --- | --- |
-| `FrontLight()` | Turn the front fill light on or off | `front_fill_light` |
-| `AutoModeLight()` | Enable or disable automatic fill lighting | `auto_mode_light` |
+| API | Purpose | Device Acknowledgment | `RobotState` Field |
+| --- | --- | --- | --- |
+| `FrontLight()` | Turn the front fill light on or off | `OnFrontLight(bool on)` | `front_fill_light` |
+| `AutoModeLight()` | Enable or disable automatic fill lighting | `OnAutoModeLight(bool on)` | `auto_mode_light` |
 
 For both functions, set `on` to `true` to enable the feature or `false` to disable it. Turning the front fill light on or off manually disables automatic fill lighting. Read the current state from [RobotState reports](./08-callbacks-data-types-and-status-reference.md#robotstate).
 
@@ -65,18 +71,43 @@ std::error_code GetPeriphPower(
 
 ## LED Control
 
-### Automatic and Manual Modes
+Genisom L2 series models pass the SDK capability check for all three status LED APIs. The available LED groups depend on the device configuration. [API Support by Model](./07-sdk-api-reference.md#api-support-by-model)
+
+### APIs and Acknowledgments
+
+#### SetLedAutoMode
 
 ```cpp
 std::error_code SetLedAutoMode(
-    bool auto_mode, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code GetLedAutoMode(
-    int timeout_ms = 0, WriteHandler handler = ...);
+    bool auto_mode, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-In automatic mode, the robot sets the LED effects according to its operating, warning, low-battery, and emergency stop states. In manual mode, the application can call `SetLedCommand()`.
+Set `auto_mode` to `true` for automatic mode or `false` for manual mode. Read `ack.auto_mode` in `OnSetLedAutoMode(const LedAutoModeAck& ack)` to confirm the mode acknowledged by the device.
 
-### SetLedCommand
+#### GetLedAutoMode
+
+```cpp
+std::error_code GetLedAutoMode(
+    int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+`OnGetLedAutoMode(const LedAutoModeAck& ack)` reports the current mode. `ack.auto_mode` is `true` for automatic mode and `false` for manual mode.
+
+#### SetLedCommand
+
+```cpp
+std::error_code SetLedCommand(
+    const LedCommand& cmd, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+The SDK immediately returns `std::errc::invalid_argument` if `cmd.id` is `LedId::UNKNOWN` or `cmd.effect` is `LedEffect::UNKNOWN`. `OnSetLedCommand(const LedCommandAck& ack)` reports the device's acknowledgment of the group, effect, color, and period.
+
+Register an [`IControlCallback`](./08-callbacks-data-types-and-status-reference.md#icontrolcallback) with `SetControlCallback()` before issuing commands. With `timeout_ms == 0`, check the function return value for submission and `WriteHandler` for the asynchronous send result. With `timeout_ms > 0`, the SDK waits for sending to complete or time out and returns that result. Check the control acknowledgment for the device result and observe the LEDs to verify the displayed effect.
+
+### LED Groups, Effects, and Parameters
 
 ```cpp
 struct LedColor {
@@ -89,35 +120,68 @@ struct LedCommand {
     LedColor color;
     uint32_t duration_ms;
 };
-
-std::error_code SetLedCommand(
-    const LedCommand& cmd, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-`LedCommand` specifies the LED group, lighting effect, RGBA color, and duration.
+| `LedCommand` Field | Description |
+| --- | --- |
+| `id` | Status LED group |
+| `effect` | Lighting effect |
+| `color` | RGBA color with `r`, `g`, `b`, and `a` each ranging from 0 to 255 |
+| `duration_ms` | Period or blink interval in ms. Use `0` for `OFF` and `ON` in typical cases. For breathing or blinking effects, set the intended period or interval, such as 300 ms. |
 
 | `LedId` | Meaning |
 | --- | --- |
 | `ALL` | All LEDs |
 | `FRONT` | Front LEDs |
-| `BACK` | Rear LEDs |
+| `BACK` | Rear status LED group |
 
-| `LedEffect` | Meaning |
+| `LedEffect` | Protocol Value | Meaning |
+| --- | --- | --- |
+| `OFF` | `off` | Off |
+| `ON` | `on` | Steady on |
+| `BREATH` | `breath` | Pulsing |
+| `BLINK` | `blink` | Blinking |
+| `BLINK_TRANSIENT` | `blink_transient` | Brief blinking |
+
+### Automatic and Manual Modes
+
+| Mode | How to Use It |
 | --- | --- |
-| `OFF` | Off |
-| `ON` | Steady on |
-| `BREATH` | Pulsing |
-| `BLINK` | Blinking |
-| `BLINK_TRANSIENT` | Brief blinking |
+| Manual | Call `SetLedAutoMode(false)` and wait for `OnSetLedAutoMode()` to report `ack.auto_mode == false` before calling `SetLedCommand()`. The application manages the LED state. The device stops switching effects based on its operating state. |
+| Automatic | Call `SetLedAutoMode(true)` and wait for `OnSetLedAutoMode()` to report `ack.auto_mode == true`. The device manages effects according to states and events. `SetLedCommand()` submits a user event. |
+
+The table shows the official guide's reference priority order in automatic mode. The device decides whether an effect appears, how long it stays visible, and when a higher-priority event preempts it.
+
+| Priority (Highest First) | Event |
+| --- | --- |
+| 1 | System fault or emergency stop |
+| 2 | Warning |
+| 3 | Low battery |
+| 4 | User LED event |
+| 5 | Task execution state |
+| 6 | Normal operation |
+
+### Usage Examples
+
+To test a custom effect, call `SetLedAutoMode(false)` and wait for the manual-mode acknowledgment before sending the LED command. This example makes all status LEDs blink orange at a 300 ms interval.
 
 ```cpp
-LedCommand cmd{
-    LedId::ALL,
-    LedEffect::BLINK,
-    {255, 128, 0, 255},
-    300
-};
-client.SetLedCommand(cmd, 1000);
+const LedCommand manual_effect{LedId::ALL, LedEffect::BLINK, {255, 128, 0, 255}, 300};
+client.SetLedCommand(manual_effect);
 ```
 
-Restore automatic mode when the manual effect ends so that emergency stop, low-battery, and fault indicators can display normally.
+After manual testing, call `SetLedAutoMode(true)` and confirm the acknowledgment to restore device status indications. In automatic mode, this command requests a brief blue blink. The device decides whether to display it.
+
+```cpp
+const LedCommand user_event{LedId::ALL, LedEffect::BLINK_TRANSIENT, {0, 0, 255, 255}, 500};
+client.SetLedCommand(user_event);
+```
+
+To clear a user LED event in automatic mode, send an `OFF` command for all status LEDs. The device continues to handle other states and events in automatic mode.
+
+```cpp
+const LedCommand clear_event{LedId::ALL, LedEffect::OFF, {0, 0, 0, 255}, 0};
+client.SetLedCommand(clear_event);
+```
+
+During integration, query the current mode with `GetLedAutoMode()`, check the device acknowledgments, and observe the LEDs. [SDK Example](./10-examples-and-troubleshooting.md#led-cpp) · [Official LED Guide](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_led_control_en.md)

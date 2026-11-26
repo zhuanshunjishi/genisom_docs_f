@@ -153,10 +153,6 @@ Look up the robot's RK3588 version to find the corresponding app, SDK, and S100 
   </tbody>
 </table>
 
-The table preserves blank S100 entries from the source.
-
 ## SDK Compatibility Notes
-
-SDK `v0.2.2` is recommended for Genisom L2 system `v0.0.9`. See [Robot SDK compatibility](https://github.com/zsibot/genisom_robot_sdk/blob/main/README.md#sdk-and-robot-system-compatibility).
 
 Call `Version()` to check the SDK version in use. After a successful handshake, call `SystemVersion()` to read the robot's system version. See [Version and Device Information](./07-01-connection-and-device-info.md#version-and-device-information).

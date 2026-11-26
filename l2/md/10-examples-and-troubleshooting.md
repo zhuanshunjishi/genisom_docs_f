@@ -146,7 +146,7 @@ config.reconnect_interval_ms = 1000;
 
 ### led.cpp
 
-LED 示例通常先调用 `SetLedAutoMode(false)`，再发送 `SetLedCommand()`。测试完成后调用 `SetLedAutoMode(true)` 恢复自动状态灯，确保告警和急停灯效正常显示。
+测试手动灯效时，调用 `SetLedAutoMode(false)`，等 `OnSetLedAutoMode()` 确认手动模式后再发送 `SetLedCommand()`。测试完成后切回自动模式，并通过同一回调确认机器人已恢复管理状态 LED。接口和调用顺序见 [LED 控制](./07-05-peripherals-and-camera.md#led-控制)。
 
 ## 常见问题
 

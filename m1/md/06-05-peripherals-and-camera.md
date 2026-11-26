@@ -4,21 +4,31 @@
 
 ## 灯光与感知开关
 
+前后补光灯用于照明。[状态 LED](#led-灯效)用于提示故障、急停、任务状态和自定义事件。
+
 ```cpp
-std::error_code FrontLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code BackLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code AutoModeLight(bool on, int timeout_ms = 0, WriteHandler handler = ...);
+std::error_code FrontLight(
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+std::error_code BackLight(
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+std::error_code AutoModeLight(
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 std::error_code ObstacleAvoidance(bool on, int timeout_ms = 0, WriteHandler handler = ...);
 ```
 
-| 函数 | 功能 |
-| --- | --- |
-| `FrontLight` | 开关前补光灯 |
-| `BackLight` | 开关后补光灯 |
-| `AutoModeLight` | 开关自动补光模式 |
-| `ObstacleAvoidance` | 开关停障功能 |
+| 函数 | 功能 | 设备应答 | `RobotState` 字段 |
+| --- | --- | --- | --- |
+| `FrontLight()` | 开关前补光灯 | `OnFrontLight(bool on)` | `front_fill_light` |
+| `BackLight()` | 开关后补光灯 | `OnBackLight(bool on)` | `back_fill_light` |
+| `AutoModeLight()` | 开关自动补光模式 | `OnAutoModeLight(bool on)` | `auto_mode_light` |
+| `ObstacleAvoidance()` | 开关停障功能 | `OnObstacleAvoidance(bool on)` | `obstacle_avoidance` |
 
-四个函数的 `on` 参数为 `true` 开启、`false` 关闭。当前状态通过 `RobotState` 的 `front_fill_light`、`back_fill_light`、`auto_mode_light` 和 `obstacle_avoidance` 获取。
+四个函数的 `on` 参数均为 `true` 开启、`false` 关闭。通过 `FrontLight()` 或 `BackLight()` 手动设置补光灯时，设备会退出自动补光模式。需要恢复时调用 `AutoModeLight(true)`。
+
+`BackLight()` 在 `DeviceType::M1_AIR` 和 `DeviceType::M1F_AIR` 上返回 `Errc::UnsupportedDeviceOperation`。其他型号的支持情况见[官方接口能力表](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_api_capability_zh.md)。
 
 ## 相机码率
 
@@ -75,22 +85,52 @@ std::error_code GetPeriphPower(
 
 ## LED 灯效
 
+状态 LED 可指示设备状态、告警、任务进度或应用事件。前后灯组的实际可用性取决于机型和硬件配置。
+
+### 接口与应答
+
+#### SetLedAutoMode
+
 ```cpp
 std::error_code SetLedAutoMode(
-    bool auto_mode, int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code GetLedAutoMode(
-    int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code SetLedCommand(
-    const LedCommand& cmd, int timeout_ms = 0, WriteHandler handler = ...);
+    bool auto_mode, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-| 接口 | 功能 |
-| --- | --- |
-| `SetLedAutoMode` | 设置 LED 自动或手动模式 |
-| `GetLedAutoMode` | 查询 LED 当前模式 |
-| `SetLedCommand` | 设置灯分组、灯效、颜色和灯效周期 |
+`auto_mode` 为 `true` 时请求切换到自动模式，为 `false` 时请求切换到手动模式。用 `OnSetLedAutoMode(const LedAutoModeAck& ack)` 中的 `ack.auto_mode` 确认设备返回的模式。
+
+#### GetLedAutoMode
 
 ```cpp
+std::error_code GetLedAutoMode(
+    int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+查询状态 LED 的当前模式。通过 `OnGetLedAutoMode(const LedAutoModeAck& ack)` 读取 `ack.auto_mode`。
+
+#### SetLedCommand
+
+```cpp
+std::error_code SetLedCommand(
+    const LedCommand& cmd, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+下发灯组、灯效、颜色和周期。若 `cmd.id == LedId::UNKNOWN` 或 `cmd.effect == LedEffect::UNKNOWN`，SDK 返回 `std::errc::invalid_argument`。设备应答通过 `OnSetLedCommand(const LedCommandAck& ack)` 返回，包含 `id`、`effect`、`color`、`duration_ms`。
+
+三项接口共用 `timeout_ms` 和 `handler`。传入 `0` 时异步发送，函数立即返回提交结果，实际发送结果由 `WriteHandler` 报告。传入大于 `0` 的值时，函数等待发送结束或超时，并返回 `std::error_code`。以 `IControlCallback` 的对应应答确认设备返回的信息，并在实机上确认最终显示效果。
+
+### 灯组、灯效与参数
+
+```cpp
+struct LedColor {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t a;
+};
+
 struct LedCommand {
     LedId id;
     LedEffect effect;
@@ -99,24 +139,64 @@ struct LedCommand {
 };
 ```
 
-`duration_ms` 表示灯效周期或闪烁间隔，单位为毫秒。`OFF`、`ON` 通常传 `0`；呼吸和闪烁灯效传所需周期值。
+| `LedCommand` 字段 | 取值与用途 |
+| --- | --- |
+| `id` | `LedId::ALL` 选择全部状态灯，`LedId::FRONT` 选择前部，`LedId::BACK` 选择后部 |
+| `effect` | 从下表选择 `LedEffect` 枚举值 |
+| `color` | `LedColor` 按 `{r, g, b, a}` 填写颜色，各通道为 0 至 255 |
+| `duration_ms` | 灯效周期或闪烁间隔，单位为 ms。关闭或常亮通常填 `0`，呼吸和闪烁填所需周期，例如 `300` 或 `1000` |
 
-示例：
-
-```cpp
-LedCommand cmd{LedId::ALL, LedEffect::BLINK, {255, 128, 0, 255}, 300};
-client.SetLedCommand(cmd);
-```
-
-`LedId::UNKNOWN` 或 `LedEffect::UNKNOWN` 会返回 `std::errc::invalid_argument`。设置和查询结果通过对应的 `IControlCallback` 回调获取。
-
-状态 LED 与前后补光灯不是同一组接口。前后补光灯使用 `FrontLight()`、`BackLight()` 和 `AutoModeLight()`。
+| `LedEffect` | 协议值 | 显示效果 |
+| --- | --- | --- |
+| `OFF` | `off` | 关闭 |
+| `ON` | `on` | 常亮 |
+| `BREATH` | `breath` | 呼吸 |
+| `BLINK` | `blink` | 闪烁 |
+| `BLINK_TRANSIENT` | `blink_transient` | 瞬时闪烁 |
 
 ### 自动与手动模式
 
-| 模式 | 行为与调用顺序 |
-| --- | --- |
-| 手动 | 调用 `SetLedAutoMode(false)`，等 `OnSetLedAutoMode()` 确认 `auto_mode == false` 后，再用 `SetLedCommand()` 设置自定义灯效。 |
-| 自动 | 调用 `SetLedAutoMode(true)`，等应答确认 `auto_mode == true`。此时 `SetLedCommand()` 提交的是用户灯效事件，设备会按自身策略决定展示效果。故障、急停、告警或低电量提示可能覆盖用户灯效。 |
+| 模式 | 设备行为 | 切换顺序 |
+| --- | --- | --- |
+| 手动 | 应用直接控制状态 LED，并维护灯态。适用于调试和自定义灯效 | 调用 `SetLedAutoMode(false)`，收到 `OnSetLedAutoMode()` 且确认 `ack.auto_mode == false` 后，再下发灯效 |
+| 自动 | 设备管理状态 LED，`SetLedCommand()` 提交用户灯效事件 | 调用 `SetLedAutoMode(true)`，收到 `OnSetLedAutoMode()` 且确认 `ack.auto_mode == true` 后，即可提交用户事件 |
 
-当前模式可通过 `GetLedAutoMode()` 查询，并在 `OnGetLedAutoMode()` 中读取。现场联调时请观察设备实际显示的灯效。[官方 LED 指南](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/en/sdk_led_control_en.md)
+设备侧策略决定用户灯效是否显示、显示多久，以及何时被更高优先级的提示打断。SDK 指南给出的自动模式参考优先级如下，数字越小优先级越高。
+
+| 优先级 | 场景 |
+| --- | --- |
+| 1 | 系统故障或急停 |
+| 2 | 告警 |
+| 3 | 低电量 |
+| 4 | 用户事件 |
+| 5 | 任务执行状态 |
+| 6 | 正常运行 |
+
+### 调用示例
+
+在调用灯效接口前，通过 `SetControlCallback()` 注册控制回调并连接机器人。需要核对当前模式时，调用 `GetLedAutoMode()` 并读取 `OnGetLedAutoMode()`。
+
+**手动灯效**。调用 `SetLedAutoMode(false)`，确认设备返回手动模式后，将全部状态 LED 设置为橙色闪烁，间隔为 400 ms。
+
+```cpp
+const LedCommand manual_blink{
+    LedId::ALL, LedEffect::BLINK, {255, 160, 0, 255}, 400};
+client.SetLedCommand(manual_blink);
+```
+
+**自动模式下的用户事件**。调用 `SetLedAutoMode(true)`，确认设备返回自动模式后，向前部状态 LED 提交蓝色瞬时闪烁事件。
+
+```cpp
+const LedCommand blue_event{
+    LedId::FRONT, LedEffect::BLINK_TRANSIENT, {0, 96, 255, 255}, 600};
+client.SetLedCommand(blue_event);
+```
+
+清除自动模式下的用户事件时，向全部灯组发送 `OFF`。其他状态提示仍按设备侧优先级显示。
+
+```cpp
+const LedCommand clear_event{LedId::ALL, LedEffect::OFF, {0, 0, 0, 0}, 0};
+client.SetLedCommand(clear_event);
+```
+
+现场联调时，先核对回调中的模式和灯效参数，再观察设备的实际显示。完整流程见[官方 LED 控制指南](https://github.com/zsibot/genisom_robot_sdk/blob/main/docs/zh/sdk_led_control_zh.md)。

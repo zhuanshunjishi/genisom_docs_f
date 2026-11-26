@@ -146,7 +146,7 @@ Do not send regular motion commands while the robot is recharging or undocking.
 
 ### led.cpp
 
-The LED example normally calls `SetLedAutoMode(false)` before sending `SetLedCommand()`. Once testing is complete, call `SetLedAutoMode(true)` to restore automatic status indicators so warning and emergency stop effects display correctly.
+To test a manual effect, call `SetLedAutoMode(false)` and wait for `OnSetLedAutoMode()` to confirm manual mode before sending `SetLedCommand()`. After testing, switch back to automatic mode and use the same callback to confirm that the robot manages the status LEDs again. See [LED Control](./07-05-peripherals-and-camera.md#led-control) for the APIs and call sequence.
 
 ## Common Issues
 

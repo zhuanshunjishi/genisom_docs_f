@@ -153,10 +153,6 @@
   </tbody>
 </table>
 
-S100 版本栏中的空白沿用原表。
-
 ## SDK 兼容说明
-
-L2 系统 `v0.0.9` 推荐使用 SDK `v0.2.2`。详见 [Robot SDK 兼容性说明](https://github.com/zsibot/genisom_robot_sdk/blob/main/README_zh.md#sdk-与机器人系统版本兼容性)。
 
 可调用 `Version()` 查询正在使用的 SDK 版本。与机器人握手成功后，可调用 `SystemVersion()` 查询机器人系统版本。详见[版本和设备信息](./07-01-connection-and-device-info.md#版本和设备信息)。
