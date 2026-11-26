@@ -1,15 +1,30 @@
 # L2 机器人控制
 
-[SDK 接口参考](./07-sdk-api-reference.md) | [L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md)
+[SDK 接口参考](./07-sdk-api-reference.md) | [通用参数和返回值](./07-sdk-api-reference.md#通用参数和返回值)
 
 ## 控制权
 
+### TakeControl
+
 ```cpp
-std::error_code TakeControl(int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code ReleaseControl(int timeout_ms = 0, WriteHandler handler = ...);
+std::error_code TakeControl(
+    int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`TakeControl()` 的发送结果不等于获得控制权。只有 `OnTakeControlAck()` 返回的 `error_code == 0` 才表示成功。
+申请机器人普通控制权。异步发送结果由 `WriteHandler` 报告，同步等待结果由函数返回值报告。收到 `OnTakeControlAck()` 且 `error_code == 0` 时，才确认取得控制权。
+
+### ReleaseControl
+
+```cpp
+std::error_code ReleaseControl(
+    int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+主动释放当前持有的控制权。程序退出前先停止运动，再调用此接口。切换到 App 或长时间不再发送控制命令时也应主动释放。通过 `OnReleaseControlAck()` 确认释放结果。
+
+控制权的申请、接管和恢复流程见 [L2 SDK 控制流程](./09-control-ownership-tasks-and-peripherals.md#控制权模型)。
 
 ## 安全控制
 
@@ -17,10 +32,13 @@ std::error_code ReleaseControl(int timeout_ms = 0, WriteHandler handler = ...);
 
 ```cpp
 std::error_code SoftEmergencyStop(
-    bool on, int timeout_ms = 0, WriteHandler handler = ...);
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-`on == true` 触发软件急停，`false` 解除。应答通过 `OnSoftEmergencyStop()` 返回，状态通过 `RobotState::software_emergency_status` 读取。
+`on == true` 触发软件急停，`on == false` 解除。软件急停不受普通控制权限制。现场应保留独立于 SDK 的急停手段。操作前确认遥控器急停可用，使用 L2-W Ultra 时还应确认机身硬急停可用。详见[设备操作与安全指南](./04-device-controller-and-app-guide.md#软件急停)。
+
+应答通过 `IControlCallback::OnSoftEmergencyStop(bool on)` 返回。通过 `RobotState::software_emergency_status` 确认当前状态。
 
 ## 姿态控制
 
@@ -37,7 +55,6 @@ std::error_code SoftEmergencyStop(
 | `PosControl()` | 位置控制姿态 | 支持 |
 | `Locked()` | 锁定当前姿态 | 支持 |
 | `Slim()` | 窄道姿态 | 不支持 |
-| `DSB()` | 挡鼠板姿态 | 不支持 |
 | `SkWalk()` | 同膝姿态 | 不支持 |
 | `Sand()` | 沙地姿态 | 不支持 |
 | `ReverseHeadTail()` | 调换头尾 | 不支持 |

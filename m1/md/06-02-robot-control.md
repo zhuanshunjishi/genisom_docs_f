@@ -1,4 +1,4 @@
-# 机器人控制
+# M1机器人控制
 
 [接口概览](./06-sdk-api-reference.md) | [通用参数和返回值](./06-sdk-api-reference.md#通用参数和返回值)
 

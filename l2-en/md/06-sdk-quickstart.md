@@ -2,6 +2,10 @@
 
 [Documentation Overview](../index.md) | [Hardware Interfaces and System Architecture](./03-hardware-interfaces-and-system-architecture.md) | [SDK API Reference](./07-sdk-api-reference.md)
 
+::: tip Before You Start
+Use the robot's RK3588 version to choose an SDK from the [Genisom L2 System and SDK Version Compatibility](./sdk-version-compatibility.md) page.
+:::
+
 ## Development Environment
 
 | Item | Configuration |

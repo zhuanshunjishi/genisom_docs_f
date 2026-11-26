@@ -54,8 +54,8 @@
   background-color: #fff;
 }
 
-.vp-doc .m1-version-matrix tbody tr,
-.vp-doc .m1-version-matrix th[scope='rowgroup'] {
+.vp-doc :is(.m1-version-matrix, .l2-version-matrix) tbody tr,
+.vp-doc :is(.m1-version-matrix, .l2-version-matrix) th[scope='rowgroup'] {
   background-color: var(--vp-c-bg);
 }
 

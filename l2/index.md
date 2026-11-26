@@ -19,12 +19,13 @@
 | [5. L2 设备操作与安全使用](./md/04-device-controller-and-app-guide.md) | 安全检查、开关机、遥控器、急停、App 操作和充电 | 操控设备前阅读 |
 | [6. L2 日常维护、存放与故障排查](./md/12-maintenance.md) | 清洁保养、定期检查、存放和设备故障排查 | 维护、存放或排查设备异常时阅读 |
 | [7. L2 智航 Pro 软件使用](./md/05-roamerx-pro-guide.md) | L2-W Ultra 的网络配置、建图、路网、巡航任务、自主回充和巡航记录 | 部署 L2-W Ultra 自主导航时阅读 |
-| [8. L2 SDK 快速开始](./md/06-sdk-quickstart.md) | Ubuntu 环境、SDK 目录、网络与端口配置、编译、连接、运行示例和自建工程 | 第一次编译和运行 SDK 时阅读 |
-| [9. L2 SDK 控制流程](./md/09-control-ownership-tasks-and-peripherals.md) | 控制权申请与释放、远程与空闲状态切换、退出和异常处理 | 编写 SDK 控制程序前阅读 |
-| [10. L2 SDK 接口参考](./md/07-sdk-api-reference.md) | 接口能力表、通用参数与返回值、连接与控制、数据上报、[充电桩配对与任务](./md/07-04-dock-and-tasks.md)、[外设与相机接口](./md/07-05-peripherals-and-camera.md) | 编码时按功能查询 |
-| [11. L2 数据读取 · 相机节点与 Topic 配置](./md/camera-topic-configuration.md) | 相机图像格式、分辨率和 Topic 路径 | 接入前双目或环视相机图像时阅读 |
-| [12. L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md) | 数据回调、控制应答回调、机器人状态、任务状态、故障信息和主要数据结构 | 处理上报数据和命令应答时查询 |
-| [13. L2 示例程序与故障排查](./md/10-examples-and-troubleshooting.md) | SDK 自带示例、推荐测试顺序、网络和运行库排查方法 | 运行示例或联调排障时阅读 |
+| [8. L2 系统与 SDK 版本兼容性](./md/sdk-version-compatibility.md) | RK3588、APP、SDK 和 S100 的版本对应关系 | 核对组件版本或选择 SDK 时阅读 |
+| [9. L2 SDK 快速开始](./md/06-sdk-quickstart.md) | Ubuntu 环境、SDK 目录、网络与端口配置、编译、连接、运行示例和自建工程 | 第一次编译和运行 SDK 时阅读 |
+| [10. L2 SDK 控制流程](./md/09-control-ownership-tasks-and-peripherals.md) | 控制权申请与释放、远程与空闲状态切换、退出和异常处理 | 编写 SDK 控制程序前阅读 |
+| [11. L2 SDK 接口参考](./md/07-sdk-api-reference.md) | 接口能力表、通用参数与返回值、连接与控制、数据上报、[充电桩配对与任务](./md/07-04-dock-and-tasks.md)、[外设与相机接口](./md/07-05-peripherals-and-camera.md) | 编码时按功能查询 |
+| [12. L2 数据读取 · 相机节点与 Topic 配置](./md/camera-topic-configuration.md) | 相机图像格式、分辨率和 Topic 路径 | 接入前双目或环视相机图像时阅读 |
+| [13. L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md) | 数据回调、控制应答回调、机器人状态、任务状态、故障信息和主要数据结构 | 处理上报数据和命令应答时查询 |
+| [14. L2 示例程序与故障排查](./md/10-examples-and-troubleshooting.md) | SDK 自带示例、推荐测试顺序、网络和运行库排查方法 | 运行示例或联调排障时阅读 |
 
 ## 推荐阅读顺序
 
@@ -38,10 +39,11 @@
 进行 SDK 开发：
 
 1. [L2 硬件接口与系统架构](./md/03-hardware-interfaces-and-system-architecture.md)
-2. [L2 SDK 快速开始](./md/06-sdk-quickstart.md)
-3. [L2 SDK 控制流程](./md/09-control-ownership-tasks-and-peripherals.md)
-4. [L2 SDK 接口参考](./md/07-sdk-api-reference.md)
-5. [L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md)
+2. [L2 系统与 SDK 版本兼容性](./md/sdk-version-compatibility.md)
+3. [L2 SDK 快速开始](./md/06-sdk-quickstart.md)
+4. [L2 SDK 控制流程](./md/09-control-ownership-tasks-and-peripherals.md)
+5. [L2 SDK 接口参考](./md/07-sdk-api-reference.md)
+6. [L2 回调、数据类型与状态](./md/08-callbacks-data-types-and-status-reference.md)
 
 为 L2-W Ultra 部署智航 Pro 自主导航：
 

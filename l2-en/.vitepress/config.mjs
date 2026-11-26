@@ -16,6 +16,7 @@ export default defineConfig(englishConfig(
     'L2 日常维护、存放与故障排查': 'Maintenance, Storage, and Troubleshooting',
     '智航 Pro 软件使用': 'RoamerX Pro User Guide',
     'SDK 开发': 'SDK Development',
+    'L2 系统与 SDK 版本兼容性': 'Genisom L2 System and SDK Version Compatibility',
     '快速开始': 'Quickstart',
     'L2 SDK 控制流程': 'Genisom L2 SDK Control Workflow',
     '接口参考': 'API Reference',

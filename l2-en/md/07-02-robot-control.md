@@ -1,15 +1,30 @@
 # Genisom L2 Robot Control
 
-[SDK API Reference](./07-sdk-api-reference.md) | [Genisom L2 SDK Control Workflow](./09-control-ownership-tasks-and-peripherals.md)
+[SDK API Reference](./07-sdk-api-reference.md) | [Common Parameters and Return Values](./07-sdk-api-reference.md#common-parameters-and-return-values)
 
 ## Control Ownership
 
+### TakeControl
+
 ```cpp
-std::error_code TakeControl(int timeout_ms = 0, WriteHandler handler = ...);
-std::error_code ReleaseControl(int timeout_ms = 0, WriteHandler handler = ...);
+std::error_code TakeControl(
+    int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-Check the send result from `TakeControl()` for transmission errors. Control ownership is confirmed only when `OnTakeControlAck()` reports `error_code == 0`.
+Request regular control of the robot. `WriteHandler` reports the asynchronous send result. The function return value reports the synchronous wait result. Control ownership is confirmed only when `OnTakeControlAck()` reports `error_code == 0`.
+
+### ReleaseControl
+
+```cpp
+std::error_code ReleaseControl(
+    int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
+```
+
+Release the control currently held by the client. Before exiting the application, stop the robot's motion and then call this API. Also release control when switching to the app or when no control commands are expected for an extended period. Check `OnReleaseControlAck()` to confirm the result.
+
+For how to request, take over, and regain control, see the [Genisom L2 SDK Control Workflow](./09-control-ownership-tasks-and-peripherals.md#control-ownership-model).
 
 ## Safety Control
 
@@ -17,10 +32,13 @@ Check the send result from `TakeControl()` for transmission errors. Control owne
 
 ```cpp
 std::error_code SoftEmergencyStop(
-    bool on, int timeout_ms = 0, WriteHandler handler = ...);
+    bool on, int timeout_ms = 0,
+    WriteHandler handler = [](const std::error_code&, std::size_t) {});
 ```
 
-Use `on == true` to activate the software emergency stop or pass `false` to clear it. `OnSoftEmergencyStop()` reports the acknowledgment. Read `RobotState::software_emergency_status` for the current state.
+Set `on == true` to trigger the software emergency stop or `on == false` to clear it. The software emergency stop is available regardless of control ownership. Keep on-site emergency stop controls available independently of the SDK. Before operating, verify that the remote controller's emergency stop is available. For the Genisom L2-W Ultra, also verify that the physical emergency stop on the robot is available. See [Genisom L2 Operation and Safety](./04-device-controller-and-app-guide.md#软件急停).
+
+`IControlCallback::OnSoftEmergencyStop(bool on)` reports the acknowledgment. Read `RobotState::software_emergency_status` to confirm the current state.
 
 ## Posture Control
 
@@ -37,7 +55,6 @@ Use `on == true` to activate the software emergency stop or pass `false` to clea
 | `PosControl()` | Switch to the position-control posture | Supported |
 | `Locked()` | Lock the current posture | Supported |
 | `Slim()` | Switch to a posture for narrow passages | Unsupported |
-| `DSB()` | Switch to a posture for crossing rodent barriers | Unsupported |
 | `SkWalk()` | Switch to the same-knee posture | Unsupported |
 | `Sand()` | Switch to a posture for sandy terrain | Unsupported |
 | `ReverseHeadTail()` | Reverse the front and rear directions | Unsupported |

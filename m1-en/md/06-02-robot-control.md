@@ -1,4 +1,4 @@
-# Robot Control
+# Genisom M1 Robot Control
 
 [Overview of interfaces](./06-sdk-api-reference.md) | [Common parameters and return values](./06-sdk-api-reference.md#common-parameters-and-return-values)
 

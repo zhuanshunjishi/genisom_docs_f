@@ -34,6 +34,7 @@ export default defineConfig({
       {
         text: 'SDK 开发',
         items: [
+          { text: 'L2 系统与 SDK 版本兼容性', link: '/md/sdk-version-compatibility' },
           { text: '快速开始', link: '/md/06-sdk-quickstart' },
           { text: 'L2 SDK 控制流程', link: '/md/09-control-ownership-tasks-and-peripherals' },
           {

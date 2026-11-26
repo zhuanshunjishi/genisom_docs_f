@@ -2,6 +2,10 @@
 
 [返回文档总览](../index.md) | [硬件接口与系统架构](./03-hardware-interfaces-and-system-architecture.md) | [SDK 接口参考](./07-sdk-api-reference.md)
 
+::: tip 开始前
+请查阅 [L2 系统与 SDK 版本兼容性](./sdk-version-compatibility.md)，根据机器人的 RK3588 版本选择 SDK。
+:::
+
 ## 开发环境
 
 | 项目 | 配置 |
