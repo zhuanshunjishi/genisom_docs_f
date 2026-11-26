@@ -40,6 +40,8 @@ public:
     virtual void OnControlLost(const ControlLostInfo& info) {}
     virtual void OnControlAvailable(const ControlAvailableInfo& info) {}
     virtual void OnTaskStateData(const TaskStateInfo& info) {}
+    virtual void OnDockScanResult(const DockScanResult& result) {}
+    virtual void OnDockConnectionResult(const DockConnectionResult& result) {}
 };
 ```
 
@@ -55,6 +57,8 @@ public:
 | `OnControlLost()` | The SDK loses control. |
 | `OnControlAvailable()` | Control is available to request again. |
 | `OnTaskStateData()` | Task status changes. |
+| `OnDockScanResult()` | Reports charging docks discovered during a scan |
+| `OnDockConnectionResult()` | Reports the final result of connecting to or disconnecting from a charging dock |
 
 ## IControlCallback
 
@@ -62,12 +66,13 @@ Control callbacks acknowledge that the robot has received a command. The table l
 
 | Category | Callbacks |
 | --- | --- |
-| Safety and Posture | `OnSoftEmergencyStop()`, `OnStandUp()`, `OnBalanceStandUp()`, `OnLieDown()`, `OnStair()`, `OnCrawl()`, `OnCrawlWalk()`, `OnClimb()`, `OnGait()`, `OnPosControl()`, `OnLocked()` |
+| Safety and Posture | `OnSoftEmergencyStop()`, `OnStandUp()`, `OnWalk()`, `OnBalanceStandUp()`, `OnLieDown()`, `OnStair()`, `OnCrawl()`, `OnCrawlWalk()`, `OnClimb()`, `OnGait()`, `OnPosControl()`, `OnLocked()` |
 | Speed and Lighting | `OnSpeed()`, `OnFrontLight()`, `OnAutoModeLight()` |
 | Data Configuration | `OnLuxConfig()`, `OnImuConfig()`, `OnMcConfig()`, `OnSpeedReportConfig()`, `OnJointStateConfig()` |
 | Control Ownership | `OnTakeControlAck()`, `OnReleaseControlAck()` |
 | Cameras | `OnUpdateCameraBitrateAck()` |
 | State Switching | `OnSwitchRemote()`, `OnSwitchIdle()` |
+| [Charging Dock Pairing](./07-04-dock-and-tasks.md#pairing-with-the-sdk) | `OnDockScanConfig(bool on)`, `OnDockConnectionAck(const DockConnectionAck& ack)`, `OnDockInfo(const DockInfo& info)` |
 | Charging Tasks | `OnStartRechargeTask()`, `OnStopRechargeTask()`, `OnStartUnDockTask()`, `OnStopUnDockTask()` |
 | Peripheral Power | `OnSetPeriphPower()`, `OnGetPeriphPower()` |
 | LED | `OnSetLedAutoMode()`, `OnGetLedAutoMode()`, `OnSetLedCommand()` |

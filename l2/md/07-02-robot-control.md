@@ -45,6 +45,7 @@ std::error_code SoftEmergencyStop(
 | 接口 | 功能 | L2 系列说明 |
 | --- | --- | --- |
 | `StandUp()` | 站立 | 支持 |
+| `Walk()` | 切换到可移动的行走姿态 | 支持 |
 | `BalanceStandUp()` | 原地平衡站立 | 支持 |
 | `LieDown()` | 卧倒 | 支持 |
 | `Stair()` | 登阶姿态 | 支持 |
@@ -60,6 +61,8 @@ std::error_code SoftEmergencyStop(
 | `ReverseHeadTail()` | 调换头尾 | 不支持 |
 
 这些接口都使用公共的 `timeout_ms` 和 `WriteHandler` 参数。姿态完成情况通过 `RobotState::motion_status` 判断。
+
+异步调用 `Walk()` 时，`IControlCallback::OnWalk()` 表示机器人已收到行走姿态命令。收到应答后，通过 `RobotState::motion_status` 确认姿态已切换到 `MotionStatus::MOTION_STATUS_WALK`。
 
 ## 运动控制
 
@@ -78,6 +81,24 @@ std::error_code Move(
 | `yaw` | `[-1.0, 1.0]` | 正数左转，负数右转 |
 
 连续移动时以 10 至 20 Hz 周期发送。停止时明确发送 `Move(0, 0, 0)`，不要只停止应用循环。
+
+### MoveVelocity
+
+```cpp
+std::error_code MoveVelocity(
+    float x, float y, float yaw,
+    int timeout_ms = 0, WriteHandler handler = ...);
+```
+
+以物理单位发送机体坐标系下的速度。
+
+| 参数 | 单位 | 正方向 |
+| --- | --- | --- |
+| `x` | m/s | 向前 |
+| `y` | m/s | 向左 |
+| `yaw` | rad/s | 绕机体竖直轴按右手定则旋转 |
+
+SDK 按当前 `SetSpeed()` 档位限制实际下发的速度，并保留移动超时保护。连续移动时以 10 至 20 Hz 周期发送。参数为 `NaN` 或无穷值时返回 `std::errc::invalid_argument`。异步调用通过 `WriteHandler` 检查发送结果。`MoveVelocity()` 无专用控制应答，可通过 `OnSpeedData()` 查看配置上报的实际速度。
 
 ### PosMove
 

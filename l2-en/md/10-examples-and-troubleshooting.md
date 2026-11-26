@@ -18,6 +18,7 @@ The SDK's `example/` directory contains the following programs.
 | `camera_bitrate.cpp` | Camera bitrate settings |
 | `recharge.cpp` | Recharge and undock tasks |
 | `led.cpp` | Automatic and manual LED modes and effects |
+| [`dock_pairing.cpp`](#charging-dock-pairing-example) | Scan for, select, connect to, query, and disconnect from a Bluetooth charging dock |
 
 ## Building the Examples
 
@@ -147,6 +148,31 @@ Do not send regular motion commands while the robot is recharging or undocking.
 ### led.cpp
 
 To test a manual effect, call `SetLedAutoMode(false)` and wait for `OnSetLedAutoMode()` to confirm manual mode before sending `SetLedCommand()`. After testing, switch back to automatic mode and use the same callback to confirm that the robot manages the status LEDs again. See [LED Control](./07-05-peripherals-and-camera.md#led-control) for the APIs and call sequence.
+
+### Charging Dock Pairing Example
+
+Confirm that the robot system supports [Bluetooth pairing through the SDK](./07-04-dock-and-tasks.md#pairing-with-the-sdk). Build and run `dock_pairing` from the SDK root directory. Replace the example IP and port with the robot's UDP address and port.
+
+```bash
+cd example
+mkdir -p build
+cd build
+cmake ..
+cmake --build . --target dock_pairing
+./dock_pairing 192.168.234.1 8082
+```
+
+| Key | Action |
+| --- | --- |
+| `1` | Start scanning |
+| `3` | Show the latest scan results |
+| `4` | Select a charging dock by number |
+| `2` | Stop scanning |
+| `5` | Connect to the selected charging dock |
+| `6` | Query the charging dock state |
+| `7` | Disconnect from the charging dock |
+
+To pair and query the dock, press `1 → 3 → 4 → 2 → 5 → 6` in order. After pressing `5`, wait for a successful final result before pressing `6`. If you know the dock's Bluetooth MAC address, pass it as the third argument to select the dock directly. Press `h` for help or `q` to quit. See the [official example source](https://github.com/zsibot/genisom_robot_sdk/blob/main/example/dock_pairing.cpp).
 
 ## Common Issues
 

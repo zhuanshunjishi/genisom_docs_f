@@ -4,6 +4,8 @@
 
 ## Charging Dock Pairing
 
+### Pairing with the App
+
 1. Install the optional charging dock.
 2. Tap the settings icon on the GenisDog home screen and open **Charging Dock** (充电桩).
 3. Follow the app prompts to pair the robot with the charging dock over Bluetooth.
@@ -11,6 +13,27 @@
 ![Charging dock entry in GenisDog settings](../assets/operation/genisdog-connection-settings.png)
 
 To use RoamerX Pro for autonomous recharging on Genisom L2-W Ultra, [configure a charging point on the map](./05-roamerx-pro-guide.md#configure-a-charging-point) after pairing.
+
+### Pairing with the SDK
+
+Confirm the robot system supports Bluetooth pairing through the SDK and power on the charging dock. Register `IDataCallback` and `IControlCallback` before connecting to the robot.
+
+| API | Callbacks |
+| --- | --- |
+| `SetDockScanConfig(bool on, int timeout_ms = 0, WriteHandler handler = ...)` | `OnDockScanConfig()` confirms the scan setting. `OnDockScanResult()` reports discovered docks. |
+| `ConnectDock(const DockConnectConfig& config, int timeout_ms = 0, WriteHandler handler = ...)` | `OnDockConnectionAck()` reports acceptance. `OnDockConnectionResult()` reports the final outcome. |
+| `GetDockInfo(int timeout_ms = 0, WriteHandler handler = ...)` | `OnDockInfo()` reports charging dock information. |
+| `DisconnectDock(int timeout_ms = 0, WriteHandler handler = ...)` | `OnDockConnectionAck()` reports acceptance. `OnDockConnectionResult()` reports the final outcome. |
+
+1. Call `SetDockScanConfig(true)` and wait for `OnDockScanConfig(true)`. Select a dock with `connectable` set to `true` in `OnDockScanResult()` and save its `address`. Update the device list by address as scan results arrive.
+2. Call `SetDockScanConfig(false)` and wait for the acknowledgment. Set `DockConnectConfig::address` to the selected address and call `ConnectDock()`.
+3. Check `accepted` in `OnDockConnectionAck()`. Once the robot accepts the request, wait for `OnDockConnectionResult()` and check `success` for the final outcome. If either stage fails, log the `error_code` from the corresponding callback.
+4. Call `GetDockInfo()` and check `dock_connected`, `has_contact`, and `charging_active` in `OnDockInfo()` for Bluetooth connection, physical contact, and charging, respectively.
+5. To end the Bluetooth connection, call `DisconnectDock()` and check the acknowledgment and final result. You can call `GetDockInfo()` again to confirm that `dock_connected` is `false`.
+
+Run only one connect or disconnect operation at a time. For an asynchronous call, the return value reports request submission and `WriteHandler` reports the send result. Use `OnDockConnectionResult()` to determine the pairing outcome.
+
+For the commands to run, see the [`dock_pairing` example](./10-examples-and-troubleshooting.md#charging-dock-pairing-example). For callback categories, see the [Callback Reference](./08-callbacks-data-types-and-status-reference.md).
 
 ## Tasks and Machine States
 

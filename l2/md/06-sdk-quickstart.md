@@ -116,7 +116,10 @@ take_control
 camera_bitrate
 recharge
 led
+dock_pairing
 ```
+
+`dock_pairing` 的使用步骤见[充电桩配对示例](./10-examples-and-troubleshooting.md#充电桩配对示例)。
 
 ## 配置运行库
 

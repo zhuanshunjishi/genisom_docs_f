@@ -40,6 +40,8 @@ public:
     virtual void OnControlLost(const ControlLostInfo& info) {}
     virtual void OnControlAvailable(const ControlAvailableInfo& info) {}
     virtual void OnTaskStateData(const TaskStateInfo& info) {}
+    virtual void OnDockScanResult(const DockScanResult& result) {}
+    virtual void OnDockConnectionResult(const DockConnectionResult& result) {}
 };
 ```
 
@@ -55,6 +57,8 @@ public:
 | `OnControlLost()` | SDK 失去控制权 |
 | `OnControlAvailable()` | 控制权重新可申请 |
 | `OnTaskStateData()` | 任务状态改变 |
+| `OnDockScanResult()` | 扫描期间上报发现的充电桩 |
+| `OnDockConnectionResult()` | 充电桩连接或断开操作完成时上报终态 |
 
 ## IControlCallback
 
@@ -62,12 +66,13 @@ public:
 
 | 类别 | 回调 |
 | --- | --- |
-| 安全与姿态 | `OnSoftEmergencyStop()`、`OnStandUp()`、`OnBalanceStandUp()`、`OnLieDown()`、`OnStair()`、`OnCrawl()`、`OnCrawlWalk()`、`OnClimb()`、`OnGait()`、`OnPosControl()`、`OnLocked()` |
+| 安全与姿态 | `OnSoftEmergencyStop()`、`OnStandUp()`、`OnWalk()`、`OnBalanceStandUp()`、`OnLieDown()`、`OnStair()`、`OnCrawl()`、`OnCrawlWalk()`、`OnClimb()`、`OnGait()`、`OnPosControl()`、`OnLocked()` |
 | 速度和灯光 | `OnSpeed()`、`OnFrontLight()`、`OnAutoModeLight()` |
 | 数据配置 | `OnLuxConfig()`、`OnImuConfig()`、`OnMcConfig()`、`OnSpeedReportConfig()`、`OnJointStateConfig()` |
 | 控制权 | `OnTakeControlAck()`、`OnReleaseControlAck()` |
 | 相机 | `OnUpdateCameraBitrateAck()` |
 | 状态切换 | `OnSwitchRemote()`、`OnSwitchIdle()` |
+| [充电桩配对](./07-04-dock-and-tasks.md#通过-sdk-配对) | `OnDockScanConfig(bool on)`、`OnDockConnectionAck(const DockConnectionAck& ack)`、`OnDockInfo(const DockInfo& info)` |
 | 充电任务 | `OnStartRechargeTask()`、`OnStopRechargeTask()`、`OnStartUnDockTask()`、`OnStopUnDockTask()` |
 | 外设电源 | `OnSetPeriphPower()`、`OnGetPeriphPower()` |
 | LED | `OnSetLedAutoMode()`、`OnGetLedAutoMode()`、`OnSetLedCommand()` |

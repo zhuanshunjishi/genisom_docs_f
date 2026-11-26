@@ -116,7 +116,10 @@ take_control
 camera_bitrate
 recharge
 led
+dock_pairing
 ```
+
+See the [Charging Dock Pairing Example](./10-examples-and-troubleshooting.md#charging-dock-pairing-example) for instructions on running `dock_pairing`.
 
 ## Configuring the Runtime Library
 

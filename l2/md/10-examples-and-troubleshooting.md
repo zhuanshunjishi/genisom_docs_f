@@ -18,6 +18,7 @@ SDK 的 `example/` 目录包含以下程序：
 | `camera_bitrate.cpp` | 相机码率设置 |
 | `recharge.cpp` | 回充和离桩任务 |
 | `led.cpp` | LED 自动模式、手动模式和灯效 |
+| [`dock_pairing.cpp`](#充电桩配对示例) | 扫描、选择、连接、查询和断开蓝牙充电桩 |
 
 ## 编译
 
@@ -147,6 +148,31 @@ config.reconnect_interval_ms = 1000;
 ### led.cpp
 
 测试手动灯效时，调用 `SetLedAutoMode(false)`，等 `OnSetLedAutoMode()` 确认手动模式后再发送 `SetLedCommand()`。测试完成后切回自动模式，并通过同一回调确认机器人已恢复管理状态 LED。接口和调用顺序见 [LED 控制](./07-05-peripherals-and-camera.md#led-控制)。
+
+### 充电桩配对示例
+
+确认机器人系统支持 [SDK 蓝牙配对](./07-04-dock-and-tasks.md#通过-sdk-配对)。在 SDK 根目录构建并运行 `dock_pairing`。将示例中的 IP 和端口替换为实际的机器人 UDP 地址和端口。
+
+```bash
+cd example
+mkdir -p build
+cd build
+cmake ..
+cmake --build . --target dock_pairing
+./dock_pairing 192.168.234.1 8082
+```
+
+| 按键 | 操作 |
+| --- | --- |
+| `1` | 开启扫描 |
+| `3` | 查看最近的扫描结果 |
+| `4` | 按序号选择充电桩 |
+| `2` | 关闭扫描 |
+| `5` | 连接选中的充电桩 |
+| `6` | 查询充电桩状态 |
+| `7` | 断开充电桩 |
+
+按 `1 → 3 → 4 → 2 → 5 → 6` 完成配对和查询。按 `5` 后等待连接成功的终态，再按 `6` 查询。已知充电桩蓝牙 MAC 地址时，可作为第三个参数传入，直接选择目标。按 `h` 查看帮助，按 `q` 退出。参见[官方示例源码](https://github.com/zsibot/genisom_robot_sdk/blob/main/example/dock_pairing.cpp)。
 
 ## 常见问题
 

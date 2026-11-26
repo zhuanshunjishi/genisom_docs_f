@@ -13,9 +13,9 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 | 接口章节 | 主要内容 | 常用接口 |
 | --- | --- | --- |
 | [连接与设备信息](./07-01-connection-and-device-info.md) | 客户端构造、连接与断开、连接状态、版本和设备信息 | `SDKClient`、`Connect()`、`GetConnectionState()`、`GetDeviceInfo()` |
-| [机器人控制](./07-02-robot-control.md) | 控制权、软件急停、姿态和运动命令 | `TakeControl()`、`SoftEmergencyStop()`、`StandUp()`、`Move()` |
+| [机器人控制](./07-02-robot-control.md) | 控制权、软件急停、姿态和运动命令 | `TakeControl()`、`SoftEmergencyStop()`、`StandUp()`、`Walk()`、`Move()`、`MoveVelocity()` |
 | [数据上报](./07-03-data-reporting.md) | 回调注册、传感器与运动数据上报配置 | `SetDataCallback()`、`SetControlCallback()`、`SetImuConfig()` |
-| [充电桩与任务](./07-04-dock-and-tasks.md) | App 蓝牙配对、回充与离桩任务、远程与空闲状态切换 | `StartRechargeTask()`、`StartUnDockTask()`、`SwitchIdleState()` |
+| [充电桩与任务](./07-04-dock-and-tasks.md) | App 和 [SDK 蓝牙配对](./07-04-dock-and-tasks.md#通过-sdk-配对)、回充与离桩任务、远程与空闲状态切换 | `SetDockScanConfig()`、`ConnectDock()`、`StartRechargeTask()`、`StartUnDockTask()`、`SwitchIdleState()` |
 | [外设与相机](./07-05-peripherals-and-camera.md) | 补光灯、相机码率、[相机节点与 Topic 配置](./camera-topic-configuration.md)、外设供电及 LED 控制 | `FrontLight()`、`UpdateCameraBitrate()`、`SetPeriphPower()`、`SetLedCommand()` |
 
 ## L2 系列设备类型
@@ -43,6 +43,7 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 | `SoftEmergencyStop()` | ✓ | ✓ | ✓ |
 | `ObstacleAvoidance()` (停障开关) | — | — | — |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
+| `Walk()` | ✓ | ✓ | ✓ |
 | `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
 | `Climb()` | — | — | — |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
@@ -54,7 +55,7 @@ SDK 核心类为 `robot_sdk::SDKClient`，声明在 `include/robot_sdk/sdk_clien
 
 | API | L2 | L2-W | L2-W Ultra |
 | --- | :---: | :---: | :---: |
-| `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
+| `Move()` / `MoveVelocity()` / `PosMove()` | ✓ | ✓ | ✓ |
 | `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
 | `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
 | `BackLight()` | — | — | — |

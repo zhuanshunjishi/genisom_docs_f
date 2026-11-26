@@ -45,6 +45,7 @@ Set `on == true` to trigger the software emergency stop or `on == false` to clea
 | API | Function | Genisom L2 Series Support |
 | --- | --- | --- |
 | `StandUp()` | Stand up | Supported |
+| `Walk()` | Switch to the walking posture | Supported |
 | `BalanceStandUp()` | Stand in a balanced posture in place | Supported |
 | `LieDown()` | Lie down | Supported |
 | `Stair()` | Switch to a stair-climbing posture | Supported |
@@ -60,6 +61,8 @@ Set `on == true` to trigger the software emergency stop or `on == false` to clea
 | `ReverseHeadTail()` | Reverse the front and rear directions | Unsupported |
 
 These APIs use the common `timeout_ms` and `WriteHandler` parameters. Check `RobotState::motion_status` to confirm when the posture change is complete.
+
+When you call `Walk()` asynchronously, `IControlCallback::OnWalk()` acknowledges that the robot received the posture command. After the acknowledgment, check `RobotState::motion_status` for `MotionStatus::MOTION_STATUS_WALK` to confirm the transition.
 
 ## Motion Control
 
@@ -78,6 +81,24 @@ std::error_code Move(
 | `yaw` | `[-1.0, 1.0]` | Positive values turn left and negative values turn right. |
 
 For continuous movement, send the command at 10 to 20 Hz. To stop, send `Move(0, 0, 0)` explicitly. Stopping the application loop alone is insufficient.
+
+### MoveVelocity
+
+```cpp
+std::error_code MoveVelocity(
+    float x, float y, float yaw,
+    int timeout_ms = 0, WriteHandler handler = ...);
+```
+
+Send a body-frame velocity command in physical units.
+
+| Parameter | Unit | Positive Direction |
+| --- | --- | --- |
+| `x` | m/s | Forward |
+| `y` | m/s | Left |
+| `yaw` | rad/s | Rotation about the body's vertical axis, following the right-hand rule |
+
+The SDK applies the current `SetSpeed()` level's limits and retains the motion timeout. Send commands periodically at 10 to 20 Hz for continuous motion. `NaN` or infinite inputs return `std::errc::invalid_argument`. In asynchronous mode, check the send result in `WriteHandler`. `MoveVelocity()` has no dedicated control acknowledgment. Use `OnSpeedData()` to read the reported velocity after enabling speed reports.
 
 ### PosMove
 

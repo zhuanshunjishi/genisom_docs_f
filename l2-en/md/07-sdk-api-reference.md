@@ -13,9 +13,9 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 | Section | Topics | Common APIs |
 | --- | --- | --- |
 | [Connection and Device Information](./07-01-connection-and-device-info.md) | Client construction, connection and disconnection, connection state, version and device information | `SDKClient`, `Connect()`, `GetConnectionState()`, `GetDeviceInfo()` |
-| [Robot Control](./07-02-robot-control.md) | Control ownership, software emergency stop, posture and motion commands | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Move()` |
+| [Robot Control](./07-02-robot-control.md) | Control ownership, software emergency stop, posture and motion commands | `TakeControl()`, `SoftEmergencyStop()`, `StandUp()`, `Walk()`, `Move()`, `MoveVelocity()` |
 | [Data Reporting](./07-03-data-reporting.md) | Callback registration, sensor and motion data reporting | `SetDataCallback()`, `SetControlCallback()`, `SetImuConfig()` |
-| [Charging Dock and Tasks](./07-04-dock-and-tasks.md) | Bluetooth pairing in the app, recharge and undock tasks, and switching between remote and idle states | `StartRechargeTask()`, `StartUnDockTask()`, `SwitchIdleState()` |
+| [Charging Dock and Tasks](./07-04-dock-and-tasks.md) | Bluetooth pairing through the app or [SDK](./07-04-dock-and-tasks.md#pairing-with-the-sdk), recharge and undock tasks, and switching between remote and idle states | `SetDockScanConfig()`, `ConnectDock()`, `StartRechargeTask()`, `StartUnDockTask()`, `SwitchIdleState()` |
 | [Peripherals and Cameras](./07-05-peripherals-and-camera.md) | Fill light, camera bitrate, [camera nodes and topic configuration](./camera-topic-configuration.md), peripheral power, and LED control | `FrontLight()`, `UpdateCameraBitrate()`, `SetPeriphPower()`, `SetLedCommand()` |
 
 ## Genisom L2 Series Device Types
@@ -45,6 +45,7 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 | `SoftEmergencyStop()` | ✓ | ✓ | ✓ |
 | `ObstacleAvoidance()` (Obstacle stop) | — | — | — |
 | `StandUp()` / `BalanceStandUp()` / `LieDown()` | ✓ | ✓ | ✓ |
+| `Walk()` | ✓ | ✓ | ✓ |
 | `Stair()` / `Crawl()` / `CrawlWalk()` | ✓ | ✓ | ✓ |
 | `Climb()` | — | — | — |
 | `PosControl()` / `Locked()` / `SetSpeed()` | ✓ | ✓ | ✓ |
@@ -56,7 +57,7 @@ The main SDK class is `robot_sdk::SDKClient`, declared in `include/robot_sdk/sdk
 
 | API | Genisom L2 | Genisom L2-W | Genisom L2-W Ultra |
 | --- | :---: | :---: | :---: |
-| `Move()` / `PosMove()` | ✓ | ✓ | ✓ |
+| `Move()` / `MoveVelocity()` / `PosMove()` | ✓ | ✓ | ✓ |
 | `Turn()` / `ControlHead()` / `HighLowStance()` | ✓ | ✓ | ✓ |
 | `FrontLight()` / `AutoModeLight()` | ✓ | ✓ | ✓ |
 | `BackLight()` | — | — | — |
