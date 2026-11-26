@@ -26,6 +26,28 @@ The diagram shows how the main controller, compute board, sensors, power modules
 
 For the default IP addresses of the front and rear LiDAR units, see [Reading Sensor Data](./sensor-data-reading.md#lidar-imu-and-ultrasonic-sensors).
 
+## Sensor Mounting Positions {#sensor-mounting-positions}
+
+The coordinates below are in millimeters relative to the `BASE_LINK` origin. Positive X points forward, positive Y points left, and positive Z points up.
+
+| Component | X (mm) | Y (mm) | Z (mm) | Notes |
+| --- | ---: | ---: | ---: | --- |
+| Body geometric center | 0 | 0 | -7.15 | |
+| ICM42688 IMU (motion control) | 0 | 0 | 44.2 | 44.2 mm on V5 and later, 36.2 mm on V4 |
+| LUA300C IMU (automotive grade) | 0 | 0 | 56.9 | |
+| Front Airy LiDAR | 404.3 | 0 | -37.7 | |
+| Front IMX415 camera | 412.3 | 0 | 37.8 | |
+| Front right fill light | 420.3 | -30.9 | 28.3 | 120° illumination angle |
+| Front left fill light | 420.3 | 30.9 | 28.3 | 120° illumination angle |
+| Rear Airy LiDAR | -404.3 | 0 | -37.7 | |
+| Rear IMX415 camera | -412.3 | 0 | 37.8 | |
+| Rear right fill light | -420.3 | -30.9 | 28.3 | 120° illumination angle |
+| Rear left fill light | -420.3 | 30.9 | 28.3 | 120° illumination angle |
+| Front right A22 ultrasonic sensor | 179.2 | -100.2 | 50 | |
+| Front left A22 ultrasonic sensor | 179.2 | 100.2 | 50 | |
+
+The body geometric center is 539.5 mm above the ground in the standing posture and 277.5 mm above the ground in the prone posture.
+
 ## Network and Communication Ports
 
 The robot's Wi-Fi hotspot is named `M1-xxxxxxx`. The factory password is `12345678`.

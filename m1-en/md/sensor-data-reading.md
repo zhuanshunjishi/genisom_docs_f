@@ -4,6 +4,8 @@
 
 The ROS 2 topics listed here are for the reference configuration. Available topics depend on the hardware and running services on your robot.
 
+For coordinates relative to the body origin, see [Sensor Mounting Positions](./03-system-components-and-hardware-interfaces.md#sensor-mounting-positions).
+
 ## Connect to the Robot and List Topics
 
 1. Connect to the robot over Wi-Fi or Ethernet. See [Connections and Stream URLs](./video-stream-reading.md#connections-and-stream-urls) for network settings.

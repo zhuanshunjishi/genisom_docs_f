@@ -8,6 +8,10 @@ import l2wUltraImage from '../assets/product/l2-w-ultra.png'
 .spec-product-image {
   width: 150px;
 }
+
+.l2-specifications td[colspan] {
+  text-align: center;
+}
 </style>
 
 # Genisom L2 Product Introduction and Specifications
@@ -30,7 +34,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
 
 ## Specifications
 
-<table tabindex="0">
+<table class="l2-specifications" tabindex="0">
   <thead>
     <tr>
       <th scope="col">Category</th>
@@ -92,41 +96,35 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     <tr>
       <td>Wheel hub motor ingress protection</td>
       <td>/</td>
-      <td>IP67</td>
-      <td>IP67</td>
+      <td colspan="2">IP67</td>
     </tr>
   </tbody>
   <tbody>
     <tr>
       <th scope="rowgroup" rowspan="12">Performance</th>
       <td>Standard compute hardware</td>
-      <td>8-core high-performance CPU</td>
-      <td>8-core high-performance CPU</td>
+      <td colspan="2">8-core high-performance CPU</td>
       <td>8-core high-performance CPU + 6-core high-performance CPU (80 TOPS)</td>
     </tr>
     <tr>
       <td>Degrees of freedom</td>
       <td>12</td>
-      <td>16 (12 + 4)</td>
-      <td>16 (12 + 4)</td>
+      <td colspan="2">16 (12 + 4)</td>
     </tr>
     <tr>
       <td>Runtime without payload</td>
-      <td>5.5 h</td>
-      <td>5.5 h</td>
+      <td colspan="2">5.5 h</td>
       <td>4.5 h</td>
     </tr>
     <tr>
       <td>Runtime at full payload</td>
-      <td>3.5 h</td>
-      <td>3.5 h</td>
+      <td colspan="2">3.5 h</td>
       <td>3 h</td>
     </tr>
     <tr>
       <td>Maximum speed without payload</td>
       <td>3.0 m/s</td>
-      <td>3.7 m/s</td>
-      <td>3.7 m/s</td>
+      <td colspan="2">3.7 m/s</td>
     </tr>
     <tr>
       <td>Rated payload</td>
@@ -135,8 +133,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     <tr>
       <td>Step height for continuous stair climbing</td>
       <td>22 cm</td>
-      <td>25 cm</td>
-      <td>25 cm</td>
+      <td colspan="2">25 cm</td>
     </tr>
     <tr>
       <td>Platform height the robot can climb without payload</td>
@@ -156,8 +153,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     </tr>
     <tr>
       <td>Basic motions</td>
-      <td>Stand, lie down, assume a crawl posture, crawl forward, jump forward, jump upward</td>
-      <td>Stand, lie down, assume a crawl posture, crawl forward, jump forward, jump upward</td>
+      <td colspan="2">Stand, lie down, assume a crawl posture, crawl forward, jump forward, jump upward</td>
       <td>Stand, lie down, assume a crawl posture, crawl forward</td>
     </tr>
   </tbody>
@@ -178,8 +174,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     <tr>
       <td>High-performance wheel hub motors</td>
       <td>/</td>
-      <td>4</td>
-      <td>4</td>
+      <td colspan="2">4</td>
     </tr>
     <tr>
       <td>Joint range of motion</td>
@@ -190,8 +185,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     <tr>
       <th scope="rowgroup" rowspan="4">Perception</th>
       <td>Camera type</td>
-      <td>Stereo camera</td>
-      <td>Stereo camera</td>
+      <td colspan="2">Stereo camera</td>
       <td>Stereo camera and 4 fisheye cameras</td>
     </tr>
     <tr>
@@ -200,14 +194,12 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     </tr>
     <tr>
       <td>3D LiDAR</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>Standard</td>
     </tr>
     <tr>
       <td>GPS/RTK positioning module</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>Standard</td>
     </tr>
   </tbody>
@@ -215,20 +207,17 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     <tr>
       <th scope="rowgroup" rowspan="3">Autonomy</th>
       <td>Autonomous Navigation</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>Standard</td>
     </tr>
     <tr>
       <td>Intelligent obstacle avoidance</td>
-      <td>Standard</td>
-      <td>Standard</td>
+      <td colspan="2">Standard</td>
       <td>LiDAR and vision fusion for obstacle avoidance</td>
     </tr>
     <tr>
       <td>Autonomous following</td>
-      <td>Standard</td>
-      <td>Standard</td>
+      <td colspan="2">Standard</td>
       <td>GLUE omnidirectional autonomous following<!-- TODO: 待术语表确认 --></td>
     </tr>
   </tbody>
@@ -240,8 +229,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     </tr>
     <tr>
       <td>4G / 5G</td>
-      <td>4G</td>
-      <td>4G</td>
+      <td colspan="2">4G</td>
       <td>5G</td>
     </tr>
     <tr>
@@ -254,8 +242,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     </tr>
     <tr>
       <td>Microphone / speaker</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>Standard</td>
     </tr>
     <tr>
@@ -290,8 +277,7 @@ All models include a stereo camera, an IMU, and a fill light. The Genisom L2-W U
     </tr>
     <tr>
       <td>Remote controller</td>
-      <td>Screenless remote controller</td>
-      <td>Screenless remote controller</td>
+      <td colspan="2">Screenless remote controller</td>
       <td>Remote controller with display</td>
     </tr>
     <tr>

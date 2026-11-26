@@ -4,6 +4,8 @@
 
 下文列出参考配置的 ROS 2 话题，实际可用话题以设备的硬件配置和运行中的服务为准。
 
+传感器相对机身原点的坐标见[传感器安装位置](./03-system-components-and-hardware-interfaces.md#sensor-mounting-positions)。
+
 ## 连接机器人并查看话题
 
 1. 通过 Wi-Fi 或网线连接机器人，设置见[连接与流地址](./video-stream-reading.md#连接与流地址)。

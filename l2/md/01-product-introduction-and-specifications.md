@@ -8,6 +8,10 @@ import l2wUltraImage from '../assets/product/l2-w-ultra.png'
 .spec-product-image {
   width: 150px;
 }
+
+.l2-specifications td[colspan] {
+  text-align: center;
+}
 </style>
 
 # L2 产品介绍与规格
@@ -30,7 +34,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
 
 ## 产品规格
 
-<table tabindex="0">
+<table class="l2-specifications" tabindex="0">
   <thead>
     <tr>
       <th scope="col">分类</th>
@@ -92,41 +96,35 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <td>轮毂电机防护等级</td>
       <td>/</td>
-      <td>IP67</td>
-      <td>IP67</td>
+      <td colspan="2">IP67</td>
     </tr>
   </tbody>
   <tbody>
     <tr>
       <th scope="rowgroup" rowspan="12">性能参数</th>
       <td>标配算力</td>
-      <td>8 核高性能 CPU</td>
-      <td>8 核高性能 CPU</td>
+      <td colspan="2">8 核高性能 CPU</td>
       <td>8 核高性能 CPU + 6 核高性能 CPU（80 TOPS）</td>
     </tr>
     <tr>
       <td>自由度</td>
       <td>12</td>
-      <td>16（12 + 4）</td>
-      <td>16（12 + 4）</td>
+      <td colspan="2">16（12 + 4）</td>
     </tr>
     <tr>
       <td>空载续航时间</td>
-      <td>5.5 h</td>
-      <td>5.5 h</td>
+      <td colspan="2">5.5 h</td>
       <td>4.5 h</td>
     </tr>
     <tr>
       <td>满载续航时间</td>
-      <td>3.5 h</td>
-      <td>3.5 h</td>
+      <td colspan="2">3.5 h</td>
       <td>3 h</td>
     </tr>
     <tr>
       <td>空载最大速度</td>
       <td>3.0 m/s</td>
-      <td>3.7 m/s</td>
-      <td>3.7 m/s</td>
+      <td colspan="2">3.7 m/s</td>
     </tr>
     <tr>
       <td>额定负载</td>
@@ -135,8 +133,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <td>持续攀爬楼梯的台阶高度</td>
       <td>22 cm</td>
-      <td>25 cm</td>
-      <td>25 cm</td>
+      <td colspan="2">25 cm</td>
     </tr>
     <tr>
       <td>空载攀高台高度</td>
@@ -156,8 +153,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>基础动作</td>
-      <td>站立、卧倒、匍匐、匍匐前进、向前跳、向上跳</td>
-      <td>站立、卧倒、匍匐、匍匐前进、向前跳、向上跳</td>
+      <td colspan="2">站立、卧倒、匍匐、匍匐前进、向前跳、向上跳</td>
       <td>站立、卧倒、匍匐、匍匐前进</td>
     </tr>
   </tbody>
@@ -178,8 +174,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <td>高性能轮毂电机</td>
       <td>/</td>
-      <td>4 个</td>
-      <td>4 个</td>
+      <td colspan="2">4 个</td>
     </tr>
     <tr>
       <td>关节运动空间</td>
@@ -190,8 +185,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <th scope="rowgroup" rowspan="4">感知能力</th>
       <td>相机类型</td>
-      <td>双目相机</td>
-      <td>双目相机</td>
+      <td colspan="2">双目相机</td>
       <td>双目相机和 4 个鱼眼相机</td>
     </tr>
     <tr>
@@ -200,14 +194,12 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>3D 激光雷达</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>标配</td>
     </tr>
     <tr>
       <td>GPS/RTK 定位模块</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>标配</td>
     </tr>
   </tbody>
@@ -215,20 +207,17 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     <tr>
       <th scope="rowgroup" rowspan="3">智能决策</th>
       <td>自主导航</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>标配</td>
     </tr>
     <tr>
       <td>智能避障</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="2">标配</td>
       <td>激光 + 视觉融合避障</td>
     </tr>
     <tr>
       <td>自主跟随</td>
-      <td>标配</td>
-      <td>标配</td>
+      <td colspan="2">标配</td>
       <td>GLUE 全向自主跟随</td>
     </tr>
   </tbody>
@@ -240,8 +229,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>4G / 5G</td>
-      <td>4G</td>
-      <td>4G</td>
+      <td colspan="2">4G</td>
       <td>5G</td>
     </tr>
     <tr>
@@ -254,8 +242,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>麦克风 / 扬声器</td>
-      <td>/</td>
-      <td>/</td>
+      <td colspan="2">/</td>
       <td>标配</td>
     </tr>
     <tr>
@@ -290,8 +277,7 @@ L2 系列是通用型智能仿生四足机器人，具有负载能力强、续�
     </tr>
     <tr>
       <td>遥控器</td>
-      <td>无屏遥控器</td>
-      <td>无屏遥控器</td>
+      <td colspan="2">无屏遥控器</td>
       <td>带屏遥控器</td>
     </tr>
     <tr>
