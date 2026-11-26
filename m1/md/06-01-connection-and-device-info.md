@@ -15,13 +15,13 @@ SDKClient(
 
 创建 SDK 客户端。`type` 支持 `TransportProtocol::Udp` 和 `TransportProtocol::WebSocket`，默认使用 UDP。
 
-`ConnectionConfig` 的连接与重连参数：
+#### ConnectionConfig {#connection-config}
 
 | 字段 | 说明 |
 | --- | --- |
 | `connect_timeout_ms` | 连接和握手超时时间，默认 5000 ms，最小 500 ms |
 | `auto_reconnect` | 是否开启自动重连，默认 `false` |
-| `reconnect_interval_ms` | 自动重连间隔，默认 1000 ms，最小 500 ms |
+| `reconnect_interval_ms` | 自动重连间隔，默认 1000 ms，最小 500 ms。仅在 `auto_reconnect` 为 `true` 时生效 |
 
 ### Connect
 

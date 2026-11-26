@@ -52,6 +52,8 @@ Build on an Ubuntu 22.04 development computer, then copy the executable and the 
 
 ## Connect to the Robot {#connect-to-the-robot}
 
+See [`ConnectionConfig`](./06-01-connection-and-device-info.md#connection-config) for connection timeout and automatic reconnection settings.
+
 ### Wi-Fi Connection
 
 Connect the development computer to the robot's `M1-xxxxxxx` hotspot using the factory password `12345678`.

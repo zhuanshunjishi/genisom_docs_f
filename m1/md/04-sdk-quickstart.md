@@ -52,6 +52,8 @@ SDK 需要 Linux 环境编译。可以使用：
 
 ## 连接机器人
 
+连接超时和自动重连的默认值及配置条件见 [`ConnectionConfig`](./06-01-connection-and-device-info.md#connection-config)。
+
 ### WiFi 连接
 
 在开发电脑上连接机器人热点 `M1-xxxxxxx`，出厂密码为 `12345678`。

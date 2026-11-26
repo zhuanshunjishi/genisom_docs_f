@@ -93,8 +93,11 @@ using WriteHandler =
 | `timeout_ms > 0` | Wait synchronously. The function's return value reports the result. |
 | `handler` | Callback for the asynchronous send result |
 
-| Common Error | Meaning |
+Use `!ec` to check whether a command API call returned without an error. For asynchronous calls, `WriteHandler` reports the send result. The control acknowledgment reports the robot's response to the command. Check the robot's reported state or task result to confirm completion.
+
+| Return Code | Meaning |
 | --- | --- |
+| `robot_sdk::Errc::Success` | Success, with a value of `0` |
 | `std::errc::invalid_argument` | A parameter is out of range or the parameter combination is invalid. |
 | `std::errc::not_connected` | No connection has been established. |
 | `std::errc::timed_out` | The synchronous wait timed out. |

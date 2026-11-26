@@ -79,6 +79,8 @@ Use the x86_64 library if `uname -m` returns `x86_64` and the ARM64 library if i
 
 Connect over the robot's Wi-Fi or the Gigabit Ethernet port in the expansion compartment. Put the development host and robot on the same network and confirm the robot's current IP address.
 
+See [`ConnectionConfig`](./07-01-connection-and-device-info.md#connection-config) for connection timeout and automatic reconnection settings.
+
 | Item | Configuration |
 | --- | --- |
 | SDK client | `robot_sdk::SDKClient` |

@@ -13,13 +13,13 @@ SDKClient(
     TransportProtocol type = TransportProtocol::Udp);
 ```
 
-`ConnectionConfig`：
+#### ConnectionConfig {#connection-config}
 
 | 字段 | 默认值 | 说明 |
 | --- | ---: | --- |
 | `connect_timeout_ms` | 5000 ms | 连接和握手超时，最小 500 ms |
 | `auto_reconnect` | `false` | 是否自动重连 |
-| `reconnect_interval_ms` | 1000 ms | 自动重连间隔，最小 500 ms |
+| `reconnect_interval_ms` | 1000 ms | 自动重连间隔，最小 500 ms。仅在 `auto_reconnect` 为 `true` 时生效 |
 
 ### Connect
 

@@ -79,6 +79,8 @@ uname -m
 
 可以通过机器人 Wi-Fi 或扩展仓千兆以太网连接。先让开发主机和机器人处于同一网络，再确认机器人当前 IP。
 
+连接超时和自动重连的默认值及配置条件见 [`ConnectionConfig`](./07-01-connection-and-device-info.md#connection-config)。
+
 | 项目 | 配置 |
 | --- | --- |
 | SDK 客户端 | `robot_sdk::SDKClient` |

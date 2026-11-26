@@ -15,13 +15,13 @@ SDKClient(
 
 Create an SDK client. The `type` parameter accepts `TransportProtocol::Udp` and `TransportProtocol::WebSocket`. The default is UDP.
 
-`ConnectionConfig` defines the connection and reconnection settings.
+#### ConnectionConfig {#connection-config}
 
 | Field | Description |
 | --- | --- |
 | `connect_timeout_ms` | Connection and handshake timeout, default 5000 ms, minimum 500 ms |
 | `auto_reconnect` | Enables automatic reconnection. The default is `false`. |
-| `reconnect_interval_ms` | Auto-reconnection interval, default 1000 ms, minimum 500 ms |
+| `reconnect_interval_ms` | Automatic reconnection interval, default 1000 ms, minimum 500 ms. Applies only when `auto_reconnect` is `true`. |
 
 ### Connect
 

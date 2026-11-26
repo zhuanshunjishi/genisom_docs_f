@@ -91,10 +91,11 @@ using WriteHandler =
 | `timeout_ms > 0` | 同步等待，结果由函数返回值报告 |
 | `handler` | 异步发送结果回调 |
 
-常见错误：
+命令接口返回的 `std::error_code` 可用 `!ec` 判断本次调用是否报告错误。异步调用的发送结果由 `WriteHandler` 报告。控制应答反映机器人对命令的响应，动作是否完成以机器人上报的状态或任务结果为准。
 
-| 错误 | 含义 |
+| 返回码 | 含义 |
 | --- | --- |
+| `robot_sdk::Errc::Success` | 成功，码值为 `0` |
 | `std::errc::invalid_argument` | 参数超出范围或参数组合无效 |
 | `std::errc::not_connected` | 连接未建立 |
 | `std::errc::timed_out` | 同步等待超时 |

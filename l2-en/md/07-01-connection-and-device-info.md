@@ -13,13 +13,13 @@ SDKClient(
     TransportProtocol type = TransportProtocol::Udp);
 ```
 
-The `ConnectionConfig` fields are listed below.
+#### ConnectionConfig {#connection-config}
 
 | Field | Default | Description |
 | --- | ---: | --- |
 | `connect_timeout_ms` | 5000 ms | Connection and handshake timeout. The minimum is 500 ms. |
 | `auto_reconnect` | `false` | Whether to reconnect automatically |
-| `reconnect_interval_ms` | 1000 ms | Automatic reconnect interval. The minimum is 500 ms. |
+| `reconnect_interval_ms` | 1000 ms | Automatic reconnection interval. The minimum is 500 ms. Applies only when `auto_reconnect` is `true`. |
 
 ### Connect
 

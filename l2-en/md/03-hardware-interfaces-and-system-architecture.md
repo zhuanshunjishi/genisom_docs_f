@@ -6,14 +6,6 @@
 
 The Genisom L2 development setup consists of the robot, its expansion compartment, a network connection, an Ubuntu development host, and the Robot SDK. The application runs on the development host, connects to the robot over Wi-Fi or Ethernet, and uses `robot_sdk::SDKClient` to send commands, read state, and handle callbacks.
 
-```text
-Ubuntu development host
-  └─ Genisom L2 application
-      └─ Robot SDK
-          └─ Wi-Fi or Gigabit Ethernet
-              └─ Genisom L2 robot control service
-```
-
 ## Payload Mounting Space
 
 The payload mounts within the rails on the robot's back. The available space is 210 × 192 × 300 mm, and the recommended maximum payload weight is 16 kg. The rail mounting holes have M4 threads with an effective thread depth of 6 mm.

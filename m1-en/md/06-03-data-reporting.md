@@ -6,6 +6,8 @@
 
 Call `SetControlCallback()` to register control acknowledgments and `SetDataCallback()` to register data callbacks. See [Genisom M1 callback registration](./07-callbacks-data-types-and-status-reference.md#callback-registration-example) for callback objects, threading rules, and a registration example.
 
+Call `SetControlCallback(nullptr)` to unregister the control acknowledgment callback and `SetDataCallback(nullptr)` to unregister the data callback. Any callback invocation already in progress runs to completion.
+
 ## Data Reporting Configuration
 
 The robot reports `RobotState` and faults by default. Use the following methods to enable or configure sensor and high-frequency status reporting.

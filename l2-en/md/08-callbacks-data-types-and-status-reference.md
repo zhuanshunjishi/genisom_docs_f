@@ -15,15 +15,12 @@ We recommend registering callbacks before calling `Connect()` and using `std::sh
 
 ## Callback Thread Requirements
 
-Callbacks run on internal SDK threads. Limit callback code to the following operations.
+Callbacks run on the SDK's I/O thread.
 
-- Copy data and check ranges.
-- Update atomic variables or other lightweight state.
-- Post messages to a thread-safe queue.
-
-::: warning Callback Thread Restrictions
-Do not execute synchronous SDK commands, read or write files, write to databases, wait on locks for extended periods, or perform complex calculations in callbacks.
-:::
+1. **Keep callbacks lightweight.** Copy and validate data, update simple state, or enqueue messages. Run file I/O, database operations, and complex calculations on an application worker thread.
+2. **Run synchronous SDK calls on an application worker thread.** This includes `Connect(..., true)`, `Disconnect(true)`, and commands with `timeout_ms > 0`. These calls depend on the SDK I/O thread processing more events. Calling them from a callback blocks that thread and can cause a timeout.
+3. **Protect shared data.** Callbacks run concurrently with application threads. Use atomic variables, mutexes, or thread-safe queues to prevent data races, and avoid long waits for locks.
+4. **Handle exceptions inside the callback.** Do not let exceptions escape the callback boundary.
 
 ## IDataCallback
 

@@ -9,7 +9,9 @@ void SetControlCallback(std::shared_ptr<IControlCallback> callback);
 void SetDataCallback(std::shared_ptr<IDataCallback> callback);
 ```
 
-We recommend registering callbacks before calling `Connect()` and keeping the callback objects alive through disconnection. See [Genisom L2 Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) for callback details.
+Register callbacks before calling `Connect()` to receive early reports. The SDK holds a `std::shared_ptr` to each registered callback object. See [Genisom L2 Callbacks, Data Types, and Status](./08-callbacks-data-types-and-status-reference.md) for callback details.
+
+Call `SetControlCallback(nullptr)` to unregister the control acknowledgment callback and `SetDataCallback(nullptr)` to unregister the data callback. Any callback invocation already in progress runs to completion.
 
 ## Data Reporting Configuration
 

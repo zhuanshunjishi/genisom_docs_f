@@ -6,6 +6,8 @@
 
 `SetControlCallback()` 注册控制应答回调，`SetDataCallback()` 注册数据回调。回调对象、线程规则和注册示例见 [M1 回调、数据类型与状态参考](./07-callbacks-data-types-and-status-reference.md#注册回调示例)。
 
+调用 `SetControlCallback(nullptr)` 取消控制应答回调，调用 `SetDataCallback(nullptr)` 取消数据回调。取消注册后，已经开始执行的回调会继续执行完毕。
+
 ## 数据上报配置
 
 机器人默认主动上报 `RobotState` 和故障信息。下面的接口用于开启或调整传感器和高频状态数据：

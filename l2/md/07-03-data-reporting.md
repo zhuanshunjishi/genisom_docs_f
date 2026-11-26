@@ -9,7 +9,9 @@ void SetControlCallback(std::shared_ptr<IControlCallback> callback);
 void SetDataCallback(std::shared_ptr<IDataCallback> callback);
 ```
 
-建议在 `Connect()` 前注册回调，并让回调对象的生命周期长于连接。详细接口见 [L2 回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md)。
+建议在 `Connect()` 前注册回调。SDK 持有已注册回调对象的 `std::shared_ptr`。详细接口见 [L2 回调、数据类型与状态](./08-callbacks-data-types-and-status-reference.md)。
+
+调用 `SetControlCallback(nullptr)` 取消控制应答回调，调用 `SetDataCallback(nullptr)` 取消数据回调。取消注册后，已经开始执行的回调会继续执行完毕。
 
 ## 数据上报配置
 
