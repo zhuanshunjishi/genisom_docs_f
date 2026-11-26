@@ -63,13 +63,9 @@
 | 前置激光雷达 | `192.168.1.200` |
 | 后置激光雷达 | `192.168.2.200` |
 
-::: tip 激光雷达数据与设备信息
-在 Orin NX 上直接读取原始数据时，可使用 RoboSense 原厂驱动 `rs_driver`。选择在线雷达模式和 `RSAIRY` 型号，按每台雷达实际配置的目标地址和 UDP 端口接收数据包并解码点云。上表的设备 IP 是雷达发包的源地址。需要将解码后的点云发布到 ROS 2 时，可使用原厂 `rslidar_sdk`。[在线雷达解码指南](https://github.com/RoboSense-LiDAR/rs_driver/blob/main/doc/howto/08_how_to_decode_online_lidar.md) · [原厂 ROS 2 SDK](https://github.com/RoboSense-LiDAR/rslidar_sdk)
-
-在能够访问雷达网段的浏览器中打开设备 IP，可通过 Web 界面查看设备信息和运行状态。[Airy 用户手册](https://robosense-robotics.github.io/product-manual/en/Airy/)
+::: tip 读取激光雷达数据
+在 M1 参考配置中，Orin NX 上运行的 RoboSense `rslidar_sdk` 已将前后雷达的点云和内置 IMU 数据发布到 ROS 2。订阅下表中的对应话题即可读取数据。[RoboSense ROS 2 SDK](https://github.com/RoboSense-LiDAR/rslidar_sdk)
 :::
-
-可在 Orin NX 上读取下列话题。
 
 | 数据 | ROS 2 话题 | 消息类型 |
 | --- | --- | --- |

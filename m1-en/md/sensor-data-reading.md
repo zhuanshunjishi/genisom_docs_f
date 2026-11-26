@@ -63,13 +63,9 @@ Run `ros2 topic echo <topic>` in Terminal 2 to read messages. For custom message
 | Front LiDAR | `192.168.1.200` |
 | Rear LiDAR | `192.168.2.200` |
 
-::: tip LiDAR Data and Device Information
-To read raw LiDAR data directly on the Orin NX, use RoboSense's `rs_driver`. Select online LiDAR mode and the `RSAIRY` model. Use each LiDAR's configured destination address and UDP ports to receive packets and decode them into point clouds. The device IP addresses above are the packet source addresses. Use RoboSense's `rslidar_sdk` if you need to publish the decoded point clouds to ROS 2. [Online LiDAR Decoding Guide](https://github.com/RoboSense-LiDAR/rs_driver/blob/main/doc/howto/08_how_to_decode_online_lidar.md) · [RoboSense ROS 2 SDK](https://github.com/RoboSense-LiDAR/rslidar_sdk)
-
-On a computer that can reach the LiDAR subnet, open the device IP address in a browser to view device information and operating status in the web interface. [Airy User Manual](https://robosense-robotics.github.io/product-manual/en/Airy/)
+::: tip Reading LiDAR Data
+In the Genisom M1 reference configuration, RoboSense's `rslidar_sdk` runs on the Orin NX and publishes point clouds and built-in IMU data from both LiDAR units to ROS 2. Subscribe to the corresponding topics below to read the data. [RoboSense ROS 2 SDK](https://github.com/RoboSense-LiDAR/rslidar_sdk)
 :::
-
-You can read the following topics on the Orin NX.
 
 | Data | ROS 2 topic | Message type |
 | --- | --- | --- |

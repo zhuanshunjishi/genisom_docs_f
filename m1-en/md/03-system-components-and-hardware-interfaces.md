@@ -33,7 +33,7 @@ The coordinates below are in millimeters relative to the `BASE_LINK` origin. Pos
 | Component | X (mm) | Y (mm) | Z (mm) | Notes |
 | --- | ---: | ---: | ---: | --- |
 | Body geometric center | 0 | 0 | -7.15 | |
-| ICM42688 IMU (motion control) | 0 | 0 | 44.2 | 44.2 mm on V5 and later, 36.2 mm on V4 |
+| ICM42688 IMU (motion control) | 0 | 0 | 36.2 / 44.2 | 36.2 mm on V4, 44.2 mm on V5 and later |
 | LUA300C IMU (automotive grade) | 0 | 0 | 56.9 | |
 | Front Airy LiDAR | 404.3 | 0 | -37.7 | |
 | Front IMX415 camera | 412.3 | 0 | 37.8 | |
