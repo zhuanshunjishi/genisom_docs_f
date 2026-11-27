@@ -258,11 +258,10 @@ auto ec = client.StandUp(2000);
 1. Create an `SDKClient`.
 2. Register `IDataCallback` and `IControlCallback`.
 3. Call `Connect()` and confirm the handshake succeeds.
-4. Read the device type, system version, emergency stop state, faults, and battery level.
-5. Request control ownership and confirm success through `OnTakeControlAck()`.
-6. Start with low-speed tests of standing up and issuing zero-velocity commands.
-7. Send motion commands periodically and explicitly command zero velocity when stopping.
-8. Release control ownership and disconnect before exiting.
+4. Read the device type, system version, emergency stop state, faults, and battery level. Before testing, check `RobotState::control_source` to confirm that the current SDK client has control.
+5. Start with low-speed tests of standing up and issuing zero-velocity commands.
+6. Send motion commands periodically and explicitly command zero velocity when stopping.
+7. Release control ownership and disconnect before exiting.
 
 ## Next Steps
 
